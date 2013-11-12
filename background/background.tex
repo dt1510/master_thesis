@@ -28,11 +28,9 @@ We would like to find the reality most efficiently, where the efficiency may be 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over hypothetical models of a language of enquiry $\mathcal{L}$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Definition of a problem of an induction}
-Fix a language of enquiry $\mathcal{L}$ with its sublanguages $\mathcal{L}_o$, $\mathcal{L}_h$. Define an equivalence relation over the sets of the
- $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$
-where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Given background knowledge $B$, observations $O$, find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. We call the representative $\Sigma$ an induced theory from the background knowledge $B$ and the observations $O$.
+A problem of induction is a functional problem whose input is a pentuple $P=\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$ where $\mathcal{L}$ is a language of enquiry with its sublanguages $\mathcal{L}_o$, $\mathcal{L}_h$, observations $O$ and the background knowledge $B$.
 
-Note: A definition concerned with the non-monotonic logics will need to be adapted.
+Define an equivalence relation over the sets of the $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution  to a problem of induction (the output) is the representative $\Sigma$ called an induced theory from the background knowledge $B$ and the observations $O$.
 
 \subsection{Definition of a scientific method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
