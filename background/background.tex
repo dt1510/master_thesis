@@ -9,14 +9,13 @@
 
 \subsection{Definitions}
 
-A language of enquiry $\mathcal{L}$ is a model-theoretic language given by constant symbols, relation symbols and function symbols. A language of enquiry $\mathcal{L}$ is a superlanguage of two languages: an observational language $\mathcal{L}_o$ and a hypothesis language $\mathcal{L}_h$.
+A language of enquiry $\mathcal{L}$ is a model-theoretic language given by constant symbols, relation symbols and function symbols. A language of enquiry $\mathcal{L}$ is a superlanguage of two languages: an observational language $\mathcal{L}_o$ and a hypothesis language $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a language bias.
 
-Every language of enquiry has exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the reality of $\mathcal{L}$. The class of all $\mathcal{L}$-structures are called hypothetical models of $\mathcal{L}$.
+Every language of enquiry has exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the reality of $\mathcal{L}$. The class of all $\mathcal{L}$-structures are called the hypothetical models that are models of $\mathcal{L}$.
 
-The set of 
-Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$. The set of observations $O$ is the set of the $\mathcal{L}_o$ formulas.
+Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$. The set of observations $O$ is the set of the $\mathcal{L}_o$-formulas.
 Given a set of observations $O$, we say that any $\mathcal{L}$-formula $Q$ divides the models of $O$ into models of $Q \wedge O$ denoted $M(O \union {Q})$ and the models of $\neg Q \wedge O$ denoted $M(O \union {Q})$.
-The background knowledge $B$ is a set of formulas in a hypothesis language $\mathcal{L}_h$.
+The background knowledge (or current induced theory) $B$ is a set of formulas in a hypothesis language $\mathcal{L}_h$.
 
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given a language of enquiry $\mathcal{L}$, find the reality $\mathcal{M}$.
@@ -26,25 +25,30 @@ We do not consider the situation in which we may desire to learn approximate mod
 \subsection{Incremental problem of scientific discovery}
 We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into the account that some questions may be found more efficiently than others.
 
-Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over hypothetical models of a language of enquiry $\mathcal{L}$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q}|$.
+Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over hypothetical models of a language of enquiry $\mathcal{L}$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Definition of a problem of an induction}
-Fix a language of enquiry $\mathcal{L}$ with its sublanguages. Define an equivalence relation over the sets of the
+Fix a language of enquiry $\mathcal{L}$ with its sublanguages $\mathcal{L}_o$, $\mathcal{L}_h$. Define an equivalence relation over the sets of the
  $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$
-where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Given observations $O$, find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $O$.
+where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Given background knowledge $B$, observations $O$, find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. We call the representative $\Sigma$ an induced theory from the background knowledge $B$ and the observations $O$.
 
-We call the computable restrictions on the language $L$ to the description language $L_2$ to be a language bias.
+Note: A definition concerned with the non-monotonic logics will need to be adapted.
 
-Observational bias are the restrictions on the language in which the observations can be made.
+\subsection{Definition of a scientific method}
+A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
 
-A definition concerned with the non-monotonic logics should be adapted.
+0. Start with the emty theory $B_i=\emptyset$, set $i=0$.
+
+1. If $B_i$ has the only model, then terminate, $B_i$ is a complete axiomatization of the reality of the language of enquiry.
+
+2. Solve an incremental problem of scientific discovery by finding a question $Q$ given the current induced theory $B_i$.
+
+3. make an observation - ask an environment oracle a question $Q$.
+
+4. induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
+
+5. Increment $i$ and start from step 1 again.
 
 \subsection{Definition of an ILP problem}
 
 \subsection{Definition of an ILP system}
-
-\subsection{Definition of a scientific method}
-A scientific method is an algorithm we use to learn the reality:
-1. ask a question to know what observation should be made base on the current induced theory (called the background knowledge).
-2. make an observation.
-3. induce a more precise theory, start again with 1.
