@@ -7,4 +7,29 @@
 
 \section{Inductive Logic Programming problem}
 
-Text of the Background.
+An ILP Problem is as follows: given a set of examples, what is the hypothesis likely to have produced them?
+
+\subsection{ILP: Normal problem setting}
+Cheng and Wolf define the ILP problem in the following way:
+
+Given: A finite set of clauses $B$ (background knowledge), and sets of clauses $E+$ and $E-$ (positive and negative examples).
+Find: A theory $E$, such that $E \union B$ is correct with respect to $E+$ and $E-$.
+
+\subsection{ILP: The Nonmonotonic problem setting}
+From Cheng and Wolf:
+
+Given: Two sets $Z+$ and $Z-$ of Herbrand interpretations (positive and negative examples).
+Find: A theory $P$, which is true under each $I E Z+$ and false
+under each $I E Z-$.
+
+\subsection{Considtions for constructing an hypothesis}
+Necessity: B |= E +
+Sufficiency: B ∧ h |= E +
+Weak consistency: B ∧ h |= box
+Strong consistency: B ∧ h ∧ E − |= box
+
+\subsetction{Model theoretic definition}
+ILP problem is 
+
+\subsection{Definition of an ILP problem}
+Fix a formal system with a language $L$. Given a set of true formulas $E+$ and false formulas $E-$ find a theory $\Sigma$ satisfying $E+$ and consistent with $E-$ whose elementary class of models would be the largest possible.
