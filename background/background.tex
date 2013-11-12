@@ -28,19 +28,39 @@ Sufficiency: B ∧ h |= E +
 Weak consistency: B ∧ h |= box
 Strong consistency: B ∧ h ∧ E − |= box
 
+\subsection{Definitions}
+
+A language (of enquiry) $\mathcal{L}$ is a formal language given by constant symbols, relation symbols and function symbols.
+
+
+
 \subsection{Problem of scientific discovery}
 We would like to find the reality as quickly as possible. The following simplified definition does not take into the account the fact that some questions may be found quicker than others.
 
-We would like to learn the model of the world. Set a probability distribution over all models of the domain of discourse. Fix a formal system of enquiry with a language $L$. Given a set of formulas $O$ called observations find a formula $Q$ called a question satisfying certain criteria.
+We do not consider the situation in which we may desire to learn approximate models of the reality.
+
+Depending on our language of enquiry, the reality may not exist.
+
+Some realities, e.g. (regular expression) are learnable.
+
+We would like to learn the model of the world called reality. Set a probability distribution over all models of the domain of discourse. Fix a formal system of enquiry with a language $L$. Given a set of formulas $O$ called observations find a formula $Q$ called a question satisfying certain criteria.
 We say that $Q$ divides the models of $O$ into models of $Q \wedge O$ and the models of $\neg Q \wedge O$. Find a question $Q$ such that the probability of the true model be a model of $Q \wedge O \minus$ the probability of the true model be a model of $\neg \wedge O \minus$ is the least possible.
 
 \subsection{Definition of a problem of an induction}
-Fix a formal system with a language $L$. Given observations $O$, find the axiomatization with the least Kolmogorov complexity with respect to the description language $L$ of the theory $\Sigma$ whose elementary class of models are precisely the models of $O$.
+Fix a formal system with a language $L$. Given observations $O$, find the axiomatization with the least Kolmogorov complexity with respect to the description language $L_2 \subset L$ of the theory $\Sigma$ whose elementary class of models are precisely the models of $O$.
+
+We call the computable restrictions on the language $L$ to the description language $L_2$ to be a language bias.
+
+Observational bias are the restrictions on the language in which the observations can be made.
+
+A definition concerned with the non-monotonic logics should be adapted.
 
 \subsection{Definition of an ILP problem}
 
+\subsection{Definition of an ILP system}
+
 \subsection{Definition of a scientific method}
 A scientific method is an algorithm we use to learn the reality:
-1. ask a question to know what observation should be made base on the current induced theory.
+1. ask a question to know what observation should be made base on the current induced theory (called the background knowledge).
 2. make an observation.
 3. induce a more precise theory, start again with 1.
