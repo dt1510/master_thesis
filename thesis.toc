@@ -11,8 +11,14 @@
 \contentsline {subsection}{\numberline {2.2.1}ILP: Normal problem setting}{2}
 \contentsline {subsection}{\numberline {2.2.2}ILP: The Nonmonotonic problem setting}{2}
 \contentsline {subsection}{\numberline {2.2.3}Considtions for constructing an hypothesis}{3}
-\contentsline {chapter}{\numberline {3}Conclusion}{4}
-\contentsline {section}{\numberline {3.1}Summary of Thesis Achievements}{4}
-\contentsline {section}{\numberline {3.2}Applications}{4}
-\contentsline {section}{\numberline {3.3}Future Work}{4}
-\contentsline {chapter}{Bibliography}{4}
+\contentsline {subsection}{\numberline {2.2.4}Definitions}{3}
+\contentsline {subsection}{\numberline {2.2.5}Problem of scientific discovery}{3}
+\contentsline {subsection}{\numberline {2.2.6}Definition of a problem of an induction}{4}
+\contentsline {subsection}{\numberline {2.2.7}Definition of an ILP problem}{4}
+\contentsline {subsection}{\numberline {2.2.8}Definition of an ILP system}{4}
+\contentsline {subsection}{\numberline {2.2.9}Definition of a scientific method}{4}
+\contentsline {chapter}{\numberline {3}Conclusion}{5}
+\contentsline {section}{\numberline {3.1}Summary of Thesis Achievements}{5}
+\contentsline {section}{\numberline {3.2}Applications}{5}
+\contentsline {section}{\numberline {3.3}Future Work}{5}
+\contentsline {chapter}{Bibliography}{5}
