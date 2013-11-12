@@ -30,7 +30,7 @@ Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over 
 \subsection{Definition of a problem of an induction}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$ where $\mathcal{L}$ is a language of enquiry with its sublanguages $\mathcal{L}_o$, $\mathcal{L}_h$, observations $O$ and the background knowledge $B$.
 
-Define an equivalence relation over the sets of the $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution  to a problem of induction (the output) is the representative $\Sigma$ called an induced theory from the background knowledge $B$ and the observations $O$.
+Define an equivalence relation over the set (called the search space) $H$ of the sets of the $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution  to a problem of induction (the output) is the representative $\Sigma$ called an induced theory from the background knowledge $B$ and the observations $O$.
 
 \subsection{Definition of a scientific method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
@@ -48,9 +48,25 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 5. Increment $i$ and start from step 1 again.
 
 \subsection{Definition of an ILP problem}
-Inductive logic programming problem is a problem of an induction where the language of enquiry $\mathcal{L}$ is the logic programming language (e.g. Prolog) and the background knowledge and induced theory are finite.
+Inductive logic programming problem is a problem of an induction where the language of enquiry $\mathcal{L}$ is the logic programming language (e.g. Prolog), the background knowledge and induced theory are finite.
 
 Note: A constructed $\mathcal{L}$-formula in Prolog is a definite clause. 
 
 \subsection{Definition of an ILP system}
+An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in H$ where the language of enquiry $\mathcal{L}$ is the logic programming language, the background theory $B$ and induced theories of $H$ are finite.
 
+\subsection{Definition of a correct ILP system}
+An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
+
+\subsection{Examples of ILP systems}
+1. $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to H$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
+
+2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity.
+
+\subsection{Non-determinism and uncertainity}
+
+Since the Kolmogorov complexity is uncomputable no ILP system is correct. To develop a theory useful in real applications:
+
+1. we need to consider approximations to the Kolmogorov complexity (which are computable),
+
+2. allow that the induced theory $\Sigma$ found may not have exactly the models that are the models of $B \union O$. We need to think of some acceptable probability error $\epsilon>0$ where $\mu(M(\Sigma))-\mu(M(B \union O)) = \mu(M(\Sigma)  \triangle  M(B \union O)) < \epsilon$.
