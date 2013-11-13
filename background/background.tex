@@ -1,7 +1,7 @@
 
 \chapter{Background Theory}
 
-\label{ch:background}
+\label{•}el{ch:background}
 
 \section{Introduction}
 
@@ -50,6 +50,8 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 \subsection{Definition of an ILP problem}
 Inductive logic programming problem is a problem of an induction where the language of enquiry $\mathcal{L}$ is the logic programming language (e.g. Prolog), the background knowledge and induced theory are finite.
 
+In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. The division is conceptually important as the clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
+
 Note: A constructed $\mathcal{L}$-formula in Prolog is a definite clause. 
 
 \subsection{Definition of an ILP system}
@@ -63,10 +65,15 @@ An ILP system is correct if it solves an ILP problem, i.e. its output is a solut
 
 2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity.
 
-\subsection{Non-determinism and uncertainity}
+\subsection{Non-determinism, uncertainity, algorithm}
 
-Since the Kolmogorov complexity is uncomputable no ILP system is correct. To develop a theory useful in real applications:
+Since the Kolmogorov complexity is uncomputable no computable ILP system is correct. To develop a theory useful in real applications:
 
-1. we need to consider approximations to the Kolmogorov complexity (which are computable),
+1. we need to consider approximations to the Kolmogorov complexity (which are computable) or allow that the induced theory $\Sigma$ is at most $p\%$ more complex from the simpliest induced theory.
 
 2. allow that the induced theory $\Sigma$ found may not have exactly the models that are the models of $B \union O$. We need to think of some acceptable probability error $\epsilon>0$ where $\mu(M(\Sigma))-\mu(M(B \union O)) = \mu(M(\Sigma)  \triangle  M(B \union O)) < \epsilon$.
+
+3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
+TODO: clarify.
+
+\subsection{Hypothesis search in Progol}
