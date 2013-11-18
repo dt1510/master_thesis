@@ -8,7 +8,21 @@
 \section{Definitions}
 
 \begin{defn}
-A \emph{language of enquiry} $\mathcal{L}$ is a model-theoretic language given by constant symbols, relation symbols and function symbols. A language of enquiry $\mathcal{L}$ is a superlanguage of two languages: an \emph{observational language} $\mathcal{L}_o$ and a \emph{hypothesis language} $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a \emph{language bias}.
+A \emph{language} $\mathcal{L}$ is a model-theoretic language given by:
+\begin{enumerate}
+\item a set $\mathcal{C}$ of constant symbols,
+\item a set $\mathcal{R}$ of relation symbols and a positive integer $n_R$ for each $R \in \mathcal{R}$,
+\item a set $\mathcal{F}$ of function symbols and a positive integer $n_f$ for each $f \in \mathcal{F}$.
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+Let a language $\mathcal{L}$ be given by sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$ and a language $\mathcal{L}'$ given by sets $\mathcal{C}'$, $\mathcal{R}'$, $\mathcal{F}'$.
+If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$ we say that $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$, $\mathcal{L}'$ is a superlanguage of $\mathcal{L}$ and denote the relation between the languages by $\mathcal{L} \subseteq \mathcal{L}'$.
+\end{defn}
+
+\begin{defn}
+Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{L}_h$ called a hypothesis language, a \emph{language of enquiry} $\mathcal{L}$ is a language satisfying $\mathcal{C}_o $ $\mathcal{L}_o$ and a \emph{hypothesis language} $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a \emph{language bias}.
 \end{defn}
 
 \begin{defn}
