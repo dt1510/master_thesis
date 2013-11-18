@@ -5,6 +5,14 @@
 
 \section{Introduction}
 
+\section{Prerequizities}
+We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
+\begin{enumerate}
+\item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{cheng1997}
+\item Model theory: An introduction by David Marker \cite{marker2002}
+\item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li1997}
+\end{enumerate}
+
 \section{Definitions}
 
 \begin{defn}
@@ -22,11 +30,15 @@ If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $
 \end{defn}
 
 \begin{defn}
-Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{L}_h$ called a hypothesis language, a \emph{language of enquiry} $\mathcal{L}$ is a language satisfying $\mathcal{C}_o $ $\mathcal{L}_o$ and a \emph{hypothesis language} $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a \emph{language bias}.
+Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{L}_h$ called a hypothesis language, a \emph{language of enquiry} $\mathcal{L}$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language.
 \end{defn}
 
 \begin{defn}
-Every language of enquiry has exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$. The class of all $\mathcal{L}$-structures are called the \emph{hypothetical models} that are models of $\mathcal{L}$.
+Given a language $\mathcal{L}$, the \emph{language bias} is a property (a boolean valued function) defined on all elements of the sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$. For example, given a language of enquiry $\mathcal{L}$, its hypothesis sublanguage $\mathcal{L}_h$, if the property $H$ satisfies $\mathcal{C}_h=\{c \in \mathcal{C} | H(c)\}$, $\mathcal{R}_h=\{R \in \mathcal{R} | H(R)\}$, $\mathcal{F}_h=\{f \in \mathcal{F} | H(f)\}$ then we say $H$ is a language bias of the hypothetical language $\mathcal{L}_h$ in its superlanguage of enquiry $\mathcal{L}$.
+\end{defn}
+
+\begin{defn}
+The class of all $\mathcal{L}$-structures of a language of enquiry $\mathcal{L}$ are called the \emph{hypothetical models}, an $\mathcal{L}$-structure is a model of $\mathcal{L}$. For every language of enquiry $\mathcal{L}$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
 \end{defn}
 
 \begin{notation}
