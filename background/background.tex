@@ -1,21 +1,31 @@
 
 \chapter{Background Theory}
 
-\label{•}el{ch:background}
+%\label{•}el{ch:background}
 
 \section{Introduction}
 
-\section{Inductive Logic Programming problem}
+\section{Definitions}
 
-\subsection{Definitions}
+\begin{defn}
+A \emph{language of enquiry} $\mathcal{L}$ is a model-theoretic language given by constant symbols, relation symbols and function symbols. A language of enquiry $\mathcal{L}$ is a superlanguage of two languages: an \emph{observational language} $\mathcal{L}_o$ and a \emph{hypothesis language} $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a \emph{language bias}.
+\end{defn}
 
-A language of enquiry $\mathcal{L}$ is a model-theoretic language given by constant symbols, relation symbols and function symbols. A language of enquiry $\mathcal{L}$ is a superlanguage of two languages: an observational language $\mathcal{L}_o$ and a hypothesis language $\mathcal{L}_h$. We call the computable restrictions on the language $\mathcal{L}$ to the hypothesis language $\mathcal{L}_h$ to be a language bias.
+\begin{defn}
+Every language of enquiry has exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$. The class of all $\mathcal{L}$-structures are called the \emph{hypothetical models} that are models of $\mathcal{L}$.
+\end{defn}
 
-Every language of enquiry has exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the reality of $\mathcal{L}$. The class of all $\mathcal{L}$-structures are called the hypothetical models that are models of $\mathcal{L}$.
-
+\begin{notation}
 Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$. The set of observations $O$ is the set of the $\mathcal{L}_o$-formulas.
+\end{notation}
+
+\begin{defn}
 Given a set of observations $O$, we say that any $\mathcal{L}$-formula $Q$ divides the models of $O$ into models of $Q \wedge O$ denoted $M(O \union {Q})$ and the models of $\neg Q \wedge O$ denoted $M(O \union {Q})$.
+\end{defn}
+
+\begin{defn}
 The background knowledge (or current induced theory) $B$ is a set of formulas in a hypothesis language $\mathcal{L}_h$.
+\end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given a language of enquiry $\mathcal{L}$, find the reality $\mathcal{M}$.
