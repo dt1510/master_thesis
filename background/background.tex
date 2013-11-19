@@ -4,6 +4,8 @@
 %\label{•}el{ch:background}
 
 \section{Introduction}
+Inductive Logic Programming (ILP) systems consist of software and algorithms that take a set of positive and negative examples represented as sentences in a logic programming language, then they output a set of sentences called a theory which is a finite axiomatization of the theory of the model of the environment that produced the examples. In recent years there has been an expansion in ILP field, researchers have need to compare these systems based on certain criteria, however only a limited formalism has been developed providing the basis of comparison.
+We start with the definitions formalizing the problem of Inductive Logic Programming and defining an ILP system keeping in the definition the properties on which the comparison could be based.
 
 \section{Prerequizities}
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
@@ -12,7 +14,7 @@ We assume the reader is familiar with basic concepts in several areas and consid
 \item Model theory: An introduction by David Marker \cite{marker2002}
 \item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li1997}
 \end{enumerate}
-
+However, the usage of the concepts does not exceed its rudimentary application and the reader is encouraged to proceed further even if one may not be familiar with all the areas outlined, we suggest to use the literature when the need arises.
 \section{Definitions}
 
 \begin{defn}
@@ -24,6 +26,10 @@ A \emph{language} $\mathcal{L}$ is a model-theoretic language given by:
 \end{enumerate}
 \end{defn}
 
+\begin{exmp}
+The language $\mathcal{L}_{EST}$ of elementary set theory is given by one constant symbol called an empty set, $\mathcal{C}=\{\emptyset\}$, one relation symbol called a set membership $\mathcal{R}=\{\in\}$ with a positive integer (arity) $n_{\in}=2$. The set of function symbols $\mathcal{F}$ are the set operations of a union, an intersection, each with an arity $2$.
+\end{exmp}
+
 \begin{defn}
 Let a language $\mathcal{L}$ be given by sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$ and a language $\mathcal{L}'$ given by sets $\mathcal{C}'$, $\mathcal{R}'$, $\mathcal{F}'$.
 If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$ we say that $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$, $\mathcal{L}'$ is a superlanguage of $\mathcal{L}$ and denote the relation between the languages by $\mathcal{L} \subseteq \mathcal{L}'$.
@@ -33,24 +39,75 @@ If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $
 Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{L}_h$ called a hypothesis language, a \emph{language of enquiry} $\mathcal{L}$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language.
 \end{defn}
 
+\begin{remark}
+The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitely added to the language of enquiry $\mathcal{L}$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
+\end{remark}
+
+\begin{exmp}
+\begin{itemize}
+\item The language of enquiry $\mathcal{L}$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
+\item Let the observational language $\mathcal{L}_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
+\item Let the hypothesis language $\mathcal{L}_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$, $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$,$\mathcal{F}_h=\{\}$.
+\item $\mathcal{L}_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$, $\forall x. IsWhite(x) \lor TastesHot(x)$.
+\end{itemize}
+\end{exmp}
+
 \begin{defn}
 Given a language $\mathcal{L}$, the \emph{language bias} is a property (a boolean valued function) defined on all elements of the sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$. For example, given a language of enquiry $\mathcal{L}$, its hypothesis sublanguage $\mathcal{L}_h$, if the property $H$ satisfies $\mathcal{C}_h=\{c \in \mathcal{C} | H(c)\}$, $\mathcal{R}_h=\{R \in \mathcal{R} | H(R)\}$, $\mathcal{F}_h=\{f \in \mathcal{F} | H(f)\}$ then we say $H$ is a language bias of the hypothetical language $\mathcal{L}_h$ in its superlanguage of enquiry $\mathcal{L}$.
 \end{defn}
+TODO: Correct: the language bias is a restriction to a hypotheses space not to the language.
+
+\begin{exmp}
+Let $P(ContainsSugar)=false$ and $true$ otherwise. $P$ is the language bias of $\mathcal{L}_h$ in $\mathcal{L}$.
+\end{exmp}
 
 \begin{defn}
 The class of all $\mathcal{L}$-structures of a language of enquiry $\mathcal{L}$ are called the \emph{hypothetical models}, an $\mathcal{L}$-structure is a model of $\mathcal{L}$. For every language of enquiry $\mathcal{L}$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
 \end{defn}
 
+\begin{exmp}
+\begin{itemize}
+\item In England, the reality $\mathcal{M}_E$ is a model of the sentences $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
+\item In India, the reality $\mathcal{M}_I$ is a model of the sentences $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
+\item Both $\mathcal{M}_E$, $\mathcal{M}_I$ are hypothetical models of $\mathcal{L}$.
+\end{itemize}
+\end{exmp}
+
+\begin{remark}
+In generality one may develop a theory that assumes existence of multiple or none model of enquiry, this may be useful when the language of enquiry has a limited expressivity as demonstrated later.
+\end{remark}
+
 \begin{notation}
-Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$. The set of observations $O$ is the set of the $\mathcal{L}_o$-formulas.
+Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$.
 \end{notation}
 
 \begin{defn}
-Given a set of observations $O$, we say that any $\mathcal{L}$-formula $Q$ divides the models of $O$ into models of $Q \wedge O$ denoted $M(O \union {Q})$ and the models of $\neg Q \wedge O$ denoted $M(O \union {Q})$.
+The set of \emph{observations} $O$ is any set of $\mathcal{L}_o$-formulas.
+\end{defn}
+
+\begin{exmp}
+\begin{itemize}
+\item The set $O_E=\{TastesHot(curry), \neg TastesHot(milk), IsWhite(milk)\}$ is the set of observations.
+\item The set $O_I=\{TastesHot(milk)\}$ is the set of observations.
+\item The set $O_{world}=\{TastesHot(curry), \neg TastesHot(milk), TastesHot(milk), IsWhite(milk)\}$ is the set of observations.
+\end{itemize}
+\end{exmp}
+
+\begin{remark}
+\begin{itemize}
+\item The language of enquiry $\mathcal{L}$ is not powerful enough to express $O_{world}=\{\neg TastesHot(milk) \land InEngland(milk), TastesHot(milk) \land InIndia(milk)\}$
+ as it does not have predicate symbols $InEngland$ and $InIndia$.
+\item The inconsistency in the observations implies that there is no $\mathcal{L}$-structure $\mathcal{M}$ of $O_{world}$.
+\item One of the central problems in ILP is the predicate invention - adding symbols $InEngland$ and $InIndia$ to the language of enquiry $\mathcal{L}$.
+\end{itemize}
+\end{remark}
+
+\begin{defn}
+The \emph{background knowledge} (or current induced theory) is a set $B$ of formulas in a hypothesis language $\mathcal{L}_h$.
 \end{defn}
 
 \begin{defn}
-The background knowledge (or current induced theory) $B$ is a set of formulas in a hypothesis language $\mathcal{L}_h$.
+Given a set of observations $O$, we say that any $\mathcal{L}$-formula $Q$ \emph{divides} the models of $O$ into models of $Q \wedge O$ denoted $M(O \union {Q})$ and the models of $\neg Q \wedge O$ denoted $M(O \union {Q})$.
 \end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
@@ -77,9 +134,9 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 
 2. Solve an incremental problem of scientific discovery by finding a question $Q$ given the current induced theory $B_i$.
 
-3. make an observation - ask an environment oracle a question $Q$.
+3. Make an observation - ask an environment oracle a question $Q$.
 
-4. induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
+4. Induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
 
 5. Increment $i$ and start from step 1 again.
 

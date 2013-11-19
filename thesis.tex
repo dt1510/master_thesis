@@ -2,6 +2,7 @@
 \documentclass[a4paper,12pt,twoside]{report}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
 \usepackage{amsthm}
+\usepackage{amsmath}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
@@ -12,7 +13,12 @@
 \theoremstyle{definition}
 \newtheorem{notation}[thm]{Notation}
 
-\newtheorem{exmp}[thm]{Example} % same for example numbers
+\theoremstyle{definition}
+\newtheorem{exmp}[thm]{Example}
+
+\theoremstyle{definition}
+\newtheorem{remark}[thm]{Remark}
+
 \include{thesis.preamble}
 
 \begin{document}
