@@ -7,7 +7,7 @@
 Inductive Logic Programming (ILP) systems consist of software and algorithms that take a set of positive and negative examples represented as sentences in a logic programming language, then they output a set of sentences called a theory which is a finite axiomatization of the theory of the model of the environment that produced the examples. In recent years there has been an expansion in ILP field, researchers have need to compare these systems based on certain criteria, however only a limited formalism has been developed providing the basis of comparison.
 We start with the definitions formalizing the problem of Inductive Logic Programming and defining an ILP system keeping in the definition the properties on which the comparison could be based.
 
-\section{Prerequizities}
+\section{Prerequisities}
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
 \begin{enumerate}
 \item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{cheng1997}
@@ -46,16 +46,16 @@ The language of enquiry is a model-theoretic language by our definition. We will
 \begin{exmp}
 \begin{itemize}
 \item The language of enquiry $\mathcal{L}$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
-\item Let the observational language $\mathcal{L}_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
-\item Let the hypothesis language $\mathcal{L}_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$, $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$,$\mathcal{F}_h=\{\}$.
-\item $\mathcal{L}_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$, $\forall x. IsWhite(x) \lor TastesHot(x)$.
+\item Let the observational language $\mathcal{L}_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
+\item Let the hypothesis language $\mathcal{L}_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
+\item $\mathcal{L}_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
 \end{itemize}
 \end{exmp}
 
 \begin{defn}
 Given a language $\mathcal{L}$, the \emph{language bias} is a property (a boolean valued function) defined on all elements of the sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$. For example, given a language of enquiry $\mathcal{L}$, its hypothesis sublanguage $\mathcal{L}_h$, if the property $H$ satisfies $\mathcal{C}_h=\{c \in \mathcal{C} | H(c)\}$, $\mathcal{R}_h=\{R \in \mathcal{R} | H(R)\}$, $\mathcal{F}_h=\{f \in \mathcal{F} | H(f)\}$ then we say $H$ is a language bias of the hypothetical language $\mathcal{L}_h$ in its superlanguage of enquiry $\mathcal{L}$.
 \end{defn}
-TODO: Correct: the language bias is a restriction to a hypotheses space not to the language.
+TODO: Correct: the language bias is a restriction to a hypotheses space not to the language. A better term would be search space bias.
 
 \begin{exmp}
 Let $P(ContainsSugar)=false$ and $true$ otherwise. $P$ is the language bias of $\mathcal{L}_h$ in $\mathcal{L}$.
@@ -67,8 +67,8 @@ The class of all $\mathcal{L}$-structures of a language of enquiry $\mathcal{L}$
 
 \begin{exmp}
 \begin{itemize}
-\item In England, the reality $\mathcal{M}_E$ is a model of the sentences $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
-\item In India, the reality $\mathcal{M}_I$ is a model of the sentences $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
+\item In England, the reality $\mathcal{M}_E$ is a model of the sentences\\ $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
+\item In India, the reality $\mathcal{M}_I$ is a model of the sentences\\ $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
 \item Both $\mathcal{M}_E$, $\mathcal{M}_I$ are hypothetical models of $\mathcal{L}$.
 \end{itemize}
 \end{exmp}
@@ -89,7 +89,8 @@ The set of \emph{observations} $O$ is any set of $\mathcal{L}_o$-formulas.
 \begin{itemize}
 \item The set $O_E=\{TastesHot(curry), \neg TastesHot(milk), IsWhite(milk)\}$ is the set of observations.
 \item The set $O_I=\{TastesHot(milk)\}$ is the set of observations.
-\item The set $O_{world}=\{TastesHot(curry), \neg TastesHot(milk), TastesHot(milk), IsWhite(milk)\}$ is the set of observations.
+\item The set $O_{world}=\{TastesHot(curry), \neg TastesHot(milk), TastesHot(milk), \\
+IsWhite(milk)\}$ is the set of observations.
 \end{itemize}
 \end{exmp}
 
@@ -169,4 +170,39 @@ Since the Kolmogorov complexity is uncomputable no computable ILP system is corr
 3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
 TODO: clarify.
 
-\subsection{Hypothesis search in Progol}
+\section{Inductive Logic Programming systems - notes}
+
+\subsection{Progol}
+\begin{itemize}
+\item Inverse Entailment,
+\item a bias provided by mode declaration,
+
+\end{itemize}
+
+\subsection{Toplog}
+\begin{itemize}
+\item Uses Mode Directed Inverse Entailment,
+\item declarative bias: every constructed hypothesis must be subsumed by a top theory $\top$,
+\item a top theory consists of literals: terminals (in hypothesis language) and non-terminals (not allowed in hypothesis language and background knowledge)
+\item hypothesis bias: a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models H$
+\item strong declarative bias: restriction on the predicates in the head/body of a hypothesis clause
+\item $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
+\end{itemize}
+
+\subsection{MC-Toplog}
+\begin{itemize}
+\item Derives hypotheses like Toplog, allows multiple clauses in a hypothesis.
+\item Restricting hypotheses space to spaces entailing generalization of multiple examples (co-generalization).
+\item Correctness: $\top$DTD algorithm returns all candidates hypotheses $H$ satisfying $B \wedge H \models e$ where $e \in E^+$ and the hypothesis space is restricted by the $\top$.
+\end{itemize}
+
+\subsection{ProGolem}
+\begin{itemize}
+\item Inverse Entailment,
+\item co-generalization, 
+\end{itemize}
+
+\subsection{Imparo}
+\begin{itemize}
+\item solo-generalization
+\end{itemize}
