@@ -18,11 +18,24 @@ However, the usage of the concepts does not exceed its rudimentary application a
 \section{Definitions}
 
 \begin{defn}
-A \emph{language} $\mathcal{L}$ is a model-theoretic language given by:
+An \emph{alphabet} is a set $\mathcal{A}$ of elements called \emph{letters} of an alphabet.
+\end{defn}
+
+\begin{defn}
+A word over an alphabet $\mathcal{A}$ is a finite sequence (a string) of letters of the alphabet $\mathcal{A}$.
+\end{defn}
+
+\begin{defn}
+A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq 2^\mathcal{A}$.
+\end{defn}
+
+Formal languages we are going to use are first-order languages:
+\begin{defn}
+A \emph{language} $\mathcal{L}$ is a formal language given by the signature and grammar of the first-order logic and the additional data:
 \begin{enumerate}
-\item a set $\mathcal{C}$ of constant symbols,
-\item a set $\mathcal{R}$ of relation symbols and a positive integer $n_R$ for each $R \in \mathcal{R}$,
-\item a set $\mathcal{F}$ of function symbols and a positive integer $n_f$ for each $f \in \mathcal{F}$.
+\item a set $\mathcal{C}$ of letters called constant symbols,
+\item a set $\mathcal{R}$ of letters called relation symbols and a positive integer (an arity) $n_R$ for each $R \in \mathcal{R}$,
+\item a set $\mathcal{F}$ of letters called function symbols and a positive integer (an arity) $n_f$ for each $f \in \mathcal{F}$.
 \end{enumerate}
 \end{defn}
 
@@ -187,6 +200,9 @@ TODO: clarify.
 \item hypothesis bias: a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models H$
 \item strong declarative bias: restriction on the predicates in the head/body of a hypothesis clause
 \item $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive the clauses $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item final theory construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
 \end{itemize}
 
 \subsection{MC-Toplog}
