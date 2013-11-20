@@ -17,6 +17,7 @@ We assume the reader is familiar with basic concepts in several areas and consid
 However, the usage of the concepts does not exceed its rudimentary application and the reader is encouraged to proceed further even if one may not be familiar with all the areas outlined, we suggest to use the literature when the need arises.
 \section{Definitions}
 
+\subsection{A logic language}
 \begin{defn}
 An \emph{alphabet} is a set $\mathcal{A}$ of elements called \emph{letters} of an alphabet.
 \end{defn}
@@ -28,6 +29,14 @@ A word over an alphabet $\mathcal{A}$ is a finite sequence (a string) of letters
 \begin{defn}
 A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq 2^\mathcal{A}$.
 \end{defn}
+
+\begin{exmp}
+Let $R$ be a regular expression $0001*$.
+\begin{itemize}
+\item The alphabet is the set $\mathcal{A}={\epsilon, 0,1,*}$. $0$, $1$, $*$ are called letters of $\mathcal{A}$.
+\item The words over $A$ are $000$.
+\end{itemize}
+\end{exmp}
 
 Formal languages we are going to use are first-order languages:
 \begin{defn}
@@ -43,6 +52,7 @@ A \emph{language} $\mathcal{L}$ is a formal language given by the signature and 
 The language $\mathcal{L}_{EST}$ of elementary set theory is given by one constant symbol called an empty set, $\mathcal{C}=\{\emptyset\}$, one relation symbol called a set membership $\mathcal{R}=\{\in\}$ with a positive integer (arity) $n_{\in}=2$. The set of function symbols $\mathcal{F}$ are the set operations of a union, an intersection, each with an arity $2$.
 \end{exmp}
 
+\subsection{Languages in the theory of inductive inference}
 \begin{defn}
 Let a language $\mathcal{L}$ be given by sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$ and a language $\mathcal{L}'$ given by sets $\mathcal{C}'$, $\mathcal{R}'$, $\mathcal{F}'$.
 If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$ we say that $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$, $\mathcal{L}'$ is a superlanguage of $\mathcal{L}$ and denote the relation between the languages by $\mathcal{L} \subseteq \mathcal{L}'$.
