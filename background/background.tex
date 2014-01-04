@@ -63,7 +63,7 @@ Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{
 \end{defn}
 
 \begin{remark}
-The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitely added to the language of enquiry $\mathcal{L}$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
+The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $\mathcal{L}$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
 \end{remark}
 
 \begin{exmp}
@@ -130,9 +130,9 @@ IsWhite(milk)\}$ is the set of observations.
 The \emph{background knowledge} (or current induced theory) is a set $B$ of formulas in a hypothesis language $\mathcal{L}_h$.
 \end{defn}
 
-\begin{defn}
-Given a set of observations $O$, we say that any $\mathcal{L}$-formula $Q$ \emph{divides} the models of $O$ into models of $Q \wedge O$ denoted $M(O \union {Q})$ and the models of $\neg Q \wedge O$ denoted $M(O \union {Q})$.
-\end{defn}
+\begin{note}
+Given a set of observations $O$, an $\mathcal{L}$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$.
+\end{note}
 
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given a language of enquiry $\mathcal{L}$, find the reality $\mathcal{M}$.
@@ -232,3 +232,37 @@ TODO: clarify.
 \begin{itemize}
 \item solo-generalization
 \end{itemize}
+
+\chapter{Learning the reality}
+It is important to understand how powerful our ILP systems are - what models they are capable of learning and what models they are never going to learn from the given data.
+\section{Philosophical discussion}
+In order to learn the reality, do we want to induce questions or theories of the models of the observations and the background knowledge? We could use all the observations to reason about the world, but the observations may be too numerous, hence a more compact theory axiomatization would be useful.
+Why do we ask a question $Q$? That is so that we would find out what observation we should make. It is in the case that an environment oracle is available.
+\section{Generalization}
+\subsection{Incoherence of the generalization}
+Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x) \iff x$ is even. By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory. Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
+\subsection{Consequences of the generalization}
+1. A theory $T_g$ with a general statement $\forall x.P(x)$ entails more statements $P(a_i)$ then a theory $T$ with $\Pi_0$ statements $P(a_1), ..., P(a_n)$. Therefore $\#M(T_g) \leq \#M(T)$.
+2. 
+\subsection{The reasons to generalize}
+1. A general statement may be a more compact representation than specific multiple statements.
+2. A general theory $T_g$ entailing some of the statements in a theory $T$ and contradicting other statements in a theory $T$ (usually fewer) is an approximation of a theory $T$. A precision is the percentage of the models of $T_g$ that are models of $T$. A recall is the percentage of the models of $T$ that are models of $T_g$. An approximated theory may be simpler to reason about and to represent.
+3. 
+\subsection{How do the models of a theory and their number change during generalization and specialization?}
+\section{Counting the number of the models of monadic theories}
+Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
+\begin{defn}
+A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic.
+\end{defn}
+\begin{defn}
+A theory (or a set) $T$ is maximally $k$-adically consistent iff $T$ is consistent and for every formula $\phi$ if $\phi$ is $k$-adic, then $\phi \in T$ or $\neg \phi \in T$.
+\end{defn}
+\begin{remark}
+Let $\mathcal{L}$ be the language with $n$ constant symbols and $m$ unary predicate symbols. Then there are exactly $2^{mn}$ maximally monadically consistent monadic theories $T$ (equivalence classes of models of $T$).
+\end{remark}
+\begin{remark}
+Let $\mathcal{L}$ be the language with countably many constant symbols and $m$ unary predicate symbols. Then there are uncountably many maximally monadically consistent monadic theories.
+\end{remark}
+\section{Approximations to learning}
+\section{Which models are more probable?}
+\section{Predicate Invention}
