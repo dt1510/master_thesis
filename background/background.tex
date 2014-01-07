@@ -134,6 +134,10 @@ The \emph{background knowledge} (or current induced theory) is a set $B$ of form
 Given a set of observations $O$, an $\mathcal{L}$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$.
 \end{note}
 
+\begin{defn}
+A hypothesis space $\mathcal{H}$ is the space of all possible hypotheses in the search space. A set of hypotheses is denoted $H$, one hypothesis denoted $h$. Note $h \in H \subseteq \mathcal{H}$.
+\end{defn}
+
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given a language of enquiry $\mathcal{L}$, find the reality $\mathcal{M}$.
 
@@ -193,7 +197,8 @@ Since the Kolmogorov complexity is uncomputable no computable ILP system is corr
 3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
 TODO: clarify.
 
-\section{Inductive Logic Programming systems - notes}
+\section{Inductive Logic Programming systems}
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
 \subsection{Progol}
 \begin{itemize}
@@ -203,17 +208,24 @@ TODO: clarify.
 \end{itemize}
 
 \subsection{Toplog}
+An ILP system implementation Toplog is based on the theoretical framework Top Directed Hypothesis Derivation (TDHD) with the hypothesis space bias called top theory $\top$:
 \begin{itemize}
-\item Uses Mode Directed Inverse Entailment,
-\item declarative bias: every constructed hypothesis must be subsumed by a top theory $\top$,
+\item top theory $\top$ is specified in the input to an ILP system,
+\item top theory $\top$ can be constructed from the mode declarations,
+\item not every top theory bias can be expressed with the mode declarations,
 \item a top theory consists of literals: terminals (in hypothesis language) and non-terminals (not allowed in hypothesis language and background knowledge)
-\item hypothesis bias: a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models H$
-\item strong declarative bias: restriction on the predicates in the head/body of a hypothesis clause
-\item $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
-\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive the clauses $h$ from the refutations, add $h$ to $H$.
+\item a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models h$
+\item restriction on the predicates in the head/body of a hypothesis clause,
+\item every constructed hypothesis must be subsumed by a top theory $\top$. If $H$ is a set of candidate hypotheses, then: $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$.
+\end{itemize}
+The algorithm used to construct the theory follows the steps:
+\begin{itemize}
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
 \item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
 \item final theory construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
 \end{itemize}
+
+\item uses Mode Directed Inverse Entailment,
 
 \subsection{MC-Toplog}
 \begin{itemize}
