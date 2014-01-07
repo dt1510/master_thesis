@@ -172,13 +172,13 @@ In the context of ILP one divides the observations into positive examples $E^+$ 
 Note: A constructed $\mathcal{L}$-formula in Prolog is a definite clause. 
 
 \subsection{Definition of an ILP system}
-An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in H$ where the language of enquiry $\mathcal{L}$ is the logic programming language, the background theory $B$ and induced theories of $H$ are finite.
+An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $\mathcal{L}$ is the logic programming language, the background theory $B$ and induced theories of $H$ are finite.
 
 \subsection{Definition of a correct ILP system}
 An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
 
 \subsection{Examples of ILP systems}
-1. $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to H$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
+1. $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
 
 2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity.
 
@@ -233,11 +233,30 @@ TODO: clarify.
 \item solo-generalization
 \end{itemize}
 
+\chapter{Problems in ILP}
+
 \chapter{Learning the reality}
 It is important to understand how powerful our ILP systems are - what models they are capable of learning and what models they are never going to learn from the given data.
 \section{Philosophical discussion}
 In order to learn the reality, do we want to induce questions or theories of the models of the observations and the background knowledge? We could use all the observations to reason about the world, but the observations may be too numerous, hence a more compact theory axiomatization would be useful.
 Why do we ask a question $Q$? That is so that we would find out what observation we should make. It is in the case that an environment oracle is available.
+\section{Problems of research in ILP}
+1. No clear objective of research. Note: Maybe there is no objective for constructing an ILP system as there is no objective for constructing a group. But is of our interest is the classification of the groups and learning general patterns about withing Group theory.
+2. Philosophical foundations of the field, but no mathematical foundations, no axioms for the theory of inductive logic programming. No model of an ILP system to reason about.
+3. No means of mutual comparison of ILP systems.
+\section{Mathematical Foundations of ILP}
+We would like to describe an ILP system with the axioms in order to study ILP systems with the mathematical rigour, to make logic statements about such systems.
+I would like to have mappings (e.g. homomorphisms) between these ILP systems so that I may reason about the sub-ILP-systems. It seems Category theory to help me with the foundations. The class of the ILP systems is a category.
+\subsection{An ILP system is a category}
+What are objects and arrows?
+\subsection{Category of ILP systems}
+
+\subsection{Properties of ILP systems}
+
+\subsection{}
+\subsection{}
+\section{Completeness of ILP systems}
+Often ILP systems are complete as a result of using a strong bias rather than a sophisticated induction system.
 \section{Generalization}
 \subsection{Incoherence of the generalization}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x) \iff x$ is even. By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory. Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
@@ -249,6 +268,20 @@ Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the r
 2. A general theory $T_g$ entailing some of the statements in a theory $T$ and contradicting other statements in a theory $T$ (usually fewer) is an approximation of a theory $T$. A precision is the percentage of the models of $T_g$ that are models of $T$. A recall is the percentage of the models of $T$ that are models of $T_g$. An approximated theory may be simpler to reason about and to represent.
 3. 
 \subsection{How do the models of a theory and their number change during generalization and specialization?}
+\section{The role of a language in learning the models}
+Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
+By extending the language we can distinguish the models further. The problem of the predicate invention is to invent a predicate so that the right distinction between the models is made based on the language.
+Questions:
+1. How can we measure an expessivity and a complexity of a language?
+2. How much information can be captured by a $\mathcal{L}$-theory given a language $\mathcal{L}$?
+3. What is the maximal complexity of the language $\mathcal{L}$ for which the $\mathcal{L}$-theory is decidable?
+4. Complexity of learning the equivalence class of the reality given a language.
+5. Is there a language for which the task of learning the equivalence class of the reality is undecidable?
+6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
+7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
+8. 
+\section{Models with an empty language}
+
 \section{Counting the number of the models of monadic theories}
 Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
 \begin{defn}
@@ -263,6 +296,12 @@ Let $\mathcal{L}$ be the language with $n$ constant symbols and $m$ unary predic
 \begin{remark}
 Let $\mathcal{L}$ be the language with countably many constant symbols and $m$ unary predicate symbols. Then there are uncountably many maximally monadically consistent monadic theories.
 \end{remark}
+\subsection{Asking an environment oracle a question}
+\subsection{}
+\section{Learning the theories from the probabilistic oracle}
+The correctness of our observations may be distributed over the probability distribution of the environment.
 \section{Approximations to learning}
 \section{Which models are more probable?}
 \section{Predicate Invention}
+Consider the language $\mathcal{L}=\{father\}$ with a binary predicate symbol. A predicate invention is a problem of adding to the language a predicate $grandfather$ and an axiom to all the theories: $\forall x. \forall y. \forall z. father(x,y) \wedge father(y,z) \implies grandfather(x,z)$.
+TODO: Is that right? In that case $grandfather$ is definable in terms of $father$ and therefore redundant.
