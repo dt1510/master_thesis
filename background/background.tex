@@ -213,7 +213,12 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \begin{itemize}
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
-
+\item Mode declaration bias. Restricting the search space to the clauses whose head atoms are defined by the head mode declarations $M_h$ and body atoms are defined by the body mode declarations $M_b$.
+TODO: more precise.
+\item Solo-generalization bias. The hypothesis space is restricted to the generalization of a single example. Reference: Muggleton etal, MC-Toplog.
+\item Negation on failure bias. The lack of an observation $example(x)$
+causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
+\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:$Search space$ \to \mathbb{R}$.
 \end{itemize}
 \subsection{Progol}
 \begin{itemize}
@@ -230,6 +235,8 @@ An ILP system implementation Toplog is based on the theoretical framework Top Di
 \begin{itemize}
 \item Horn theory bias,
 \item Bottom theory bias $\bot = \bot(B,E)$,
+\item Solo-generalization bias,
+\item Score function bias,
 \item top theory $\top$ is specified in the input to an ILP system,
 \item top theory $\top$ can be constructed from the mode declarations,
 \item not every top theory bias can be expressed with the mode declarations,
@@ -271,8 +278,9 @@ Toplog violates the properties in our first definition of an ILP system:
 \end{itemize}
 
 \subsection{Imparo}
+reference: Kimber, induction on failure.
 \begin{defn}
-A connected theory $T$ for an example $E$ and the background knowledge $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+A connected theory $T$ for a ground Horn clause $E$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
 (i) $B \union T_1^+ \models E^+$,
 (ii) $\forall i \in \{1, ..., n-1\}. B \union E^- \union T_{i+1}^+ \models T_i^-$,
 (iii) $B \union E^- \models T_n^-$,
@@ -282,7 +290,10 @@ A connected theory $T$ for an example $E$ and the background knowledge $B$ is a 
 Bias:
 \begin{itemize}
 \item Horn theory bias,
-\item hypotheses restricted to generalizations of a most specific connected theory,
+\item Bottom theory bias, $\bot=$ a connected theory for $B$ and $E$,
+\item Solo-generalization bias,
+\item Score-function bias,
+\item Mode declaration bias,
 \item a bias specifiable in an input program:
 \begin{lstlisting}
 %a restriction on the length of a clause in a theory
@@ -296,15 +307,14 @@ Bias:
 \end{itemize}
 Algorithm:
 \begin{itemize}
-\item uses Induction on Failure,
-
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
-Violations:
-
-
-\begin{itemize}
-\item solo-generalization
-\end{itemize}
+TODO: an algorithm for a connected theory generation.
 
 \subsection{Metagol}
 Bias:
