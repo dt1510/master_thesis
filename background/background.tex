@@ -3,6 +3,14 @@
 
 %\label{•}el{ch:background}
 
+\section{Notation}
+\begin{itemize}
+\item $T$ called a theory is a set (a conjunction) of logical sentences
+\item $\neg H$ is a disjunction of logical sentences $h$ if $H$ is a set (a conjunction) of logical sentences
+\item A box formula $\square$ represents the falsity.
+\item If $A$ is a set of clauses, then $A^+$ is the set of their head atoms, $A^-$ is the set of their body atoms.
+\end{itemize}
+
 \section{Introduction}
 Inductive Logic Programming (ILP) systems consist of software and algorithms that take a set of positive and negative examples represented as sentences in a logic programming language, then they output a set of sentences called a theory which is a finite axiomatization of the theory of the model of the environment that produced the examples. In recent years there has been an expansion in ILP field, researchers have need to compare these systems based on certain criteria, however only a limited formalism has been developed providing the basis of comparison.
 We start with the definitions formalizing the problem of Inductive Logic Programming and defining an ILP system keeping in the definition the properties on which the comparison could be based.
@@ -136,6 +144,7 @@ Given a set of observations $O$, an $\mathcal{L}$-formula $Q$ \emph{divides} the
 
 \begin{defn}
 A hypothesis space $\mathcal{H}$ is the space of all possible hypotheses in the search space. A set of hypotheses is denoted $H$, one hypothesis denoted $h$. Note $h \in H \subseteq \mathcal{H}$.
+TODO: rename to be consistent with other conventions. A hypothesis should be $H$ not $h$.
 \end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
@@ -200,6 +209,12 @@ TODO: clarify.
 \section{Inductive Logic Programming systems}
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
+\subsection{Biases in ILP systems}
+\begin{itemize}
+\item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
+\item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
+
+\end{itemize}
 \subsection{Progol}
 \begin{itemize}
 \item Inverse Entailment,
@@ -208,8 +223,13 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \end{itemize}
 
 \subsection{Toplog}
+\begin{defn}
+$B$ a Horn theory, $E$ a Horn clause. The bottom clause of $B$ and $E$ is $\bot(B,E)$=$\vee\{L | L $ a ground literal, $B \union {\neg E} \models \neg L\}$.
+\end{defn}
 An ILP system implementation Toplog is based on the theoretical framework Top Directed Hypothesis Derivation (TDHD) with the hypothesis space bias called top theory $\top$:
 \begin{itemize}
+\item Horn theory bias,
+\item Bottom theory bias $\bot = \bot(B,E)$,
 \item top theory $\top$ is specified in the input to an ILP system,
 \item top theory $\top$ can be constructed from the mode declarations,
 \item not every top theory bias can be expressed with the mode declarations,
@@ -217,15 +237,25 @@ An ILP system implementation Toplog is based on the theoretical framework Top Di
 \item a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models h$
 \item restriction on the predicates in the head/body of a hypothesis clause,
 \item every constructed hypothesis must be subsumed by a top theory $\top$. If $H$ is a set of candidate hypotheses, then: $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$.
+\item inverse entailment bias $B \union H \models E \iff B \union \neg H \models \neg E$.
 \end{itemize}
-The algorithm used to construct the theory follows the steps:
+The algorithm used to construct the final theory uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
 \item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
 \item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
 \item final theory construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
 \end{itemize}
-
-\item uses Mode Directed Inverse Entailment,
+Toplog violates the properties in our first definition of an ILP system:
+\begin{itemize}
+\item a produced theory may not be complete due to too strong default bias:
+\begin{itemize}
+\item only what is defined by mode declarations can be in theory,
+\item theory can contain only one clause,
+\item only one head clause definable with mode declarations unlike two clauses :-modeh(woman(+person)). :-modeh(man(+person)).
+\item restrictions on the top theory related to $NT$ (non-terminals), $B$, $E$; what literals can occur where. Details in TopLog: ILP Using a Logic Program Declarative Bias by Muggleton etal.
+\end{itemize}
+\item a produced theory need not be consistent with the observations: given observations $human(susan)$ and $human(jack)$ a final theory can contain the hypothesis $woman(X) :- human(X)$. The accuracy of a theory is computed, a score function allows a degree of inaccuracy.
+\end{itemize}
 
 \subsection{MC-Toplog}
 \begin{itemize}
@@ -241,9 +271,50 @@ The algorithm used to construct the theory follows the steps:
 \end{itemize}
 
 \subsection{Imparo}
+\begin{defn}
+A connected theory $T$ for an example $E$ and the background knowledge $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models E^+$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union E^- \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union E^- \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+
+\end{defn}
+Bias:
+\begin{itemize}
+\item Horn theory bias,
+\item hypotheses restricted to generalizations of a most specific connected theory,
+\item a bias specifiable in an input program:
+\begin{lstlisting}
+%a restriction on the length of a clause in a theory
+:-set_max_clause_length(N1).
+%a restriction on the number of clauses in a theory
+:-set_max_clauses(N2).
+%TODO - explain further two
+:-set_connected(N3).
+:-set_max_var_depth(N41).
+\end{lstlisting}
+\end{itemize}
+Algorithm:
+\begin{itemize}
+\item uses Induction on Failure,
+
+\end{itemize}
+Violations:
+
+
 \begin{itemize}
 \item solo-generalization
 \end{itemize}
+
+\subsection{Metagol}
+Bias:
+Algorithm:
+Violations:
+
+\subsection{Comparison of biases in ILP systems}
+$\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
+
+$\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \mathcal{H}_{connected_theory}$
 
 \chapter{Problems in ILP}
 
