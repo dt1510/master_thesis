@@ -96,10 +96,17 @@ Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a
 Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
 \end{exmp}
 
-\subsection{Model theory}
+\subsection{Model theory} reference Marker.
 
 \begin{defn}
-A model is TODO
+An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
+\begin{enumerate}
+\item a nonempty set $M$ called the universe, domain, or underlying set of $\mathcal{M}$;
+\item a function $f^{\mathcal{M}} : M^{n_f} \to M$ for each $f \in F$;
+\item a set $\mathcal{R}^{\mathcal{M}} \subseteq M^{n_R}$ for each $R \in \mathcal{R}$;
+\item an element $c^\mathcal{M} \in M$ for each $c \in C$.
+\end{enumerate}
+We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$. 
 \end{defn}
 
 \begin{defn}
