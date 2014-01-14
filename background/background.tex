@@ -40,7 +40,7 @@ Let $R$ be a regular expression $0001*$.
 
 Formal languages we are going to use are first-order languages:
 \begin{defn}
-A \emph{language} $\mathcal{L}$ is a formal language given by the signature and grammar of the first-order logic and the additional data:
+A \emph{language} $L$ is a formal language given by the grammar of the first-order logic and the additional data $\mathcal{L}$ called the signature of $L$:
 \begin{enumerate}
 \item a set $\mathcal{C}$ of letters called constant symbols,
 \item a set $\mathcal{R}$ of letters called relation symbols and a positive integer (an arity) $n_R$ for each $R \in \mathcal{R}$,
@@ -48,41 +48,59 @@ A \emph{language} $\mathcal{L}$ is a formal language given by the signature and 
 \end{enumerate}
 \end{defn}
 
+\begin{remark}
+We will often talk about the language $L$ by referring to its signature $\mathcal{L}$. This should not cause a confusion as the signature $\mathcal{L}$ and the grammar of the first order logic uniquelly determine the language $L$.
+\end{remark}
+
 \begin{exmp}
 The language $\mathcal{L}_{EST}$ of elementary set theory is given by one constant symbol called an empty set, $\mathcal{C}=\{\emptyset\}$, one relation symbol called a set membership $\mathcal{R}=\{\in\}$ with a positive integer (arity) $n_{\in}=2$. The set of function symbols $\mathcal{F}$ are the set operations of a union, an intersection, each with an arity $2$.
 \end{exmp}
 
 \subsection{Languages in the theory of inductive inference}
 \begin{defn}
-Let a language $\mathcal{L}$ be given by sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$ and a language $\mathcal{L}'$ given by sets $\mathcal{C}'$, $\mathcal{R}'$, $\mathcal{F}'$.
-If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$ we say that $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$, $\mathcal{L}'$ is a superlanguage of $\mathcal{L}$ and denote the relation between the languages by $\mathcal{L} \subseteq \mathcal{L}'$.
+Fix languages $L$, $L'$ such that $L \subseteq L'$. We say that $L$ is \emph{a sublanguage} of $L'$, $L'$ is \emph{a superlanguage} of $L$.
 \end{defn}
 
+\begin{exmp}
+Let a language $L$ be given by its signature $\mathcal{L}$=$\mathcal{C} \union \mathcal{R} \union \mathcal{F}$ and a language $L'$ by its signature $\mathcal{L}'=\mathcal{C}' \union \mathcal{R}' \union \mathcal{F}'$.
+If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$, then $L \subseteq L'$. $L$ is a sublanguage of $L'$, $L'$ is a superlanguage of $L$.
+\end{exmp}
+
 \begin{defn}
-Given two languages $\mathcal{L}_o$ called an observational language, $\mathcal{L}_h$ called a hypothesis language, a \emph{language of enquiry} $\mathcal{L}$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language.
+Given two languages $L_o$ called \emph{an observational language}, $L_h$ called a \emph{hypothesis language}, \emph{a language of enquiry} $L$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language, i.e. $L_h \union L_o \subseteq L$.
 \end{defn}
 
 \begin{remark}
-The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $\mathcal{L}$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
+The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $L$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
 \end{remark}
 
 \begin{exmp}
 \begin{itemize}
-\item The language of enquiry $\mathcal{L}$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
-\item Let the observational language $\mathcal{L}_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
-\item Let the hypothesis language $\mathcal{L}_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
-\item $\mathcal{L}_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
+\item The language of enquiry $L$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
+\item Let the observational language $L_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
+\item Let the hypothesis language $L_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
+\item $L_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
 \end{itemize}
 \end{exmp}
 
+\subsection{Language bias}
 \begin{defn}
-Given a language $\mathcal{L}$, the \emph{language bias} is a property (a boolean valued function) defined on all elements of the sets $\mathcal{C}$, $\mathcal{R}$, $\mathcal{F}$. For example, given a language of enquiry $\mathcal{L}$, its hypothesis sublanguage $\mathcal{L}_h$, if the property $H$ satisfies $\mathcal{C}_h=\{c \in \mathcal{C} | H(c)\}$, $\mathcal{R}_h=\{R \in \mathcal{R} | H(R)\}$, $\mathcal{F}_h=\{f \in \mathcal{F} | H(f)\}$ then we say $H$ is a language bias of the hypothetical language $\mathcal{L}_h$ in its superlanguage of enquiry $\mathcal{L}$.
+Given a language $L$, the \emph{language bias} is a property (a boolean valued function) $P$ defined on all words of $L$.
 \end{defn}
-TODO: Correct: the language bias is a restriction to a hypotheses space not to the language. A better term would be search space bias.
 
 \begin{exmp}
-Let $P(ContainsSugar)=false$ and $true$ otherwise. $P$ is the language bias of $\mathcal{L}_h$ in $\mathcal{L}$.
+Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
 \end{exmp}
+
+\begin{exmp}
+Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
+\end{exmp}
+
+\subsection{Model theory}
+
+\begin{defn}
+A model is TODO
+\end{defn}
 
 \begin{defn}
 The class of all $\mathcal{L}$-structures of a language of enquiry $\mathcal{L}$ are called the \emph{hypothetical models}, an $\mathcal{L}$-structure is a model of $\mathcal{L}$. For every language of enquiry $\mathcal{L}$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
@@ -250,7 +268,12 @@ Toplog violates the properties in our first definition of an ILP system:
 \begin{itemize}
 \item only what is defined by mode declarations can be in theory,
 \item theory can contain only one clause,
-\item only one head clause definable with mode declarations unlike two clauses :-modeh(woman(+person)). :-modeh(man(+person)).
+\item only one head clause definable with mode declarations unlike two clauses
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeh(man(+person)).
+\end{lstlisting}
+
 \item restrictions on the top theory related to $NT$ (non-terminals), $B$, $E$; what literals can occur where. Details in TopLog: ILP Using a Logic Program Declarative Bias by Muggleton etal.
 \end{itemize}
 \item a produced theory need not be consistent with the observations: given observations $human(susan)$ and $human(jack)$ a final theory can contain the hypothesis $woman(X) :- human(X)$. The accuracy of a theory is computed, a score function allows a degree of inaccuracy.
@@ -344,7 +367,9 @@ What are objects and arrows?
 Often ILP systems are complete as a result of using a strong bias rather than a sophisticated induction system.
 \section{Generalization}
 \subsection{Incoherence of the generalization}
-Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x) \iff x$ is even. By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory. Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
+Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
+By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory.
+Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
 \subsection{Consequences of the generalization}
 1. A theory $T_g$ with a general statement $\forall x.P(x)$ entails more statements $P(a_i)$ then a theory $T$ with $\Pi_0$ statements $P(a_1), ..., P(a_n)$. Therefore $\#M(T_g) \leq \#M(T)$.
 2. 
