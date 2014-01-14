@@ -110,7 +110,12 @@ We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations
 \end{defn}
 
 \begin{defn}
-The class of all $\mathcal{L}$-structures of a language of enquiry $\mathcal{L}$ are called the \emph{hypothetical models}, an $\mathcal{L}$-structure is a model of $\mathcal{L}$. For every language of enquiry $\mathcal{L}$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
+\emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, O, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $O:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
+$\forall \phi \in L_o. \mathcal{M} \models \phi \iff O(\phi)=true$.
+\end{defn}
+
+\begin{defn}
+For every language of enquiry $L$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
 \end{defn}
 
 \begin{exmp}
