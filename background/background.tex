@@ -168,23 +168,30 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 \end{note}
 
 \begin{defn}
-\emph{A hypothesis space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
+\emph{A hypotheses space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
 \end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
-Statement: Given a language of enquiry $\mathcal{L}$, find the reality $\mathcal{M}$.
+Statement: Given an environment oracle $O$ of an environment $\mathcal{E}=\langle L, L_o, O, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
-We do not consider the situation in which we may desire to learn approximate models of the reality. In general, depending on our language of enquiry, the reality may not exist, however our definition considers only the languages of enquiry with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
+We do not consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
 
 \subsection{Incremental problem of scientific discovery}
 We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into the account that some questions may be found more efficiently than others.
 
-Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over hypothetical models of a language of enquiry $\mathcal{L}$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
+Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Definition of a problem of an induction}
-A problem of induction is a functional problem whose input is a pentuple $P=\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$ where $\mathcal{L}$ is a language of enquiry with its sublanguages $\mathcal{L}_o$, $\mathcal{L}_h$, observations $O$ and the background knowledge $B$.
+A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$.
 
-Define an equivalence relation over the set (called the search space) $H$ of the sets of the $\mathcal{L}$-formulas: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $\mathcal{L}$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution  to a problem of induction (the output) is the representative $\Sigma$ called an induced theory from the background knowledge $B$ and the observations $O$.
+Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $L$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution  to a problem of induction (the output) is the representative $\Sigma$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
+
+\begin{note}
+A Kolmogorov complexity $K$ can be thought of as a minimul description length with respect to the description language.
+\end{note}
+\begin{exmp}
+Fix a description language to be a language of regular expressions. Let $L_1$ be a regular language given by its shortest description $0000000000$, $L_2$ given by its shortest description $10*$. Then $K(L_1)=10<K(L_2)=3$.
+\end{exmp}
 
 \subsection{Definition of a scientific method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
@@ -202,28 +209,26 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 5. Increment $i$ and start from step 1 again.
 
 \subsection{Definition of an ILP problem}
-Inductive logic programming problem is a problem of an induction where the language of enquiry $\mathcal{L}$ is the logic programming language (e.g. Prolog), the background knowledge and induced theory are finite.
+Inductive logic programming problem is a problem of an induction where the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
 
 In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. The division is conceptually important as the clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
 
-Note: A constructed $\mathcal{L}$-formula in Prolog is a definite clause. 
-
 \subsection{Definition of an ILP system}
-An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $\mathcal{L}$ is the logic programming language, the background theory $B$ and induced theories of $H$ are finite.
+An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
 
 \subsection{Definition of a correct ILP system}
 An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
 
 \subsection{Examples of ILP systems}
-1. $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \to \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
+1. $f:\{ \langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle : O \subseteq L_o, B \subseteq L \} \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
 
-2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity.
+2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity, but it returns the theory with the best score according to its score function.
 
 \subsection{Non-determinism, uncertainity, algorithm}
 
 Since the Kolmogorov complexity is uncomputable no computable ILP system is correct. To develop a theory useful in real applications:
 
-1. we need to consider approximations to the Kolmogorov complexity (which are computable) or allow that the induced theory $\Sigma$ is at most $p\%$ more complex from the simpliest induced theory.
+1. we need to consider computable approximations to the Kolmogorov complexity or allow that the induced theory $\Sigma$ is at most $p\%$ more complex from the simpliest induced theory.
 
 2. allow that the induced theory $\Sigma$ found may not have exactly the models that are the models of $B \union O$. We need to think of some acceptable probability error $\epsilon>0$ where $\mu(M(\Sigma))-\mu(M(B \union O)) = \mu(M(\Sigma)  \triangle  M(B \union O)) < \epsilon$.
 
@@ -239,17 +244,19 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Mode declaration bias. Restricting the search space to the clauses whose head atoms are defined by the head mode declarations $M_h$ and body atoms are defined by the body mode declarations $M_b$.
 TODO: more precise.
-\item Solo-generalization bias. The hypothesis space is restricted to the generalization of a single example. Reference: Muggleton etal, MC-Toplog.
+\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. Reference: Muggleton etal, MC-Toplog.
 \item Negation on failure bias. The lack of an observation $example(x)$
 causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
-\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:$Search space$ \to \mathbb{R}$.
+\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:\mathcal{H} \to \mathbb{R}$.
 \end{itemize}
+
+\iffalse
 \subsection{Progol}
 \begin{itemize}
 \item Inverse Entailment,
 \item a bias provided by mode declaration,
-
 \end{itemize}
+\fi
 
 \subsection{Toplog}
 \begin{defn}
@@ -300,19 +307,21 @@ Toplog violates the properties in our first definition of an ILP system:
 \item Correctness: $\top$DTD algorithm returns all candidates hypotheses $H$ satisfying $B \wedge H \models e$ where $e \in E^+$ and the hypothesis space is restricted by the $\top$.
 \end{itemize}
 
+\iffalse
 \subsection{ProGolem}
 \begin{itemize}
 \item Inverse Entailment,
 \item co-generalization, 
 \end{itemize}
+\fi
 
 \subsection{Imparo}
 reference: Kimber, induction on failure.
 \begin{defn}
-A connected theory $T$ for a ground Horn clause $E$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
-(i) $B \union T_1^+ \models E^+$,
-(ii) $\forall i \in \{1, ..., n-1\}. B \union E^- \union T_{i+1}^+ \models T_i^-$,
-(iii) $B \union E^- \models T_n^-$,
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
 (iv) $B \union T \not\models \square$.
 
 \end{defn}
@@ -346,9 +355,11 @@ Algorithm:
 TODO: an algorithm for a connected theory generation.
 
 \subsection{Metagol}
-Bias:
-Algorithm:
-Violations:
+TODO
+
+%Bias:
+%Algorithm:
+%Violations:
 
 \subsection{Comparison of biases in ILP systems}
 $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
@@ -357,15 +368,19 @@ $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \math
 
 \chapter{Problems in ILP}
 
+\iffalse
 \chapter{Learning the reality}
 It is important to understand how powerful our ILP systems are - what models they are capable of learning and what models they are never going to learn from the given data.
 \section{Philosophical discussion}
 In order to learn the reality, do we want to induce questions or theories of the models of the observations and the background knowledge? We could use all the observations to reason about the world, but the observations may be too numerous, hence a more compact theory axiomatization would be useful.
 Why do we ask a question $Q$? That is so that we would find out what observation we should make. It is in the case that an environment oracle is available.
+\fi
 \section{Problems of research in ILP}
-1. No clear objective of research. Note: Maybe there is no objective for constructing an ILP system as there is no objective for constructing a group. But is of our interest is the classification of the groups and learning general patterns about withing Group theory.
-2. Philosophical foundations of the field, but no mathematical foundations, no axioms for the theory of inductive logic programming. No model of an ILP system to reason about.
-3. No means of mutual comparison of ILP systems.
+1. No clear objective of research. There is no objective for constructing an ILP system as there is no objective for constructing a group. But it is of our interest to classify the groups and learning general patterns within Group Theory.
+2. Philosophical foundations on the induction are not complete. Stove [TODO reference] resolves some questions on the problem of induction, however the solution is not universaly accepted.
+3. No mathematical foundations, no axioms for the theory of inductive logic programming. No model of an ILP system to reason about.
+4. No means of mutual comparison of ILP systems.
+\iffalse
 \section{Mathematical Foundations of ILP}
 We would like to describe an ILP system with the axioms in order to study ILP systems with the mathematical rigour, to make logic statements about such systems.
 I would like to have mappings (e.g. homomorphisms) between these ILP systems so that I may reason about the sub-ILP-systems. It seems Category theory to help me with the foundations. The class of the ILP systems is a category.
@@ -379,19 +394,23 @@ What are objects and arrows?
 \subsection{}
 \section{Completeness of ILP systems}
 Often ILP systems are complete as a result of using a strong bias rather than a sophisticated induction system.
+\fi
 \section{Generalization}
 \subsection{Incoherence of the generalization}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
-By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory.
+By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory. [TODO: reference Sawin \& Demski]
 Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
+\iffalse
 \subsection{Consequences of the generalization}
 1. A theory $T_g$ with a general statement $\forall x.P(x)$ entails more statements $P(a_i)$ then a theory $T$ with $\Pi_0$ statements $P(a_1), ..., P(a_n)$. Therefore $\#M(T_g) \leq \#M(T)$.
 2. 
+\fi
 \subsection{The reasons to generalize}
 1. A general statement may be a more compact representation than specific multiple statements.
 2. A general theory $T_g$ entailing some of the statements in a theory $T$ and contradicting other statements in a theory $T$ (usually fewer) is an approximation of a theory $T$. A precision is the percentage of the models of $T_g$ that are models of $T$. A recall is the percentage of the models of $T$ that are models of $T_g$. An approximated theory may be simpler to reason about and to represent.
-3. 
+\iffalse
 \subsection{How do the models of a theory and their number change during generalization and specialization?}
+\fi
 \section{The role of a language in learning the models}
 Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
 By extending the language we can distinguish the models further. The problem of the predicate invention is to invent a predicate so that the right distinction between the models is made based on the language.
@@ -403,11 +422,13 @@ Questions:
 5. Is there a language for which the task of learning the equivalence class of the reality is undecidable?
 6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
 7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
-8. 
+\iffalse
 \section{Models with an empty language}
+\fi
 
+\iffalse
 \section{Counting the number of the models of monadic theories}
-Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
+Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{•}l{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
 \begin{defn}
 A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic.
 \end{defn}
@@ -422,6 +443,7 @@ Let $\mathcal{L}$ be the language with countably many constant symbols and $m$ u
 \end{remark}
 \subsection{Asking an environment oracle a question}
 \subsection{}
+
 \section{Learning the theories from the probabilistic oracle}
 The correctness of our observations may be distributed over the probability distribution of the environment.
 \section{Approximations to learning}
@@ -429,3 +451,4 @@ The correctness of our observations may be distributed over the probability dist
 \section{Predicate Invention}
 Consider the language $\mathcal{L}=\{father\}$ with a binary predicate symbol. A predicate invention is a problem of adding to the language a predicate $grandfather$ and an axiom to all the theories: $\forall x. \forall y. \forall z. father(x,y) \wedge father(y,z) \implies grandfather(x,z)$.
 TODO: Is that right? In that case $grandfather$ is definable in terms of $father$ and therefore redundant.
+\fi
