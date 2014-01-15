@@ -1,9 +1,4 @@
 \begin{thebibliography}{99}
-\bibitem{marker2002}
-  Marker David
-  \emph{\LaTeX: Model Theory: An Introduction}.
-  Springer-Verlag,
-  2002.
 \bibitem{cheng1997}
     Shan-Hwei Nienhuys-Cheng,
     Ronald de Wolf
@@ -32,6 +27,13 @@
     \emph{\LaTeX: Induction on failure: learning connected horn theories}
     Springer,
     2009.
+    
+\bibitem{marker2002}
+  Marker David
+  \emph{\LaTeX: Model Theory: An Introduction}.
+  Springer-Verlag,
+  2002.
+
     
 \bibitem{muggleton1995}
     Stephen Muggleton
