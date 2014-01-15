@@ -56,6 +56,10 @@ We will often talk about the language $L$ by referring to its signature $\mathca
 The language $\mathcal{L}_{EST}$ of elementary set theory is given by one constant symbol called an empty set, $\mathcal{C}=\{\emptyset\}$, one relation symbol called a set membership $\mathcal{R}=\{\in\}$ with a positive integer (arity) $n_{\in}=2$. The set of function symbols $\mathcal{F}$ are the set operations of a union, an intersection, each with an arity $2$.
 \end{exmp}
 
+\begin{defn}
+Given a language $L$, $\phi$ is an $L$-formula iff $\phi \in L$.
+\end{defn}
+
 \subsection{Languages in the theory of inductive inference}
 \begin{defn}
 Fix languages $L$, $L'$ such that $L \subseteq L'$. We say that $L$ is \emph{a sublanguage} of $L'$, $L'$ is \emph{a superlanguage} of $L$.
@@ -106,7 +110,11 @@ An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the
 \item a set $\mathcal{R}^{\mathcal{M}} \subseteq M^{n_R}$ for each $R \in \mathcal{R}$;
 \item an element $c^\mathcal{M} \in M$ for each $c \in C$.
 \end{enumerate}
-We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$. 
+We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$.
+\end{defn}
+
+\begin{defn}
+Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $\mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
 \end{defn}
 
 \begin{defn}
@@ -114,28 +122,22 @@ We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations
 $\forall \phi \in L_o. \mathcal{M} \models \phi \iff O(\phi)=true$.
 \end{defn}
 
-\begin{defn}
-For every language of enquiry $L$ there is exactly one $\mathcal{L}$-structure (model) $\mathcal{M}$ that is called the \emph{reality} of $\mathcal{L}$.
-\end{defn}
-
 \begin{exmp}
 \begin{itemize}
-\item In England, the reality $\mathcal{M}_E$ is a model of the sentences\\ $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
+\item In an environment England, the reality $\mathcal{M}_E$ is a model of the sentences\\ $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
 \item In India, the reality $\mathcal{M}_I$ is a model of the sentences\\ $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
-\item Both $\mathcal{M}_E$, $\mathcal{M}_I$ are hypothetical models of $\mathcal{L}$.
+\item Both $\mathcal{M}_E$, $\mathcal{M}_I$ are models of $L$.
+\item $\mathcal{E}_E=\langle L, L_o, O_E, \mathcal{M}_E \rangle$ and
+$\mathcal{E}_I=\langle L_, L_o, O_I, \mathcal{E}_I \rangle$ are two environments distinguished by their reality, consequently by their environment oracle function as well.
 \end{itemize}
 \end{exmp}
 
 \begin{remark}
-In generality one may develop a theory that assumes existence of multiple or none model of enquiry, this may be useful when the language of enquiry has a limited expressivity as demonstrated later.
+In generality one may develop a theory in which an environment may have multiple or none realities and an environment oracle returns a probability of $\phi$ being true in a possible reality or randomly chooses a reality $\mathcal{M}$ between the realities, then acts as an environment oracle with a single reality $\mathcal{M}$. This may be useful when the language of enquiry has a limited expressivity as demonstrated later.
 \end{remark}
 
-\begin{notation}
-Given a set of $\mathcal{L}$-formulas $\Sigma$, we denote $M(\Sigma)$ to be the class of hypothetical models of $\Sigma$.
-\end{notation}
-
 \begin{defn}
-The set of \emph{observations} $O$ is any set of $\mathcal{L}_o$-formulas.
+The set of \emph{observations} $O$ is any set of $L_o$-formulas.
 \end{defn}
 
 \begin{exmp}
@@ -149,24 +151,24 @@ IsWhite(milk)\}$ is the set of observations.
 
 \begin{remark}
 \begin{itemize}
-\item The language of enquiry $\mathcal{L}$ is not powerful enough to express $O_{world}=\{\neg TastesHot(milk) \land InEngland(milk), TastesHot(milk) \land InIndia(milk)\}$
- as it does not have predicate symbols $InEngland$ and $InIndia$.
+\item The language of enquiry $L$ is not powerful enough to express $O_{world}=\{\neg TastesHot(milk) \land InEngland(milk), TastesHot(milk) \land InIndia(milk)\}$
+ as it does not have predicate symbols $InEngland$ and $InIndia$ in its signature $\mathcal{L}$.
 \item The inconsistency in the observations implies that there is no $\mathcal{L}$-structure $\mathcal{M}$ of $O_{world}$.
-\item One of the central problems in ILP is the predicate invention - adding symbols $InEngland$ and $InIndia$ to the language of enquiry $\mathcal{L}$.
+\item One of the central problems in ILP is the predicate invention - adding symbols $InEngland$ and $InIndia$ to the signature $\mathcal{L}$ of the language of enquiry.
 \end{itemize}
 \end{remark}
 
 \begin{defn}
-The \emph{background knowledge} (or current induced theory) is a set $B$ of formulas in a hypothesis language $\mathcal{L}_h$.
+The \emph{background knowledge} or a current induced theory is a set $B$ of formulas in a hypothesis language $L_h$.
 \end{defn}
 
 \begin{note}
-Given a set of observations $O$, an $\mathcal{L}$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$.
+Given a set of observations $O$, an $L$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$,
+$\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{\neg Q\}$.
 \end{note}
 
 \begin{defn}
-A hypothesis space $\mathcal{H}$ is the space of all possible hypotheses in the search space. A set of hypotheses is denoted $H$, one hypothesis denoted $h$. Note $h \in H \subseteq \mathcal{H}$.
-TODO: rename to be consistent with other conventions. A hypothesis should be $H$ not $h$.
+\emph{A hypothesis space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
 \end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
