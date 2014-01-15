@@ -113,22 +113,26 @@ An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the
 We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$.
 \end{defn}
 
+\begin{remark}
+An $L$-structure is an $\mathcal{L}$-structure iff $\mathcal{L}$ is a signature of a language $L$.
+\end{remark}
+
 \begin{defn}
 Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $\mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
 \end{defn}
 
 \begin{defn}
-\emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, O, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $O:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
-$\forall \phi \in L_o. \mathcal{M} \models \phi \iff O(\phi)=true$.
+\emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
+$\forall \phi \in L_o. \mathcal{M} \models \phi \iff \mathtt{O}(\phi)=true$.
 \end{defn}
 
 \begin{exmp}
 \begin{itemize}
 \item In an environment England, the reality $\mathcal{M}_E$ is a model of the sentences\\ $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
 \item In India, the reality $\mathcal{M}_I$ is a model of the sentences\\ $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
-\item Both $\mathcal{M}_E$, $\mathcal{M}_I$ are models of $L$.
-\item $\mathcal{E}_E=\langle L, L_o, O_E, \mathcal{M}_E \rangle$ and
-$\mathcal{E}_I=\langle L_, L_o, O_I, \mathcal{E}_I \rangle$ are two environments distinguished by their reality, consequently by their environment oracle function as well.
+\item Both $\mathcal{M}_E$, $\mathcal{•}l{M}_I$ are models of $L$.
+\item $\mathcal{E}_E=\langle L, L_o, \mathtt{O}_E, \mathcal{M}_E \rangle$ and
+$\mathcal{E}_I=\langle L_, L_o, \mathtt{O}_I, \mathcal{E}_I \rangle$ are two environments distinguished by their reality, consequently by their environment oracle function as well.
 \end{itemize}
 \end{exmp}
 
@@ -159,8 +163,12 @@ IsWhite(milk)\}$ is the set of observations.
 \end{remark}
 
 \begin{defn}
-The \emph{background knowledge} or a current induced theory is a set $B$ of formulas in a hypothesis language $L_h$.
+The \emph{background knowledge} or a current induced theory is a set $B$ of formulas in the language of enquiry $L$.
 \end{defn}
+
+\begin{remark}
+In the definition \ref{scientific_method} of a scientific method, a special case of the background knowledge is considered where $B$ can consist only the previously made hypotheses, thus $B \subseteq L_h$.
+\end{remark}
 
 \begin{note}
 Given a set of observations $O$, an $L$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$,
@@ -172,7 +180,7 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 \end{defn}
 
 \subsection{Ultimate problem of scientific discovery}
-Statement: Given an environment oracle $O$ of an environment $\mathcal{E}=\langle L, L_o, O, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
+Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
 We do not consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
 
@@ -194,6 +202,7 @@ Fix a description language to be a language of regular expressions. Let $L_1$ be
 \end{exmp}
 
 \subsection{Definition of a scientific method}
+\label{scientific_method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
 
 0. Start with the emty theory $B_i=\emptyset$, set $i=0$.
@@ -202,7 +211,7 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 
 2. Solve an incremental problem of scientific discovery by finding a question $Q$ given the current induced theory $B_i$.
 
-3. Make an observation - ask an environment oracle a question $Q$.
+3. Make an observation - ask an environment oracle $\mathtt{O}$ a question $Q$.
 
 4. Induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
 
@@ -214,7 +223,7 @@ Inductive logic programming problem is a problem of an induction where the langu
 In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. The division is conceptually important as the clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
 
 \subsection{Definition of an ILP system}
-An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
+An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
 
 \subsection{Definition of a correct ILP system}
 An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
