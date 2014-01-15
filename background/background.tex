@@ -251,8 +251,7 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \begin{itemize}
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
-\item Mode declaration bias. Restricting the search space to the clauses whose head atoms are defined by the head mode declarations $M_h$ and body atoms are defined by the body mode declarations $M_b$.
-TODO: more precise.
+\item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
 \item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. Reference: Muggleton etal, MC-Toplog.
 \item Negation on failure bias. The lack of an observation $example(x)$
 causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
