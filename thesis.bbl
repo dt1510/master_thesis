@@ -2,21 +2,21 @@
 \bibitem{cheng1997}
     Shan-Hwei Nienhuys-Cheng,
     Ronald de Wolf
-    \emph{\LaTeX: Foundations of Inductive Logic Programming}.
+    \emph{Foundations of Inductive Logic Programming}.
     Springer,
     1997.
     
 \bibitem{li1997}
     Ming Li,
     Paul Vitanyi
-    \emph{\LaTeX: An introduction to Kolmogorov complexity and its applications}.
+    \emph{An introduction to Kolmogorov complexity and its applications}.
     Springer,
     Second Edition,
     1997.
 
 \bibitem{stove1986}
     David Charles Stove
-    \emph{\LaTeX: The Rationality of Induction}.
+    \emph{The Rationality of Induction}.
     Clarendon Press,
     1986.
     
@@ -24,20 +24,20 @@
     Tim Kimber,
     Krysia Broda,
     Alessandra Russo
-    \emph{\LaTeX: Induction on failure: learning connected horn theories}
+    \emph{Induction on failure: learning connected horn theories}.
     Springer,
     2009.
     
 \bibitem{marker2002}
   Marker David
-  \emph{\LaTeX: Model Theory: An Introduction}.
+  \emph{Model Theory: An Introduction}.
   Springer-Verlag,
   2002.
 
     
 \bibitem{muggleton1995}
     Stephen Muggleton
-    \emph{\LaTeX: Inverse entailment and Progol}
+    \emph{Inverse entailment and Progol}.
     Springer,
     1995.
     
@@ -45,7 +45,7 @@
     Stephen Muggleton,
     Jose Santos,
     Alizera Tamaddoni-Nezhad
-    \emph{\LaTeX: Toplog: ILP using a logic program declarative bias}
+    \emph{Toplog: ILP using a logic program declarative bias}.
     Springer,
     2008.
 
@@ -53,8 +53,15 @@
     Stephen Muggleton,
     Dianhuan Lin,
     Alizera Tamaddoni-Nezhad
-    \emph{\LaTeX: MC-Toplog: complete multi-clause learning guided by a top theory}
+    \emph{MC-Toplog: complete multi-clause learning guided by a top theory}.
     Springer,
     2012.
+    
+\bibitem{sawin2013}
+    Will Sawin,
+    Abram Demski
+    \emph{Computable probability distributions which converge on $\Pi_1$ will disbelieve true $\Pi_2$}.
+    Unpublished, Machine Intelligence Research Institute,
+    2013.
 
 \end{thebibliography}

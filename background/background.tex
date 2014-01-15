@@ -247,11 +247,16 @@ TODO: clarify.
 \section{Inductive Logic Programming systems}
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
-\subsection{Biases in ILP systems}
+\subsection{Languages biases in ILP systems}
+\subsubsection{Syntactic biases}
 \begin{itemize}
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
-\item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
+\end{itemize}
+
+\subsubsection{Semantic biases}
+\begin{itemize}
+\item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012}
 TODO: provide a formula of the restriction.
 \item Solo-explanation bias. Every clause $h$ in a hypothesis $H$ has to explain at least \emph{one} example.
@@ -260,6 +265,8 @@ $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
 $B \union H \models E \iff B \union \neg H \models \neg E$.
 \item Negation on failure bias. The lack of an observation $example(x)$
 causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
+
+\subsubsection{Heuristic biases}
 \item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:\mathcal{H} \to \mathbb{R}$.
 \item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
 \end{itemize}
@@ -293,6 +300,7 @@ An ILP system implementation Toplog is based on the theoretical framework Top Di
 \end{itemize}
 The algorithm used to construct the final theory uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
+\item construct the top theory $\top$,
 \item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
 \item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
 \item final theory construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
@@ -414,7 +422,7 @@ Often ILP systems are complete as a result of using a strong bias rather than a 
 \section{Generalization}
 \subsection{Incoherence of the generalization}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
-By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory. [TODO: reference Sawin \& Demski]
+By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013}.
 Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
 \iffalse
 \subsection{Consequences of the generalization}
