@@ -18,4 +18,27 @@
     Springer,
     Second Edition,
     1997.
+
+\bibitem{stove1986}
+    David Charles Stove
+    \emph{\LaTeX: The Rationality of Induction}.
+    Clarendon Press,
+    1986.
+    
+\bibitem{kimber2009}
+    Tim Kimber,
+    Krysia Broda,
+    Alessandra Russo
+    \emph{\LaTeX: Induction on failure: learning connected horn theories}
+    Springer,
+    2009.
+    
+\bibitem{muggleton2008}
+    Stephen Muggleton,
+    Jose Santos,
+    Alizera Tamaddoni-Nezhad
+    \emph{\LaTeX: Toplog: ILP using a logic program declarative bias}
+    Springer,
+    2008.
+
 \end{thebibliography}

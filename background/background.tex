@@ -267,7 +267,7 @@ causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
 \end{itemize}
 \fi
 
-\subsection{Toplog}
+\subsection{Toplog}\cite{muggleton2008}
 \begin{defn}
 $B$ a Horn theory, $E$ a Horn clause. The bottom clause of $B$ and $E$ is $\bot(B,E)$=$\vee\{L | L $ a ground literal, $B \union {\neg E} \models \neg L\}$.
 \end{defn}
@@ -324,8 +324,7 @@ Toplog violates the properties in our first definition of an ILP system:
 \end{itemize}
 \fi
 
-\subsection{Imparo}
-reference: Kimber, induction on failure.
+\subsection{Imparo}\cite{kimber2009}
 \begin{defn}
 A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
 (i) $B \union T_1^+ \models e_{head}$,
@@ -386,8 +385,11 @@ Why do we ask a question $Q$? That is so that we would find out what observation
 \fi
 \section{Problems of research in ILP}
 1. No clear objective of research. There is no objective for constructing an ILP system as there is no objective for constructing a group. But it is of our interest to classify the groups and learning general patterns within Group Theory.
-2. Philosophical foundations on the induction are not complete. Stove [TODO reference] resolves some questions on the problem of induction, however the solution is not universaly accepted.
+
+2. Philosophical foundations on the induction are not complete. Stove \cite{stove1986} resolves some questions on the problem of induction, however the solution is not universaly accepted.
+
 3. No mathematical foundations, no axioms for the theory of inductive logic programming. No model of an ILP system to reason about.
+
 4. No means of mutual comparison of ILP systems.
 \iffalse
 \section{Mathematical Foundations of ILP}
