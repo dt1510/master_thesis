@@ -252,10 +252,16 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
-\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. Reference: Muggleton etal, MC-Toplog.
+\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012}
+TODO: provide a formula of the restriction.
+\item Solo-explanation bias. Every clause $h$ in a hypothesis $H$ has to explain at least \emph{one} example.
+$\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
+\item Inverse entailment bias.
+$B \union H \models E \iff B \union \neg H \models \neg E$.
 \item Negation on failure bias. The lack of an observation $example(x)$
 causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
 \item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:\mathcal{H} \to \mathbb{R}$.
+\item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
 \end{itemize}
 
 \iffalse
@@ -283,7 +289,7 @@ An ILP system implementation Toplog is based on the theoretical framework Top Di
 \item a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models h$
 \item restriction on the predicates in the head/body of a hypothesis clause,
 \item every constructed hypothesis must be subsumed by a top theory $\top$. If $H$ is a set of candidate hypotheses, then: $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$.
-\item inverse entailment bias $B \union H \models E \iff B \union \neg H \models \neg E$.
+\item inverse entailment bias.
 \end{itemize}
 The algorithm used to construct the final theory uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
@@ -335,7 +341,7 @@ A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a s
 Bias:
 \begin{itemize}
 \item Horn theory bias,
-\item Bottom theory bias, $\bot=$ a connected theory for $B$ and $E$,
+\item Bottom theory bias, $\bot=$ a connected theory for $B$ and $e$,
 \item Solo-generalization bias,
 \item Score-function bias,
 \item Mode declaration bias,
