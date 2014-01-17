@@ -87,19 +87,6 @@ The language of enquiry is a model-theoretic language by our definition. We will
 \end{itemize}
 \end{exmp}
 
-\subsection{Language bias}
-\begin{defn}
-Given a language $L$, the \emph{language bias} is a property (a boolean valued function) $P$ defined on all words of $L$.
-\end{defn}
-
-\begin{exmp}
-Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
-\end{exmp}
-
-\begin{exmp}
-Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
-\end{exmp}
-
 \subsection{Model theory\cite{marker2002}}
 
 \begin{defn}
@@ -244,10 +231,19 @@ Since the Kolmogorov complexity is uncomputable no computable ILP system is corr
 3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
 TODO: clarify.
 
-\section{Inductive Logic Programming systems}
-We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+\section{Language bias}
+\begin{defn}
+Given a language $L$, the \emph{language bias} is a property (a boolean valued function) $P$ defined on all words of $L$.
+\end{defn}
 
-\subsection{Languages biases in ILP systems}
+\begin{exmp}
+Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
+\end{exmp}
+
+\begin{exmp}
+Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
+\end{exmp}
+
 \subsubsection{Syntactic biases}
 \begin{itemize}
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
@@ -257,6 +253,8 @@ We give an overview of ILP systems taking different approaches to an ILP problem
 \subsubsection{Semantic biases}
 \begin{itemize}
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
+\item Bottom theory subsumption bias. Every hypothesis must subsume the bottom theory.
+\item Top theory subsumption bias. Every hypothesis must be subsumed by the top theory.
 \item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012}
 TODO: provide a formula of the restriction.
 \item Solo-explanation bias. Every clause $h$ in a hypothesis $H$ has to explain at least \emph{one} example.
@@ -270,6 +268,9 @@ causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
 \item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:\mathcal{H} \to \mathbb{R}$.
 \item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
 \end{itemize}
+
+\section{Inductive Logic Programming systems}
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
 \iffalse
 \subsection{Progol}
@@ -397,7 +398,7 @@ In order to learn the reality, do we want to induce questions or theories of the
 Why do we ask a question $Q$? That is so that we would find out what observation we should make. It is in the case that an environment oracle is available.
 \fi
 \section{Problems of research in ILP}
-1. No clear objective of research. There is no objective for constructing an ILP system as there is no objective for constructing a group. But it is of our interest to classify the groups and learning general patterns within Group Theory.
+1. No clear objective of research. The results in the ILP field research consist of new ILP system frameworks, their implementation and philosophical argumentation of their contribution.
 
 2. Philosophical foundations on the induction are not complete. Stove \cite{stove1986} resolves some questions on the problem of induction, however the solution is not universaly accepted.
 
@@ -420,10 +421,10 @@ What are objects and arrows?
 Often ILP systems are complete as a result of using a strong bias rather than a sophisticated induction system.
 \fi
 \section{Generalization}
-\subsection{Incoherence of the generalization}
+\subsection{Incoherence of the generalization - Sawin-Demski paradox}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
 By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013}.
-Therefore limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
+Therefore we limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
 \iffalse
 \subsection{Consequences of the generalization}
 1. A theory $T_g$ with a general statement $\forall x.P(x)$ entails more statements $P(a_i)$ then a theory $T$ with $\Pi_0$ statements $P(a_1), ..., P(a_n)$. Therefore $\#M(T_g) \leq \#M(T)$.
@@ -476,3 +477,7 @@ The correctness of our observations may be distributed over the probability dist
 Consider the language $\mathcal{L}=\{father\}$ with a binary predicate symbol. A predicate invention is a problem of adding to the language a predicate $grandfather$ and an axiom to all the theories: $\forall x. \forall y. \forall z. father(x,y) \wedge father(y,z) \implies grandfather(x,z)$.
 TODO: Is that right? In that case $grandfather$ is definable in terms of $father$ and therefore redundant.
 \fi
+
+\section{Foundations of inductive reasoning}
+Let $A$ be a set of objects on which the observations can be applied, $\mathcal{P}$ be a set of the properties that can be observed on $a \in A$. Then an observation $O$ of an element $a \in A$ is a minimal set of the literals such that
+$\forall P \in \mathcal{P}. P(a) \in O \vee \neg P(a) \in O$.
