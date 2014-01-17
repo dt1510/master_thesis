@@ -244,10 +244,40 @@ Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a
 Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
 \end{exmp}
 
-\subsubsection{Syntactic biases}
+\begin{defn}
+A bias $P$ of the language $L$ is \emph{sufficiently weak} with respect to the theory $T$ iff $P$ is defined on $L$ and there exists an axiomatization $A$ of the theory $T$ such that $\forall \phi. \phi \in T \implies P(\phi)$. If $P$ is not sufficiently weak with respect to the theory $T$ we say that $P$ is \emph{too strong} with respect ot the theory $T$.
+\end{defn}
+
+\begin{defn}
+Let $P_1$, $P_2$ be the biases on the language $L$. $P_1$ is \emph{weaker} than $P_2$ and $P_2$ is \emph{stronger} than $P_1$ denoting $P_1 \le P_2$ iff
+$\forall x \in L. P_2(x) \implies P_1(x)$.
+\end{defn}
+
+\begin{exmp}
+Define the biases $P_k$ for $k \in \mathbb{Z}_{\ge 0}$ by $P_k(\phi)$ iff $\phi$ consists of at most $k$ distinct characters. Let $T$ be the theory of the elementary class of the partial orders. Let $A=\{\phi_1, \phi_2, \phi_3\}$ where
+
+$\phi_1=\forall a. a \le a$,
+
+$\phi_2=\forall a \forall b. a \le b \wedge b \le a \implies a=b$,
+
+$\phi_3=\forall a \forall b. a \le b \wedge b \le c \implies a \le c$.
+
+$A$ is an axiomatization of the theory $T$. Note $\forall \phi \in A. P_8(\phi)$ as every axiom of $A$ consists of less than $8$ distinct characters. Therefore $P_8$ is a sufficiently weak bias of the language $L$ with respect to the theory $T$. However there does not exist an axiomatization of the theory $T$ where every axiom consists of at most $3$ distinct characters, therefore $P_3$ is a too strong bias with respect to the theory $T$. The set of the biases is ordered by their strength:
+$P_0 \le P_1 \le P_2 \le P_3 \le ... \le P_8 \le ...$. Thus $P_3$ is stronger than $P_8$.
+\end{exmp}
+
+\subsection{The problem of the correct bias}
+
+
+\subsection{Syntactic biases}
+\begin{defn}
+A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic.
+\end{defn}
+
 \begin{itemize}
 \item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
 \item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
+\item $k$-adic bias. All formulas in the induced theory are $k$-adic.
 \end{itemize}
 
 \subsubsection{Semantic biases}
@@ -454,9 +484,6 @@ Questions:
 \iffalse
 \section{Counting the number of the models of monadic theories}
 Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{•}l{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
-\begin{defn}
-A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic.
-\end{defn}
 \begin{defn}
 A theory (or a set) $T$ is maximally $k$-adically consistent iff $T$ is consistent and for every formula $\phi$ if $\phi$ is $k$-adic, then $\phi \in T$ or $\neg \phi \in T$.
 \end{defn}
