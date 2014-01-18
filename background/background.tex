@@ -174,6 +174,11 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 \emph{A hypotheses space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
 \end{defn}
 
+\subsection{Approximation and error}
+\begin{defn}
+A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the error measure $\epsilon$ iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to \mathbb{R}$ is a measure over the models.
+\end{defn}
+
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
@@ -185,9 +190,13 @@ We would like to find the reality most efficiently, where the efficiency may be 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Definition of a problem of an induction}
-A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$.
+\subsubsection{A general problem of an induction}
+A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ (meeting certain criteria) called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $T=B \union O$.
 
-Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $B \union O$ with the greatest score $s$. The solution to a problem of induction (the output) is $A$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
+\subsubsection{Axiomatization by score}
+Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $T$ with the greatest score $s$.
+
+\subsection{Approximation by models}
 
 \begin{note}
 A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
