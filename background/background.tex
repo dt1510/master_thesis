@@ -109,6 +109,14 @@ Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \
 \end{defn}
 
 \begin{defn}
+$A$ is an axiomatization of the theory $T$ iff $M(A)=M(T)$.
+\end{defn}
+
+\begin{remark}
+Typically we put further restrictions on the properties of the axiomatization $A$ that do not hold for $T$. E.g. $A$ must have finitely many axioms for $T$ with infinitely many axioms.
+\end{remark}
+
+\begin{defn}
 \emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
 $\forall \phi \in L_o. \mathcal{M} \models \phi \iff \mathtt{O}(\phi)=true$.
 \end{defn}
@@ -179,7 +187,7 @@ Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over 
 \subsection{Definition of a problem of an induction}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$.
 
-Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find a representative of the axiomatization with the least greatest score of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution to a problem of induction (the output) is the representative $\Sigma$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
+Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $B \union O$ with the greatest score $s$. The solution to a problem of induction (the output) is $A$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
 
 \begin{note}
 A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
@@ -202,7 +210,7 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 
 0. Start with the emty theory $B_i=\emptyset$, set $i=0$.
 
-1. If $B_i$ has the only model, then terminate, $B_i$ is a complete axiomatization of the reality of the language of enquiry.
+1. If $B_i$ has the only model, then terminate, $B_i$ is a complete axiomatization of the reality of an environment.
 
 2. Solve an incremental problem of scientific discovery by finding a question $Q$ given the current induced theory $B_i$.
 
