@@ -179,7 +179,15 @@ Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over 
 \subsection{Definition of a problem of an induction}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$.
 
-Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff K(\Sigma)=K(\Gamma)$ where $K$ is the Kolmogorov complexity with respect to the description language $L$. Find a representative of the axiomatization with the least Kolmogorov complexity of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution to a problem of induction (the output) is the representative $\Sigma$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
+Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find a representative of the axiomatization with the least greatest score of the theory $\Sigma$ whose elementary class of models are precisely the models of $B \union O$. The solution to a problem of induction (the output) is the representative $\Sigma$ called \emph{an induced theory} from the background knowledge $B$ and the observations $O$.
+
+\begin{note}
+A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
+\end{note}
+
+\begin{exmp}
+A Kolmogorov complexity with respect to the description language $L$ is a score function $K:L \to \mathbb{N}_0 \subseteq \mathbb{R}$.
+\end{exmp}
 
 \begin{note}
 A Kolmogorov complexity $K$ can be thought of as a minimul description length with respect to the description language.
@@ -279,7 +287,7 @@ Let $L$ be the language, $\mathcal{P}$ be the set of all the biases on $L$. Then
 \end{remark}
 
 \subsection{Language bias problems}
-Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of the least Kolmogorov complexity of the theory of the elementary class of the models $\mathcal{M}$ satisfying $\mathcal{M} \models O \union B$ where $O$ is a set of the observations, $B$ is the background knowledge.
+Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of the maximal score $s$ of the theory of the elementary class of the models $\mathcal{M}$ satisfying $\mathcal{M} \models O \union B$ where $O$ is a set of the observations, $B$ is the background knowledge.
 A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if $H=A$. This poses problems:
 1. $\mathcal{H}$ may not be finite,
 2. determining if $\mathcal{M} \models O \union B$ may not be decidable,
