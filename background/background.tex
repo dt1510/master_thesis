@@ -383,11 +383,27 @@ A syntactic bias is computable from the language $L$ alone, no other information
 \end{remark}
 
 \begin{defn}
+$P$ is a \emph{size bound bias} iff there exist numbers $min, max \in \mathbb{Z}$ such that $\forall \phi \in L. P(\phi) \iff min \le size(\phi) \le max$ where $size(\phi)$ is a length of a word $\phi \in L$.
+\end{defn}
+
+\begin{remark}
+ILP systems with a score function involving a minimum compression length have size bound bias since they do not consider hypotheses of size greater than $\#B \union O$.
+\end{remark}
+
+\begin{remark}
+Similarly, with a syntactic bias we could bound the number of the clauses in their conjunction $\phi \in L$ if necessary.
+\end{remark}
+
+\begin{defn}
 A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic. The property of a formula $\phi$ being $k-adic$ is computable from $\phi$ and therefore it is a \emph{$k-adic$ bias}.
 \end{defn}
 
 \begin{defn}
 A formula $\phi$ is a Horn formula iff $\phi$ is a clause with at most one positive literal. The property of a formula $\phi$ being a Horn formula is computable from $\phi$ and therefore it is a \emph{Horn bias}.
+\end{defn}
+
+\begin{defn}
+A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one positive literal. The property of a formula $\phi$ being a definite clause is computable from $\phi$ and therefore it is a \emph{definite clause bias}.
 \end{defn}
 
 The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995}.
@@ -431,9 +447,11 @@ of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 
 \subsubsection{Syntactic biases list}
 \begin{itemize}
-\item Horn bias.
-\item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
+\item Size bound bias.
 \item $k$-adic bias.
+\item Horn bias.
+\item Definite clause bias.
+\item Mode declaration bias.
 \end{itemize}
 
 \subsubsection{Semantic biases}
