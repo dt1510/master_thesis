@@ -350,13 +350,24 @@ $P_0 \subseteq P_1 \subseteq P_2 \subseteq P_3 \subseteq ... \subseteq P_8 \subs
 Let $L$ be the language, $\mathcal{P}$ be the set of all the biases on $L$. Then $\mathcal{P}$ is a lattice ordered by the subset inclusion $\subseteq$ with its join operator the set union $\union$ and its meet operator the set intersection $\cap$.
 \end{remark}
 
+\subsection{Language bias benefits}
+\begin{itemize}
+\item Biases reduce the hypotheses space to focus on the relevant hypotheses,
+\item the problem of finding the hypothesis $H$ can be solved by applying successively a stronger and stronger bias.
+\end{itemize}
+We want our hypothesis to have a specific syntactic form:
+\begin{itemize}
+\item If a hypothesis is a clause with a head $h$ we learn sufficient conditions for $h$ to be implied,
+\item by specifying conditions in a body of a clause of a hypothesis we learn what concepts can be implied,
+\item restricting a head $h$ of an implication $b \implies h$ not to be a disjunction but only a conjuction, we avoid learning the rules implying uncertain facts.
+\end{itemize}
+
 \subsection{Language bias problems}
-Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of the maximal score $s$ of the theory of the elementary class of the models $\mathcal{M}$ satisfying $\mathcal{M} \models O \union B$ where $O$ is a set of the observations, $B$ is the background knowledge.
+Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of $O$ given $B$ of the maximal score $s(A,B,O)$ where $O$ is a set of the observations, $B$ is the background knowledge.
 A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if $H=A$. This poses problems:
 1. $\mathcal{H}$ may not be finite,
-2. determining if $\mathcal{M} \models O \union B$ may not be decidable,
-3. determining if $H=A$ may not be decidable.
-
+2. determining if $H=A$ may not be decidable.
+In order to disect the problem more closesly the score function will need to be given a more specific form.
 
 \subsection{Syntactic biases}
 \begin{defn}
