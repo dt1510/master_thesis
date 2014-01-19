@@ -369,18 +369,79 @@ A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if 
 2. determining if $H=A$ may not be decidable.
 In order to disect the problem more closesly the score function will need to be given a more specific form.
 
+\subsection{Language bias in ILP}
+Different biases may be applied to each of the languages $L, L_o, L_h$. 
+
 \subsection{Syntactic biases}
+
 \begin{defn}
-A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic.
+A bias $P$ on $L$ is syntactic iff there exists a computable function $f:L \to \{0,1\}$ such that $\forall x \in L.P(x) \iff f(x)=1$.
 \end{defn}
 
+\begin{remark}
+A syntactic bias is computable from the language $L$ alone, no other information available on its input.
+\end{remark}
+
+\begin{defn}
+A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic. The property of a formula $\phi$ being $k-adic$ is computable from $\phi$ and therefore it is a \emph{$k-adic$ bias}.
+\end{defn}
+
+\begin{defn}
+A formula $\phi$ is a Horn formula iff $\phi$ is a clause with at most one positive literal. The property of a formula $\phi$ being a Horn formula is computable from $\phi$ and therefore it is a \emph{Horn bias}.
+\end{defn}
+
+The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995}.
+\begin{defn}\cite{muggleton1995}
+A \emph{mode declaration} has either the form
+$modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
+or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A place-marker is either $+type$, $-type$ or $\#type$, where
+type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of $m$
+with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
+\end{defn}
+
+\begin{exmp}
+\cite{muggleton1995}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int)) modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list)) modeb(4,(+int ? \#int))
+\end{lstlisting}
+\end{exmp}
+
+\begin{remark}
+\cite{muggleton1995}
+The recall is used to bound the number of alternative solutions for instantiating
+the atom. For simplicity, we assume in the following that all the modes have the
+recall `*', meaning all solutions. The following defines when a clause is within
+Progol's definite mode language $L$.
+\end{remark}
+
+\begin{defn}
+\cite{muggleton1995}
+\emph{Definite mode language}. Let $C$ be a definite clause with a
+defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \implies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
+1) h is the atom
+of a modeh declaration in $M$ with every place-marker $+type$ and $-type$ replaced by
+variables and every place-marker $\#type$ replaced by a ground term and 2) every
+atom $b_i$ in the body of $C$ is the atom of a modeb declaration in $M$ with every
+place-marker $+type$ and $-type$ replaced by variables and every place-marker $\#type$
+replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is either
+of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
+\end{defn}
+
+\subsubsection{Syntactic biases list}
 \begin{itemize}
-\item Horn theory bias. A theory produced by an ILP system has to consist of Horn clauses.
+\item Horn bias.
 \item Mode declaration bias. Let $M$ be a set of a mode declarations.\cite{muggleton1995} Restrict the search space to the clauses whose head atom is an atom of modeh declaration in $M$, whose body atoms are the atoms of modeb declarations in $M$.
-\item $k$-adic bias. All formulas in the induced theory are $k$-adic.
+\item $k$-adic bias.
 \end{itemize}
 
 \subsubsection{Semantic biases}
+
+\begin{defn}
+A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi)$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
+\end{defn}
+
 \begin{itemize}
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Bottom theory subsumption bias. Every hypothesis must subsume the bottom theory.
@@ -395,7 +456,10 @@ $B \union H \models E \iff B \union \neg H \models \neg E$.
 causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
 
 \subsubsection{Heuristic biases}
-\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the function $s:\mathcal{H} \to \mathbb{R}$.
+\begin{defn}
+A boolean property $P$ is a heuristic bias iff $P$ is computable from $\mathcal{H}, B, O$.
+\end{defn}
+\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the (computable) function $s:\mathcal{H} \to \mathbb{R}$.
 \item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
 \end{itemize}
 
@@ -469,6 +533,7 @@ Toplog violates the properties in our first definition of an ILP system:
 \fi
 
 \subsection{Imparo\cite{kimber2009}}
+Imparo is an ILP system based on a general IoF theoretical framework.
 \begin{defn}
 A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
 (i) $B \union T_1^+ \models e_{head}$,
@@ -479,7 +544,7 @@ A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a s
 \end{defn}
 Bias:
 \begin{itemize}
-\item Horn theory bias,
+\item Horn theory bias (not present in a IoF framework),
 \item Bottom theory bias, $\bot=$ a connected theory for $B$ and $e$,
 \item Solo-generalization bias,
 \item Score-function bias,
