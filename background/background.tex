@@ -116,6 +116,19 @@ $A$ is an axiomatization of the theory $T$ iff $M(A)=M(T)$.
 Typically we put further restrictions on the properties of the axiomatization $A$ that do not hold for $T$. E.g. $A$ must have finitely many axioms for $T$ with infinitely many axioms.
 \end{remark}
 
+\subsubsection{Logics\cite{stanford2010}}
+\begin{defn}
+We will reason about the models in the first-order logic since this is the language of the model theory. However, there are other logics, notably non-monotonic logics that are used in ILP.
+
+A logic satisfies a \emph{monotony} property iff
+if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi$. A logic that satisfies a monotony property is called monotonic, otherwise non-monotonic.
+\end{defn}
+
+\begin{exmp}
+A first-order logic is monotonic.
+\end{exmp}
+
+\subsection{Inductive inference}
 \begin{defn}
 \emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
 $\forall \phi \in L_o. \mathcal{M} \models \phi \iff \mathtt{O}(\phi)=true$.
@@ -179,6 +192,21 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the error measure $\epsilon$ iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to \mathbb{R}$ is a measure over the models.
 \end{defn}
 
+\iffalse
+%There is a problem with the definition that phi not in the theory then not phi assumed to be in the theory.
+\begin{defn}
+\emph{An approximation by a theory}.
+A theory $\Sigma$ approximates a theory $\Gamma$ with a \emph{recall} $r \defeq \mu(\{\phi \in \Gamma:\phi \in \Sigma\})$,
+with a \emph{precision} $p \defeq \mu(\{\phi \in \Sigma:\phi \in \Gamma\})$,
+with an accuracy $a \defeq \mu(\Sigma \cap \Gamma)$
+where $\mu:\Sigma \union \Gamma \to \mathbb{R}$ is a measure.
+\end{defn}
+
+\begin{exmp}
+%Let $\Sigma=\{Milk(cup_1), Milk(cup_1)\}$
+\end{exmp}
+\fi
+
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
@@ -196,7 +224,11 @@ A problem of induction is a functional problem whose input is a pentuple $P=\lan
 \subsubsection{Axiomatization by score}
 Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $T$ with the greatest score $s$.
 
-\subsection{Approximation by models}
+\subsubsection{Approximation by models}
+Find a theory $\Sigma$ that approximates a theory $T$ by model within a given error measure $\epsilon$.
+
+\subsubsection{Axiomatization of an approximation by score}
+Find a theory $A$ that approximates a theory $T$ by model within a given error measure $\epsilon$ that maximizes the score function $s$.
 
 \begin{note}
 A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
@@ -212,6 +244,9 @@ A Kolmogorov complexity $K$ can be thought of as a minimul description length wi
 \begin{exmp}
 Fix a description language to be a language of regular expressions. Let $L_1$ be a regular language given by its shortest description $0000000000$, $L_2$ given by its shortest description $10*$. Then $K(L_1)=10<K(L_2)=3$.
 \end{exmp}
+
+\subsubsection{Theory generalization}
+TODO
 
 \subsection{Definition of a scientific method}
 \label{scientific_method}
@@ -547,6 +582,8 @@ Consider the language $\mathcal{L}=\{father\}$ with a binary predicate symbol. A
 TODO: Is that right? In that case $grandfather$ is definable in terms of $father$ and therefore redundant.
 \fi
 
+\iffalse
 \section{Foundations of inductive reasoning}
 Let $A$ be a set of objects on which the observations can be applied, $\mathcal{P}$ be a set of the properties that can be observed on $a \in A$. Then an observation $O$ of an element $a \in A$ is a minimal set of the literals such that
 $\forall P \in \mathcal{P}. P(a) \in O \vee \neg P(a) \in O$.
+\fi
