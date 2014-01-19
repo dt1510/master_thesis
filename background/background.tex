@@ -88,18 +88,6 @@ The language of enquiry is a model-theoretic language by our definition. We will
 \end{exmp}
 
 \subsection{Model theory\cite{marker2002}}
-\begin{defn}
-A theory $T$ is a conjunction of logical sentences of a set $T$ (an abuse of notation).
-\end{defn}
-
-\begin{exmp}
-$T=\{\forall x. Q(x)\}$ is a theory.
-\end{exmp}
-
-\begin{remark}
-We will reason about the first-order predicate logic theories. This is different from the theories in non-monotonic logics with a negation on failure where $\phi \not\in T \wedge T \not\models \phi \implies T \models \neg\phi$.
-In a first-order predicate logic theory, it is possible to have $\phi$ such that $T \not\models \phi$ and $T \not\models \neg\phi$.
-\end{remark}
 
 \begin{defn}
 An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
@@ -117,7 +105,7 @@ An $L$-structure is an $\mathcal{L}$-structure iff $\mathcal{L}$ is a signature 
 \end{remark}
 
 \begin{defn}
-Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $\mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
+Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
 \end{defn}
 
 \begin{defn}
@@ -128,11 +116,14 @@ $A$ is an axiomatization of the theory $T$ iff $M(A)=M(T)$.
 Typically we put further restrictions on the properties of the axiomatization $A$ that do not hold for $T$. E.g. $A$ must have finitely many axioms for $T$ with infinitely many axioms.
 \end{remark}
 
-\subsubsection{Logics\cite{stanford2010}}
-
-We will reason about the models in the first-order logic since this is the language of the model theory. However, there are other logics, notably non-monotonic logics that are used in ILP. The statements about the ILP systems using a non-monotonic logics will have to be translated to a model theoretic language with a care.
-
 \begin{defn}
+$A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B)=M(O)$.
+\end{defn}
+
+\subsubsection{Logics\cite{stanford2010}}
+\begin{defn}
+We will reason about the models in the first-order logic since this is the language of the model theory. However, there are other logics, notably non-monotonic logics that are used in ILP.
+
 A logic satisfies a \emph{monotony} property iff
 if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi$. A logic that satisfies a monotony property is called monotonic, otherwise non-monotonic.
 \end{defn}
@@ -232,10 +223,12 @@ Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over 
 
 \subsection{Definition of a problem of an induction}
 \subsubsection{A general problem of an induction}
-A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ (meeting certain criteria) called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $T=B \union O$.
+A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
+$A \union B \Vvdash O$ where the entailment relation and other criteria are specified for a particular version of a problem.
+$A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
 
 \subsubsection{Axiomatization by score}
-Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $T$ with the greatest score $s$.
+Define an equivalence relation over the hypotheses space $\mathcal{H}$: $\Sigma \sim \Gamma \iff s(\Sigma)=s(\Gamma)$ where $s$ is the \emph{score function} $s:\mathcal{H} \to \mathbb{R}$. Find an axiomatization $A$ of the theory $O$ with the greatest score $s$.
 
 \subsubsection{Approximation by models}
 Find a theory $\Sigma$ that approximates a theory $T$ by model within a given error measure $\epsilon$.
@@ -285,18 +278,24 @@ In the context of ILP one divides the observations into positive examples $E^+$ 
 \subsection{Definition of an ILP system}
 An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
 
-\subsection{A correct ILP system}
-\begin{defn}
+\subsection{Definition of a correct ILP system}
 An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
-\end{defn}
 
-\begin{remark}
-Consider an ILP problem with the score function to be a Kolmogorov complexity $K:T\to\mathbb{N}^+$. Since the Kolmogorov complexity is uncomputable, there does not exist a correct ILP system that would solve the ILP problem. Therefore a care should be taken to design an ILP problem with a computable solution (possibly an approximation of an uncomputable one) and possibly other properties.
-\end{remark}
+\subsection{Examples of ILP systems}
+1. $f:\{ \langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle : O \subseteq L_o, B \subseteq L \} \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
 
-\begin{exmp}
-$f:\{ \langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle : O \subseteq L_o, B \subseteq L \} \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
-\end{exmp}
+2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity, but it returns the theory with the best score according to its score function.
+
+\subsection{Non-determinism, uncertainity, algorithm}
+
+Since the Kolmogorov complexity is uncomputable no computable ILP system is correct. To develop a theory useful in real applications:
+
+1. we need to consider computable approximations to the Kolmogorov complexity or allow that the induced theory $\Sigma$ is at most $p\%$ more complex from the simpliest induced theory.
+
+2. allow that the induced theory $\Sigma$ found may not have exactly the models that are the models of $B \union O$. We need to think of some acceptable probability error $\epsilon>0$ where $\mu(M(\Sigma))-\mu(M(B \union O)) = \mu(M(\Sigma)  \triangle  M(B \union O)) < \epsilon$.
+
+3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
+TODO: clarify.
 
 \section{Language bias}
 \begin{defn}
@@ -304,7 +303,7 @@ Given a language $L$, the \emph{language bias} is a property (a boolean valued f
 \end{defn}
 
 \begin{exmp}
-Define a property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
+Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
 \end{exmp}
 
 \begin{exmp}
@@ -346,14 +345,11 @@ Let $L$ be the language, $\mathcal{P}$ be the set of all the biases on $L$. Then
 \end{remark}
 
 \subsection{Language bias problems}
-\subsubsection{Axiomatization by score}
-Consider a hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of the maximal score $s$ of the theory of the elementary class of the models $\mathcal{M}$ satisfying $\mathcal{M} \models O \union B$ where $O$ is a set of the observations, $B$ is the background knowledge.
+Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of the maximal score $s$ of the theory of the elementary class of the models $\mathcal{M}$ satisfying $\mathcal{M} \models O \union B$ where $O$ is a set of the observations, $B$ is the background knowledge.
 A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if $H=A$. This poses problems:
 1. $\mathcal{H}$ may not be finite,
-2. determining if $M(O \union B)=M(A)$ may not be decidable,
+2. determining if $\mathcal{M} \models O \union B$ may not be decidable,
 3. determining if $H=A$ may not be decidable.
-
-\subsection{}
 
 
 \subsection{Syntactic biases}
