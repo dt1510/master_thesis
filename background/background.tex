@@ -105,7 +105,7 @@ An $L$-structure is an $\mathcal{L}$-structure iff $\mathcal{L}$ is a signature 
 \end{remark}
 
 \begin{defn}
-Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
+Given a set $T$ of logic sentences and a model $\mathcal{M}$. If $\forall \phi \in T. \mathcal{M} \models \phi$, then $\mathcal{M}$ is \emph{a model of $T$} and $T$ is \emph{a theory of $\mathcal{M}$}.
 \end{defn}
 
 \begin{defn}
@@ -511,6 +511,11 @@ $\top_3=\$body(X) \leftObjectImplies has\_milk(X), \$body(X).$
 $\top_4=\$body(X) \leftObjectImplies has\_eggs(X), \$body(X).$
 
 The actual construction of a $\top$ theory has stricter control rules like: variables may only bind with others of the same type, a newly added literal must have its input variables already bound.
+
+Both top theory bias and a mode declaration bias are specified at the input to an ILP system, for some input specifications as one above the biases are equal. Therefore one should distinguish further between a bias and a bias specification.
+
+One could argue that a specification of a bias consists of an algorithm $A$ and an input $i$ where $A$ computes a bias $P$ from the given input $i$. As the input $i$ independent of an ILP system input $\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$ may vary, an algorithm $A$ may compute (specify) multiple possible biases $P$. This can be seen from the ability to specify a mode declaration independent of the input
+$\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$.
 
 \begin{exmp}
 For the following sentence can be entailed by a top theory but there does not exist a mode declaration biased space that includes it:
