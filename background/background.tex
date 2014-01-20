@@ -407,6 +407,7 @@ A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one po
 \end{defn}
 
 The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995}.
+{\color{red}TODO Ask a supervisor if including text verbatim is allowed and how to cite it.}
 \begin{defn}\cite{muggleton1995}
 A \emph{mode declaration} has either the form
 $modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
@@ -419,8 +420,10 @@ with place-markers replaced by distinct variables. The sign of $m$ is positive i
 \begin{exmp}
 \cite{muggleton1995}
 \begin{lstlisting}
-modeh(1,plus(+int,+int,-int)) modeb(*,append(-list,+list,+list)
-modeb(1,append(+list,[+any],-list)) modeb(4,(+int ? \#int))
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int > \#int))
 \end{lstlisting}
 \end{exmp}
 
@@ -445,6 +448,11 @@ replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is 
 of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \end{defn}
 
+\begin{remark}
+A mode declaration bias is syntactic since there exists a computable function $g:L \times \mathfrak{M} \to \{0, 1\}$ (e.g. implemented in Progol\cite{muggleton1995}) such that given a mode declaration $M$, then
+$\forall \phi \in L. g(\phi, M)=1 \iff \phi \in L_{mode}$.
+\end{remark}
+
 \subsubsection{Syntactic biases list}
 \begin{itemize}
 \item Size bound bias.
@@ -454,11 +462,42 @@ of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \item Mode declaration bias.
 \end{itemize}
 
-\subsubsection{Semantic biases}
+\subsection{Semantic biases}
 
 \begin{defn}
 A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi)$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
 \end{defn}
+
+\subsubsection{Toplog top theory bias}
+Construction of a top theory.
+
+Construction of a top theory from the mode declarations.
+
+\subsubsection{Construction of a mode declaration from the top theory\cite{muggleton2008}}
+In a simplified way, given the mode declarations
+
+$modeh(mammal(+animal)).$
+
+$modeb(has milk(+animal)).$
+
+$modeb(has eggs(+animal)).$
+
+a top theory can be constructed to be $\top=\{\top_1, \top_2, \top_3, \top_4\}$:
+
+$\top_1=mammal(X) \leftObjectImplies \$body(X).$
+
+$\top_2=body(X) \leftObjectImplies .\%emptybody$
+
+$\top_3=\$body(X) \leftObjectImplies has\_milk(X), \$body(X).$
+
+$\top_4=\$body(X) \leftObjectImplies has\_eggs(X), \$body(X).$
+
+The actual construction of a $\top$ theory has stricter control rules like: variables may only bind with others of the same type, a newly added literal must have its input variables already bound.
+
+\begin{exmp}
+For the following sentence there does not exist a mode declaration biased space that includes it:
+
+\end{exmp}
 
 \begin{itemize}
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
