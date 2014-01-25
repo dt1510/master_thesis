@@ -27,7 +27,7 @@ A word over an alphabet $\mathcal{A}$ is a finite sequence (a string) of letters
 \end{defn}
 
 \begin{defn}
-A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq 2^\mathcal{A}$.
+A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq \powerset{A}$.
 \end{defn}
 
 \begin{exmp}
@@ -88,6 +88,7 @@ The language of enquiry is a model-theoretic language by our definition. We will
 \end{exmp}
 
 \subsection{Model theory\cite{marker2002}}
+Since the author to best of his knowledge considers the first-order model theory more developed as well as having better learning resources than model theory  of other logics, he will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002}.
 
 \begin{defn}
 An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
@@ -99,6 +100,16 @@ An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the
 \end{enumerate}
 We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$.
 \end{defn}
+
+\begin{exmp}
+$\mathcal{M}_{India}$ is a model given by
+$M=\{milk^\mathcal{M}, curry^\mathcal{M}\}$,
+$TastesHot=\{milk^\mathcal{M}, curry^\mathcal{M}\}$,
+$IsWhite=\{milk^\mathcal{M}\}$ with a canonical mapping of constants from
+ $C=\{milk, curry\}$ to $M$. Therefore $\mathcal{M}$ is a model of a formula
+$\phi=TastesHot(milk) \wedge \neg IsWhite(curry)$ denoting by
+$\mathcal{M} \models \phi$ reading "a model $\mathcal{M}$ entails a formula $\phi$".
+\end{exmp}
 
 \begin{remark}
 An $L$-structure is an $\mathcal{L}$-structure iff $\mathcal{L}$ is a signature of a language $L$.
@@ -193,7 +204,7 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 
 \subsection{Approximation and error}
 \begin{defn}
-A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the error measure $\epsilon$ iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to \mathbb{R}$ is a measure over the models.
+A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the number $\epsilon$ called an error measure iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to [0,1]$ is a (probability) measure over the models and $[0,1] \subseteq \mathbb{R}$.
 \end{defn}
 
 \iffalse
@@ -219,7 +230,7 @@ We do not consider the situation in which we may desire to learn approximate mod
 \subsection{Incremental problem of scientific discovery}
 We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into the account that some questions may be found more efficiently than others.
 
-Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
+Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Definition of a problem of an induction}
 \subsubsection{A general problem of an induction}
@@ -233,9 +244,9 @@ $s:\mathcal{H} \times L \times L \to \mathbb{R}$.
 
 \begin{exmp}
 Define a score function $s$ by:
-1. if $A$ infinite, then $s(A,B,O)=-1$,
-2. if $A \union B$ inconsistent, then $s(A,B,0)=-1$,
-3. otherwise $s(A,B,O)=\mu\{o \in O : A \union B \models o\}$.
+i. if $A$ infinite, then $s(A,B,O)=-1$,
+ii. if $A \union B$ inconsistent, then $s(A,B,0)=-1$,
+iii. otherwise $s(A,B,O)=\mu\{o \in O : A \union B \models o\}$.
 \end{exmp}
 
 \begin{exmp}
@@ -309,7 +320,7 @@ Given a language $L$, the \emph{language bias} is a property (a boolean valued f
 \end{defn}
 
 \begin{exmp}
-Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypothetical language $L_h$ in its superlanguage of enquiry $L$.
+Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypotheses language $L_h$ in its superlanguage of enquiry $L$.
 \end{exmp}
 
 \begin{exmp}
@@ -338,9 +349,9 @@ Define biases $P_k$ for $k \in \mathbb{Z}_{\ge 0}$ by $P_k(\phi)$ iff $\phi$ con
 
 $\phi_1=\forall a. a \le a$,
 
-$\phi_2=\forall a \forall b. a \le b \wedge b \le a \implies a=b$,
+$\phi_2=\forall a \forall b. a \le b \wedge b \le a \objectImplies a=b$,
 
-$\phi_3=\forall a \forall b. a \le b \wedge b \le c \implies a \le c$.
+$\phi_3=\forall a \forall b. a \le b \wedge b \le c \objectImplies a \le c$.
 
 $A$ is an axiomatization of the theory $T$. Note $\forall \phi \in A. P_8(\phi)$ as every axiom of $A$ consists of less than $8$ distinct characters. Therefore $P_8$ is a sufficiently weak bias of the language $L$ with respect to the theory $T$. However there does not exist an axiomatization of the theory $T$ where every axiom consists of at most $3$ distinct characters, therefore $P_3$ is a too strong bias with respect to the theory $T$. The set of the biases is ordered by their strength:
 $P_0 \subseteq P_1 \subseteq P_2 \subseteq P_3 \subseteq ... \subseteq P_8 \subseteq ...$. Thus $P_3$ is stronger than $P_8$.
@@ -359,11 +370,11 @@ We want our hypothesis to have a specific syntactic form:
 \begin{itemize}
 \item If a hypothesis is a clause with a head $h$ we learn sufficient conditions for $h$ to be implied,
 \item by specifying conditions in a body of a clause of a hypothesis we learn what concepts can be implied,
-\item restricting a head $h$ of an implication $b \implies h$ not to be a disjunction but only a conjuction, we avoid learning the rules implying uncertain facts.
+\item restricting a head $h$ of an implication $b \objectImplies h$ not to be a disjunction but only a conjuction, we avoid learning the rules implying uncertain facts.
 \end{itemize}
 
 \subsection{Language bias problems}
-Consider the hypotheses space $\mathcal{H} \subseteq L$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of $O$ given $B$ of the maximal score $s(A,B,O)$ where $O$ is a set of the observations, $B$ is the background knowledge.
+Consider the hypotheses space $\mathcal{H} \subseteq \powerset{L}$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of $O$ given $B$ of the maximal score $s(A,B,O)$ where $O$ is a set of the observations, $B$ is the background knowledge.
 A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if $H=A$. This poses problems:
 1. $\mathcal{H}$ may not be finite,
 2. determining if $H=A$ may not be decidable.
@@ -407,7 +418,6 @@ A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one po
 \end{defn}
 
 The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995}.
-{\color{red}TODO Ask a supervisor if including text verbatim is allowed and how to cite it.}
 \begin{defn}\cite{muggleton1995}
 A \emph{mode declaration} has either the form
 $modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
@@ -465,7 +475,7 @@ $\forall \phi \in L. g(\phi, M)=1 \iff \phi \in L_{mode}$.
 \subsection{Semantic biases}
 
 \begin{defn}
-A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi)$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
+A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi))$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
 \end{defn}
 
 \subsubsection{Toplog top theory bias\cite{muggleton2008}}
