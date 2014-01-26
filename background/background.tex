@@ -228,8 +228,8 @@ We would like to find the reality most efficiently, where the efficiency may be 
 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
-\subsection{General problem of induction}
-A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
+\subsection{Problem of induction}
+A (general) problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
 $O \subseteq cl(A \union B )$ where the consequence operator $cl$ is specified  in a more specific version of a problem.
 $A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
 
@@ -254,10 +254,16 @@ Inductive logic programming problem is a problem of an induction where the langu
 
 In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. If the logic programming language is non-monotone, then the consequence operator $cl$ does not satisfly the monotone condition and the division of the examples is conceptually important. The clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
 
-\subsection{ILP systems and frameworks}
+\subsection{ILP systems, frameworks, methods}
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
 TODO copy the existing material with references
+
+\subsection{ILP methods}
+
+\subsubsection{Inverse Entailment}
+
+\subsection{ILP systems and frameworks}
 
 \subsubsection{Aleph}
 
@@ -266,12 +272,22 @@ TODO copy the existing material with references
 \subsubsection{Progol}
 
 \subsubsection{TDHD framework}
+A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
-\subsubsection{Toplog}
+\subsubsection{Toplog\cite{muggleton2008}}
+A toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}
 
 \subsubsection{MC-Toplog}
+MC-Toplog is a Toplog's sequel, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
 \subsubsection{Hail}
+kernel set subsumption
 
 \subsubsection{CF-induction method}
 
@@ -279,7 +295,29 @@ TODO copy the existing material with references
 
 \subsubsection{Least General Generalization method}
 
+\subsubsection{Induction on Failure framework}
+Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
+\begin{defn}
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+\end{defn}
+
 \subsubsection{Imparo}
+Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
+\begin{itemize}
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\end{itemize}
+
+
+\subsubsection{Alecto}
 
 \subsubsection{Tal}
 
@@ -297,11 +335,38 @@ TODO copy the existing material with references
 
 \subsubsection{ASPAL}
 
-\subsection{Hyper}
+\subsubsection{Hyper}
 
-\subsection{Tilde}
+\subsubsection{Tilde}
+
+\subsection{Meta-Interpretive Learning framework}
+Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
+
+\begin{defn}
+\emph{(Meta-Interpretive Learning setting)} A Meta-Interpretive Learning (MIL)
+problem consists of $Input = \langle B, E \rangle$ and $Output =H$ where the background knowledge
+$B = B_M \union B_A$ . $B_M$ is a definite logic program representing a meta-interpreter and $B_A$ and
+$H$ are ground definite Higher-Order Datalog programs consisting of positive unit clauses.
+The predicate symbol constants in $B_A$ and $H$ are represented by Skolem constants. The examples are $E = E^+ , E^−$ where $E^+$ is a ground logic program consisting of positive unit
+clauses and $E^−$ is a ground logic program consisting of negative unit clauses. The $Input$ and
+$Output$ are such that $B, H \models E^+$ and for all $e^-$ in $E^-$, $B, H \not\models e^-$.
+\end{defn}
+
+\begin{defn}
+\emph{(Meta-interpretive learner)} Let $\mathcal{H}_{B,E}$ represent the complete set of abductive
+hypotheses $H$ for the MIL setting of the previous definition. Algorithm $A$ is said to be a Meta-interpretive learner iff for all $B$, $E$ such that $H$ is the output of Algorithm $A$ given $B$ and $E$
+as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
+\end{defn}
+
+Capability of predicate invention.
+Based on T-directed framework. Unique T element. Unique bottom element.
 
 \subsubsection{Metagol}
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
+
+\subsubsection{Spectre}
+
+\subsubsection{EBG}
 
 \subsection{ILP system definition}
 An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
@@ -593,13 +658,6 @@ An ILP system implementation Toplog is based on the theoretical framework Top Di
 \item every constructed hypothesis must be subsumed by a top theory $\top$. If $H$ is a set of candidate hypotheses, then: $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$.
 \item inverse entailment bias.
 \end{itemize}
-The algorithm used to construct the final theory uses Mode Directed Inverse Entailment and follows the steps:
-\begin{itemize}
-\item construct the top theory $\top$,
-\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
-\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
-\item final theory construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
-\end{itemize}
 Toplog violates the properties in our first definition of an ILP system:
 \begin{itemize}
 \item a produced theory may not be complete due to too strong default bias:
@@ -617,13 +675,6 @@ Toplog violates the properties in our first definition of an ILP system:
 \item a produced theory need not be consistent with the observations: given observations $human(susan)$ and $human(jack)$ a final theory can contain the hypothesis $woman(X) :- human(X)$. The accuracy of a theory is computed, a score function allows a degree of inaccuracy.
 \end{itemize}
 
-\subsection{MC-Toplog}
-\begin{itemize}
-\item Derives hypotheses like Toplog, allows multiple clauses in a hypothesis.
-\item Restricting hypotheses space to spaces entailing generalization of multiple examples (co-generalization).
-\item Correctness: $\top$DTD algorithm returns all candidates hypotheses $H$ satisfying $B \wedge H \models e$ where $e \in E^+$ and the hypothesis space is restricted by the $\top$.
-\end{itemize}
-
 \iffalse
 \subsection{ProGolem}
 \begin{itemize}
@@ -633,15 +684,6 @@ Toplog violates the properties in our first definition of an ILP system:
 \fi
 
 \subsection{Imparo\cite{kimber2009}}
-Imparo is an ILP system based on a general IoF theoretical framework.
-\begin{defn}
-A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
-(i) $B \union T_1^+ \models e_{head}$,
-(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
-(iii) $B \union e_{body} \models T_n^-$,
-(iv) $B \union T \not\models \square$.
-
-\end{defn}
 Bias:
 \begin{itemize}
 \item Horn theory bias (not present in a IoF framework),
@@ -659,15 +701,6 @@ Bias:
 :-set_connected(N3).
 :-set_max_var_depth(N41).
 \end{lstlisting}
-\end{itemize}
-Algorithm:
-\begin{itemize}
-\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
-\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
-\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
-\item add $H$ to $B$,
-\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
-\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
 TODO: an algorithm for a connected theory generation.
 
