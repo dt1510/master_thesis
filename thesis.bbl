@@ -57,6 +57,13 @@
     Springer,
     2012.
     
+\bibitem{royden1988}
+    H.L.Royden
+    \emph{Real Analysis}.
+    Macmillan Publishing Company, New York,
+    Collier Macmillan Publishing, London,
+    1988.
+    
 \bibitem{sawin2013}
     Will Sawin,
     Abram Demski
@@ -70,10 +77,18 @@
     http://plato.stanford.edu/entries/logic-nonmonotonic/
     2010.
     
+    
 \bibitem{wikipediaProblemOfInduction}
     Wikipedia, The Free Encyclopedia
     \emph{Problem of Induction}
     http://en.wikipedia.org/wiki/Problem\_of\_induction/
     2014.    
         
+\bibitem{wolframMathworldMeasure}
+    Cortzen, Allan,
+    Weisstein, Eric W
+    {Measure}.
+    MathWorld--A Wolfram Web Resource,
+    http://mathworld.wolfram.com/Measure.html
+    2014.
 \end{thebibliography}

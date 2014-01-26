@@ -1,21 +1,16 @@
 
 \chapter{Background Theory}
 
-%\label{•}el{ch:background}
-
-\section{Introduction}
-
 \section{Prerequisities}
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
 \begin{enumerate}
 \item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{cheng1997}
 \item Model theory: An introduction by David Marker \cite{marker2002}
 \item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li1997}
+\item Real Analysis by H.L.Royden  \cite{royden1988}, a reference on measure theory
 \end{enumerate}
 However, the usage of the concepts does not exceed its rudimentary application and the reader is encouraged to proceed further even if one may not be familiar with all the areas outlined, we suggest to use the literature when the need arises.
-\section{Definitions}
-
-\subsection{A logic language}
+\section{A logic language}
 \begin{defn}
 An \emph{alphabet} is a set $\mathcal{A}$ of elements called \emph{letters} of an alphabet.
 \end{defn}
@@ -58,34 +53,7 @@ The language $\mathcal{L}_{EST}$ of elementary set theory is given by one consta
 Given a language $L$, $\phi$ is an $L$-formula iff $\phi \in L$.
 \end{defn}
 
-\subsection{Languages in the theory of inductive inference}
-\begin{defn}
-Fix languages $L$, $L'$ such that $L \subseteq L'$. We say that $L$ is \emph{a sublanguage} of $L'$, $L'$ is \emph{a superlanguage} of $L$.
-\end{defn}
-
-\begin{exmp}
-Let a language $L$ be given by its signature $\mathcal{L}$=$\mathcal{C} \union \mathcal{R} \union \mathcal{F}$ and a language $L'$ by its signature $\mathcal{L}'=\mathcal{C}' \union \mathcal{R}' \union \mathcal{F}'$.
-If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$, then $L \subseteq L'$. $L$ is a sublanguage of $L'$, $L'$ is a superlanguage of $L$.
-\end{exmp}
-
-\begin{defn}
-Given two languages $L_o$ called \emph{an observational language}, $L_h$ called a \emph{hypothesis language}, \emph{a language of enquiry} $L$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language, i.e. $L_h \union L_o \subseteq L$.
-\end{defn}
-
-\begin{remark}
-The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $L$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
-\end{remark}
-
-\begin{exmp}
-\begin{itemize}
-\item The language of enquiry $L$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
-\item Let the observational language $L_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
-\item Let the hypothesis language $L_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
-\item $L_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
-\end{itemize}
-\end{exmp}
-
-\subsection{Model theory\cite{marker2002}}
+\section{Model theory\cite{marker2002}}
 Since the author to best of his knowledge considers the first-order model theory more developed as well as having better learning resources than model theory  of other logics, he will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002}.
 
 \begin{defn}
@@ -141,7 +109,50 @@ if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi
 A first-order logic is monotonic.
 \end{exmp}
 
-\subsection{Inductive inference}
+\section{Measure theory}
+The following definition of a measure is adapted from Mathworld, Wolfram Web Resource\cite{wolframMathworldMeasure}.
+
+\begin{defn}
+A \emph{measure} is a real-valued function $\mu$ on a powerset $\powerset{S}$ of a set $S$ satisfying the following properties:
+\begin{enumerate}
+\item $\mu(\emptyset)=0$ and $\mu(S)=1$,
+\item if $X \subseteq Y$ then $\mu(X) \le \mu(Y)$,
+\item if $X_n, n=0, 1, 2, ...$ are pairwise disjoint, then
+$\mu(\cup^\infty_{n=0} X_n)=\Sigma^\infty_{n=0}\mu(X_n)$
+\end{enumerate}
+
+\end{defn}
+
+\section{Inductive inference}
+\subsection{Languages in the theory of inductive inference}
+\begin{defn}
+Fix languages $L$, $L'$ such that $L \subseteq L'$. We say that $L$ is \emph{a sublanguage} of $L'$, $L'$ is \emph{a superlanguage} of $L$.
+\end{defn}
+
+\begin{exmp}
+Let a language $L$ be given by its signature $\mathcal{L}$=$\mathcal{C} \union \mathcal{R} \union \mathcal{F}$ and a language $L'$ by its signature $\mathcal{L}'=\mathcal{C}' \union \mathcal{R}' \union \mathcal{F}'$.
+If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$, then $L \subseteq L'$. $L$ is a sublanguage of $L'$, $L'$ is a superlanguage of $L$.
+\end{exmp}
+
+\begin{defn}
+Given two languages $L_o$ called \emph{an observational language}, $L_h$ called a \emph{hypothesis language}, \emph{a language of enquiry} $L$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language, i.e. $L_h \union L_o \subseteq L$.
+\end{defn}
+
+\begin{remark}
+The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $L$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
+\end{remark}
+
+\begin{exmp}
+\begin{itemize}
+\item The language of enquiry $L$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
+\item Let the observational language $L_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
+\item Let the hypothesis language $L_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
+\item $L_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
+\end{itemize}
+\end{exmp}
+
+\subsection{Inductive Inference Setting}
+
 \begin{defn}
 \emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
 $\forall \phi \in L_o. \mathcal{M} \models \phi \iff \mathtt{O}(\phi)=true$.
@@ -200,26 +211,6 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 \emph{A hypotheses space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
 \end{defn}
 
-\subsection{Approximation and error}
-\begin{defn}
-A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the number $\epsilon$ called an error measure iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to [0,1]$ is a (probability) measure over the models and $[0,1] \subseteq \mathbb{R}$.
-\end{defn}
-
-\iffalse
-%There is a problem with the definition that phi not in the theory then not phi assumed to be in the theory.
-\begin{defn}
-\emph{An approximation by a theory}.
-A theory $\Sigma$ approximates a theory $\Gamma$ with a \emph{recall} $r \defeq \mu(\{\phi \in \Gamma:\phi \in \Sigma\})$,
-with a \emph{precision} $p \defeq \mu(\{\phi \in \Sigma:\phi \in \Gamma\})$,
-with an accuracy $a \defeq \mu(\Sigma \cap \Gamma)$
-where $\mu:\Sigma \union \Gamma \to \mathbb{R}$ is a measure.
-\end{defn}
-
-\begin{exmp}
-%Let $\Sigma=\{Milk(cup_1), Milk(cup_1)\}$
-\end{exmp}
-\fi
-
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
@@ -230,46 +221,13 @@ We would like to find the reality most efficiently, where the efficiency may be 
 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
-\subsection{Definition of a problem of an induction}
+\subsection{Problem of induction}
 \subsubsection{A general problem of an induction}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
 $A \union B \Vvdash O$ where the entailment relation (read as "explains") and other criteria are specified in a more specific version of a problem.
 $A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
 
-\subsubsection{Axiomatization by score}
-Find any axiomatization $A$ of the theory $O$ given $B$ with the greatest score $s(A,B,O)$ where $s$ is the \emph{score function}
-$s:\mathcal{H} \times L \times L \to \mathbb{R}$.
-
-\begin{exmp}
-Define a score function $s$ by:
-i. if $A$ infinite, then $s(A,B,O)=-1$,
-ii. if $A \union B$ inconsistent, then $s(A,B,0)=-1$,
-iii. otherwise $s(A,B,O)=\mu\{o \in O : A \union B \models o\}$.
-\end{exmp}
-
-\begin{exmp}
-Define a score function $s:\mathcal{H} \times L \times L \to \mathbb{R}$ by $s(A,B,O)=1$ iff a theory $A \union B$ approximates a theory $O$ by model within a given error measure $\epsilon$, $s(A,B,O)=0$ otherwise.
-\end{exmp}
-
-\begin{note}
-A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
-\end{note}
-
-\begin{exmp}
-A Kolmogorov complexity with respect to the description language $L$ is a score function $K:L \to \mathbb{N}_0 \subseteq \mathbb{R}$.
-\end{exmp}
-
-\begin{note}
-A Kolmogorov complexity $K$ can be thought of as a minimul description length with respect to the description language.
-\end{note}
-\begin{exmp}
-Fix a description language to be a language of regular expressions. Let $L_1$ be a regular language given by its shortest description $0000000000$, $L_2$ given by its shortest description $10*$. Then $K(L_1)=10<K(L_2)=3$.
-\end{exmp}
-
-\subsubsection{Theory generalization}
-TODO
-
-\subsection{Definition of a scientific method}
+\subsection{Scientific method}
 \label{scientific_method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
 
@@ -285,32 +243,37 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 
 5. Increment $i$ and start from step 1 again.
 
-\subsection{Definition of an ILP problem}
+\section{Problem of inductive logic programming}
 Inductive logic programming problem is a problem of an induction where the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
 
 In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. The division is conceptually important as the clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
 
-\subsection{Definition of an ILP system}
+\subsection{ILP systems and frameworks}
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+
+TODO copy the existing material with references
+
+\subsection{ILP system definition}
 An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
 
-\subsection{Definition of a correct ILP system}
+\subsection{Correct ILP system}
 An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
 
-\subsection{Examples of ILP systems}
-1. $f:\{ \langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle : O \subseteq L_o, B \subseteq L \} \to \mathcal{H}$, $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \emptyset$ is an ILP system, however it is not correct since $M(O \union B) \not= M(\emptyset)$ for all sets of observations and the background knowledge.
+\chapter{Hypotheses space bias}
 
-2. Progol is an ILP system however it is not correct since it does not always return the induced theory of the least Kolmogorov complexity, but it returns the theory with the best score according to its score function.
+TODO: make abstractions of the systems and frameworks so that it would be easy to reason about their biases.
 
-\subsection{Non-determinism, uncertainity, algorithm}
-
-Since the Kolmogorov complexity is uncomputable no computable ILP system is correct. To develop a theory useful in real applications:
-
-1. we need to consider computable approximations to the Kolmogorov complexity or allow that the induced theory $\Sigma$ is at most $p\%$ more complex from the simpliest induced theory.
-
-2. allow that the induced theory $\Sigma$ found may not have exactly the models that are the models of $B \union O$. We need to think of some acceptable probability error $\epsilon>0$ where $\mu(M(\Sigma))-\mu(M(B \union O)) = \mu(M(\Sigma)  \triangle  M(B \union O)) < \epsilon$.
-
-3. rather than giving a simple function as a black box which we could classify only based on its output from the input, we need a way to inspect the inside of such functions by dividing them into smaller algorithmic parts.
-TODO: clarify.
+\section{The role of a language in learning the models}
+Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
+By extending the language we can distinguish the models further. The problem of the predicate invention is to invent a predicate so that the right distinction between the models is made based on the language.
+Questions:
+1. How can we measure an expessivity and a complexity of a language?
+2. How much information can be captured by a $\mathcal{L}$-theory given a language $\mathcal{L}$?
+3. What is the maximal complexity of the language $\mathcal{L}$ for which the $\mathcal{L}$-theory is decidable?
+4. Complexity of learning the equivalence class of the reality given a language.
+5. Is there a language for which the task of learning the equivalence class of the reality is undecidable?
+6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
+7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
 
 \section{Language bias}
 \begin{defn}
@@ -551,8 +514,7 @@ A boolean property $P$ is a heuristic bias iff $P$ is computable from $\mathcal{
 \item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
 \end{itemize}
 
-\section{Inductive Logic Programming systems}
-We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+\section{Biases in ILP systems}
 
 \iffalse
 \subsection{Progol}
@@ -671,87 +633,48 @@ $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
 $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \mathcal{H}_{connected_theory}$
 
-\chapter{Problems in ILP}
+\chapter{Model approximation}
 
-\iffalse
-\chapter{Learning the reality}
-It is important to understand how powerful our ILP systems are - what models they are capable of learning and what models they are never going to learn from the given data.
-\section{Philosophical discussion}
-In order to learn the reality, do we want to induce questions or theories of the models of the observations and the background knowledge? We could use all the observations to reason about the world, but the observations may be too numerous, hence a more compact theory axiomatization would be useful.
-Why do we ask a question $Q$? That is so that we would find out what observation we should make. It is in the case that an environment oracle is available.
-\fi
-\iffalse
-\section{Mathematical Foundations of ILP}
-We would like to describe an ILP system with the axioms in order to study ILP systems with the mathematical rigour, to make logic statements about such systems.
-I would like to have mappings (e.g. homomorphisms) between these ILP systems so that I may reason about the sub-ILP-systems. It seems Category theory to help me with the foundations. The class of the ILP systems is a category.
-\subsection{An ILP system is a category}
-What are objects and arrows?
-\subsection{Category of ILP systems}
+\subsection{Approximation and error}
+\begin{defn}
+A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the number $\epsilon$ called an error measure iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to [0,1]$ is a (probability) measure over the models and $[0,1] \subseteq \mathbb{R}$.
+\end{defn}
 
-\subsection{Properties of ILP systems}
+\chapter{Score function}
 
-\subsection{}
-\subsection{}
-\section{Completeness of ILP systems}
-Often ILP systems are complete as a result of using a strong bias rather than a sophisticated induction system.
-\fi
-\section{Generalization}
-\subsection{Incoherence of the generalization - Sawin-Demski paradox}
+\section{Axiomatization by score}
+Find any axiomatization $A$ of the theory $O$ given $B$ with the greatest score $s(A,B,O)$ where $s$ is the \emph{score function}
+$s:\mathcal{H} \times L \times L \to \mathbb{R}$.
+
+\begin{exmp}
+Define a score function $s$ by:
+i. if $A$ infinite, then $s(A,B,O)=-1$,
+ii. if $A \union B$ inconsistent, then $s(A,B,0)=-1$,
+iii. otherwise $s(A,B,O)=\mu\{o \in O : A \union B \models o\}$.
+\end{exmp}
+
+\begin{exmp}
+Define a score function $s:\mathcal{H} \times L \times L \to \mathbb{R}$ by $s(A,B,O)=1$ iff a theory $A \union B$ approximates a theory $O$ by model within a given error measure $\epsilon$, $s(A,B,O)=0$ otherwise.
+\end{exmp}
+
+\begin{note}
+A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
+\end{note}
+
+\begin{exmp}
+A Kolmogorov complexity with respect to the description language $L$ is a score function $K:L \to \mathbb{N}_0 \subseteq \mathbb{R}$.
+\end{exmp}
+
+\begin{note}
+A Kolmogorov complexity $K$ can be thought of as a minimul description length with respect to the description language.
+\end{note}
+\begin{exmp}
+Fix a description language to be a language of regular expressions. Let $L_1$ be a regular language given by its shortest description $0000000000$, $L_2$ given by its shortest description $10*$. Then $K(L_1)=10<K(L_2)=3$.
+\end{exmp}
+
+\chapter{Statistical learning}
+
+\section{Incoherence of the generalization - Sawin-Demski paradox}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
 By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013}.
 Therefore we limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
-\iffalse
-\subsection{Consequences of the generalization}
-1. A theory $T_g$ with a general statement $\forall x.P(x)$ entails more statements $P(a_i)$ then a theory $T$ with $\Pi_0$ statements $P(a_1), ..., P(a_n)$. Therefore $\#M(T_g) \leq \#M(T)$.
-2. 
-\fi
-\subsection{The reasons to generalize}
-1. A general statement may be a more compact representation than specific multiple statements.
-2. A general theory $T_g$ entailing some of the statements in a theory $T$ and contradicting other statements in a theory $T$ (usually fewer) is an approximation of a theory $T$. A precision is the percentage of the models of $T_g$ that are models of $T$. A recall is the percentage of the models of $T$ that are models of $T_g$. An approximated theory may be simpler to reason about and to represent.
-\iffalse
-\subsection{How do the models of a theory and their number change during generalization and specialization?}
-\fi
-\section{The role of a language in learning the models}
-Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
-By extending the language we can distinguish the models further. The problem of the predicate invention is to invent a predicate so that the right distinction between the models is made based on the language.
-Questions:
-1. How can we measure an expessivity and a complexity of a language?
-2. How much information can be captured by a $\mathcal{L}$-theory given a language $\mathcal{L}$?
-3. What is the maximal complexity of the language $\mathcal{L}$ for which the $\mathcal{L}$-theory is decidable?
-4. Complexity of learning the equivalence class of the reality given a language.
-5. Is there a language for which the task of learning the equivalence class of the reality is undecidable?
-6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
-7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
-\iffalse
-\section{Models with an empty language}
-\fi
-
-\iffalse
-\section{Counting the number of the models of monadic theories}
-Define a probability measure of the models $\mu:M(\emptyset) \to [0,1] \subset \mathcal{R}$. Let $M_0$ be the set of all models, $\mu(M_0)=0$. Let $\mathcal{•}l{L}=\{c_1, ..., c_n, P\}$ be the language with the $n$ constant symbols $c_i$ and with a unary predicate symbol $P(.)$. If $T=\{P(c_1\}$, then what is greater $\mu(M(T))$ or $\mu(M(\{\neg P(c_1)\}))$? We can define the default probability for the first atomic statement: $p(\mathcal{M} \models P(c_1))=1/2$, consequently $\mu(M(T))=1/2=\mu(M(\{\neg P(c_1)\}))$. The next statement $P(c_i)$ is independent of the first, so define the probability $P(c_i)=1/2$ for $i \in \{1, ..., n\}$.
-\begin{defn}
-A theory (or a set) $T$ is maximally $k$-adically consistent iff $T$ is consistent and for every formula $\phi$ if $\phi$ is $k$-adic, then $\phi \in T$ or $\neg \phi \in T$.
-\end{defn}
-\begin{remark}
-Let $\mathcal{L}$ be the language with $n$ constant symbols and $m$ unary predicate symbols. Then there are exactly $2^{mn}$ maximally monadically consistent monadic theories $T$ (equivalence classes of models of $T$).
-\end{remark}
-\begin{remark}
-Let $\mathcal{L}$ be the language with countably many constant symbols and $m$ unary predicate symbols. Then there are uncountably many maximally monadically consistent monadic theories.
-\end{remark}
-\subsection{Asking an environment oracle a question}
-\subsection{}
-
-\section{Learning the theories from the probabilistic oracle}
-The correctness of our observations may be distributed over the probability distribution of the environment.
-\section{Approximations to learning}
-\section{Which models are more probable?}
-\section{Predicate Invention}
-Consider the language $\mathcal{L}=\{father\}$ with a binary predicate symbol. A predicate invention is a problem of adding to the language a predicate $grandfather$ and an axiom to all the theories: $\forall x. \forall y. \forall z. father(x,y) \wedge father(y,z) \implies grandfather(x,z)$.
-TODO: Is that right? In that case $grandfather$ is definable in terms of $father$ and therefore redundant.
-\fi
-
-\iffalse
-\section{Foundations of inductive reasoning}
-Let $A$ be a set of objects on which the observations can be applied, $\mathcal{P}$ be a set of the properties that can be observed on $a \in A$. Then an observation $O$ of an element $a \in A$ is a minimal set of the literals such that
-$\forall P \in \mathcal{P}. P(a) \in O \vee \neg P(a) \in O$.
-\fi
