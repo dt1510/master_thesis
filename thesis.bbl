@@ -6,6 +6,15 @@
     Springer,
     1997.
     
+\bibitem{corapi2010}
+    Domanico Corapi,
+    Alessandra Russo,
+    Emil Lupu
+    \emph{Inductive Logic Programming as Abductive Search}.
+    Technical Communications of the International Conference on Logic Programming,
+    2010 (Edinburgh),
+    pp. 54–63.
+    
 \bibitem{li1997}
     Ming Li,
     Paul Vitanyi
