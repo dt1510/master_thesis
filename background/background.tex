@@ -180,7 +180,7 @@ In generality one may develop a theory in which an environment may have multiple
 \end{remark}
 
 \begin{defn}
-The set of \emph{observations} $O$ is any set of $L_o$-formulas.
+The set of \emph{observations} $O$ with respect to an observational language $L_o$ is any set of $L_o$-formulas.
 \end{defn}
 
 \begin{exmp}
@@ -206,7 +206,7 @@ The \emph{background knowledge} or a current induced theory is a set $B$ of form
 \end{defn}
 
 \begin{remark}
-In the definition \ref{scientific_method} of a scientific method, a special case of the background knowledge is considered where $B$ can consist only the previously made hypotheses, thus $B \subseteq L_h$.
+In the definition \ref{scientific_method} of a scientific method, a special case of the background knowledge is considered where $B$ can consist of only the previously made hypotheses, thus $B \subseteq L_h$.
 \end{remark}
 
 \begin{note}
@@ -221,24 +221,23 @@ $\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{
 \subsection{Ultimate problem of scientific discovery}
 Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
 
-We do not consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
+We do not yet consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
 
 \subsection{Incremental problem of scientific discovery}
 We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into the account that some questions may be found more efficiently than others.
 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
-\subsection{Problem of induction}
-\subsubsection{A general problem of an induction}
+\subsection{General problem of induction}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
-$A \union B \Vvdash O$ where the entailment relation (read as "explains") and other criteria are specified in a more specific version of a problem.
+$O \subseteq cl(A \union B )$ where the consequence operator $cl$ is specified  in a more specific version of a problem.
 $A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
 
 \subsection{Scientific method}
 \label{scientific_method}
 A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
 
-0. Start with the emty theory $B_i=\emptyset$, set $i=0$.
+0. Start with the empty theory $B_i=\emptyset$, set $i=0$.
 
 1. If $B_i$ has the only model, then terminate, $B_i$ is a complete axiomatization of the reality of an environment.
 
@@ -253,12 +252,56 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 \section{Problem of inductive logic programming}
 Inductive logic programming problem is a problem of an induction where the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
 
-In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. The division is conceptually important as the clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
+In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. If the logic programming language is non-monotone, then the consequence operator $cl$ does not satisfly the monotone condition and the division of the examples is conceptually important. The clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
 
 \subsection{ILP systems and frameworks}
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
 TODO copy the existing material with references
+
+\subsubsection{Aleph}
+
+\subsubsection{Golem}
+
+\subsubsection{Progol}
+
+\subsubsection{TDHD framework}
+
+\subsubsection{Toplog}
+
+\subsubsection{MC-Toplog}
+
+\subsubsection{Hail}
+
+\subsubsection{CF-induction method}
+
+\subsubsection{Least Common Generalization method}
+
+\subsubsection{Least General Generalization method}
+
+\subsubsection{Imparo}
+
+\subsubsection{Tal}
+
+\subsubsection{FOIL}
+
+\subsubsection{Linus}
+
+\subsubsection{Marvin}
+
+\subsubsection{Mis}
+
+\subsubsection{Confucius}
+
+\subsubsection{Quinlan}
+
+\subsubsection{ASPAL}
+
+\subsection{Hyper}
+
+\subsection{Tilde}
+
+\subsubsection{Metagol}
 
 \subsection{ILP system definition}
 An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
