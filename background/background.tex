@@ -120,8 +120,15 @@ A \emph{measure} is a real-valued function $\mu$ on a powerset $\powerset{S}$ of
 \item if $X_n, n=0, 1, 2, ...$ are pairwise disjoint, then
 $\mu(\cup^\infty_{n=0} X_n)=\Sigma^\infty_{n=0}\mu(X_n)$
 \end{enumerate}
-
 \end{defn}
+
+\begin{exmp}
+Let $S$ be the set of possible throws of a die, $S=\{1, 2, 3, 4, 5, 6\}$. Define a measure $\mu:\powerset{S} \to \mathbb{R}$ over $\powerset{S}$ by $\mu(\{i\})=1/6, i \in S$. Then from the axioms of a measure it follows that $\mu(\emptyset)=0$, $\mu(S)=1$ and $\mu(\{1,2,5\})=1/2 \le \mu(\{1,2,3,4,5\})=5/6$. Such $\mu$ is called a probability measure and a triple $\langle \powerset{S}, S, \mu \rangle$ is called a probability space.
+\end{exmp}
+
+\begin{exmp}
+Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of intervals $J \subseteq \powerset{S}$ on the real line by $\mu|_J: (a, b) \mapsto b-a$, then $\mu|_J$ has a unique extension $\mu:S \to \mathbb{R}$ which is a measure function.
+\end{exmp}
 
 \section{Inductive inference}
 \subsection{Languages in the theory of inductive inference}
