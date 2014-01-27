@@ -218,7 +218,6 @@ such a derivation exists, $\Sigma \vdash_r C$. Thus $C$ can be derived from $\Si
 
 SLD-refutation is a special case of SLD-derivation which derives empty clause $\emptyclause$.
 
-
 \section{Inductive inference}
 \subsection{Languages in the theory of inductive inference}
 \begin{defn}
@@ -344,7 +343,7 @@ The following definitions are inspired from Inductive Logic Programming as Abduc
 \begin{defn}
 An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
 
-A solution to an ILP problem is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
+A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
 i) consistency $false \not \in cl(O \union B \union H)$,
 ii) sufficiency $O \subseteq cl(B \union H)$.
 \end{defn}
@@ -472,10 +471,9 @@ Metagol is an implementation of an MIL framework that finds the hypothesis of a 
 \subsubsection{EBG}
 
 \subsection{ILP system definition}
-An ILP system is any function $f:\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle \mapsto \Sigma \in \mathcal{H}$ where the language of enquiry $L$ is the logic programming language, $O$ is a set of formulas called observations, the background theory $B$ and induced theories of $H \in \mathcal{H}$ are finite.
-
-\subsection{Correct ILP system}
-An ILP system is correct if it solves an ILP problem, i.e. its output is a solution to an ILP problem.
+An ILP system is a function
+$f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
+is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
 
 \chapter{Hypotheses space bias}
 
