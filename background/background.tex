@@ -174,6 +174,10 @@ A unit clause consists of a single literal.
 A logic program is a finite set of clauses representing their conjunction.
 \end{defn}
 
+\subsubsection{Resolution\cite{kimber2011}}
+The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
+$(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
+
 \subsection{SLD-resolution}
 
 \begin{defn}
@@ -375,14 +379,12 @@ Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
 
 \subsubsection{Least General Generalization method}
 
-\subsubsection{Resolution\cite{kimber2011}}
-The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
-$(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
-
-\subsubsection{Inverse Resolution}
-
-
 \subsubsection{Inverse Entailment}
+Inverse Entailment is a correspondence between an induction and a deduction:
+\begin{thm}\cite{kimber2011}
+Let $B$ be a Horn program, and let $h$ and $e$ be
+Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e |= \neg h$.
+\end{thm}
 
 \section{ILP systems}
 
