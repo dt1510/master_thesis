@@ -22,6 +22,21 @@
     Springer,
     Second Edition,
     1997.
+    
+\bibitem{lin2009}
+    Dianhuan Lin
+    \emph{Efficient, Complete and Declarative Search in Inductive Logic Programming}.
+    Master thesis,
+    Imperial College London,
+    2009.
+    
+\bibitem{lloyd1987}
+    J.W. Lloyd
+    \emph{Foundations of Logic Programming}.
+    Springer-Verlag,
+    Berlin,
+    Second edition,
+    1987.    
 
 \bibitem{stove1986}
     David Charles Stove
