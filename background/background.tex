@@ -97,7 +97,7 @@ Typically we put further restrictions on the properties of the axiomatization $A
 $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B)=M(O)$.
 \end{defn}
 
-\subsection{Logics\cite{stanford2010}}
+\section{Logics\cite{stanford2010}}
 \begin{defn}
 A (monotone) \emph{consequence operator}\cite{wikipedieClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisflying the following conditions for all sets $X, Y \subseteq S$:
 \begin{enumerate}
@@ -145,6 +145,21 @@ Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of in
 \end{exmp}
 
 \section{Logic Programming}
+
+\begin{defn}
+A logic programming language has a \emph{negation on failure} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
+\end{defn}
+
+\begin{exmp}
+In a logic programming language Prolog in a program $P$ with a single sentence:
+
+$spicy(X) :- curry(X).$
+
+the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Prolog has a NoF property.
+\end{exmp}
+
+Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.
+
 The following definitions and concepts are an adaptations from the Dianhuan Lin's Master thesis\cite{lin2009}.
 
 \subsection{Basic concepts and notation}
@@ -374,10 +389,6 @@ Intra-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
 
 Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
 \models r \wedge B \objectImplies p, A \objectImplies r, r \wedge C \objectImplies q$
-
-\subsubsection{Least Common Generalization method}
-
-\subsubsection{Least General Generalization method}
 
 \subsubsection{Inverse Entailment}
 Inverse Entailment is a correspondence between an induction and a deduction:
