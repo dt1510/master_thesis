@@ -356,13 +356,31 @@ In the context of ILP one divides the observations into positive examples $E^+$ 
 
 \subsection{ILP concepts}
 
+\subsubsection{Duce's rules for inductive inference\cite{muggleton1995}}
+Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
+lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
+
+Absortion: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
+
+Identification: $A \wedge B \objectImplies p, q \wedge A \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p$,
+
+Intra-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p, C \objectImplies q$
+
+Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models r \wedge B \objectImplies p, A \objectImplies r, r \wedge C \objectImplies q$
+
 \subsubsection{Least Common Generalization method}
 
 \subsubsection{Least General Generalization method}
 
+\subsubsection{Resolution\cite{kimber2011}}
+The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
+$(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
+
 \subsubsection{Inverse Resolution}
 
-\subsubsection{Resolution}
 
 \subsubsection{Inverse Entailment}
 
@@ -373,14 +391,9 @@ An ILP system is a function
 $f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
 is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
 
-\subsection{ILP systems, frameworks, methods}
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
-TODO copy the existing material with references
-
-\subsection{ILP systems and frameworks}
-
-\subsubsection{TDHD framework}
+\subsection{TDHD framework}
 A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{Toplog\cite{muggleton2008}}
@@ -395,7 +408,7 @@ A toplog is an ILP system implementing TDHD framework. The algorithm used to con
 \subsubsection{MC-Toplog}
 MC-Toplog is a Toplog's sequel, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
-\subsubsection{Induction on Failure framework}
+\subsection{Induction on Failure framework}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
 \begin{defn}
 A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
@@ -441,7 +454,7 @@ Based on T-directed framework. Unique T element. Unique bottom element.
 \subsubsection{Metagol}
 Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
 
-\subsubsection{Other systems}
+\subsection{Other systems}
 Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
 

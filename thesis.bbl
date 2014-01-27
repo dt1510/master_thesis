@@ -45,12 +45,19 @@
     1986.
     
 \bibitem{kimber2009}
-    Tim Kimber,
+    Timothy Kimber,
     Krysia Broda,
     Alessandra Russo
     \emph{Induction on failure: learning connected horn theories}.
     Springer,
     2009.
+    
+\bibitem{kimber2011}
+    Timothy Kimber
+    \emph{Learning Definite and Normal Logic Programs by Induction on Failure}.
+    PhD thesis,
+    Imperial College London,
+    2011.
     
 \bibitem{marker2002}
   Marker David
