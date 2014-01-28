@@ -6,6 +6,13 @@
     Springer,
     1997.
     
+\bibitem{clark1978}
+    Keith L. Clark
+    \emph{Negation as Failure}.
+    Logic and data bases,
+    Springer,
+    1978.
+    
 \bibitem{corapi2010}
     Domanico Corapi,
     Alessandra Russo,
@@ -79,6 +86,15 @@
     \emph{Toplog: ILP using a logic program declarative bias}.
     Springer,
     2008.
+    
+\bibitem{muggleton2013}
+    Stephen Muggleton, 
+    Dianhuan Lin, 
+    Niels Pahlavi,
+    Alizera Tamodoni-Nezhad
+    \emph{Meta-interpretive learning: application to grammatical inference}.
+    Springer,
+    2013.
 
 \bibitem{muggleton2012}
     Stephen Muggleton,

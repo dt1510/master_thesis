@@ -147,7 +147,7 @@ Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of in
 \section{Logic Programming}
 
 \begin{defn}
-A logic programming language has a \emph{negation on failure} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
+A logic programming language has a \emph{negation on failure}\cite{clark1978} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
 \end{defn}
 
 \begin{exmp}
@@ -162,7 +162,7 @@ Notice that NoF property on the consequence operator directly implies its monoto
 
 The following definitions and concepts are an adaptations from the Dianhuan Lin's Master thesis\cite{lin2009}.
 
-\subsection{Basic concepts and notation}
+\subsection{Basic concepts and notation\cite{lin2009}}
 
 \begin{defn}
 A term is a constant, variable, or the application of a function symbol to the appropriate number of terms. A ground term is a term not containing variables.
@@ -193,7 +193,7 @@ A logic program is a finite set of clauses representing their conjunction.
 The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
 $(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
 
-\subsection{SLD-resolution}
+\subsection{SLD-resolution\cite{lin2009}}
 
 \begin{defn}
 A \emph{substitution} $\theta$ is a finite set of the form
@@ -265,7 +265,7 @@ The language of enquiry is a model-theoretic language by our definition. We will
 \end{itemize}
 \end{exmp}
 
-\subsection{Inductive Inference Setting}
+\subsection{Inductive inference concepts}
 
 \begin{defn}
 \emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
@@ -356,12 +356,12 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 
 5. Increment $i$ and start from step 1 again.
 
-\section{Inductive logic programming}
+\chapter{Inductive logic programming}
 The following definitions are inspired from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010}
 
 \subsection{ILP problem}
 
-\begin{defn}
+\begin{defn}\cite{corapi2010}
 An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
 
 A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
@@ -406,7 +406,7 @@ is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ i
 
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
-\subsection{TDHD framework}
+\subsection{TDHD framework\cite{muggleton2008}}
 A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{Toplog\cite{muggleton2008}}
@@ -418,10 +418,10 @@ A toplog is an ILP system implementing TDHD framework. The algorithm used to con
 \item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
 \end{itemize}
 
-\subsubsection{MC-Toplog}
+\subsubsection{MC-Toplog\cite{muggleton2012}}
 MC-Toplog is a Toplog's sequel, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
-\subsection{Induction on Failure framework}
+\subsection{Induction on Failure framework\cite{kimber2011}}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
 \begin{defn}
 A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
@@ -431,7 +431,7 @@ A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a s
 (iv) $B \union T \not\models \square$.
 \end{defn}
 
-\subsubsection{Imparo}
+\subsubsection{Imparo\cite{kimber2011}}
 Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
 \begin{itemize}
 \item 1: select an example $E$ from the set of positive examples $E_{pos}$,
@@ -442,7 +442,7 @@ Imparo is an ILP system based on a general IoF theoretical framework with the fo
 \item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
 
-\subsection{Meta-Interpretive Learning framework}
+\subsection{Meta-Interpretive Learning framework\cite{muggleton2013}}
 Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
 
 \begin{defn}
@@ -470,10 +470,6 @@ Metagol is an implementation of an MIL framework that finds the hypothesis of a 
 \subsection{Other systems}
 Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
-
-\chapter{Hypotheses space bias}
-
-TODO: make abstractions of the systems and frameworks so that it would be easy to reason about their biases.
 
 \section{The role of a language in learning the models}
 Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
@@ -812,6 +808,14 @@ TODO
 $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
 $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \mathcal{H}_{connected_theory}$
+
+\chapter{Top-down framework}
+
+\chapter{Bottom-up framework}
+
+\chapter{MIL framework}
+
+\chapter{Comparisons of ILP systems}
 
 \chapter{Model approximation}
 
