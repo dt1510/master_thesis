@@ -336,7 +336,17 @@ We would like to find the reality most efficiently, where the efficiency may be 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
 \subsection{Problem of induction}
-A (general) problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
+
+\subsubsection{Computability setting}
+Given a set $P \subseteq \mathbb{N}$ of positive examples,
+a set $N \subseteq \mathbb{N}$ of negative examples,
+find a computable set $S = \{n \in \mathbb{N} : \mathbb{N} \models \phi(n) \} \subseteq \mathbb{N}$ that has a defining formula $\phi$ of the least
+Kolmogorov complexity.
+
+In a specialized version of the problem, the criterion of Kolmogorov complexity can be replaced by other property definable by a real-valued score function on a triple $\langle P, N, \phi \rangle$. Similarly, we may require weaker conditions on a set $S$, e.g. computable with respect to some oracle set (background knowledge) $B$.
+
+\subsubsection{Model theoretic setting}
+A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
 $O \subseteq cl(A \union B )$ where the consequence operator $cl$ is specified  in a more specific version of a problem.
 $A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
 
