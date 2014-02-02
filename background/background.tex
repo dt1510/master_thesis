@@ -857,11 +857,20 @@ We can think of the model of an environment as a Hebrand model. Notice that the 
 
 \begin{defn}
 An \emph{inductive inference system} IIS is a computable function
-$f: \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \to \powerset{\mathbb{N}},
-\langle P, N \rangle \mapsto S$
-such that $P \subseteq \mathbb{N}, N \cap S = \emptyset$
-and $S$ is a computable set.
+$f: \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \times \powerset{\powerset{\mathbb{N}}}
+\to \powerset{\mathbb{N}},
+\langle P, N, \mathcal{H} \rangle \mapsto S$
+satisfying the conditions:
+
+\begin{enumerate}
+\item $S$ is a computable set,
+\item $S \in \mathcal{H}$,
+\item $P \subseteq S$,
+\item $N \cap S = \emptyset$.
+\end{enumerate}
 \end{defn}
+
+We call $P$ a set of positive examples, $N$ a set of negative examples, $\mathcal{H}$ a bias, $S$ a solution (a hypothesis) to a problem of induction.
 
 \section{Bottom and top theories}
 The following definitions are motivated by a top theory of TDHD framework and a bottom clause of Prolog systems.
@@ -870,6 +879,7 @@ A top theory $\top$ with respect to $\langle P, N \rangle$ is
 $\{x \in \mathbb{N} : \psi_\top(x)\}$,
 a set definable by $\psi_\top$, or implicitly $\psi$ satisfying
 $P \subseteq \top$.
+A set $\mathcal{H}=\powerset{\top}$ is called a top theory bias.
 \end{defn}
 
 \begin{defn}
@@ -877,23 +887,8 @@ A bottom theory $\bot$ with respect to $\langle P, N \rangle$ is
 $\{x \in \mathbb{N} : \psi_\bot(x)\}$,
 a set definable by $\psi_\bot$, or implicitly $\psi$ satisfying
 $N \cap \bot = \emptyset$.
+A set $\mathcal{H}=\powerset{\bot}$ is called a bottom theory bias.
 \end{defn}
-
-\begin{defn}
-A \emph{top theory inductive inference system} TIIS is a computable function
-$f: \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \to \powerset{\mathbb{N}},
-\langle P, N, \top \rangle \mapsto S$
-such that $P \subseteq \mathbb{N}, N \cap S = \emptyset, P \subseteq \top$.
-\end{defn}
-
-\begin{defn}
-A \emph{bottom theory inductive inference system} BIIS is a computable function
-$f: \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \to \powerset{\mathbb{N}},
-\langle P, N, \bot \rangle \mapsto S$
-such that $P \subseteq \mathbb{N}, N \cap S = \emptyset, \bot \subseteq S$.
-\end{defn}
-
-Notice that when we fix a 3rd argument, both TIIS and BIIS are IISs.
 
 \section{Generalization}
 In order to define a notion of generalization in an abstracted setting we should understand what a generalization is in various ILP contexts.
@@ -916,20 +911,16 @@ $D=\{
 \neg female(ann) \vee woman(ann) \}$.
 Then $C$ $\theta$-subsumes $D$ with the substitution
 $\theta=\{susan \backslash x, mary \backslash x, ann \backslash x\}$.
-From the example we can see that generalization corresponds to deriving a more general rule from the specific instances of that rule. The theory $C$ is shorter $D$ and less complex in a sense that it is easier to remember that every female is a woman than to remember that Susan is a woman, Mary is a woman, Ann is a woman given that we know that Susan, Mary, Ann are females. Therefore we define the notion of generalization in Computability setting as follows:
+From the example we can see that generalization corresponds to deriving a more general rule from the specific instances of that rule. The theory $C$ is shorter $D$ and less complex in a sense that it is easier to remember that every female is a woman than to remember that Susan is a woman, Mary is a woman, Ann is a woman given that we know that Susan, Mary, Ann are females.
+Intuitively a set $S$ is simpler than a set $T$ if it can be defined in a simpler way:
 
 \begin{defn}
-Let $S$ and $T$ be subsets of $\mathbb{N}$, then we say that $S$ is more general than $T$ iff $K(S)<K(T)$ where $K(S)$ is the Kolmogorov complexity of a set $S$.
+Let $S$ and $T$ be subsets of $\mathbb{N}$, then we say that $S$ is more general than $T$ iff $K(S)<K(T)$ where $K(-)$ is the Kolmogorov complexity of its input set.
 \end{defn}
 
 \begin{defn}
-Given sets $P, N$, a \emph{specialization} of an TIIS $f$ from the top theory $\top$ is a sequence $\{\top_i\}$ of sets such that $\top_1=\top$,
-$\top_{i+1}=f(P, N, \top_i)$.
+When does IIS generalize?
 \end{defn}
-A reader should notice that $\top_1 \supseteq \top_2 \supseteq \top_3 ...$.
-The sets of a specialization sequence are formed by adding a conjuct $\phi_{i+1}$ to the defining formula of $\top_{i+1}$,
-i.e. $\top_{i+1}=\{x \in \mathbb{N} : \psi_i(x) \wedge \phi_{i+1}(x) \}$.
-
 
 \chapter{Model approximation}
 
