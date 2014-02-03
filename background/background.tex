@@ -824,6 +824,37 @@ $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \math
 
 \chapter{Top-down framework}
 
+\section{Toplog}
+\subsection{Mode declarations order bias}
+Consider the Toplog program:
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p1(+type)).
+:-modeb(1, p2(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p1(a1).
+p1(a2).
+p1(a3).
+
+p2(a1).
+p2(a2).
+p2(a3).
+
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+
+Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode declaration to the following:
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p2(+type)).
+:-modeb(1, p1(+type)).
+\end{lstlisting}
+then Toplog learns a hypothesis $r(A) :- p2(A).$ instead. This experiment therefore shows that Toplog's bias depends on the order of the mode declaration statements.
+
 \chapter{Bottom-up framework}
 
 \chapter{MIL framework}
@@ -911,7 +942,7 @@ $D=\{
 \neg female(ann) \vee woman(ann) \}$.
 Then $C$ $\theta$-subsumes $D$ with the substitution
 $\theta=\{susan \backslash x, mary \backslash x, ann \backslash x\}$.
-From the example we can see that generalization corresponds to deriving a more general rule from the specific instances of that rule. The theory $C$ is shorter $D$ and less complex in a sense that it is easier to remember that every female is a woman than to remember that Susan is a woman, Mary is a woman, Ann is a woman given that we know that Susan, Mary, Ann are females.
+From the example we can see that generalization corresponds to deriving a more general rule from the specific instances of that rule. The theory $C$ is shorter than $D$ and less complex in a sense that it is easier to remember that every female is a woman than to remember that Susan is a woman, Mary is a woman, Ann is a woman given that we know that Susan, Mary, Ann are females.
 Intuitively a set $S$ is simpler than a set $T$ if it can be defined in a simpler way:
 
 \begin{defn}
