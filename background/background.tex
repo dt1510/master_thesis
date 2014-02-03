@@ -944,6 +944,11 @@ example(object(grass),1).
 example(object(tree),1).
 \end{lstlisting}
 
+will produce a hypothesis $object(A) :- blue(A)$ since 
+$:-modeb(10, blue(+type)).$ was defined first instead of learning both
+concepts in a hypothesis:
+$object(A) :- blue(A); green(A)$ where the $;$ represents a disjunction.
+
 \subsection{Inability to make deductions from observations}
 Toplog does not learn any hypothesis from the following program:
 
@@ -971,12 +976,28 @@ example(t(a3),1).
 \end{lstlisting}
 which if included in the Toplog program, then a hypothesis
 $t(A) :- p(A)$ would be learnt.
-Therefore the role of the background knowledge in Toplog is limited.
+Therefore the application of the background knowledge to the observations in Toplog is limited.
 
-will produce a hypothesis $object(A) :- blue(A)$ since 
-$:-modeb(10, blue(+type)).$ was defined first instead of learning both
-concepts in a hypothesis:
-$object(A) :- blue(A); green(A)$ where the $;$ represents a disjunction.
+Nevertheless, Toplog can still learn by making deductions from its background knowledge.
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, r(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p(a1).
+p(a2).
+p(a3).
+
+r(A) :- p(A).
+
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+would give a hypothesis $t(A) :- r(A).$
+
 
 \chapter{Bottom-up framework}
 
