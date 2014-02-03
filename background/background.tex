@@ -907,13 +907,47 @@ produces no hypotheses.
 Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
 \begin{lstlisting}
 %target concept: in_language(s(A)) :- in_language(A).
+:-modeh(in_language(s(+word))).
+:-modeb(1, in_language(+word)).
+
 example(in_language(s(epsilon)),1).
 example(in_language(s(s(epsilon))),1).
 example(in_language(s(s(s(epsilon)))),1).
 example(in_language(s(s(s(s(epsilon))))),1).
 \end{lstlisting}
 
-However, this is not learnable since Toplog's mode declarations do not allow to specify $in_language(s(A))$ in a head.
+However, this is not learnable since Toplog's mode declarations do not allow to specify $in_language(s(A))$ in a head neither in a body. Toplog outputs:
+"Couldn't start model. (no problem defined?)".
+
+\subsection{Clausal bias}
+Since Toplog's hypotheses space consists of clauses, it cannot learn two concepts at one time.
+
+\begin{lstlisting}
+:-modeh(object(+type)).
+:-modeb(10, blue(+type)).
+:-modeb(10, green(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+blue(ball).
+blue(pen).
+blue(bag).
+green(shirt).
+green(grass).
+green(tree).
+
+example(object(ball),1).
+example(object(pen),1).
+example(object(bag),1).
+example(object(shirt),1).
+example(object(grass),1).
+example(object(tree),1).
+\end{lstlisting}
+
+will produce a hypothesis $object(A) :- blue(A)$ since 
+$:-modeb(10, blue(+type)).$ was defined first instead of learning both
+concepts in a hypothesis:
+$object(A) :- blue(A); green(A)$ where the $;$ represents a disjunction.
 
 \chapter{Bottom-up framework}
 
@@ -1007,10 +1041,6 @@ Intuitively a set $S$ is simpler than a set $T$ if it can be defined in a simple
 
 \begin{defn}
 Let $S$ and $T$ be subsets of $\mathbb{N}$, then we say that $S$ is more general than $T$ iff $K(S)<K(T)$ where $K(-)$ is the Kolmogorov complexity of its input set.
-\end{defn}
-
-\begin{defn}
-When does IIS generalize?
 \end{defn}
 
 \chapter{Model approximation}
