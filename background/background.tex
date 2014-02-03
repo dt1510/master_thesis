@@ -944,6 +944,35 @@ example(object(grass),1).
 example(object(tree),1).
 \end{lstlisting}
 
+\subsection{Inability to make deductions from observations}
+Toplog does not learn any hypothesis from the following program:
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, p(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p(a1).
+p(a2).
+p(a3).
+
+t(A) :- r(A).
+
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+Although from the positive examples and the background knowledge included one may deduce examples:
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+which if included in the Toplog program, then a hypothesis
+$t(A) :- p(A)$ would be learnt.
+Therefore the role of the background knowledge in Toplog is limited.
+
 will produce a hypothesis $object(A) :- blue(A)$ since 
 $:-modeb(10, blue(+type)).$ was defined first instead of learning both
 concepts in a hypothesis:
