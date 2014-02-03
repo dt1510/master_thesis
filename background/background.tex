@@ -903,6 +903,18 @@ example(woman(tom),-1).
 \end{lstlisting}
 produces no hypotheses.
 
+\subsection{Unlearnability of the term structure}
+Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
+\begin{lstlisting}
+%target concept: in_language(s(A)) :- in_language(A).
+example(in_language(s(epsilon)),1).
+example(in_language(s(s(epsilon))),1).
+example(in_language(s(s(s(epsilon)))),1).
+example(in_language(s(s(s(s(epsilon))))),1).
+\end{lstlisting}
+
+However, this is not learnable since Toplog's mode declarations do not allow to specify $in_language(s(A))$ in a head.
+
 \chapter{Bottom-up framework}
 
 \chapter{MIL framework}
