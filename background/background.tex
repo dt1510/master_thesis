@@ -855,6 +855,54 @@ Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode d
 \end{lstlisting}
 then Toplog learns a hypothesis $r(A) :- p2(A).$ instead. This experiment therefore shows that Toplog's bias depends on the order of the mode declaration statements.
 
+\subsection{Learning inconsistent hypothesis}
+Toplog can learn inconsistent hypotheses:
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, student(+person)).
+
+student(ann).
+student(tom).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+
+gives an output hypothesis $woman(A) :- student(A)$ although $tom$ is not a woman as indicated by a negative example $example(woman(tom),-1)$.
+But this is intentional, furthermore Toplog provides the information that the default accuracy of its hypothesis is 90\% as $example(woman(ann,9)$ corresponds to 9 positive examples correctly classified out of 10.
+
+\subsection{One head predicate bias}
+All the clauses in the hypotheses space of Toplog have to have the same predicate symbol in its head.
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+
+male(tom).
+female(ann).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+produces a hypothesis $woman(A) :- female(A)$ but adding a second
+head mode declaration $:-modeh(man(+person)).$ after $:-modeh(woman(+person)).$ overwrites the first one.
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeh(man(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+
+male(tom).
+female(ann).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+produces no hypotheses.
+
 \chapter{Bottom-up framework}
 
 \chapter{MIL framework}
