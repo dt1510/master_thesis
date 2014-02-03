@@ -998,6 +998,15 @@ example(t(a3),1).
 \end{lstlisting}
 would give a hypothesis $t(A) :- r(A).$
 
+\subsection{Predicate generalization impossible}
+Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
+\begin{lstlisting}
+example(swims(magician),1).
+example(flies(magician),1).
+example(cooks(magician),1).
+example(makes_fire(magician),1).
+\end{lstlisting}
+The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
 
 \chapter{Bottom-up framework}
 
