@@ -348,6 +348,10 @@ The second postulate of inductive inference (Determinism). The oracle $\mathtt{O
 is deterministic, i.e. $\forall x \in L_o. \#\mathtt{O}(x)=1$.
 \end{defn}
 
+\begin{defn}
+The third postulate of inductive inference (Occam's Razor). The reality with its full axiomatization of less Kolmogorov complexity is more probable than a reality with its full axiomatization of greater Kolmogorov complexity.
+\end{defn}
+
 \subsection{Problem of induction - model theoretic setting}
 A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
 $O \subseteq cl(A \union B )$ where the consequence operator $cl$ is specified  in a more specific version of a problem.
@@ -1007,6 +1011,9 @@ example(cooks(magician),1).
 example(makes_fire(magician),1).
 \end{lstlisting}
 The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
+
+\subsection{Ground atom example}
+Toplog has a limitation that every example can be only a ground atom.
 
 \chapter{Bottom-up framework}
 
