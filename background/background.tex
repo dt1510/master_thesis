@@ -1015,7 +1015,235 @@ The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our lang
 \subsection{Ground atom example}
 Toplog has a limitation that every example can be only a ground atom.
 
+\section{MC-Toplog}
+
+
 \chapter{Bottom-up framework}
+
+\section{Imparo}
+
+\subsection{Default examples bias}
+Imparo has examples in its default bias without the need to declare them in the mode declarations.
+
+\begin{lstlisting}
+head_modes([
+   %woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Background knowledge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+female(jane).
+female(susan).
+
+male(jack).
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+woman(jane).
+woman(susan).
+
+:- woman(jack).
+\end{lstlisting}
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(jane):-true
+woman(susan):-true
+\end{lstlisting}
+
+in which a predicate $woman$ is a head symbol although it was not specified in the mode declaration. Once it is specified in a declaration as
+\begin{lstlisting}    
+head_modes([
+   %woman(+person)
+]).
+\end{lstlisting}
+
+a more general hypothesis is learnt
+
+\begin{lstlisting}
+woman(A):-female(A)
+\end{lstlisting}.
+
+\subsection{A multiclausal learning}
+Imparo is capable to learn multiple hypotheses at one time.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   man(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+person(sam).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Background knowledge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+woman(jane).
+woman(susan).
+man(jack).
+man(sam).
+
+:- woman(jack).
+:- man(susan).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+woman(A):-female(A)
+man(A):-male(A)
+\end{lstlisting}
+
+\subsection{Unlearnability of headless clases and negative examples}
+In cases when a hypothesis of the clausal form with no head could explain the examples, Imparo cannot learn such a clause.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    woman(+person),
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+person(sam).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Background knowledge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+:- woman(jack).
+:- woman(sam).
+\end{lstlisting}
+
+The hypothesis of the form $\neg male(x) \vee \neg woman(x)$ would explain the examples, however Imparo in this case outputs no hypothesis.
+
+Adding further information to the background knowledge does not remove the limits:
+
+\begin{lstlisting}
+not_man(X) :- woman(X).
+not_woman(X) :- man(X).
+:- woman(X), man(X).
+:- not_woman(X), not_man(X).
+\end{lstlisting}
+The background knowledge says that everybody has to be either a woman or a man. From our observations negative examples are not learnable by Imparo, however a hypothesis produced is consistent with the all the examples and the background knowledge.
+
+\subsection{Limited use of observations}
+Imparo cannot make deductions from the observations and the background knowledge to induce a general hypothesis.
+
+\begin{lstlisting}
+head_modes([
+   man(+person),
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+person(martin).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Background knowledge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+man(jack).
+man(sam).
+man(martin).
+
+woman(jane).
+woman(susan).
+woman(eugenia).
+
+:-man(jane).
+:-woman(sam).
+
+\end{lstlisting}
+
+learns the following hypothesis:
+
+\begin{lstlisting}
+man(jack):-true
+man(sam):-true
+woman(A):-female(A)
+man(martin):-true
+\end{lstlisting}
+
+However, the reader may observe that the observations of the $woman$ predicate together with the background knowledge imply that all observed males are men, thus a hypothesis
+\begin{lstlisting}
+man(X) :- male(X).
+\end{lstlisting}
+could be learnt which would be more general than its instances, but it is not learnt.
 
 \chapter{MIL framework}
 
