@@ -1392,8 +1392,98 @@ in_language(r(s(A))):-true
 \end{lstlisting}
 .
 
+\subsection{No generalization downwards}
 
+\begin{lstlisting}
+head_modes([
+   even(+number)
+]).
 
+body_modes([
+    even(+number),
+    even(s(+number)),
+    even(s(s(+number)))
+]).
+
+number(0).
+number(s(X)).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+even(s(s(s(s(s(s(s(s(0))))))))).
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+
+produces a hypothesis
+\begin{lstlisting}
+even(0):-true
+even(s(s(0))):-true
+even(s(s(s(s(s(s(s(s(0))))))))):-true
+even(s(s(s(s(0))))):-true
+even(s(s(s(s(s(s(0))))))):-true
+\end{lstlisting}
+
+However, a more general a shorter hypothesis would be
+
+\begin{lstlisting}
+even(A) :- even(s(s(A)).
+even(s(s(s(s(s(s(0))))))):-true
+\end{lstlisting}.
+
+The same fact applies even if we move part of observations to the background knowledge:
+
+\begin{lstlisting}
+head_modes([
+   even(+number)
+]).
+
+body_modes([
+    even(+number),
+    even(s(+number)),
+    even(s(s(+number)))
+]).
+
+number(0).
+number(s(X)).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+
+and expect to learn a general hypothesis
+
+\begin{lstlisting}
+even(A) :- even(s(s(A)).
+\end{lstlisting}
+
+but only learn the examples
+\begin{lstlisting}
+even(0):-true
+even(s(s(s(s(s(s(0))))))):-true
+even(s(s(0))):-true
+even(s(s(s(s(0))))):-true
+\end{lstlisting}
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
