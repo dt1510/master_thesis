@@ -1245,6 +1245,155 @@ man(X) :- male(X).
 \end{lstlisting}
 could be learnt which would be more general than its instances, but it is not learnt.
 
+\subsection{Weak head mode declaration}
+A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Background knowledge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+female(jane).
+female(susan).
+female(eugenia).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gender, Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+woman(sister(jane)).
+woman(sister(eugenia)).
+:- woman(jack).
+\end{lstlisting}
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(sister(jane)):-true
+woman(sister(eugenia)):-true
+\end{lstlisting}.
+
+If we would like generalize on the terms, we have to add them explicitly to the mode declaration, i.e.
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   woman(sister(+person))
+]).
+\end{lstlisting}
+produces a more general hypothesis
+\begin{lstlisting}
+woman(sister(A)):-true
+\end{lstlisting}.
+
+\subsection{Learnability of the Kleene star}
+Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation.
+
+\begin{lstlisting}
+head_modes([
+   in_language(+word),
+   in_language(s(+word)),  
+   in_language(r(+word))
+]).
+
+body_modes([
+    in_language(+word),
+    in_language(s(+word)),
+    in_language(r(+word))
+]).
+
+word(e).
+word(s(X)).
+word(r(X)).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+in_language(e).
+in_language(s(e)).
+in_language(s(s(e))).
+in_language(s(s(s(e)))).
+
+:- in_language(r(e)).
+:- in_language(r(r(e))).
+:- in_language(s(s(r(e)))).
+\end{lstlisting}
+gives a hypothesis
+\begin{lstlisting}
+in_language(e):-true
+in_language(s(A)):-in_language(A)
+\end{lstlisting}
+
+Imparo can also learn a rule applying the Kleene star operator on a nested term structure.
+
+\begin{lstlisting}
+head_modes([
+   in_language(+word),
+   in_language(s(+word)),  
+   in_language(s(s(+word))),
+   in_language(r(s(+word))),
+   in_language(s(r(+word))),
+   in_language(r(+word)),
+   in_language(r(r(+word)))
+]).
+
+body_modes([
+    in_language(+word),
+    in_language(s(+word)),
+    in_language(r(+word))
+]).
+
+word(e).
+word(s(X)).
+word(r(X)).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+in_language(e).
+in_language(r(s(e))).
+in_language(r(s(r(s(e))))).
+in_language(r(s(r(s(r(s(e))))))).
+
+:- in_language(r(e)).
+:- in_language(r(r(e))).
+:- in_language(s(s(r(e)))).
+:- in_language(s(s(s(e)))).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+in_language(e):-true
+in_language(r(s(A))):-true
+\end{lstlisting}
+.
+
+
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
