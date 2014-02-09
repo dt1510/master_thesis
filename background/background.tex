@@ -1484,6 +1484,170 @@ even(s(s(s(s(s(s(0))))))):-true
 even(s(s(0))):-true
 even(s(s(s(s(0))))):-true
 \end{lstlisting}
+
+\subsection{Literal observational bias}
+Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(glory).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+:- man(glory).
+\end{lstlisting}
+
+Expected hypothesis explaining the examples:
+
+\begin{lstlisting}
+man(X) :- male(X).
+\end{lstlisting}
+
+\subsection{Assumption of consistency}
+Imparo assumes that the set of observations is consistent.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(glory).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+:- man(glory).
+
+man(glory).
+\end{lstlisting}
+
+produces a hypothesis
+\begin{lstlisting}
+man(glory):-true
+\end{lstlisting}
+although it is inconsistent with the observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+
+Imparo still learns
+\begin{lstlisting}
+man(glory):- true
+\end{lstlisting}
+even if we move the negative observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+to the background knowledge.
+
+\subsection{Preference over the later mode declarations}
+The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   policeman(+person),
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(jane).
+
+%file%imb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+male(jack).
+male(sam).
+male(john).
+policeman(jack).
+policeman(sam).
+policeman(john).
+
+%file%imx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+man(jack).
+man(sam).
+
+:- man(jane).
+\end{lstlisting}
+learns a hypothesis
+\begin{lstlisting}
+man(A):-male(A)
+\end{lstlisting}
+However, changing the body mode declaration to
+\begin{lstlisting}
+body_modes([   
+   male(+person),
+   policeman(+person)
+]).
+\end{lstlisting}
+results in learning the hypothesis
+\begin{lstlisting}
+man(A):-policeman(A)
+\end{lstlisting}
+
+This search bias is stronger than a criterion of favouring a stronger or a weaker hypothesis. By adding to the background knowledge
+\begin{lstlisting}
+policeman(X) :- male(X).
+\end{lstlisting}
+or its converse
+\begin{lstlisting}
+male(X) :- policeman(X).
+\end{lstlisting}
+the hypothesis learnt remains the same.
+
+\subsection{}
+
+\subsection{Other biases}
+Imparo can learn only a conjunction of clauses as a hypothesis.
+Imparo cannot explain the negative observations.
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
