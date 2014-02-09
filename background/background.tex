@@ -1039,20 +1039,13 @@ person(jane).
 person(susan).
 person(jack).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Background knowledge
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 female(jane).
 female(susan).
 
 male(jack).
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Gender, Examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Gender, Examples
 woman(jane).
 woman(susan).
 
@@ -1065,10 +1058,10 @@ woman(jane):-true
 woman(susan):-true
 \end{lstlisting}
 
-in which a predicate $woman$ is a head symbol although it was not specified in the mode declaration. Once it is specified in a declaration as
+in which a predicate \tc{woman} is a head symbol although it was not specified in the mode declaration. Once it is specified in a declaration as
 \begin{lstlisting}    
 head_modes([
-   %woman(+person)
+   woman(+person)
 ]).
 \end{lstlisting}
 
@@ -1097,21 +1090,14 @@ person(susan).
 person(jack).
 person(sam).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Background knowledge
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 female(jane).
 female(susan).
 
 male(jack).
 male(sam).
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Gender, Examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Gender, Examples
 woman(jane).
 woman(susan).
 man(jack).
@@ -1126,8 +1112,10 @@ woman(A):-female(A)
 man(A):-male(A)
 \end{lstlisting}
 
-\subsection{Unlearnability of headless clases and negative examples}
-In cases when a hypothesis of the clausal form with no head could explain the examples, Imparo cannot learn such a clause.
+Learning multiple hypotheses is not possible in all systems, e.g. Toplog. Nevertheless the clauses have to be Horn, the ones with at most one positive literal and therefore hypotheses of the form $s \vee p \leftObjectImplies r$ cannot be learnt.
+
+\subsection{Unlearnability of negative examples}
+In cases when a hypothesis could explain the negative examples, Imparo cannot learn such a clause.
 
 \begin{lstlisting}
 head_modes([
@@ -1145,20 +1133,15 @@ person(susan).
 person(jack).
 person(sam).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Background knowledge
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 female(jane).
 female(susan).
 
 male(jack).
 male(sam).
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Gender, Examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :- woman(jack).
 :- woman(sam).
@@ -1175,6 +1158,11 @@ not_woman(X) :- man(X).
 :- not_woman(X), not_man(X).
 \end{lstlisting}
 The background knowledge says that everybody has to be either a woman or a man. From our observations negative examples are not learnable by Imparo, however a hypothesis produced is consistent with the all the examples and the background knowledge.
+
+This may be related to the existence of a definition of an ILP system where the produced hypothesis $H$ has to explain positive examples, but it is sufficient if negative examples are only consistent with the hypothesis, notationally the necessity condition says:
+$H, B \models E^+$ and $H, B \not \models E^-$.
+
+Favouring this definition results in a bias in which hypotheses space is biased towards positive examples.
 
 \subsection{Limited use of observations}
 Imparo cannot make deductions from the observations and the background knowledge to induce a general hypothesis.
@@ -1197,11 +1185,7 @@ person(jack).
 person(sam).
 person(martin).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Background knowledge
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 female(jane).
 female(susan).
 female(eugenia).
@@ -1212,11 +1196,7 @@ couple(martin, eugenia).
 
 male(X) :- couple(X,Y), woman(Y).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 man(jack).
 man(sam).
 man(martin).
@@ -1227,7 +1207,6 @@ woman(eugenia).
 
 :-man(jane).
 :-woman(sam).
-
 \end{lstlisting}
 
 learns the following hypothesis:
@@ -1239,11 +1218,10 @@ woman(A):-female(A)
 man(martin):-true
 \end{lstlisting}
 
-However, the reader may observe that the observations of the $woman$ predicate together with the background knowledge imply that all observed males are men, thus a hypothesis
-\begin{lstlisting}
-man(X) :- male(X).
-\end{lstlisting}
-could be learnt which would be more general than its instances, but it is not learnt.
+However, the reader may observe that the observations of the \tc{woman} predicate together with the background knowledge imply that all observed males are men, thus a hypothesis \tc{man(X) :- male(X).} could be learnt which would be more general than its instances, but it is not learnt.
+
+This limitation cannot also be considered as a form of a bias - the system searches how to explain the observations but it does the information from these observations to do so. If we added the observation
+\tc{woman{A}:-female(A)} to the background knowledge and run the program again, then Imparo would learn the hypothesis \tc{man(X) :- male(X).} too.
 
 \subsection{Weak head mode declaration}
 A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
@@ -1264,20 +1242,12 @@ person(eugenia).
 person(jack).
 person(sam).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Background knowledge
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 female(jane).
 female(susan).
 female(eugenia).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Gender, Examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 woman(sister(jane)).
 woman(sister(eugenia)).
 :- woman(jack).
@@ -1299,52 +1269,17 @@ head_modes([
 produces a more general hypothesis
 \begin{lstlisting}
 woman(sister(A)):-true
-\end{lstlisting}.
+\end{lstlisting}
 
-\subsection{Learnability of the Kleene star}
+In this regard, Imparo treats function symbols as a syntactic sugar - a predicate with a function symbol is treated as a predicate symbol, once could simply replace \tc{woman(sister(x))} by \tc{woman\_sister(x)} in examples and mode declarations and add the following to the background knowledge:
+\begin{lstlisting}
+woman_sister(X) :- woman(sister(X)).
+woman(sister(X)) :- woman_sister(X).
+\end{lstlisting}
+The advantage of a support of a term structure is a matter of convenience rather than an added expressivity of the problem description and produced hypotheses.
+
+\subsection{Learnability of a nested term structure}
 Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation.
-
-\begin{lstlisting}
-head_modes([
-   in_language(+word),
-   in_language(s(+word)),  
-   in_language(r(+word))
-]).
-
-body_modes([
-    in_language(+word),
-    in_language(s(+word)),
-    in_language(r(+word))
-]).
-
-word(e).
-word(s(X)).
-word(r(X)).
-
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-in_language(e).
-in_language(s(e)).
-in_language(s(s(e))).
-in_language(s(s(s(e)))).
-
-:- in_language(r(e)).
-:- in_language(r(r(e))).
-:- in_language(s(s(r(e)))).
-\end{lstlisting}
-gives a hypothesis
-\begin{lstlisting}
-in_language(e):-true
-in_language(s(A)):-in_language(A)
-\end{lstlisting}
-
-Imparo can also learn a rule applying the Kleene star operator on a nested term structure.
 
 \begin{lstlisting}
 head_modes([
@@ -1367,13 +1302,7 @@ word(e).
 word(s(X)).
 word(r(X)).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Examples
 
 in_language(e).
 in_language(r(s(e))).
@@ -1390,9 +1319,11 @@ returns a hypothesis
 in_language(e):-true
 in_language(r(s(A))):-true
 \end{lstlisting}
-.
+
+Note, this was not possible in Toplog.
 
 \subsection{No generalization downwards}
+Imparo cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$ for all classes of applicable observations.
 
 \begin{lstlisting}
 head_modes([
@@ -1408,61 +1339,10 @@ body_modes([
 number(0).
 number(s(X)).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-even(0).
-even(s(s(0))).
-even(s(s(s(s(0))))).
-even(s(s(s(s(s(s(0))))))).
-even(s(s(s(s(s(s(s(s(0))))))))).
-:-even(s(0)).
-:-even(s(s(s(0)))).
-\end{lstlisting}
-
-produces a hypothesis
-\begin{lstlisting}
-even(0):-true
-even(s(s(0))):-true
-even(s(s(s(s(s(s(s(s(0))))))))):-true
-even(s(s(s(s(0))))):-true
-even(s(s(s(s(s(s(0))))))):-true
-\end{lstlisting}
-
-However, a more general a shorter hypothesis would be
-
-\begin{lstlisting}
-even(A) :- even(s(s(A)).
-even(s(s(s(s(s(s(0))))))):-true
-\end{lstlisting}.
-
-The same fact applies even if we move part of observations to the background knowledge:
-
-\begin{lstlisting}
-head_modes([
-   even(+number)
-]).
-
-body_modes([
-    even(+number),
-    even(s(+number)),
-    even(s(s(+number)))
-]).
-
-number(0).
-number(s(X)).
-
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Background knowledge
 even(s(s(s(s(s(s(s(s(0))))))))).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Examples
 even(0).
 even(s(s(0))).
 even(s(s(s(s(0))))).
@@ -1471,19 +1351,23 @@ even(s(s(s(s(s(s(0))))))).
 :-even(s(s(s(0)))).
 \end{lstlisting}
 
-and expect to learn a general hypothesis
+only learn the examples
 
-\begin{lstlisting}
-even(A) :- even(s(s(A)).
-\end{lstlisting}
-
-but only learn the examples
 \begin{lstlisting}
 even(0):-true
 even(s(s(s(s(s(s(0))))))):-true
 even(s(s(0))):-true
 even(s(s(s(s(0))))):-true
 \end{lstlisting}
+
+where we may expect a more general shorter hypothesis
+
+\begin{lstlisting}
+even(A) :- even(s(s(A)).
+\end{lstlisting}
+This may be related to the mentioned limitation of how Imparo treats the terms. A translated instance of \tc{even(s(s(s(s(0)))))} would be
+\tc{even\_s\_s\_s\_s\_s\_s(0)}, but in fact we want \tc{even\_s\_s(s(s(s(s(0))))} in order to be able to learn
+\tc{even(A) :- even\_s\_s(A)}.
 
 \subsection{Literal observational bias}
 Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
@@ -1502,18 +1386,14 @@ person(sam).
 person(john).
 person(glory).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Background knowledge
 male(jack).
 male(sam).
 male(john).
 male(tristan).
 female(glory).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Examples
 man(jack) :- male(jack).
 man(sam) :- male(sam).
 man(john) :- male(john).
@@ -1526,6 +1406,8 @@ Expected hypothesis explaining the examples:
 \begin{lstlisting}
 man(X) :- male(X).
 \end{lstlisting}
+
+To the authors knowledge, other ILP systems do not deal with the case of non-literal observations, however the works by Plotkin dealt with the generalization of a general set of clauses.
 
 \subsection{Assumption of consistency}
 Imparo assumes that the set of observations is consistent.
@@ -1544,18 +1426,14 @@ person(sam).
 person(john).
 person(glory).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Background knowledge
 male(jack).
 male(sam).
 male(john).
 male(tristan).
 female(glory).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Examples
 :- man(glory).
 
 man(glory).
@@ -1580,6 +1458,8 @@ even if we move the negative observation
 \end{lstlisting}
 to the background knowledge.
 
+Systems like Prolog check for inconsistencies before the learning is started. However, in some definitions of an ILP problem, an assumption that the background knowledge is consistent with the observations is made.
+
 \subsection{Preference over the later mode declarations}
 The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
 
@@ -1598,9 +1478,7 @@ person(sam).
 person(john).
 person(jane).
 
-%file%imb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Background knowldge
 male(jack).
 male(sam).
 male(john).
@@ -1608,9 +1486,7 @@ policeman(jack).
 policeman(sam).
 policeman(john).
 
-%file%imx
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%Examples
 man(jack).
 man(sam).
 
@@ -1641,8 +1517,6 @@ or its converse
 male(X) :- policeman(X).
 \end{lstlisting}
 the hypothesis learnt remains the same.
-
-\subsection{}
 
 \subsection{Other biases}
 Imparo can learn only a conjunction of clauses as a hypothesis.
