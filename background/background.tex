@@ -1532,6 +1532,50 @@ Imparo can learn only a conjunction of clauses as a hypothesis.
 Imparo cannot explain the negative observations.
 
 \section{Aleph's capabilities}
+
+\subsection{Multi-clausal learning}
+Aleph can learn several one-clausal hypotheses at one time.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+:-modeb(*, female(+person)).
+
+:- determination(man/1,male/1).
+:- determination(woman/1,female/1).
+
+male(bob).
+male(tom).
+
+female(ann).
+female(mary).
+
+%positive examples
+woman(ann).
+woman(mary).
+
+man(bob).
+man(tom).
+
+%negative examples
+man(ann).
+man(mary).
+
+woman(bob).
+woman(tom).
+\end{lstlisting}
+
+returns hypotheses
+
+\begin{lstlisting}
+woman(A) :- female(A).
+man(A) :- male(A).
+\end{lstlisting}
+
+Note, this is possible in Imparo, but not in Toplog.
+
 \section{Aleph's assumed limitations}
 \subsection{Unlearnability of negative examples}
 Aleph learns positive examples, but cannot learn the negative ones.
