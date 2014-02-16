@@ -1533,7 +1533,78 @@ Imparo cannot explain the negative observations.
 
 \section{Aleph's capabilities}
 \section{Aleph's assumed limitations}
+\subsection{Unlearnability of negative examples}
+Aleph learns positive examples, but cannot learn the negative ones.
+\begin{lstlisting}
+%background theory
+
+:-modeb(*, woman(+person)).
+
+%positive examples
+
+%negative examples
+woman(bob).
+woman(tom).
+\end{lstlisting}
+does not return any hypothesis, even we specify the hypothesis in the mode declaration by \tc{:- woman(+person)}.
+
+\subsection{Determination declaration requirement}
+The hypotheses space cannot be defined with the mode declarations alone.
+\begin{lstlisting}
+%background theory
+
+:-modeh(*, woman(+person)).
+:-modeb(*, female(+person)).
+
+%:- determination(woman/1,female/1).
+
+female(ann).
+female(mary).
+
+%positive examples
+woman(ann).
+woman(mary).
+
+%negative examples
+woman(bob).
+\end{lstlisting}
+
+does not return a generalized hypothesis but the examples
+\begin{lstlisting}
+woman(ann).
+woman(mary).
+\end{lstlisting}.
+After including the determination declaration
+\begin{lstlisting}
+:- determination(woman/1,female/1).
+\end{lstlisting}
+a more general hypothesis \tc{woman(A) :- female(A).} is learnt. To the author it is not clear why the hypothesis space has to be defined with two definitions. Systems like Imparo do not need determinations declarations.
 \section{Aleph's violations and biases}
+
+\subsection{Default Example Bias}
+Aleph includes examples in its bias even if these are not specified by mode declarations.
+
+\begin{lstlisting}
+%background theory
+
+%:-modeh(*, woman(+person)).
+%:-modeb(*, female(+person)).
+
+%positive examples
+
+woman(ann).
+
+%negative examples
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+woman(ann).
+\end{lstlisting}
+
+Therefore the hypotheses space is not entirely defined by mode declarations.
+
+\subsection{}
 
 \chapter{MIL framework}
 
