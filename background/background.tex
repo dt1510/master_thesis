@@ -1894,6 +1894,37 @@ woman(sister(A)) :- anybody(A).
 would be learnt. This constraint is present in Imparo as well. To the author the reason is not clear since \tc{woman(sister(+person))} is subsumed by
 \tc{woman(+person)} which was already present in the mode declaration. Therefore unless specified in the mode declarations, Aleph can learn only the hypothesis whose terms do not contain the function symbols.
 
+\subsection{Literal observation bias}
+Aleph can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+
+:- determination(man/1, male/1).
+
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%positive examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+%negative examples
+man(glory).
+\end{lstlisting}
+
+Expected hypothesis explaining the examples:
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In comparison systems like Imparo and Toplog do not accept examples of non-literal form either.
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
