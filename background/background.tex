@@ -1963,13 +1963,13 @@ This restricts the hypotheses space to the clauses with monadic bodies. However,
 \begin{lstlisting}
 %background theory
 :-modeh(*, english_couple(+person, +person)).
+
 :-modeb(*, english(+person)).
 
 :- determination(english_couple/2, english/1).
 
 english_couple(adam, alice).
 english_couple(bob, barbara).
-english_couple(jack, jane).
 english(alice).
 english(jane).
 english(barbara).
@@ -1984,12 +1984,14 @@ english_couple(jack, jane).
 
 %negative examples
 english_couple(budha, karma).
+english_couple(jack, shreedipta).
+english_couple(amir, jane).
 \end{lstlisting}
 
 returns a hypothesis
 
 \begin{lstlisting}
-english_couple(A,B) :- english(B).
+english_couple(A,B) :- english(B), english(A).
 \end{lstlisting} which has in its head a predicate of arity 2.
 
 \chapter{MIL framework}
