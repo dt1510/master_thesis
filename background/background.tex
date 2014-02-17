@@ -1926,6 +1926,40 @@ man(A) :- male(A).
 \end{lstlisting}
 In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite bias to the Imparo's preference over the later mode declarations.
 
+\subsection{Inexplicability by predicates of greater arity}
+Aleph cannot explain the examples from the background knowledge with the predicates of arity greater than 2.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, english(+person)).
+
+:-modeb(*, english_couple(+person)).
+
+:- determination(english/1, english_couple/2).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%positive examples
+english(alice).
+english(jane).
+english(barbara).
+english(adam).
+english(jack).
+
+%negative examples
+english(budha).
+\end{lstlisting}
+
+returns back the positive examples. However, a more general hypothesis could explain the examples
+\begin{lstlisting}
+english(A) :- english_couple(A,B).
+english(B) :- english_couple(A,B).
+\end{lstlisting}
+
+This restricts the hypotheses space to the clauses with monadic bodies.
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
