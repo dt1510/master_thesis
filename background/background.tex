@@ -1646,6 +1646,36 @@ woman(sister(A)) :- anybody(A).
 \end{lstlisting}
 In comparison, Imparo can learn the term structure but Toplog cannot.
 
+\subsection{Generalization downwards}
+Aleph can learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, even(+number)).
+:-modeb(*, even(+number)).
+:-modeb(*, even(s(+number))).
+:-modeb(*, even(s(s(+number)))).
+
+:- determination(even/1, even/1).
+
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%positive examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+
+%negative examples
+even(s(0)).
+even(s(s(s(0)))).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+even(A) :- even(s(s(A))).
+\end{lstlisting}
+which comes as a surprise since neither Imparo nor Toplog can learn the hypotheses whose variable in head is wrapped by function symbols in its body literals.
+
 \section{Aleph's assumed limitations}
 \subsection{Unlearnability of negative examples}
 Aleph learns positive examples, but cannot learn the negative ones.
@@ -1744,8 +1774,59 @@ in_language(s(A)) :- in_language(A).
 \end{lstlisting}
 could indeed be learnt.
 
+\subsection{Unlearnability of multi-clausal concepts}
+Aleph cannot learn a hypothesis that needs more that one clause to explain the examples.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeh(*, man(+person)).
+
+:-modeb(*, male(+person)).
+:-modeb(*, female(+person)).
+
+:- determination(woman/1, female/1).
+:- determination(man/1, male/1).
+
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+
+%positive examples
+man(jack).
+man(martin).
+
+woman(jane).
+woman(susan).
+
+%negative examples
+man(jane).
+woman(sam).
+\end{lstlisting}
+
+produces a hypothesis
+\begin{lstlisting}
+man(jack).
+man(martin).
+woman(A) :- female(A).
+\end{lstlisting}
+
+However, if we put the induced hypothesis to the background knowledge, then a hypothesis generalizing \tc{man} examples would be produced
+\begin{lstlisting}
+man(A) :- male(A).
+woman(A) :- female(A).
+\end{lstlisting}
+
+To explain the \tc{man} examples we needed to learn a two clausal hypothesis. This limitation is present in Toplog, however not in Imparo. The limitation not only demonstrates inability to learn more complex concepts, but also to make deductions from the observations such as \tc{woman} examples in order to deduce a hypothesis.
+
 \subsection{Other assumed limitations}
-Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn second-order logic statements.
+Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn second-order logic statements. Aleph cannot make deductions from the observations as it can from the background knowledge.
 
 \section{Aleph's violations and biases}
 
@@ -1772,7 +1853,46 @@ woman(ann).
 
 Therefore the hypotheses space is not entirely defined by mode declarations.
 
-\subsection{}
+\subsection{Weak head mode declaration}
+A head mode declaration in Aleph allows only definitions with specific term structure as opposed to
+the ability to substitute a variable for any term.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeb(*, anybody(+person)).
+
+:- determination(woman/1, anybody/1).
+
+person(sister(A)).
+
+anybody(jane).
+anybody(jack).
+
+%positive examples
+woman(sister(jane)).
+woman(sister(jack)).
+
+%negative examples
+woman(sister(frog)).
+\end{lstlisting}
+
+returns back the positive examples
+\begin{lstlisting}
+woman(sister(jane)).
+woman(sister(jack)).
+\end{lstlisting}
+
+However, if we added the \tc{sister} function symbol in the mode declaration explicitly
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person))).
+\end{lstlisting}
+then a more general hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+would be learnt. This constraint is present in Imparo as well. To the author the reason is not clear since \tc{woman(sister(+person))} is subsumed by
+\tc{woman(+person)} which was already present in the mode declaration. Therefore unless specified in the mode declarations, Aleph can learn only the hypothesis whose terms do not contain the function symbols.
 
 \chapter{MIL framework}
 
