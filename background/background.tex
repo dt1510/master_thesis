@@ -1933,7 +1933,7 @@ Aleph cannot explain the examples from the background knowledge with the predica
 %background theory
 :-modeh(*, english(+person)).
 
-:-modeb(*, english_couple(+person)).
+:-modeb(*, english_couple(+person, +person)).
 
 :- determination(english/1, english_couple/2).
 
@@ -1958,7 +1958,39 @@ english(A) :- english_couple(A,B).
 english(B) :- english_couple(A,B).
 \end{lstlisting}
 
-This restricts the hypotheses space to the clauses with monadic bodies.
+This restricts the hypotheses space to the clauses with monadic bodies. However, learning of hypotheses polyadic predicate symbols in their head is still possible.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, english_couple(+person, +person)).
+:-modeb(*, english(+person)).
+
+:- determination(english_couple/2, english/1).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+english(alice).
+english(jane).
+english(barbara).
+english(adam).
+english(bob).
+english(jack).
+
+%positive examples
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%negative examples
+english_couple(budha, karma).
+\end{lstlisting}
+
+returns a hypothesis
+
+\begin{lstlisting}
+english_couple(A,B) :- english(B).
+\end{lstlisting} which has in its head a predicate of arity 2.
 
 \chapter{MIL framework}
 
