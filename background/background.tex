@@ -1646,10 +1646,10 @@ Aleph learns positive examples, but cannot learn the negative ones.
 woman(bob).
 woman(tom).
 \end{lstlisting}
-does not return any hypothesis, even we specify the hypothesis in the mode declaration by \tc{:- woman(+person)}.
+does not return any hypothesis, even if we specify the hypothesis in the mode declaration by \tc{:- woman(+person)}.
 
 \subsection{Determination declaration requirement}
-The hypotheses space cannot be defined with the mode declarations alone.
+The hypotheses space cannot be defined with the mode declarations alone, mode declarations have to be supplied with the determination declarations.
 \begin{lstlisting}
 %background theory
 
@@ -1691,13 +1691,14 @@ woman(ann).
 %negative examples
 woman(ann).
 \end{lstlisting}
-returns a hypothesis \tc{woman(ann).} which is inconsistent with the negative examples.
+returns a hypothesis \tc{woman(ann).} which is inconsistent with the negative examples. Aleph assumes that the set of background knowledge union with examples is a consistent.
 
 \subsection{Unlearnability of regular languages}
 Although Aleph can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
 
 \begin{lstlisting}
 %background theory
+:-modeh(*, in_language(s(s(+word)))).
 :-modeh(*, in_language(s(+word))).
 :-modeb(*, in_language(+word)).
 
@@ -1724,7 +1725,7 @@ A more general hypothesis representing the language is
 \begin{lstlisting}
 in_language(s(s(A)) :- in_language(A).
 \end{lstlisting}
-If our target hypothesis had only one function symbol in its predicate, then a simpler hypothesis
+If our target hypothesis had only one function symbol in its predicate and its correspondent examples, then a simpler hypothesis
 \begin{lstlisting}
 in_language(s(A)) :- in_language(A).
 \end{lstlisting}
@@ -1807,11 +1808,11 @@ returns a hypothesis
 woman(ann).
 \end{lstlisting}
 
-Therefore the hypotheses space is not entirely defined by mode declarations.
+Therefore the hypotheses space is not entirely defined by mode declarations and determination declarations.
 
 \subsection{Weak head mode declaration}
 A head mode declaration in Aleph allows only definitions with specific term structure as opposed to
-the ability to substitute a variable for any term.
+the ability to substitute a variable or a type (e.g. \tc{+person}) for any term.
 
 \begin{lstlisting}
 %background theory
@@ -1882,7 +1883,7 @@ man(A) :- male(A).
 In comparison systems like Imparo and Toplog do not accept examples of non-literal form either.
 
 \subsection{Preference over earlier determinations}
-Aleph prefers learning a hypothesis whose determination declaration has been defined later.
+Aleph prefers learning a hypothesis whose determination declaration has been defined earlier.
 
 \begin{lstlisting}
 %background theory
@@ -1924,10 +1925,10 @@ results in a hypothesis
 \begin{lstlisting}
 man(A) :- male(A).
 \end{lstlisting}
-In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite bias to the Imparo's preference over the later mode declarations.
+In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite search bias to the Imparo's preference over the later mode declarations.
 
 \subsection{Inexplicability by predicates of greater arity}
-Aleph cannot explain the examples from the background knowledge with the predicates of arity greater than 2.
+Aleph cannot explain the examples from the background knowledge with the predicates of arity greater than 1.
 
 \begin{lstlisting}
 %background theory
@@ -1958,7 +1959,7 @@ english(A) :- english_couple(A,B).
 english(B) :- english_couple(A,B).
 \end{lstlisting}
 
-This restricts the hypotheses space to the clauses with monadic bodies. However, learning of hypotheses polyadic predicate symbols in their head is still possible.
+This restricts the hypotheses space to the clauses with monadic bodies unlike \tc{english\_couple} predicate of arity 2. However, learning of hypotheses with polyadic predicate symbols in their head is still possible.
 
 \begin{lstlisting}
 %background theory
