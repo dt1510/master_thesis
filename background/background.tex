@@ -1881,6 +1881,51 @@ man(A) :- male(A).
 \end{lstlisting}
 In comparison systems like Imparo and Toplog do not accept examples of non-literal form either.
 
+\subsection{Preference over earlier determinations}
+Aleph prefers learning a hypothesis whose determination declaration has been defined later.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+:-modeb(*, bridegroom(+person)).
+
+:- determination(man/1, bridegroom/1).
+:- determination(man/1, male/1).
+
+bridegroom(jack).
+bridegroom(sam).
+bridegroom(john).
+
+male(jack).
+male(sam).
+male(john).
+
+%positive examples
+man(jack).
+man(sam).
+man(john).
+
+%negative examples
+man(susan).
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+man(A) :- bridegroom(A).
+\end{lstlisting}
+
+Changing the order of the determination declarations to
+\begin{lstlisting}
+:- determination(man/1, male/1).
+:- determination(man/1, bridegroom/1).
+\end{lstlisting}
+results in a hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite bias to the Imparo's preference over the later mode declarations.
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
