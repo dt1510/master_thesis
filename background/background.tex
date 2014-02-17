@@ -1576,50 +1576,6 @@ man(A) :- male(A).
 
 Note, this is possible in Imparo, but not in Toplog.
 
-\section{Multi-clausal generalization}
-Aleph can learn all the clauses that generalize and explain the examples.
-
-\begin{lstlisting}
-%background theory
-:-modeh(*, woman(+person)).
-:-modeh(*, cook(+person)).
-:-modeb(*, male(+person)).
-:-modeb(*, female(+person)).
-
-:- determination(woman/1,female/1).
-:- determination(cook/1,female/1).
-
-male(bob).
-male(tom).
-
-female(ann).
-female(mary).
-
-%positive examples
-woman(ann).
-woman(mary).
-
-cook(ann).
-cook(mary).
-
-%negative examples
-woman(bob).
-woman(tom).
-cook(bob).
-cook(tom).
-\end{lstlisting}
-
-returns
-\begin{lstlisting}
-woman(A) :- female(A).
-cook(A) :- female(A).
-\end{lstlisting}
-This feature prevents the order bias to which systems like Imparo and Toplog are succeptible in which case these would learn
-\begin{lstlisting}
-cook(A) :- female(A).
-\end{lstlisting} because the mode declaration
-\tc{:-modeh(*, cook(+person)).} was defined after \tc{:-modeh(*, woman(+person)).}.
-
 \subsection{Term structure learnability}
 Aleph can learn the hypotheses whose terms contain function symbols.
 \begin{lstlisting}
