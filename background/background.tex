@@ -1738,7 +1738,11 @@ A more general hypothesis representing the language is
 \begin{lstlisting}
 in_language(s(s(A)) :- in_language(A).
 \end{lstlisting}
-If our target hypothesis had only one function symbol in its predicate, then a simpler hypothesis \tc{in_language(s(A)) :- in_language(A).} could indeed be learnt.
+If our target hypothesis had only one function symbol in its predicate, then a simpler hypothesis
+\begin{lstlisting}
+in_language(s(A)) :- in_language(A).
+\end{lstlisting}
+could indeed be learnt.
 
 \subsection{Other assumed limitations}
 Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn second-order logic statements.
