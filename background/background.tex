@@ -1428,6 +1428,44 @@ This may be related to the mentioned limitation of how Imparo treats the terms. 
 \tc{even\_s\_s\_s\_s\_s\_s(0)}, but in fact we want \tc{even\_s\_s(s(s(s(s(0))))} in order to be able to learn
 \tc{even(A) :- even\_s\_s(A)}.
 
+However, the generalization downwards does not work with a hypothesis having an argument with one function symbol in its body either.
+
+\begin{lstlisting}
+head_modes([
+   numeral(+number)
+]).
+
+body_modes([
+    numeral(+number),
+    numberal(s(+number)),
+    numeral(s(s(+number)))
+]).
+number(0).
+number(s(X)).
+
+%Background knowledge
+numeral(s(s(s(s(0))))).
+
+%Examples
+numeral(0).
+numeral(s(0)).
+numeral(s(s(0))).
+numeral(s(s(s(0)))).
+:-numeral(s(not_number)).
+:-numeral(s(s(s(not_number)))).                                   
+\end{lstlisting}
+
+returns a hypothesis
+
+\begin{lstlisting}
+numeral(0):-true
+numeral(s(s(s(0)))):-true
+numeral(s(0)):-true
+numeral(s(s(0))):-true
+\end{lstlisting}
+
+however, a more general hypothesis \tc{numeral(A) :- numeral(s(A)).} would explain the examples.
+
 \subsection{Literal observational bias}
 Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
 
