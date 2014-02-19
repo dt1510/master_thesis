@@ -1576,6 +1576,71 @@ man(A) :- male(A).
 
 Note, this is possible in Imparo, but not in Toplog.
 
+\subsection{Learnability of predicates of greater arity}
+Aleph can induce hypotheses that contain predicates of arity greater than 1.
+\begin{lstlisting}
+%background theory
+:-modeh(*, english(+person)).
+:-modeb(*, english_couple(+person, -person)).
+:-modeb(*, english(+person)).
+
+:- determination(english/1, english_couple/2).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%positive examples
+english(adam).
+english(jack).
+
+%negative examples
+english(budha).
+\end{lstlisting}
+
+returns back a generalized hypothesis
+\begin{lstlisting}
+english(A) :- english_couple(A,B).
+\end{lstlisting}.
+
+Note, that since the induce hypothesis does not use the variable \tc{B}, the variable had to be specified in a mode declaration with a minus sign as \tc{-person}.
+
+Similarly, learning of hypotheses with polyadic predicate symbols in their head is possible.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, english_couple(+person, +person)).
+
+:-modeb(*, english(+person)).
+
+:- determination(english_couple/2, english/1).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english(alice).
+english(jane).
+english(barbara).
+english(adam).
+english(bob).
+english(jack).
+
+%positive examples
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%negative examples
+english_couple(budha, karma).
+english_couple(jack, shreedipta).
+english_couple(amir, jane).
+\end{lstlisting}
+
+returns a hypothesis
+
+\begin{lstlisting}
+english_couple(A,B) :- english(B), english(A).
+\end{lstlisting} which has in its head a predicate of arity 2.
+
 \subsection{Term structure learnability}
 Aleph can learn the hypotheses whose terms contain function symbols.
 \begin{lstlisting}
@@ -1926,74 +1991,6 @@ results in a hypothesis
 man(A) :- male(A).
 \end{lstlisting}
 In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite search bias to the Imparo's preference over the later mode declarations.
-
-\subsection{Inexplicability by predicates of greater arity}
-Aleph cannot explain the examples from the background knowledge with the predicates of arity greater than 1.
-
-\begin{lstlisting}
-%background theory
-:-modeh(*, english(+person)).
-
-:-modeb(*, english_couple(+person, +person)).
-
-:- determination(english/1, english_couple/2).
-
-english_couple(adam, alice).
-english_couple(bob, barbara).
-english_couple(jack, jane).
-
-%positive examples
-english(alice).
-english(jane).
-english(barbara).
-english(adam).
-english(jack).
-
-%negative examples
-english(budha).
-\end{lstlisting}
-
-returns back the positive examples. However, a more general hypothesis could explain the examples
-\begin{lstlisting}
-english(A) :- english_couple(A,B).
-english(B) :- english_couple(A,B).
-\end{lstlisting}
-
-This restricts the hypotheses space to the clauses with monadic bodies unlike \tc{english\_couple} predicate of arity 2. However, learning of hypotheses with polyadic predicate symbols in their head is still possible.
-
-\begin{lstlisting}
-%background theory
-:-modeh(*, english_couple(+person, +person)).
-
-:-modeb(*, english(+person)).
-
-:- determination(english_couple/2, english/1).
-
-english_couple(adam, alice).
-english_couple(bob, barbara).
-english(alice).
-english(jane).
-english(barbara).
-english(adam).
-english(bob).
-english(jack).
-
-%positive examples
-english_couple(adam, alice).
-english_couple(bob, barbara).
-english_couple(jack, jane).
-
-%negative examples
-english_couple(budha, karma).
-english_couple(jack, shreedipta).
-english_couple(amir, jane).
-\end{lstlisting}
-
-returns a hypothesis
-
-\begin{lstlisting}
-english_couple(A,B) :- english(B), english(A).
-\end{lstlisting} which has in its head a predicate of arity 2.
 
 \chapter{MIL framework}
 
