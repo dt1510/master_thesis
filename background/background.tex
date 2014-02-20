@@ -2032,6 +2032,44 @@ In both cases, the induced hypothesis had a head atom declared in an earlier det
 
 \section{Tal's capabilities}
 
+\subsection{Multiple solutions}
+A hypothesis that can solve the problem of induction may be called a solution. Tal can output multiple solutions to a given learning problem with the corresponding scores.
+
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeb(female(+person), [name(fb)]).
+modeb(male(+person), [name(mb)]).
+person(ann).person(susan).person(adam).person(bob).
+%Background knowledge, female(ann).female(susan).male(adam).male(bob).
+%Examples, example(woman(alice), 1).example(woman(ann), 1).
+example(woman(susan), 1).example(woman(adam), -1).example(woman(bob), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. woman(A). %score 0, 2. woman(A) :- female(A). %score -1
+\end{lstlisting}
+
+\subsection{Multi-clausal hypothesis}
+Tal can learn a hypothesis that consists of multiple clauses.
+
+\begin{lstlisting}
+%Background knowledge, female(ann).female(susan).male(adam).male(bob). 
+%Examples, example(woman(ann), 1). example(woman(susan), 1).
+example(woman(adam), -1). example(woman(bob), -1).
+example(man(adam), 1). example(man(bob), 1).
+example(man(ann), -1). example(man(susan), -1).
+\end{lstlisting}
+
+returns solutions
+\begin{lstlisting}
+1. woman(_). 2. woman(A) :- female(A). 3. woman(A) :- female(A). man(_).
+4. woman(A) :- female(A). man(A) :- male(A).
+5. man(A) :- male(A). woman(A) :- female(A).
+\end{lstlisting}
+
+Particularly, we observe that the 5th solution consists of two clauses.
+
+\subsection{Other capabilities}
+Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
 
 \section{Tal's assumed limitations}
 
