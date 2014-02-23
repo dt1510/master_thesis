@@ -2194,8 +2194,18 @@ returns solutions
 and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
 Notice that a target hypothesis 2. was learnt, but Tal did not manage to terminate. One can imagine a situation in which a correct hypothesis would be learnt after the infinite loop completes which is impossible.
 
+\subsection{Weak head mode declaration}
+As in Aleph and Imparo, a head mode declaration in Tal allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeb(anybody(+person),[name(ab)]).
+%Background theory, anybody(jane).anybody(jack).
+%Examples, example(woman(sister(jane)),1).example(woman(sister(jack)),1).
+example(woman(sister(frog)),-1).example(woman(sister(cat)),-1).
+\end{lstlisting}
+returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not.
+
 \subsection{Other violations and biases}
-Since Tal returns multiple solutions order bias (the preference over hypotheses based on the position of their predicates and declarations in the learning problem) is avoided. One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis.
+Since Tal returns multiple solutions order bias (the preference over hypotheses based on the position of their predicates and declarations in the learning problem) is avoided. One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
 
 \chapter{MIL framework}
 
