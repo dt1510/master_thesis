@@ -2089,6 +2089,9 @@ Tal can impose the bias on the hypotheses space by user-specified integrity cons
 
 \section{Tal's assumed limitations}
 
+\subsection{Other assumed limitations}
+Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples.
+
 \section{Tal's violations and biases}
 
 \subsection{Solution redundancy}
@@ -2106,7 +2109,7 @@ returns solutions
 3. woman(sister(_)).woman(sister(A)) :- anybody(A).
 4. woman(sister(A)) :- anybody(A). woman(sister(_)).
 \end{lstlisting}
-Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution.
+Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution.  Moreover, \tc{woman(sister(\_))} subsumes the clause \tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
 
 \subsection{No generalization downwards}
 Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
@@ -2142,6 +2145,26 @@ example(even(s(s(s(s(0))))),1).example(even(s(s(s(s(s(s(0))))))),1).
 example(even(s(0)),-1).example(even(s(s(s(0)))),-1).
 \end{lstlisting}
 produces a hypothesis \tc{even(\_).} which is inconsistent with the negative examples. The target hypotheses \tc{even(A) :- even(s(s(A))).} was not learnt.
+
+\subsection{Loop on learning regular languages}
+Just as the generalization downwards example caused Tal looping, generalization forward, i.e. learning a hypothesis of the form $P(x) \objectImplies P(s(s(x))$ (a regular language \tc{(ss)*}) can cause Tal looping.
+\begin{lstlisting}
+modeh(in_language(s(s(+word))), [name(issh)]).modeh(in_language(s(+word)), [name(ish)]).
+modeb(in_language(+word), [name(ib)]).
+word(X).
+in_language(epsilon).in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
+%Examples
+example(in_language(s(s(epsilon))),1).example(in_language(s(s(s(s(epsilon))))),1).
+example(in_language(s(epsilon)),-1).example(in_language(s(s(s(epsilon)))),-1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. in_language(s(_)). in_language(s(s(A))) :- in_language(A).
+2. in_language(s(A)) :- in_language(A).
+\end{lstlisting}
+and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
+Notice that a target hypothesis 2. was learnt, but Tal did not manage to terminate. One can imagine a situation in which a correct hypothesis would be learnt after the infinite loop completes which is impossible.
+
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
