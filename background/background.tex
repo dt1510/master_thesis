@@ -2204,8 +2204,36 @@ example(woman(sister(frog)),-1).example(woman(sister(cat)),-1).
 \end{lstlisting}
 returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not.
 
+\subsection{Alphabetical term bias}
+Tal search is biased on the alphabetical order of the terms present in the predicates.
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeh(man(+person), [name(mh)]).
+modeb(female(+person), [name(fb)]).modeb(male(+person), [name(mb)]).
+%Background knowledge, male(adam).female(alice).
+%Examples, example(woman(alice), 1).example(man(adam), 1).
+example(woman(adam), -1).example(man(alice), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. man(_). 2. man(A) :- male(A). 3. man(A) :- male(A). woman(_).
+4. man(A) :- male(A). woman(A) :- female(A).
+\end{lstlisting}
+However, if we rename the term \tc{adam} to a term that is alphabetically greater than \tc{alice} then a predicate \tc{female} occurs in a greater proportion of solutions than in the previous ones.
+\begin{lstlisting}
+%Background knowledge, male(zygo). female(alice).
+%Examples, example(woman(alice), 1).example(man(zygo), 1).
+example(woman(zygo), -1).example(man(alice), -1).
+\end{lstlisting}
+produces solutions
+\begin{lstlisting}
+woman(_).
+1. woman(A) :- female(A). 2.woman(_).man(_). 3.woman(A) :- female(A).man(_).
+4. woman(_).man(A) :- male(A). 5. woman(A) :- female(A). man(A) :- male(A).
+\end{lstlisting}
+Other interesting change is the increase in the number of the solutions from 4 to 5. In the author's opinion the hypotheses produced should be independent of the description language chosen and therefore alphabetical term bias represents a violation of the ILP problem.
+
 \subsection{Other violations and biases}
-Since Tal returns multiple solutions order bias (the preference over hypotheses based on the position of their predicates and declarations in the learning problem) is avoided. One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
+One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
 
 \chapter{MIL framework}
 
