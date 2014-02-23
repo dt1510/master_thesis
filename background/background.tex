@@ -2119,7 +2119,7 @@ returns the solutions
 However, one would expect the hypothesis explaining positive examples to be the ground atom \tc{woman(alice).}. Consequently, Tal does not suffer from the default example bias present in the systems Toplog, Imparo and Aleph.
 
 \subsection{Other assumed limitations}
-Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples.
+Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples. Tal can accept only examples in the form of a literal, not a general clause.
 
 \section{Tal's violations and biases}
 
@@ -2193,6 +2193,9 @@ returns solutions
 \end{lstlisting}
 and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
 Notice that a target hypothesis 2. was learnt, but Tal did not manage to terminate. One can imagine a situation in which a correct hypothesis would be learnt after the infinite loop completes which is impossible.
+
+\subsection{Other violations and biases}
+Since Tal returns multiple solutions order bias (the preference over hypotheses based on the position of their predicates and declarations in the learning problem) is avoided. One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis.
 
 \chapter{MIL framework}
 
