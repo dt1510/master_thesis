@@ -2104,6 +2104,20 @@ Tal can impose the bias on the hypotheses space by user-specified integrity cons
 
 \section{Tal's assumed limitations}
 
+\subsection{No example learning}
+Tal can learn general hypotheses but it cannot learn their ground instances and ground consequences.
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeb(female(+person), [name(fb)]).
+%Background knowledge, female(alice).male(adam).male(bob).
+%Examples
+example(woman(alice), 1).example(woman(adam), -1).example(woman(bob), -1).
+\end{lstlisting}
+returns the solutions
+\begin{lstlisting}
+1. woman(_). 2. woman(A) :- female(A).
+\end{lstlisting}
+However, one would expect the hypothesis explaining positive examples to be the ground atom \tc{woman(alice).}. Consequently, Tal does not suffer from the default example bias present in the systems Toplog, Imparo and Aleph.
+
 \subsection{Other assumed limitations}
 Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples.
 
