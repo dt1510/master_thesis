@@ -2084,6 +2084,21 @@ returns solutions
 4. woman(sister(A)) :- anybody(A). woman(sister(_)).
 \end{lstlisting}
 
+\subsection{Multi-clausal concepts}
+Tal can learn a hypothesis that needs more that one clause to explain the examples.
+\begin{lstlisting}
+%Background knowledge, female(jane). female(susan). female(eugenia).
+couple(jack, jane).couple(sam, susan).couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).
+%Examples, example(man(jack),1).example(man(martin),1).example(woman(jane),1).
+example(woman(susan),1).example(man(jane),-1).example(woman(sam),-1).
+\end{lstlisting}
+has amongst its solutions
+\begin{lstlisting}
+woman(A) :- female(A). man(A) :- male(A).
+\end{lstlisting}
+To explain the man examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
+
 \subsection{Other capabilities}
 Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
 
