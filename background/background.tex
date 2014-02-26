@@ -20,20 +20,20 @@ A word over an alphabet $\mathcal{A}$ is a finite sequence (a string) of letters
 \end{defn}
 
 \begin{defn}
-A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq \powerset{A}$.
+A formal language $L$ is a set of words over the specified alphabet $\mathcal{A}$, i.e. $L \subseteq \powerset{\mathcal{A}}$.
 \end{defn}
 
 \begin{exmp}
 Let $R$ be a regular expression $0001*$.
 \begin{itemize}
 \item The alphabet is the set $\mathcal{A}={\epsilon, 0,1,*}$. $0$, $1$, $*$ are called letters of $\mathcal{A}$.
-\item The words over $A$ are $000$.
+\item The words over $\mathcal{A}$ are $000$.
 \end{itemize}
 \end{exmp}
 
 Formal languages we are going to use are first-order languages:
 \begin{defn}
-A \emph{language} $L$ is a formal language given by the grammar of the first-order logic and the additional data $\mathcal{L}$ called the signature of $L$:
+A \emph{language} $L$ is a formal language given by the grammar of first-order logic and the additional data $\mathcal{L}$ called the signature of $L$:
 \begin{enumerate}
 \item a set $\mathcal{C}$ of letters called constant symbols,
 \item a set $\mathcal{R}$ of letters called relation symbols and a positive integer (an arity) $n_R$ for each $R \in \mathcal{R}$,
@@ -42,7 +42,7 @@ A \emph{language} $L$ is a formal language given by the grammar of the first-ord
 \end{defn}
 
 \begin{remark}
-We will often talk about the language $L$ by referring to its signature $\mathcal{L}$. This should not cause a confusion as the signature $\mathcal{L}$ and the grammar of the first order logic uniquelly determine the language $L$.
+We will often talk about the language $L$ by referring to its signature $\mathcal{L}$. This should not cause a confusion as the signature $\mathcal{L}$ and the grammar of the first order logic uniquely determine the language $L$.
 \end{remark}
 
 \begin{exmp}
@@ -120,7 +120,7 @@ if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi
 \end{defn}
 
 \begin{exmp}
-A first-order logic is monotonic.
+First-order logic is monotonic.
 \end{exmp}
 
 \section{Measure theory}
@@ -160,9 +160,9 @@ the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Pr
 
 Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.
 
-The following definitions and concepts are an adaptations from the Dianhuan Lin's Master thesis\cite{lin2009}.
+The following definitions and concepts are adaptations from Dianhuan Lin's Master thesis\cite{lin2009}.
 
-\subsection{Basic concepts and notation\cite{lin2009}}
+\subsection{Basic concepts and notation of Logic Programming\cite{lin2009}}
 
 \begin{defn}
 A term is a constant, variable, or the application of a function symbol to the appropriate number of terms. A ground term is a term not containing variables.
@@ -200,7 +200,7 @@ A \emph{substitution} $\theta$ is a finite set of the form
 $\{v_1\/t_1 , .., v_n \/t_n \}$,
 where each $v_i$ is a variable, each $t_i$ is a
 term distinct from $v_i$ and the variables $v_1 , .., v_n$ are distinct. Each element $v_i \/t_i$ is called a binding
-for $v_i . \theta$ is called a ground substitution if the $t_i$ are all ground terms.
+for $v_i$. $\theta$ is called a ground substitution if the $t_i$ are all ground terms.
 \end{defn}
 
 \begin{defn}
@@ -219,11 +219,11 @@ Details about unification algorithm can be found in \cite{lloyd1987}.
 \begin{defn}
 Let $G$ be $\leftObjectImplies A_1 , ..., A_m , ..., A_k$ and
 $C$ be $A \leftObjectImplies B_1 , ..., B_q$.
-Then $G’$ is derived from $G$ and
+Then $G'$ is derived from $G$ and
 $C$ using mgu $\theta$ if the following conditions hold:
 i) $A_m$ is an atom, called the selected atom, in $G$.
 ii) $\theta$ is an mgu of $A_m$ and $A$.
-iii) $G’$ is the goal $\leftObjectImplies (A_1 , ..., A_{m−1} , B_1, ..., B_q , A_{m+1} , ..., A_k )\theta G’$ is
+iii) $G'$ is the goal $\leftObjectImplies (A_1 , ..., A_{m−1} , B_1, ..., B_q , A_{m+1} , ..., A_k )\theta$, $G'$ is
 called a resolvent of $G$ and $C$.
 \end{defn}
 SLD-resolution stands for SL-resolution for Definite clauses. SL stands for Linear resolution with Selected function.
@@ -283,7 +283,7 @@ $\mathcal{E}_I=\langle L_, L_o, \mathtt{O}_I, \mathcal{E}_I \rangle$ are two env
 \end{exmp}
 
 \begin{remark}
-In generality one may develop a theory in which an environment may have multiple or none realities and an environment oracle returns a probability of $\phi$ being true in a possible reality or randomly chooses a reality $\mathcal{M}$ between the realities, then acts as an environment oracle with a single reality $\mathcal{M}$. This may be useful when the language of enquiry has a limited expressivity as demonstrated later.
+In generality one may develop a theory in which an environment may have multiple or no realities and an environment oracle returns a probability of $\phi$ being true in a possible reality or randomly chooses a reality $\mathcal{M}$ between the realities, then acts as an environment oracle with a single reality $\mathcal{M}$. This may be useful when the language of enquiry has a limited expressivity as demonstrated later.
 \end{remark}
 
 \begin{defn}
@@ -331,7 +331,7 @@ Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{
 We do not yet consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
 
 \subsection{Incremental problem of scientific discovery}
-We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into the account that some questions may be found more efficiently than others.
+We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into account that some questions may be found more efficiently than others.
 
 Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
 
@@ -374,7 +374,7 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 5. Increment $i$ and start from step 1 again.
 
 \chapter{Inductive logic programming}
-The following definitions are inspired from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010}
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010}.
 
 \subsection{ILP problem}
 
@@ -396,7 +396,7 @@ In the context of ILP one divides the observations into positive examples $E^+$ 
 Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
 lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
 
-Absortion: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
+Absorption: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
 
 Identification: $A \wedge B \objectImplies p, q \wedge A \objectImplies p
 \models B \objectImplies q, A \wedge q \objectImplies p$,
@@ -411,7 +411,7 @@ Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
 Inverse Entailment is a correspondence between an induction and a deduction:
 \begin{thm}\cite{kimber2011}
 Let $B$ be a Horn program, and let $h$ and $e$ be
-Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e |= \neg h$.
+Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
 \section{ILP systems}
@@ -421,13 +421,13 @@ An ILP system is a function
 $f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
 is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
 
-We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretic viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretical viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
 \subsection{TDHD framework\cite{muggleton2008}}
 A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{Toplog\cite{muggleton2008}}
-A toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
 \item construct the top theory $\top$,
 \item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
@@ -436,7 +436,7 @@ A toplog is an ILP system implementing TDHD framework. The algorithm used to con
 \end{itemize}
 
 \subsubsection{MC-Toplog\cite{muggleton2012}}
-MC-Toplog is a Toplog's sequel, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
 \subsection{Induction on Failure framework\cite{kimber2011}}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
@@ -485,7 +485,7 @@ Based on T-directed framework. Unique T element. Unique bottom element.
 Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
 
 \subsection{Aleph}
-In the Aleph's manual\cite{aleph2007} a reader would find the description of the basic algorithm:
+In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
 \begin{enumerate}
 \item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
 \item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995}.
@@ -499,7 +499,7 @@ Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper
 
 \section{The role of a language in learning the models}
 Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
-By extending the language we can distinguish the models further. The problem of the predicate invention is to invent a predicate so that the right distinction between the models is made based on the language.
+By extending the language we can distinguish the models further. The problem of predicate invention is to invent a predicate so that the right distinction between models is made based on the language.
 Questions:
 1. How can we measure an expessivity and a complexity of a language?
 2. How much information can be captured by a $\mathcal{L}$-theory given a language $\mathcal{L}$?
@@ -2048,6 +2048,8 @@ returns solutions
 1. woman(A). %score 0, 2. woman(A) :- female(A). %score -1
 \end{lstlisting}
 
+The score function is customizable, more can be found in Tal's documentation.
+
 \subsection{Multi-clausal hypothesis}
 Tal can learn a hypothesis that consists of multiple clauses.
 
@@ -2084,6 +2086,8 @@ returns solutions
 4. woman(sister(A)) :- anybody(A). woman(sister(_)).
 \end{lstlisting}
 
+in which hypotheses contain a function symbol \tc{sister}.
+
 \subsection{Multi-clausal concepts}
 Tal can learn a hypothesis that needs more that one clause to explain the examples.
 \begin{lstlisting}
@@ -2093,11 +2097,11 @@ male(X) :- couple(X,Y), woman(Y).
 %Examples, example(man(jack),1).example(man(martin),1).example(woman(jane),1).
 example(woman(susan),1).example(man(jane),-1).example(woman(sam),-1).
 \end{lstlisting}
-has amongst its solutions
+has amongst its solutions a hypothesis
 \begin{lstlisting}
 woman(A) :- female(A). man(A) :- male(A).
 \end{lstlisting}
-To explain the man examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
+To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
 
 \subsection{Other capabilities}
 Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
@@ -2178,7 +2182,8 @@ produces a hypothesis \tc{even(\_).} which is inconsistent with the negative exa
 \subsection{Loop on learning regular languages}
 Just as the generalization downwards example caused Tal looping, generalization forward, i.e. learning a hypothesis of the form $P(x) \objectImplies P(s(s(x))$ (a regular language \tc{(ss)*}) can cause Tal looping.
 \begin{lstlisting}
-modeh(in_language(s(s(+word))), [name(issh)]).modeh(in_language(s(+word)), [name(ish)]).
+modeh(in_language(s(s(+word))), [name(issh)]).
+modeh(in_language(s(+word)), [name(ish)]).
 modeb(in_language(+word), [name(ib)]).
 word(X).
 in_language(epsilon).in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
@@ -2202,7 +2207,7 @@ modeh(woman(+person), [name(wh)]).modeb(anybody(+person),[name(ab)]).
 %Examples, example(woman(sister(jane)),1).example(woman(sister(jack)),1).
 example(woman(sister(frog)),-1).example(woman(sister(cat)),-1).
 \end{lstlisting}
-returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not.
+returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
 
 \subsection{Alphabetical term bias}
 Tal search is biased on the alphabetical order of the terms present in the predicates.
@@ -2233,11 +2238,38 @@ woman(_).
 Other interesting change is the increase in the number of the solutions from 4 to 5. In the author's opinion the hypotheses produced should be independent of the description language chosen and therefore alphabetical term bias represents a violation of the ILP problem.
 
 \subsection{Other violations and biases}
-One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
+One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does not have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
 
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
+
+\chapter{Definition of an ILP problem - notes}
+For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
+
+Related to the definition of an ILP problem Cheng and Wolf say in \cite{cheng1997}
+"If E + is finite, then E = E -e will be a correct theory, but a rather unin-
+teresting one. In this case, we would not have learned anything beyond the
+given examples: the induced theory has no predictive power. To avoid this,
+we can put some constraints on the theory. For instance, we might demand
+that E contains less clauses than the number of given positive examples. In
+that case, E = E + is ruled out. Since constraints like these mainly depend
+on the particular application at hand, we will not devote much attention to
+them."
+They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
+
+Muggleton in his Inverse Entailment and Progol \cite{muggleton1995} says:
+"the association of probability values with hypotheses requires the assumption of a prior probability distribution over the hypothesis language. Occam's razor can be taken as an instance of a distribution which assigns higher prior probability to simpler hypotheses. It has been shown [4] that without such distributional assumptions the class of all logic programs is not even PAC-predictable. On the other hand, it has recently been demonstrated [42] that the class of all time-bounded logic programs is polynomial-time learnable (U-learnable) under fairly broad families of prior probability distributions. Appendix B gives more details of the relationship between data, posterior probabilities and U-learnability."
+
+\section{ILP theory and methods}
+\subsection{Completeness}
+From ILP theory and methods \cite{muggleton1994}:
+An ILP system with a bias $\mathcal{H}$ is complete iff for all $E+, E-,B$ there exists $H \in \mathcal{H}$ such that $B \cup H \models E+$ and $B \cup H \not \models E-$.
+\subsection{Non-monotonic setting for ILP}
+Validity: all $h \in H$ are true in $M+(B)$,
+Completeness: if general clause $g$ is true in $M+(B)$, then $H \models g$,	
+Minimality: there is no proper subset $G$ of $H$ which is valid and complete.
+Question: is $H$ unique from given the minimality condition?
 
 \chapter{Learning hypotheses of the least Kolmogorov complexity}
 
