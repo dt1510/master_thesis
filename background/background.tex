@@ -2246,9 +2246,148 @@ One may argue that returning multiple solutions does not solve the inductive lea
 
 \section{Progol's capabilities}
 
+\subsection{Multi-clausal learning}
+Progol can learn several one-clausal hypotheses at one time.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person))?
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:-modeb(*, female(+person))?
+
+:- determination(man/1,male/1)?
+:- determination(woman/1,female/1)?
+
+male(bob).
+male(tom).
+
+female(ann).
+female(mary).
+
+%positive examples
+woman(ann).
+woman(mary).
+
+man(bob).
+man(tom).
+
+%negative examples
+:-man(ann).
+:-man(mary).
+
+:-woman(bob).
+:-woman(tom).
+\end{lstlisting}
+
+returns hypotheses
+
+\begin{lstlisting}
+woman(A) :- female(A).
+man(A) :- male(A).
+\end{lstlisting}
+
+Note, this is possible in Imparo and in Aleph, but not in Toplog.
+
+\subsection{Term structure learnability}
+Progol can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person)))?
+:-modeb(*, anybody(+person))?
+
+:-determination(woman/1, anybody/1)?
+
+anybody(jane).
+anybody(susan).
+anybody(bob).
+
+%positive examples
+woman(sister(bob)).
+woman(sister(jane)).
+woman(sister(susan)).
+
+%negative examples
+:-woman(sister(frog)).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
+
+\subsection{Other capabilities}
+Progol can induce hypotheses that contain predicates of arity greater than 1. Progol checks for inconsistency of the observations with the background knowledge and provides an appropriate warning about the contradiction that false is provable.
+
 \section{Progol's assumed limitations}
 
+\subsection{Other limitations}
+Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations.
+
 \section{Progol's violations and biases}
+\subsection{No generalization downwards}
+Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, even(+number))?
+:-modeb(*, even(+number))?
+:-modeb(*, even(s(+number)))?
+:-modeb(*, even(s(s(+number))))?
+
+:- determination(even/1, even/1)?
+
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%positive examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+
+%negative examples
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+even(A).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+\subsection{Unlearnability of regular languages}
+Although Progol can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, in_language(s(s(+word))))?
+:-modeh(*, in_language(s(+word)))?
+:-modeb(*, in_language(+word))?
+:- determination(in_language/1, in_language/1)?
+
+in_language(epsilon).
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+
+%positive examples
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+
+%negative examples
+:-in_language(s(epsilon)).
+:-in_language(s(s(s(epsilon)))).
+\end{lstlisting}
+returns back a hypothesis
+\begin{lstlisting}
+in_language(s(s(A))).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+A general consistent hypothesis representing the language is
+\begin{lstlisting}
+in_language(s(s(A)) :- in_language(A).
+\end{lstlisting}
+
+\subsection{Other violations and biases}
 
 \chapter{MIL framework}
 
