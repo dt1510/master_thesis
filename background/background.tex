@@ -2250,41 +2250,18 @@ One may argue that returning multiple solutions does not solve the inductive lea
 Progol can learn several one-clausal hypotheses at one time.
 
 \begin{lstlisting}
-%background theory
-:-modeh(*, woman(+person))?
-:-modeh(*, man(+person))?
-:-modeb(*, male(+person))?
-:-modeb(*, female(+person))?
-
-:- determination(man/1,male/1)?
-:- determination(woman/1,female/1)?
-
-male(bob).
-male(tom).
-
-female(ann).
-female(mary).
-
-%positive examples
-woman(ann).
-woman(mary).
-
-man(bob).
-man(tom).
-
-%negative examples
-:-man(ann).
-:-man(mary).
-
-:-woman(bob).
-:-woman(tom).
+%background theory, :-modeh(*, woman(+person))? :-modeh(*, man(+person))?
+:-modeb(*, male(+person))? :-modeb(*, female(+person))?
+:- determination(man/1,male/1)?:- determination(woman/1,female/1)?
+male(bob).male(tom).female(ann).female(mary).
+%positive examples,woman(ann).woman(mary).man(bob).man(tom).
+%negative examples,:-man(ann).:-man(mary).:-woman(bob).:-woman(tom).
 \end{lstlisting}
 
 returns hypotheses
 
 \begin{lstlisting}
-woman(A) :- female(A).
-man(A) :- male(A).
+woman(A) :- female(A).man(A) :- male(A).
 \end{lstlisting}
 
 Note, this is possible in Imparo and in Aleph, but not in Toplog.
@@ -2292,22 +2269,12 @@ Note, this is possible in Imparo and in Aleph, but not in Toplog.
 \subsection{Term structure learnability}
 Progol can learn the hypotheses whose terms contain function symbols.
 \begin{lstlisting}
-:-modeh(*, woman(sister(+person)))?
-:-modeb(*, anybody(+person))?
-
+:-modeh(*, woman(sister(+person)))?:-modeb(*, anybody(+person))?
 :-determination(woman/1, anybody/1)?
-
-anybody(jane).
-anybody(susan).
-anybody(bob).
-
+anybody(jane).anybody(susan).anybody(bob).
 %positive examples
-woman(sister(bob)).
-woman(sister(jane)).
-woman(sister(susan)).
-
-%negative examples
-:-woman(sister(frog)).
+woman(sister(bob)).woman(sister(jane)).woman(sister(susan)).
+%negative examples, :-woman(sister(frog)).
 \end{lstlisting}
 returns a hypothesis
 \begin{lstlisting}
@@ -2318,40 +2285,19 @@ In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
 \subsection{Learnability of multi-clausal concepts}
 Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
 \begin{lstlisting}
-:-modeh(*, woman(+person))?
-:-modeh(*, man(+person))?
-:-modeb(*, male(+person))?
-:-modeb(*, female(+person))?
-
-:- determination(woman/1, female/1)?
-:- determination(man/1, male/1)?
-
-female(jane).
-female(susan).
-female(eugenia).
-
-couple(jack, jane).
-couple(sam, susan).
-couple(martin, eugenia).
-
+:-modeh(*, woman(+person))?:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?:-modeb(*, female(+person))?
+:- determination(woman/1, female/1)?:- determination(man/1, male/1)?
+female(jane).female(susan).female(eugenia).
+couple(jack, jane).couple(sam, susan).couple(martin, eugenia).
 male(X) :- couple(X,Y), woman(Y).
-
-%positive examples
-man(jack).
-man(martin).
-
-woman(jane).
-woman(susan).
-
-%negative examples
-:-man(jane).
-:-woman(sam).
+%positive examples,man(jack).man(martin).woman(jane).woman(susan).
+%negative examples,:-man(jane).:-woman(sam).
 \end{lstlisting}
 
-produces the hypothesis
+produces the hypotheses
 \begin{lstlisting}
-woman(A):-female(A).
-man(A):-male(A).
+woman(A):-female(A).man(A):-male(A).
 \end{lstlisting}.
 
 To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
@@ -2359,24 +2305,12 @@ To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and t
 \subsection{Clausal examples}
 Progol can learn from the observations that are general Horn clauses not limited to literals.
 \begin{lstlisting}
-%background theory
-:-modeh(*, man(+person))?
-:-modeb(*, male(+person))?
+%background theory,:-modeh(*, man(+person))?:-modeb(*, male(+person))?
 :- determination(man/1, male/1)?
-
-male(jack).
-male(sam).
-male(john).
-male(tristan).
-female(glory).
-
+male(jack).male(sam).male(john).male(tristan).female(glory).
 %positive examples
-man(jack) :- male(jack).
-man(sam) :- male(sam).
-man(john) :- male(john).
-
-%negative examples
-:- man(glory).
+man(jack) :- male(jack).man(sam) :- male(sam).man(john) :- male(john).
+%negative examples, :- man(glory).
 \end{lstlisting}
 produces the expected general hypothesis
 \begin{lstlisting}
@@ -2398,25 +2332,13 @@ Progol can learn positive examples, but cannot learn the negative ones. Like Ale
 Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
 \begin{lstlisting}
-%background theory
-:-modeh(*, even(+number))?
-:-modeb(*, even(+number))?
-:-modeb(*, even(s(+number)))?
-:-modeb(*, even(s(s(+number))))?
-
+%background theory, :-modeh(*, even(+number))?:-modeb(*, even(+number))?
+:-modeb(*, even(s(+number)))?:-modeb(*, even(s(s(+number))))?
 :- determination(even/1, even/1)?
-
 even(s(s(s(s(s(s(s(s(0))))))))).
-
-%positive examples
-even(0).
-even(s(s(0))).
-even(s(s(s(s(0))))).
-even(s(s(s(s(s(s(0))))))).
-
-%negative examples
-:-even(s(0)).
-:-even(s(s(s(0)))).
+%positive examples,even(0).even(s(s(0))).
+even(s(s(s(s(0))))).even(s(s(s(s(s(s(0))))))).
+%negative examples,:-even(s(0)).:-even(s(s(s(0)))).
 \end{lstlisting}
 produces a hypothesis
 \begin{lstlisting}
@@ -2428,23 +2350,13 @@ which is inconsistent with the negative examples.
 Although Progol can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
 
 \begin{lstlisting}
-%background theory
-:-modeh(*, in_language(s(s(+word))))?
-:-modeh(*, in_language(s(+word)))?
-:-modeb(*, in_language(+word))?
+%background theory,:-modeh(*, in_language(s(s(+word))))?
+:-modeh(*, in_language(s(+word)))?:-modeb(*, in_language(+word))?
 :- determination(in_language/1, in_language/1)?
-
-in_language(epsilon).
-in_language(s(s(epsilon))).
-in_language(s(s(s(s(epsilon))))).
-
+in_language(epsilon).in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
 %positive examples
-in_language(s(s(epsilon))).
-in_language(s(s(s(s(epsilon))))).
-
-%negative examples
-:-in_language(s(epsilon)).
-:-in_language(s(s(s(epsilon)))).
+in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
+%negative examples,:-in_language(s(epsilon)).:-in_language(s(s(s(epsilon)))).
 \end{lstlisting}
 returns back a hypothesis
 \begin{lstlisting}
@@ -2461,28 +2373,13 @@ in_language(s(s(A)) :- in_language(A).
 Progol prefers learning a hypothesis whose mode declaration has been defined earlier.
 
 \begin{lstlisting}
-:-modeh(*, man(+person))?
-:-modeb(*, bridegroom(+person))?
+:-modeh(*, man(+person))?:-modeb(*, bridegroom(+person))?
 :-modeb(*, male(+person))?
-
-:- determination(man/1, bridegroom/1)?
-:- determination(man/1, male/1)?
-
-bridegroom(jack).
-bridegroom(sam).
-bridegroom(john).
-
-male(jack).
-male(sam).
-male(john).
-
-%positive examples
-man(jack).
-man(sam).
-man(john).
-
-%negative examples
-:- man(susan).
+:- determination(man/1, bridegroom/1)?:- determination(man/1, male/1)?
+bridegroom(jack).bridegroom(sam).bridegroom(john).
+male(jack).male(sam).male(john).
+%positive examples,man(jack).man(sam).man(john).
+%negative examples,:- man(susan).
 \end{lstlisting}
 
 returns a hypothesis
@@ -2492,8 +2389,7 @@ man(A) :- bridegroom(A).
 
 Changing the order of the mode declarations to
 \begin{lstlisting}
-:-modeb(*, male(+person))?
-:-modeb(*, bridegroom(+person))?
+:-modeb(*, male(+person))?:-modeb(*, bridegroom(+person))?
 \end{lstlisting}
 results in a hypothesis
 \begin{lstlisting}
@@ -2502,10 +2398,13 @@ man(A) :- male(A).
 In both cases, the induced hypothesis had a body atom declared in an earlier mode declaration. This is an opposite search bias to the Imparo's preference over the later mode declarations.
 
 \subsection{Other violations and biases}
+If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
 
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
+\section{Example learning of ILP systems}
+
 
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
