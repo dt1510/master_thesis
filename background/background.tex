@@ -2315,13 +2315,83 @@ woman(sister(A)) :- anybody(A).
 \end{lstlisting}
 In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
 
+\subsection{Learnability of multi-clausal concepts}
+Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+\begin{lstlisting}
+:-modeh(*, woman(+person))?
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:-modeb(*, female(+person))?
+
+:- determination(woman/1, female/1)?
+:- determination(man/1, male/1)?
+
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+
+%positive examples
+man(jack).
+man(martin).
+
+woman(jane).
+woman(susan).
+
+%negative examples
+:-man(jane).
+:-woman(sam).
+\end{lstlisting}
+
+produces the hypothesis
+\begin{lstlisting}
+woman(A):-female(A).
+man(A):-male(A).
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
+
+\subsection{Clausal examples}
+Progol can learn from the observations that are general Horn clauses not limited to literals.
+\begin{lstlisting}
+%background theory
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:- determination(man/1, male/1)?
+
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%positive examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+%negative examples
+:- man(glory).
+\end{lstlisting}
+produces the expected general hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+
+Other systems like Aleph, Imparo, Tal, Toplog accept only examples in a literal form.
+
 \subsection{Other capabilities}
 Progol can induce hypotheses that contain predicates of arity greater than 1. Progol checks for inconsistency of the observations with the background knowledge and provides an appropriate warning about the contradiction that false is provable.
 
 \section{Progol's assumed limitations}
 
 \subsection{Other limitations}
-Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations.
+Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations. Progol has a weak-head mode declaration, we have to explicitly specify the function symbol in the mode declarations, a specification of a general function symbol pattern is not possible. Progol has a correct example bias - it can learn examples only if these are specified in the mode declarations. Progol can learn only the Horn theories.
 
 \section{Progol's violations and biases}
 \subsection{No generalization downwards}
@@ -2386,6 +2456,50 @@ A general consistent hypothesis representing the language is
 \begin{lstlisting}
 in_language(s(s(A)) :- in_language(A).
 \end{lstlisting}
+
+\subsection{Preference over earlier mode declarations}
+Progol prefers learning a hypothesis whose mode declaration has been defined earlier.
+
+\begin{lstlisting}
+:-modeh(*, man(+person))?
+:-modeb(*, bridegroom(+person))?
+:-modeb(*, male(+person))?
+
+:- determination(man/1, bridegroom/1)?
+:- determination(man/1, male/1)?
+
+bridegroom(jack).
+bridegroom(sam).
+bridegroom(john).
+
+male(jack).
+male(sam).
+male(john).
+
+%positive examples
+man(jack).
+man(sam).
+man(john).
+
+%negative examples
+:- man(susan).
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+man(A) :- bridegroom(A).
+\end{lstlisting}
+
+Changing the order of the mode declarations to
+\begin{lstlisting}
+:-modeb(*, male(+person))?
+:-modeb(*, bridegroom(+person))?
+\end{lstlisting}
+results in a hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In both cases, the induced hypothesis had a body atom declared in an earlier mode declaration. This is an opposite search bias to the Imparo's preference over the later mode declarations.
 
 \subsection{Other violations and biases}
 
