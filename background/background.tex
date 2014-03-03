@@ -2403,8 +2403,108 @@ If examples allowed in a head mode declaration, then no general hypothesis is le
 \chapter{MIL framework}
 
 \chapter{Comparisons of ILP systems}
-\section{Example learning of ILP systems}
+* denotes to be tested.
+\section{Example learning}
+None of the tested ILP systems can explain the negative examples. All the systems can induce hypotheses that aim to explain the positive examples. All the tested ILP systems accept ground instances of literals for examples.
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Clausal examples \\ \hline
+    Aleph & no\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no\\ \hline
+    Metagol & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
 
+\section{Hypotheses space}
+All systems can learn only the Horn clauses.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Function symbols & Multi-clausal hypotheses\\ \hline
+    Aleph & yes & yes \\ \hline
+    Progol & yes & yes \\ \hline
+    Toplog & no & no \\ \hline
+    Imparo & yes & yes \\ \hline
+    Tal & yes & yes \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Completeness}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Multi-clausal concepts & Generalization downwards\\ \hline
+    Aleph & no & yes\\ \hline
+    Progol & yes & no\\ \hline
+    Toplog & no & no*\\ \hline
+    Imparo & yes & no\\ \hline
+    Tal & yes & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Biases}
+\begin{center}
+    \begin{tabular}{ | l | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Mode declarations & Determinations & Declaration order bias & Alphabetical bias \\ \hline
+    Aleph & yes & yes & yes & no\\ \hline
+    Progol & yes & yes & yes & no\\ \hline
+    Toplog & yes & no & yes & no\\ \hline
+    Imparo & yes & no & yes & no\\ \hline
+    Tal & yes & no & no & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Violations}
+All tested systems suffer from weak-head mode declaration bias.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Correct example bias\\ \hline
+    Aleph & yes\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Robustness}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Consistency check & Always terminated\\ \hline
+    Aleph & no & yes\\ \hline
+    Progol & yes & yes\\ \hline
+    Toplog & no & yes\\ \hline
+    Imparo & no & yes\\ \hline
+    Tal & no & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Other}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & \\ \hline
+    Progol & \\ \hline
+    Toplog & \\ \hline
+    Imparo & \\ \hline
+    Tal & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
 
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
