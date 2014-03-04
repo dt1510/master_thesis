@@ -2436,15 +2436,16 @@ All systems can learn only the Horn clauses.
 \end{center}
 
 \section{Completeness}
+Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
 \begin{center}
     \begin{tabular}{ | l | l | l | p{5cm} |}
     \hline
-    ILP system & Multi-clausal concepts & Generalization downwards\\ \hline
-    Aleph & no & yes\\ \hline
-    Progol & yes & no\\ \hline
-    Toplog & no & no*\\ \hline
-    Imparo & yes & no\\ \hline
-    Tal & yes & no\\ \hline
+    ILP system & Multi-clausal concepts & Generalization downwards & Double Kleene star\\ \hline
+    Aleph & no & yes & no\\ \hline
+    Progol & yes & no & no\\ \hline
+    Toplog & no & no* & no*\\ \hline
+    Imparo & yes & no & yes*\\ \hline
+    Tal & yes & no & no\\ \hline
     \hline
     \end{tabular}
 \end{center}
@@ -2491,6 +2492,18 @@ All tested systems suffer from weak-head mode declaration bias.
     \hline
     \end{tabular}
 \end{center}
+
+\section{Completeness of theoretical frameworks}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP framework & General Clause Hypothesis\\ \hline
+    Bottom Generalization & no\\ \hline
+    Induction on Failure & no\\ \hline
+    CF-induction & yes\\ \hline
+    TDHD & no\\ \hline
+    MIL & \\ \hline
+    \hline
+    \end{tabular}
 
 \section{Other}
 \begin{center}
