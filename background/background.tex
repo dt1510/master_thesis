@@ -2397,6 +2397,23 @@ man(A) :- male(A).
 \end{lstlisting}
 In both cases, the induced hypothesis had a body atom declared in an earlier mode declaration. This is an opposite search bias to the Imparo's preference over the later mode declarations.
 
+\subsection{Background knowledge hypotheses}
+Progol explains the examples with the background knowledge even if the mode declarations do not allow such explanations in the language bias.
+
+\begin{lstlisting}
+:-modeh(*, female_person(+person))?:-modeb(*, female(+person))?
+%background theory,
+female(jane).female(susan).woman(A) :- female_person(A).
+%positive examples,woman(jane).woman(susan).
+female_person(jane).female_person(susan).
+%negative examples,:-female_person(sam).
+\end{lstlisting}
+returns the hypotheses
+\begin{lstlisting}
+female_person(A) :- female(A). woman(A) :- female_person(A).
+\end{lstlisting}
+But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mode declarations. Therefore Progol has a default background knowledge bias.
+
 \subsection{Other violations and biases}
 If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
 
