@@ -2485,15 +2485,16 @@ All systems can learn only the Horn clauses.
 \section{Completeness}
 Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
 \begin{center}
-    \begin{tabular}{ | l | l | l | l  | p{5cm} |}
+    \begin{tabular}{ | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
-    ILP system & Multi-clausal \newline concepts & Generalization downwards &
-    Double Kleene star & Argument \newline Specialization \\ \hline
-    Aleph & no & yes & no & \\ \hline
+    ILP system & Multi-clausal concepts & Generalization downwards &
+    Double Kleene star & Argument Specialization &
+    Non-observational concepts\\ \hline
+    Aleph & no & yes & no & no\\ \hline
     Progol & yes & no & no & yes\\ \hline
     Toplog & no & no* & no* & no\\ \hline
-    Imparo & yes & no & yes* & yes\\ \hline
-    Tal & yes & no & no & \\ \hline
+    Imparo & yes & no & yes* & yes & no\\ \hline
+    Tal & yes & no & no & yes \\ \hline
     \hline
     \end{tabular}
 \end{center}
@@ -2512,6 +2513,47 @@ has its target concept
 learns(polymath,A).
 \end{lstlisting}
 which has a constant \tc{polymath} as a first argument and a variable as a second argument.
+
+\subsection{Non-observational concepts}
+The ILP systems were tested if they could learn hypotheses that require multiple hypotheses in order to explain an example, however these hypotheses are not learnable with the cover loop algorithm. A cover loop algorithm learns hypotheses, adds these hypotheses to the background knowledge and tries to learn new hypotheses with the extended background knowledge that would explain not yet covered examples. The cover loop terminates if no new hypothesis is learnt.
+
+An adapted sibling example from Kimber's thesis was used.
+\begin{lstlisting}
+modeh(brother(+person,+person)).modeh(parent(+person,+person)).
+modeb(sibling(+person,+person)).modeb(male(+person)).
+modeb(father(+person,+person)).
+determination(brother/2, sibling/2).determination(brother/2, male/1).
+determination(parent/2, father/2).
+%background knowledge
+male(bart).male(rod).male(todd).parent(homer,bart).
+parent(homer,maggie).father(ned,rod).father(ned,todd).father(homer,lisa).
+male(bart2).male(rod2).male(todd2).parent(homer2,bart2).
+parent(homer2,maggie2).father(ned2,rod2).father(ned2,todd2).father(homer2,lisa2).
+male(bart3).male(rod3).male(todd3).parent(homer3,bart3).
+parent(homer3,maggie3).father(ned3,rod3).father(ned3,todd3).father(homer3,lisa3).
+sibling(X,Y):-parent(Z,X),parent(Z,Y).
+%positive examples
+brother(bart,lisa).brother(rod,todd).
+brother(bart2,lisa2).brother(rod2,todd2).
+brother(bart3,lisa3).brother(rod3,todd3).
+%negative examples, brother(lisa,bart).brother(rod,bart).
+brother(maggie, maggie).parent(lisa,bart).
+\end{lstlisting}
+where we expect to learn the hypothesis
+\begin{lstlisting}
+brother(X,Y):-sibling(X,Y), male(X).parent(X,Y):-father(X,Y).
+\end{lstlisting}
+The second hypothesis \tc{parent(X,Y):-father(X,Y).} generalizes the existing knowledge, however it does not explain any examples. Such learning is called a non-observational learning. In the case of this sibling problem, a general hypothesis consists of an observational part - the first hypothesis and a non-observational part - the second hypothesis.
+Other solutions consisting of purely observational hypotheses are longer and hence depending on our definition of generality, arguably less general.
+
+\subsubsection{Imparo}
+Imparo could not learn the expected hypothesis of the example, it learnt instead
+\begin{lstlisting}
+brother(A,B):-sibling(A,A),male(A)
+brother(rod,todd):-true
+brother(rod3,todd3):-true
+brother(rod2,todd2):-true
+\end{lstlisting}
 
 \section{Biases}
 \begin{center}
@@ -2550,7 +2592,7 @@ All tested systems suffer from weak-head mode declaration bias.
     Aleph & no & yes\\ \hline
     Progol & yes & yes\\ \hline
     Toplog & no & yes\\ \hline
-    Imparo & no & yes\\ \hline
+    Imparo & no & no\\ \hline
     Tal & no & no\\ \hline
     \hline
     \end{tabular}
