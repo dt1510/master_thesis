@@ -2103,6 +2103,20 @@ woman(A) :- female(A). man(A) :- male(A).
 \end{lstlisting}
 To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
 
+\subsection{Specialization in arguments}
+Tal can learn hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has amongst its solutions
+\begin{lstlisting}
+(learns(polymath,_E):-true.
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
 \subsection{Other capabilities}
 Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
 
@@ -2245,6 +2259,22 @@ Other interesting change is the increase in the number of the solutions from 4 t
 One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does not have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
 
 \section{Progol's capabilities}
+
+
+\subsection{Specialization in arguments}
+Progol can learn hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+returns hypotheses
+\begin{lstlisting}
+learns(polymath,A).learns(jack,mathematics).learns(susan,physics).
+\end{lstlisting}
+containing a general hypothesis \tc{learns(polymath,A)} that has a constant \tc{polymath} as a first argument and a variable as a second argument.
 
 \subsection{Multi-clausal learning}
 Progol can learn several one-clausal hypotheses at one time.
@@ -2455,17 +2485,33 @@ All systems can learn only the Horn clauses.
 \section{Completeness}
 Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
 \begin{center}
-    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \begin{tabular}{ | l | l | l | l  | p{5cm} |}
     \hline
-    ILP system & Multi-clausal concepts & Generalization downwards & Double Kleene star\\ \hline
-    Aleph & no & yes & no\\ \hline
-    Progol & yes & no & no\\ \hline
-    Toplog & no & no* & no*\\ \hline
-    Imparo & yes & no & yes*\\ \hline
-    Tal & yes & no & no\\ \hline
+    ILP system & Multi-clausal \newline concepts & Generalization downwards &
+    Double Kleene star & Argument \newline Specialization \\ \hline
+    Aleph & no & yes & no & \\ \hline
+    Progol & yes & no & no & yes\\ \hline
+    Toplog & no & no* & no* & no\\ \hline
+    Imparo & yes & no & yes* & yes\\ \hline
+    Tal & yes & no & no & \\ \hline
     \hline
     \end{tabular}
 \end{center}
+
+\subsection{Argument Specialization}
+Argument specialization test assesses the ILP system's ability to learn a hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has its target concept
+\begin{lstlisting}
+learns(polymath,A).
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
 
 \section{Biases}
 \begin{center}
