@@ -2258,8 +2258,19 @@ Other interesting change is the increase in the number of the solutions from 4 t
 \subsection{Other violations and biases}
 One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does not have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
 
-\section{Progol's capabilities}
+\section{Xhail's capabilities}
 
+\subsection{Other capabilities}
+
+\section{Xhail's assumed limitations}
+
+\subsection{Other limitations}
+
+\section{Xhail's violations and biases}
+
+\subsection{Other violations and biases}
+
+\section{Progol's capabilities}
 
 \subsection{Specialization in arguments}
 Progol can learn hypothesis which require ground terms to be in a head predicate.
@@ -2490,11 +2501,11 @@ Double Kleene star test assesses the ability of an ILP system to learn a regular
     ILP system & Multi-clausal concepts & Generalization downwards &
     Double Kleene star & Argument Specialization &
     Non-observational concepts\\ \hline
-    Aleph & no & yes & no & no\\ \hline
-    Progol & yes & no & no & yes\\ \hline
-    Toplog & no & no* & no* & no\\ \hline
+    Aleph & no & yes & no & no & no\\ \hline
+    Progol & yes & no & no & yes & no\\ \hline
+    Toplog & no & no* & no* & no & no\\ \hline
     Imparo & yes & no & yes* & yes & no\\ \hline
-    Tal & yes & no & no & yes \\ \hline
+    Tal & yes & no & no & yes & yes\\ \hline
     \hline
     \end{tabular}
 \end{center}
@@ -2554,6 +2565,16 @@ brother(rod,todd):-true
 brother(rod3,todd3):-true
 brother(rod2,todd2):-true
 \end{lstlisting}
+
+\subsubsection{Aleph}
+Aleph produces the hypothesis
+\begin{lstlisting}
+brother(A,B) :- sibling(A,A), male(A).
+brother(rod,todd).brother(rod2,todd2).brother(rod3,todd3).
+\end{lstlisting}
+
+\subsubsection{Other systems}
+Progol produces an inconsistent hypothesis \tc{parent(A,B).}. Toplog does not produce any hypothesis. Tal has amongst its solutions the expected hypothesis. However, depending on the depth limit we set, Tal can produce an arbitrarily large number of hypotheses. Thefore, an important work on Tal includes hypothesis selection.
 
 \section{Biases}
 \begin{center}
