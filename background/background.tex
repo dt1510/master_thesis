@@ -2260,6 +2260,36 @@ One may argue that returning multiple solutions does not solve the inductive lea
 
 \section{Xhail's capabilities}
 
+\subsection{Background knowledge generalization}
+Like Progol, Xhail does not distinguish between the examples and the background knowledge. It tries to generalize the background knowledge to learn a hypothesis specified by the mode declarations criteria.
+
+\begin{lstlisting}
+a(0 ; 1).c(0).d(1).p(X) :- a(X), not block(X).
+g :- p(0), not p(1).goal(g).
+modeh(0,1,min,block("+a")).modeb(1,1,neg,c("+a")).
+modeb(1,1,pos,c("+a")).modeb(1,1,pos,d("+a")).
+modeb(1,1,neg,d("+a")).
+modeb(1,1,pos,eql("+a","#a")).modeb(1,1,neg,eql("+a","#a")).
+eql(X,Y) :- X==Y,a(X),a(Y).
+\end{lstlisting}
+produces hypotheses
+\begin{lstlisting}
+1. block(X1) :- not c(X1),d(X1),eql(X1,1),not eql(X1,0),a(X1). ([X1/1])
+2. block(X1) :- not eql(X1,0),a(X1). 3. block(X1) :- not c(X1),a(X1).
+4. block(X1) :- eql(X1,1),a(X1). 5. block(X1) :- d(X1),a(X1).
+\end{lstlisting}
+where the head of the hypotheses is \tc{block}, however, we can notice that there are no examples in the background knowledge with \tc{block} predicate. Moreover, the only occurance of \tc{block} is in the body as a negation as failure literal \tc{not block(X)}.
+
+\subsection{Multiple hypotheses}
+Like Tal, Xhail returns multiple possible hypotheses for a given learning problem.
+\begin{lstlisting}
+a.b.e.modeh(0,1,pos,e).modeb(0,1,pos,a).modeb(0,1,pos,b).find(all).
+\end{lstlisting}
+returns the hypotheses
+\begin{lstlisting}
+1. e :- true. 2. e :- b. 3. e :- a. 4. e :- a,b.
+\end{lstlisting}
+
 \subsection{Other capabilities}
 
 \section{Xhail's assumed limitations}
@@ -2267,6 +2297,28 @@ One may argue that returning multiple solutions does not solve the inductive lea
 \subsection{Other limitations}
 
 \section{Xhail's violations and biases}
+
+\subsection{Redundant hypotheses}
+Xhail returns multiple hypotheses even if they are the same.
+
+\begin{lstlisting}
+modeh(1,3,min,fries("+food")).modeb(1,3,neg,offer("+food")).
+modeb(1,3,pos,offer("+food")).
+modeb(1,3,neg,bistro("+food")).modeb(1,3,pos,bistro("+food")).
+goal(g).
+food(md ; bk ; rz).bistro(md ; bk ; rz).offer(md ; bk).
+meal(X):- food(X),fries(X), burger(X).burger(X):- food(X), fries(X), offer(X).
+g:- meal(md), meal(bk), not meal(rz).
+\end{lstlisting}
+
+returns the hypotheses
+
+\begin{lstlisting}
+1. fries(X1) :- offer(X1),bistro(X1),food(X1).
+2. fries(X1) :offer(X1),bistro(X1),food(X1).
+3. fries(X1) :- food(X1). 4.fries(X1) :- food(X1).
+\end{lstlisting}
+where the 3rd and the 4th hypotheses are the same.
 
 \subsection{Other violations and biases}
 
