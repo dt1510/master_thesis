@@ -1,0 +1,187 @@
+\BOOKMARK [0][-]{section*.1}{Abstract}{}
+\BOOKMARK [0][-]{section*.1}{Acknowledgements}{}
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}
+\BOOKMARK [1][-]{section.1.1}{Motivation and Objectives}{chapter.1}
+\BOOKMARK [2][-]{subsection.1.1.1}{Problem of Induction}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.2}{Inductive Logic Programming}{section.1.1}
+\BOOKMARK [1][-]{section.1.2}{Contributions}{chapter.1}
+\BOOKMARK [1][-]{section.1.3}{Statement of Originality}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Project Plan}{}
+\BOOKMARK [1][-]{section.2.1}{Current state}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.1.1}{Addressed problems}{section.2.1}
+\BOOKMARK [1][-]{section.2.2}{Plan}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.2.1}{Problems to address}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.2}{Spring term until the week 10}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.3}{End of Spring term until 20th May}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.4}{20th May until 17th June}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.5}{Fallback-back positions}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.6}{Posible extensions}{section.2.2}
+\BOOKMARK [0][-]{chapter.3}{Evaluation Report}{}
+\BOOKMARK [1][-]{section.3.1}{Self-critique}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Measuring the success}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Work nature}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{Work relevance}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.3}{Size of contribution}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.4}{Work impact}{section.3.2}
+\BOOKMARK [0][-]{chapter.4}{Background Theory}{}
+\BOOKMARK [1][-]{section.4.1}{Prerequisities}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{A logic language}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Model theorymarker2002}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Logicsstanford2010}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{Measure theory}{chapter.4}
+\BOOKMARK [1][-]{section.4.6}{Logic Programming}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.6.1}{Basic concepts and notation of Logic Programminglin2009}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.2}{SLD-resolutionlin2009}{section.4.6}
+\BOOKMARK [1][-]{section.4.7}{Inductive inference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.7.1}{Languages in the theory of inductive inference}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.2}{Inductive inference concepts}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.3}{Ultimate problem of scientific discovery}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.4}{Incremental problem of scientific discovery}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.5}{Problem of induction - model theoretic setting}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.6}{Scientific method}{section.4.7}
+\BOOKMARK [0][-]{chapter.5}{Inductive logic programming}{}
+\BOOKMARK [1][-]{subsection.5.0.7}{ILP problem}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.0.8}{ILP concepts}{subsection.5.0.7}
+\BOOKMARK [1][-]{section.5.1}{ILP systems}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{ILP system definition}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{TDHD frameworkmuggleton2008}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Induction on Failure frameworkkimber2011}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Meta-Interpretive Learning frameworkmuggleton2013}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.5}{Aleph}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.6}{Other systems}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{The role of a language in learning the models}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Language bias}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{Language bias benefits}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.2}{Language bias problems}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.3}{Language bias in ILP}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.4}{Syntactic biases}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.5}{Semantic biases}{section.5.3}
+\BOOKMARK [1][-]{section.5.4}{Biases in ILP systems}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Toplogmuggleton2008}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Imparokimber2009}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.3}{Metagol}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.4}{Comparison of biases in ILP systems}{section.5.4}
+\BOOKMARK [0][-]{chapter.6}{Top-down framework}{}
+\BOOKMARK [1][-]{section.6.1}{Toplog}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.1.1}{Mode declarations order bias}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.2}{Learning inconsistent hypothesis}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.3}{One head predicate bias}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.4}{Unlearnability of the term structure}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.5}{Clausal bias}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.6}{Inability to make deductions from observations}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.7}{Predicate generalization impossible}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.8}{Ground atom example}{section.6.1}
+\BOOKMARK [1][-]{section.6.2}{MC-Toplog}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Bottom-up framework}{}
+\BOOKMARK [1][-]{section.7.1}{Imparo's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.1}{A multiclausal learning}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{Learnability of a nested term structure}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.3}{Learnability of multi-clausal concepts}{section.7.1}
+\BOOKMARK [1][-]{section.7.2}{Imparo's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Unlearnability of negative examples}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{Assumption of consistency}{section.7.2}
+\BOOKMARK [1][-]{section.7.3}{Imparo's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.3.1}{Default examples bias}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.2}{Weak head mode declaration}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.3}{No generalization downwards}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.4}{Literal observational bias}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.5}{Preference over the later mode declarations}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.6}{Other biases}{section.7.3}
+\BOOKMARK [1][-]{section.7.4}{Aleph's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.4.1}{Multi-clausal learning}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.2}{Learnability of predicates of greater arity}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.3}{Term structure learnability}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.4}{Generalization downwards}{section.7.4}
+\BOOKMARK [1][-]{section.7.5}{Aleph's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.5.1}{Unlearnability of negative examples}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.2}{Determination declaration requirement}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.3}{Assumption of consistency}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.4}{Unlearnability of regular languages}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.5}{Unlearnability of multi-clausal concepts}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.6}{Other assumed limitations}{section.7.5}
+\BOOKMARK [1][-]{section.7.6}{Aleph's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.6.1}{Default Example Bias}{section.7.6}
+\BOOKMARK [2][-]{subsection.7.6.2}{Weak head mode declaration}{section.7.6}
+\BOOKMARK [2][-]{subsection.7.6.3}{Literal observation bias}{section.7.6}
+\BOOKMARK [2][-]{subsection.7.6.4}{Preference over earlier determinations}{section.7.6}
+\BOOKMARK [1][-]{section.7.7}{Tal's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.7.1}{Multiple solutions}{section.7.7}
+\BOOKMARK [2][-]{subsection.7.7.2}{Multi-clausal hypothesis}{section.7.7}
+\BOOKMARK [2][-]{subsection.7.7.3}{Term structure learnability}{section.7.7}
+\BOOKMARK [2][-]{subsection.7.7.4}{Multi-clausal concepts}{section.7.7}
+\BOOKMARK [2][-]{subsection.7.7.5}{Specialization in arguments}{section.7.7}
+\BOOKMARK [2][-]{subsection.7.7.6}{Other capabilities}{section.7.7}
+\BOOKMARK [1][-]{section.7.8}{Tal's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.8.1}{Correct example bias}{section.7.8}
+\BOOKMARK [2][-]{subsection.7.8.2}{Other assumed limitations}{section.7.8}
+\BOOKMARK [1][-]{section.7.9}{Tal's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.9.1}{Solution redundancy}{section.7.9}
+\BOOKMARK [2][-]{subsection.7.9.2}{No generalization downwards}{section.7.9}
+\BOOKMARK [2][-]{subsection.7.9.3}{Loop on learning regular languages}{section.7.9}
+\BOOKMARK [2][-]{subsection.7.9.4}{Weak head mode declaration}{section.7.9}
+\BOOKMARK [2][-]{subsection.7.9.5}{Alphabetical term bias}{section.7.9}
+\BOOKMARK [2][-]{subsection.7.9.6}{Other violations and biases}{section.7.9}
+\BOOKMARK [1][-]{section.7.10}{Xhail's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.10.1}{Background knowledge generalization}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.2}{Multiple hypotheses}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.3}{Multi-clausal hypotheses}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.4}{Fine search space control}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.5}{Learning by integrity constrains}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.6}{Term structure learnability}{section.7.10}
+\BOOKMARK [2][-]{subsection.7.10.7}{Other capabilities}{section.7.10}
+\BOOKMARK [1][-]{section.7.11}{Xhail's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.11.1}{Partial explanations impossible}{section.7.11}
+\BOOKMARK [2][-]{subsection.7.11.2}{Learning from clausal examples}{section.7.11}
+\BOOKMARK [2][-]{subsection.7.11.3}{Inability to learn from unrestricted clauses}{section.7.11}
+\BOOKMARK [2][-]{subsection.7.11.4}{Other limitations}{section.7.11}
+\BOOKMARK [1][-]{section.7.12}{Xhail's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.12.1}{Implicit consistency check}{section.7.12}
+\BOOKMARK [2][-]{subsection.7.12.2}{Redundant hypotheses}{section.7.12}
+\BOOKMARK [2][-]{subsection.7.12.3}{Other violations and biases}{section.7.12}
+\BOOKMARK [1][-]{section.7.13}{Progol's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.13.1}{Specialization in arguments}{section.7.13}
+\BOOKMARK [2][-]{subsection.7.13.2}{Multi-clausal learning}{section.7.13}
+\BOOKMARK [2][-]{subsection.7.13.3}{Term structure learnability}{section.7.13}
+\BOOKMARK [2][-]{subsection.7.13.4}{Learnability of multi-clausal concepts}{section.7.13}
+\BOOKMARK [2][-]{subsection.7.13.5}{Clausal examples}{section.7.13}
+\BOOKMARK [2][-]{subsection.7.13.6}{Other capabilities}{section.7.13}
+\BOOKMARK [1][-]{section.7.14}{Progol's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.14.1}{Other limitations}{section.7.14}
+\BOOKMARK [1][-]{section.7.15}{Progol's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.15.1}{No generalization downwards}{section.7.15}
+\BOOKMARK [2][-]{subsection.7.15.2}{Unlearnability of regular languages}{section.7.15}
+\BOOKMARK [2][-]{subsection.7.15.3}{Preference over earlier mode declarations}{section.7.15}
+\BOOKMARK [2][-]{subsection.7.15.4}{Background knowledge hypotheses}{section.7.15}
+\BOOKMARK [2][-]{subsection.7.15.5}{Other violations and biases}{section.7.15}
+\BOOKMARK [0][-]{chapter.8}{MIL framework}{}
+\BOOKMARK [0][-]{chapter.9}{Comparisons of ILP systems}{}
+\BOOKMARK [1][-]{section.9.1}{Example learning}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Hypotheses space}{chapter.9}
+\BOOKMARK [1][-]{section.9.3}{Completeness}{chapter.9}
+\BOOKMARK [2][-]{subsection.9.3.1}{Argument Specialization}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.2}{Non-observational concepts}{section.9.3}
+\BOOKMARK [1][-]{section.9.4}{Biases}{chapter.9}
+\BOOKMARK [1][-]{section.9.5}{Violations}{chapter.9}
+\BOOKMARK [1][-]{section.9.6}{Robustness}{chapter.9}
+\BOOKMARK [1][-]{section.9.7}{Completeness of theoretical frameworks}{chapter.9}
+\BOOKMARK [1][-]{section.9.8}{Other}{chapter.9}
+\BOOKMARK [0][-]{chapter.10}{Definition of an ILP problem}{}
+\BOOKMARK [0][-]{chapter.11}{Definition of an ILP problem - notes}{}
+\BOOKMARK [1][-]{section.11.1}{ILP theory and methods}{chapter.11}
+\BOOKMARK [2][-]{subsection.11.1.1}{Completeness}{section.11.1}
+\BOOKMARK [2][-]{subsection.11.1.2}{Non-monotonic setting for ILP}{section.11.1}
+\BOOKMARK [0][-]{chapter.12}{Learning hypotheses of the least Kolmogorov complexity}{}
+\BOOKMARK [1][-]{subsection.12.0.3}{Problem of induction - computability setting}{chapter.12}
+\BOOKMARK [1][-]{section.12.1}{Bottom and top theories}{chapter.12}
+\BOOKMARK [1][-]{section.12.2}{Generalization}{chapter.12}
+\BOOKMARK [0][-]{chapter.13}{Model approximation}{}
+\BOOKMARK [1][-]{subsection.13.0.1}{Approximation and error}{chapter.13}
+\BOOKMARK [0][-]{chapter.14}{Score function}{}
+\BOOKMARK [1][-]{section.14.1}{Axiomatization by score}{chapter.14}
+\BOOKMARK [0][-]{chapter.15}{Statistical learning}{}
+\BOOKMARK [1][-]{section.15.1}{Incoherence of the generalization - Sawin-Demski paradox}{chapter.15}
+\BOOKMARK [0][-]{chapter.16}{Conclusion}{}
+\BOOKMARK [1][-]{section.16.1}{Summary of Thesis Achievements}{chapter.16}
+\BOOKMARK [1][-]{section.16.2}{Applications}{chapter.16}
+\BOOKMARK [1][-]{section.16.3}{Future Work}{chapter.16}
+\BOOKMARK [0][-]{section.16.3}{Bibliography}{}

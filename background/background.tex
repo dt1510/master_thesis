@@ -2366,7 +2366,7 @@ Xhail can learn a hypothesis which requires ground terms to be in a head predica
 \section{Xhail's assumed limitations}
 
 \subsection{Partial explanations impossible}
-Xhail cannot learn a hypothesis that explains some positive examples, but no all.
+Xhail cannot learn a hypothesis that explains some positive examples, but not all.
 
 \begin{lstlisting}
 modeh(0,10,all,woman("+person")).modeb(0,10,pos,female("+person")).goal(g).
@@ -2816,7 +2816,7 @@ All tested systems suffer from weak-head mode declaration bias.
 \chapter{Definition of an ILP problem}
 Considering the specifics of ILP systems, each systems does not try to solve the same ILP problem, we provide the problem settings for each ILP system.
 
-Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias.
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator.
 \begin{center}
     \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
     \hline
@@ -2826,7 +2826,7 @@ Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the
     Toplog & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
     Imparo & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
     Tal & Given $E+, E-, B, \mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Xhail & Given \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup E- \subseteq cl(B \cup H)$\\ \hline
     \hline
     \end{tabular}
 \end{center}
