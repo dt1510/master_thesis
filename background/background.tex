@@ -99,7 +99,7 @@ $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B
 
 \section{Logics\cite{stanford2010}}
 \begin{defn}
-A (monotone) \emph{consequence operator}\cite{wikipedieClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisflying the following conditions for all sets $X, Y \subseteq S$:
+A (monotone) \emph{consequence operator}\cite{wikipediaClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisflying the following conditions for all sets $X, Y \subseteq S$:
 \begin{enumerate}
 \item $X \subseteq cl(X)$ inclusion,
 \item $cl(cl(X))=cl(X)$ idempotence,
@@ -2280,8 +2280,18 @@ produces hypotheses
 \end{lstlisting}
 where the head of the hypotheses is \tc{block}, however, we can notice that there are no examples in the background knowledge with \tc{block} predicate. Moreover, the only occurance of \tc{block} is in the body as a negation as failure literal \tc{not block(X)}.
 
+If one wanted to translate learning from examples problem into the Xhail's learning problem, positive and negative examples could be placed in a goal:
+
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).modeb(0,10,pos,female("+person")).
+goal(g).person(susan; adam).female(susan).male(adam).
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+where \tc{woman(susan)} is a positive example and a \tc{woman(adam)} is a negative example. The hypothesis learnt is
+\tc{woman(X1) :- female(X1), person(X1).}.
+
 \subsection{Multiple hypotheses}
-Like Tal, Xhail returns multiple possible hypotheses for a given learning problem.
+Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem.
 \begin{lstlisting}
 a.b.e.modeh(0,1,pos,e).modeb(0,1,pos,a).modeb(0,1,pos,b).find(all).
 \end{lstlisting}
@@ -2290,13 +2300,111 @@ returns the hypotheses
 1. e :- true. 2. e :- b. 3. e :- a. 4. e :- a,b.
 \end{lstlisting}
 
+\subsection{Multi-clausal hypotheses}
+Xhail can learn a hypothesis that consists of multiple clauses:
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeh(0,10,all,man("+person")).
+modeb(0,10,pos,female("+person")).modeb(0,10,pos,male("+person")).
+goal(g).person(susan; adam).female(susan).male(adam).
+g:- woman(susan), not woman(adam), man(adam), not man(susan).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+man(X1):-male(X1), person(X1). woman(X1):-female(X1), person(X1).
+\end{lstlisting}.
+One clause would be insufficient to explain both \tc{man} and \tc{woman} examples.
+
+\subsection{Fine search space control}
+Xhail has extended mode declarations to refine its search space. Xhail's help reads:
+
+\emph{Zero or more head declarations} are of the form
+\tc{modeh(1,3,min,p("\#q","+r","-s")).} meaning between 1 and 3 ground atoms
+ of the form $p(a,b,c)$ should be assumed such that $q(a), r(b), s(c)$ hold 
+ and where $a, b, c$ are constant, input, output terms, respectively;
+ the third flag is either min="attempt to minimize" or all="do not minimize".
+ 
+\begin{lstlisting}
+modeh(0,1,all,woman("+person")).modeb(0,1,pos,female("+person")).goal(g).
+person(susan; ruth; adam).female(susan).female(ruth).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+returns no hypothesis. However, placing only one positive example in a goal
+\tc{g:- woman(susan), not woman(adam).} or modifying the modeh declaration to cover the two positive examples\\
+\tc{modeh(0,2,all,woman("+person")).} makes Xhail to learn a hypothesis\\
+\tc{woman(X1):-female(X1),person(X1).}.
+
+\emph{Zero or more body declarations} are of the form \tc{modeb(1,3,pos,p("\#q","+r","-s")).} meaning this scheme can be used between 
+ depths 1 and 3.  The third flag is either pos="pos. literal" or neg="neg. literal" 
+
+Apart from the mode declarations, additional control has been introduced with \tc{goal}, \tc{find}, \tc{task} statements:
+\emph{Zero or more goal statement} of the form \tc{goal(a).} means to only compute models satisfying the ground atom \tc{a}.
+
+\emph{Zero or one find statement} is of the form \tc{find(all)="all solutions"} or \tc{find(min)="minimal solutions"}.
+
+\emph{Zero or one task declarations} are possible, e.g. \tc{task(abduce).} or \tc{task(induce).}.
+
+\subsection{Learning by integrity constrains}
+Xhail can learn from the background knowledge in a form of integrity constrains.
+\begin{lstlisting}
+p :- r.false :- p, not a. modeh(0,1,all,a).modeh(0,1,all,r).goal(p).
+\end{lstlisting}
+returns a hypothesis \tc{a:-true.r:-true.} where in the learning problem
+\tc{false :- p, not a.} represents an integrity constraint. In comparison, Tal can learn from the integrity constrains too, but other systems cannot (TODO verify).
+
+\subsection{Term structure learnability}
+Xhail can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+modeh(0,10,all,woman(sister("+a"))).modeb(0,10,pos,anybody("+a")).goal(g).
+a(susan; adam; frog).anybody(susan; adam).female(susan).male(adam).
+g:- woman(sister(susan)), woman(sister(adam)), not woman(sister(frog)).
+\end{lstlisting}
+returns a hypothesis
+\tc{woman(sister(X1)):-anybody(X1), a(X1).}.
 \subsection{Other capabilities}
+Xhail can learn a hypothesis which requires ground terms to be in a head predicate by specifying such a hypothesis with the constant type \tc{\#type} in mode declarations. Xhail supports hypotheses containing predicates of arities greater than 1.
 
 \section{Xhail's assumed limitations}
 
+\subsection{Partial explanations impossible}
+Xhail cannot learn a hypothesis that explains some positive examples, but no all.
+
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeb(0,10,pos,female("+person")).goal(g).
+person(susan; ruth; adam).female(susan).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+returns no hypothesis.Although a hypothesis
+\tc{woman(X1):-female(X1),person(X1).} cannot explain the example \tc{woman(ruth).} it would be able to explain the example \tc{woman(susan)}.
+
+In comparison, Aleph can learn partial hypotheses: from the background knowledge\\
+\tc{female(alice).female(mary).}, positive examples \tc{woman(alice).woman(mary).woman(susan).}, negative examples \tc{woman(adam).} Aleph includes in its hypothesis a partial explanation
+\tc{woman(A) :- female(A).}.
+
+\subsection{Learning from clausal examples}
+Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
+
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeb(0,10,pos,female("+person")).goal(g).
+person(susan; ruth; adam).woman(susan):-female(susan).
+woman(ruth):-female(ruth).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+does not produce any hypothesis, however a general hypothesis
+\tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
+
+\subsection{Inability to learn from unrestricted clauses}
+Xhail requires that all its clauses are restricted by ground instances - a quantification over all possible ground instances in a domain is not possible.
+
+An attempt to define that everybody in a domain is of type person fails. \tc{person(X1).} returns an error "a non-ground fact person(X1). All terms within a fact must be ground terms." For a clause \tc{person(X1) :- true.} an error message "Unrestricted variable X1." is produced. Therefore we always have to ground the clauses (containing variables) in Xhail, for example
+\tc{grounded(susan; adam).person(X1) :- grounded(X1).} does not produce any complaints.
+
+This has an impact that the learning space is finite - every possible inducible model is a finite set of ground instances. Therefore, multiple learning problems cannot be learnt: generalization downwards, generalization upwards, Kleene star learning, learning a concept of a natural number, etc. because for these the Hebrand models are infinite subsets of the Herbrand base of the Hebrand universe with the function symbols.
 \subsection{Other limitations}
 
 \section{Xhail's violations and biases}
+
+\subsection{Implicit consistency check}
+Xhail does not explicitly report that the learning problem is inconsistent, it only outputs "NO SOLUTIONS" message which is also applicable for consistent problems whose model is not in the specified search space.
 
 \subsection{Redundant hypotheses}
 Xhail returns multiple hypotheses even if they are the same.
@@ -2314,13 +2422,20 @@ g:- meal(md), meal(bk), not meal(rz).
 returns the hypotheses
 
 \begin{lstlisting}
-1. fries(X1) :- offer(X1),bistro(X1),food(X1).
-2. fries(X1) :offer(X1),bistro(X1),food(X1).
-3. fries(X1) :- food(X1). 4.fries(X1) :- food(X1).
+1. fries(X1) :- food(X1). 2.fries(X1) :- food(X1).
 \end{lstlisting}
-where the 3rd and the 4th hypotheses are the same.
+where the 1st and the 2nd hypotheses are the same. Notice, a general hypothesis has been induced for every example, both \tc{md} and \tc{bk}.
 
 \subsection{Other violations and biases}
+Since Xhail learns multiple solutions, the hypotheses space is not biased towards the order of the mode declarations.
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).modeb(0,10,pos,female("+person")).
+modeb(0,10,pos,cook("+person")).goal(g).
+person(susan; adam).female(susan).cook(susan).male(adam).
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+returns two hypotheses
+\tc{1. woman(X1):-cook(X1), person(X1). 2. woman(X1):-female(X1), person(X1).}. In other systems a preference over the hypotheses is induced based on the order of the hypotheses' predicates \tc{cook(X1), female(X1)} in their modeb and determination declarations.
 
 \section{Progol's capabilities}
 
@@ -2535,12 +2650,13 @@ All systems can learn only the Horn clauses.
 \begin{center}
     \begin{tabular}{ | l | l | l | p{5cm} |}
     \hline
-    ILP system & Function symbols & Multi-clausal hypotheses\\ \hline
-    Aleph & yes & yes \\ \hline
-    Progol & yes & yes \\ \hline
-    Toplog & no & no \\ \hline
-    Imparo & yes & yes \\ \hline
-    Tal & yes & yes \\ \hline
+    ILP system & Function symbols & Multi-clausal hypotheses & Infinite Herbrand models\\ \hline
+    Aleph & yes & yes & yes\\ \hline
+    Progol & yes & yes & yes*\\ \hline
+    Toplog & no & no & *\\ \hline
+    Imparo & yes & yes & yes\\ \hline
+    Tal & yes & yes & yes\\ \hline
+    Xhail & yes & yes & no\\ \hline
     \hline
     \end{tabular}
 \end{center}
@@ -2697,6 +2813,24 @@ All tested systems suffer from weak-head mode declaration bias.
     \end{tabular}
 \end{center}
 
+\chapter{Definition of an ILP problem}
+Considering the specifics of ILP systems, each systems does not try to solve the same ILP problem, we provide the problem settings for each ILP system.
+
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias.
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H} \subseteq \powerset{L}$, find $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B$\\ \hline
+    Toplog & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+    
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
 
