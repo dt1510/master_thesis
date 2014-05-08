@@ -2814,22 +2814,39 @@ All tested systems suffer from weak-head mode declaration bias.
 \end{center}
 
 \chapter{Definition of an ILP problem}
-Considering the specifics of ILP systems, each systems does not try to solve the same ILP problem, we provide the problem settings for each ILP system.
+Considering the specifics of ILP systems, each does not try to solve the same ILP problem, we provide the problem settings for each ILP system.
 
-Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator.
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$.
+
 \begin{center}
     \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
     \hline
     ILP system & \\ \hline
     Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
-    Progol & Given $B$, $\mathcal{H} \subseteq \powerset{L}$, find $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
     Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
     Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
     Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup E- \subseteq cl(B \cup H)$\\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
     \hline
     \end{tabular}
 \end{center}
+
+Aleph, Toplog and Imparo aim to solve the same ILP problem called explanatory induction:
+given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
+
+The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
+let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$.
+
+
+
+Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
+given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+Let the corresponding system solving the ILP problem (which we call \emph{generalized explanatory induction}) be $f:(E+,E-,B,\mathcal{H}) \mapsto \mathcal{H}_2$.
+
+
     
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
