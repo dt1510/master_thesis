@@ -833,7 +833,17 @@ TODO
 \subsection{Comparison of biases in ILP systems}
 $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
-$\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel_set} \subseteq \mathcal{H}_{connected_theory}$
+$\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mathcal{H}_{connected\_theory}$
+
+\section{Open problems in ILP}
+\begin{itemize}
+\item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings realy address the problem that we are trying to solve?
+\item Hypothesis selection: among the hypotheses that are consistent and explain the observations which should be selected?
+\item What preferences should be induced over the correct hypotheses $\mathcal{H}$ and why?
+\item Can preferences be extracted from the logical representation of the clausal theories?
+\end{itemize}
+\subsection{Problem formulation}
+A solution of the hypothesis selection problem is a more precise formulation of ILP setting by an introduction of a preference over $\mathcal{H}$. The problem reduces to the preference choice and its justification. One could introduce Occam's razor postulate, consequently demand that a hypothesis with a smaller Kolmogorov complexity is preferred over a hypothesis with a higher Kolmogorov complexity. However, the choice of the Occam's razor postulate remains unjustified with a deeper theoretical insight to the author's knowledge. Indeed, the hypothesis with the shortest description length need not always be the one desired. One possible problem formulation is the introduction of the postulates inducing the highest preference on the correct target hypothesis from the given data (providing an empirical/statistical justification). This means a systematic search and extraction of the properties of the background knowledge, examples and correct hypotheses. It may turn out that a logical representation of these data is not sufficient to express the necessary preferences.
 
 \chapter{Top-down framework}
 
@@ -2625,10 +2635,205 @@ But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mo
 \subsection{Other violations and biases}
 If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
 
-\chapter{MIL framework}
+\chapter{Designing a custom ILP system}
+After having reviewed ILP systems, we aim to design a custom ILP system that would address some of the problems we have encountered in the ILP systems.
+
+\section{Suggested solutions}
+   
+\subsection{Inverse Subsumption for Complete Explanatory Induction}\cite{yamamoto2012inverse}
+Our suggested solutions are an extension of the work by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
+\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+
+$H$ subsumes $\tau(M(F \cup Taut(I_H))$.
+\end{lemma}
+
+\subsection{Extension to first-order theories}
+A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of the minimal complement, especially if the number of potential tautologies is large and a computation of anti-subsumption since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground.
+
+$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
+
+\begin{conjecture}\label{subsumptionConjectureFirstOrder}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+$H$ subsumes $\tau'(M(F \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{exmp}
+Let $E=\{r(y)\}$,
+$B=\{\neg p(x) \vee r(x)\}$,
+$H=\{s(x), \neg s(x) \vee p(x)\}$,
+$I_H=\{s(x), \neg s(x), p(x)\}$.
+Then $F=B \cup \neg E=\{\neg p(x) \vee r(x), \neg r(y) \}$.
+$Taut(I_H)=\{s(x) \vee \neg s(x)\}$.
+$M(F \cup Taut(I_H))=$
+$\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z),$
+$\neg r(x) \vee r(y) \vee \neg s(z),\neg r(x) \vee r(y) \vee s(z) \}$.
+
+$\tau'(M(F \cup Taut(I_H))=\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z)\}$ which is subsumed by the hypothesis $H$.
+\end{exmp}
+
+\begin{exmp}
+All theories need not be grounded. Adapting the previous example, if the examples were
+$E_2=\{r(a), r(b)\}$ with the same hypothesis
+$H=\{s(x), \neg s(x) \vee p(x)\}$, then
+$\tau'(M(F_2 \cup Taut(I_H))=\{p(x) \vee r(a) \vee \neg s(z), p(x) \vee r(a) \vee s(z), p(x) \vee r(b) \vee \neg s(z), p(x) \vee r(b) \vee s(z) \}$ which is subsumed by $H$. A careful reader notices that the adapted $\tau'(M(F_2 \cup Taut(I_H))$ is just a partial instantiation of the previous
+$\tau'(M(F \cup Taut(I_H))$ with the same substitution
+$theta=\{a / y, b / y\}$ as used for the examples:
+$\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
+$E_2 \theta = E$.
+\end{exmp}
+
+\subsection{Extension to cover negative examples}
+We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
+\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E+$, $B \wedge H$ consistent, $B \wedge H \not\models E-$.
+\end{defn}
+
+By the principle of inverse entailment
+$B \wedge H \not\models E-$ iff
+$B \wedge \neg E- \not\models \neg H$.
+
+\begin{defn}
+(Negative bridge theory) Let $B$ and $E-$ be a background theory and negative examples, respectively. Let $F-$ be a ground clausal theory. Then $F-$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E- \models F-$ holds.
+\end{defn}
+
+\begin{conjecture}\label{subsumptionConjectureNegativeExamples}
+Let $B$, $E-$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F-$ be a negative bridge theory wrt $B$ and $E-$. For every hypothesis $H$ wrt $I_H$ and $F-$,
+
+$B \wedge H \not\models E-$ iff $H$ does not subsume
+$\tau(M(F- \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{defn}
+Let $B$, $E+$, $E-$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
+Let $F$ be a bridge theory wrt $B$ and $E+$. Let $F-$ be a maximal negative bridge theory wrt $B$ and $E-$. A clausal theory $H$ is derived
+by extended inverse subsumption with minimal complements from $F$ and $F-$ wrt $I_H$ if $H$ is constructed as
+follows:
+\begin{itemize}
+\item Step 1. Compute $Taut(IH)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
+\item Step 3. Compute $\tau(M(F- \cup Taut(I_H)))$;
+\item Step 4. Construct a clausal theory $H$ satisfying the conditions:
+$H$ subsumes $\tau(M(F \cup Taut(I_H)))$,
+$H$ does not subsume $\tau(M(F- \cup Taut(I_H)))$.
+\end{itemize}
+\end{defn}
+\section{Comparison of Upward and Downward Generalizations in CF-Induction}\cite{yamamoto2012comparison}
+\subsection{Faster consistency check}
+Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
+\subsection{Bidirectional hypothesis search using upward and downward generalization}
+Searching a hypothesis by applying both upward and downward generalization may be more efficient than applying one generalization method only. This intuition comes from the path search. Imagine two points A, B at the distance $2r$ in a plane. Searching from A (or B), we need to explore the area in a radius $2r$ until we find B (or A), the total area to be explored by this monodirectional search is $4 \pi r^2$. However, when searching from A and B mutually the closest point of the intersection is in a half way between A and B. Therefore the total area to be explored in a 2d plane by a bidirectional search from A and B is $2 \pi r^2$ which is twice less as for the monodirectional search.
+
+In general a bidirectional search in a $n+1$-dimensional plane is $2^n$ times more efficient as the monodirectional search in the same plane.
+
+The problem statement is to estimate the theoretical maximum efficiency (in terms of the time complexity relative to the two monodirectional methods of upward generalization and downward generalization respectively) for finding the target hypothesis by using both upward and downward generalization method and provide the corresponding heuristics algorithm.
+
+\subsection{Hypothesis selection}
+Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
+
+We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
+\subsection{Hypotheses enumeration}
+Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
 
 \chapter{Comparisons of ILP systems}
-* denotes to be tested.
+* denotes to be tested/proved.
+\section{Definition of an ILP problem}
+We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
+
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E-$ we mean that no example $e- \in E-$ should be implied by $B \cup H$, therefore $E-$ is meant to be a disjunction (rather than a conjunction like $E+$) of examples. Therefore, $\overline{E-} \equiv \neg E-$.
+
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
+given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
+
+The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
+let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+
+Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
+given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
+We define an ILP system:
+\begin{defn}
+An ILP system is a partial function $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$.
+\end{defn}
+Having defined an ILP problem, we define the correctness of an ILP system:
+\begin{defn}
+An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
+then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
+\end{defn}
+
+\section{Properties of an ILP system}
+We further seek properties of ILP systems upon which we could base our comparison of different ILP systems. Recall $L$ is a set of all logical sentences for a given signature $\mathcal{L}$ and $B, E+, E-, H \subseteq L$, $\mathcal{H}, \mathcal{H}_2 \subseteq \powerset{L}$.
+
+We ask:
+\begin{enumerate}
+\item On what inputs is $s$ defined?
+\item What is the algorithm computing $s$?
+\item What is the computational complexity of $s$?
+\item On what inputs do different systems $s_1, s_2$ produce a different output?
+\item If on a given input $i$ and $s_1(i) \not= s_2(i)$, is there a way to compare the systems based on their output solution set?
+\item Is there a way to equip the input and the output with the semantics to provide an interpretation for the output produced from the input?
+\end{enumerate}
+
+
+
+\section{Algorithmic definition of an ILP system}
+We provide a simplified algorithm for each of the systems in order to be able to extract properties of each system upon which a comparison could based.
+
+\subsection{IE algorithm\cite{yamamoto2011}}
+Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E+,E-,\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+ 
+ They compute the hypothesis $H$ in two steps:
+1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
+
+
+\subsection{Aleph}
+\subsection{Progol}
+\subsection{Toplog}
+\subsubsection{Top theory construction}
+\subsection{Imparo}
+\subsection{Tal}
+\subsection{Xhail}
+
+\section{Completeness in generalization\cite{yamamoto2011}}
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Complete in generalization \\ \hline
+    Aleph & no\\ \hline
+    Progol & no\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no*\\ \hline
+    Metagol & yes*\\ \hline
+    Xhail & no\\ \hline
+    Cf-induction & yes\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
 \section{Example learning}
 None of the tested ILP systems can explain the negative examples. All the systems can induce hypotheses that aim to explain the positive examples. All the tested ILP systems accept ground instances of literals for examples.
 \begin{center}
@@ -2812,41 +3017,6 @@ All tested systems suffer from weak-head mode declaration bias.
     \hline
     \end{tabular}
 \end{center}
-
-\chapter{Definition of an ILP problem}
-Considering the specifics of ILP systems, each does not try to solve the same ILP problem, we provide the problem settings for each ILP system.
-
-Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$.
-
-\begin{center}
-    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
-    \hline
-    ILP system & \\ \hline
-    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
-    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
-    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-Aleph, Toplog and Imparo aim to solve the same ILP problem called explanatory induction:
-given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
-
-The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
-let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$.
-
-
-
-Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
-given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
-find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
-Let the corresponding system solving the ILP problem (which we call \emph{generalized explanatory induction}) be $f:(E+,E-,B,\mathcal{H}) \mapsto \mathcal{H}_2$.
-
-
     
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.

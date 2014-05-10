@@ -61,6 +61,8 @@
 \BOOKMARK [2][-]{subsection.5.4.2}{Imparokimber2009}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.3}{Metagol}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.4}{Comparison of biases in ILP systems}{section.5.4}
+\BOOKMARK [1][-]{section.5.5}{Open problems in ILP}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{Problem formulation}{section.5.5}
 \BOOKMARK [0][-]{chapter.6}{Top-down framework}{}
 \BOOKMARK [1][-]{section.6.1}{Toplog}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.1.1}{Mode declarations order bias}{section.6.1}
@@ -153,35 +155,54 @@
 \BOOKMARK [2][-]{subsection.7.15.3}{Preference over earlier mode declarations}{section.7.15}
 \BOOKMARK [2][-]{subsection.7.15.4}{Background knowledge hypotheses}{section.7.15}
 \BOOKMARK [2][-]{subsection.7.15.5}{Other violations and biases}{section.7.15}
-\BOOKMARK [0][-]{chapter.8}{MIL framework}{}
+\BOOKMARK [0][-]{chapter.8}{Designing a custom ILP system}{}
+\BOOKMARK [1][-]{section.8.1}{Suggested solutions}{chapter.8}
+\BOOKMARK [2][-]{subsection.8.1.1}{Inverse Subsumption for Complete Explanatory Induction}{section.8.1}
+\BOOKMARK [2][-]{subsection.8.1.2}{Extension to first-order theories}{section.8.1}
+\BOOKMARK [2][-]{subsection.8.1.3}{Extension to cover negative examples}{section.8.1}
+\BOOKMARK [1][-]{section.8.2}{Comparison of Upward and Downward Generalizations in CF-Induction}{chapter.8}
+\BOOKMARK [2][-]{subsection.8.2.1}{Faster consistency check}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.2}{Bidirectional hypothesis search using upward and downward generalization}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.3}{Hypothesis selection}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.4}{Hypotheses enumeration}{section.8.2}
 \BOOKMARK [0][-]{chapter.9}{Comparisons of ILP systems}{}
-\BOOKMARK [1][-]{section.9.1}{Example learning}{chapter.9}
-\BOOKMARK [1][-]{section.9.2}{Hypotheses space}{chapter.9}
-\BOOKMARK [1][-]{section.9.3}{Completeness}{chapter.9}
-\BOOKMARK [2][-]{subsection.9.3.1}{Argument Specialization}{section.9.3}
-\BOOKMARK [2][-]{subsection.9.3.2}{Non-observational concepts}{section.9.3}
-\BOOKMARK [1][-]{section.9.4}{Biases}{chapter.9}
-\BOOKMARK [1][-]{section.9.5}{Violations}{chapter.9}
-\BOOKMARK [1][-]{section.9.6}{Robustness}{chapter.9}
-\BOOKMARK [1][-]{section.9.7}{Completeness of theoretical frameworks}{chapter.9}
-\BOOKMARK [1][-]{section.9.8}{Other}{chapter.9}
-\BOOKMARK [0][-]{chapter.10}{Definition of an ILP problem}{}
-\BOOKMARK [0][-]{chapter.11}{Definition of an ILP problem - notes}{}
-\BOOKMARK [1][-]{section.11.1}{ILP theory and methods}{chapter.11}
-\BOOKMARK [2][-]{subsection.11.1.1}{Completeness}{section.11.1}
-\BOOKMARK [2][-]{subsection.11.1.2}{Non-monotonic setting for ILP}{section.11.1}
-\BOOKMARK [0][-]{chapter.12}{Learning hypotheses of the least Kolmogorov complexity}{}
-\BOOKMARK [1][-]{subsection.12.0.3}{Problem of induction - computability setting}{chapter.12}
-\BOOKMARK [1][-]{section.12.1}{Bottom and top theories}{chapter.12}
-\BOOKMARK [1][-]{section.12.2}{Generalization}{chapter.12}
-\BOOKMARK [0][-]{chapter.13}{Model approximation}{}
-\BOOKMARK [1][-]{subsection.13.0.1}{Approximation and error}{chapter.13}
-\BOOKMARK [0][-]{chapter.14}{Score function}{}
-\BOOKMARK [1][-]{section.14.1}{Axiomatization by score}{chapter.14}
-\BOOKMARK [0][-]{chapter.15}{Statistical learning}{}
-\BOOKMARK [1][-]{section.15.1}{Incoherence of the generalization - Sawin-Demski paradox}{chapter.15}
-\BOOKMARK [0][-]{chapter.16}{Conclusion}{}
-\BOOKMARK [1][-]{section.16.1}{Summary of Thesis Achievements}{chapter.16}
-\BOOKMARK [1][-]{section.16.2}{Applications}{chapter.16}
-\BOOKMARK [1][-]{section.16.3}{Future Work}{chapter.16}
-\BOOKMARK [0][-]{section.16.3}{Bibliography}{}
+\BOOKMARK [1][-]{section.9.1}{Definition of an ILP problem}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Properties of an ILP system}{chapter.9}
+\BOOKMARK [1][-]{section.9.3}{Algorithmic definition of an ILP system}{chapter.9}
+\BOOKMARK [2][-]{subsection.9.3.1}{IE algorithmyamamoto2011}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.2}{Aleph}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.3}{Progol}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.4}{Toplog}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.5}{Imparo}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.6}{Tal}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.7}{Xhail}{section.9.3}
+\BOOKMARK [1][-]{section.9.4}{Completeness in generalizationyamamoto2011}{chapter.9}
+\BOOKMARK [1][-]{section.9.5}{Example learning}{chapter.9}
+\BOOKMARK [1][-]{section.9.6}{Hypotheses space}{chapter.9}
+\BOOKMARK [1][-]{section.9.7}{Completeness}{chapter.9}
+\BOOKMARK [2][-]{subsection.9.7.1}{Argument Specialization}{section.9.7}
+\BOOKMARK [2][-]{subsection.9.7.2}{Non-observational concepts}{section.9.7}
+\BOOKMARK [1][-]{section.9.8}{Biases}{chapter.9}
+\BOOKMARK [1][-]{section.9.9}{Violations}{chapter.9}
+\BOOKMARK [1][-]{section.9.10}{Robustness}{chapter.9}
+\BOOKMARK [1][-]{section.9.11}{Completeness of theoretical frameworks}{chapter.9}
+\BOOKMARK [1][-]{section.9.12}{Other}{chapter.9}
+\BOOKMARK [0][-]{chapter.10}{Definition of an ILP problem - notes}{}
+\BOOKMARK [1][-]{section.10.1}{ILP theory and methods}{chapter.10}
+\BOOKMARK [2][-]{subsection.10.1.1}{Completeness}{section.10.1}
+\BOOKMARK [2][-]{subsection.10.1.2}{Non-monotonic setting for ILP}{section.10.1}
+\BOOKMARK [0][-]{chapter.11}{Learning hypotheses of the least Kolmogorov complexity}{}
+\BOOKMARK [1][-]{subsection.11.0.3}{Problem of induction - computability setting}{chapter.11}
+\BOOKMARK [1][-]{section.11.1}{Bottom and top theories}{chapter.11}
+\BOOKMARK [1][-]{section.11.2}{Generalization}{chapter.11}
+\BOOKMARK [0][-]{chapter.12}{Model approximation}{}
+\BOOKMARK [1][-]{subsection.12.0.1}{Approximation and error}{chapter.12}
+\BOOKMARK [0][-]{chapter.13}{Score function}{}
+\BOOKMARK [1][-]{section.13.1}{Axiomatization by score}{chapter.13}
+\BOOKMARK [0][-]{chapter.14}{Statistical learning}{}
+\BOOKMARK [1][-]{section.14.1}{Incoherence of the generalization - Sawin-Demski paradox}{chapter.14}
+\BOOKMARK [0][-]{chapter.15}{Conclusion}{}
+\BOOKMARK [1][-]{section.15.1}{Summary of Thesis Achievements}{chapter.15}
+\BOOKMARK [1][-]{section.15.2}{Applications}{chapter.15}
+\BOOKMARK [1][-]{section.15.3}{Future Work}{chapter.15}
+\BOOKMARK [0][-]{section.15.3}{Bibliography}{}
