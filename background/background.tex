@@ -2710,7 +2710,7 @@ Let $F$ be a bridge theory wrt $B$ and $E+$. Let $F-$ be a maximal negative brid
 by extended inverse subsumption with minimal complements from $F$ and $F-$ wrt $I_H$ if $H$ is constructed as
 follows:
 \begin{itemize}
-\item Step 1. Compute $Taut(IH)$;
+\item Step 1. Compute $Taut(I_H)$;
 \item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
 \item Step 3. Compute $\tau(M(F- \cup Taut(I_H)))$;
 \item Step 4. Construct a clausal theory $H$ satisfying the conditions:
@@ -2718,15 +2718,9 @@ $H$ subsumes $\tau(M(F \cup Taut(I_H)))$,
 $H$ does not subsume $\tau(M(F- \cup Taut(I_H)))$.
 \end{itemize}
 \end{defn}
-\section{Comparison of Upward and Downward Generalizations in CF-Induction}\cite{yamamoto2012comparison}
-\subsection{Faster consistency check}
+
+\subsection{Faster consistency check\cite{yamamoto2012comparison}}
 Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
-\subsection{Bidirectional hypothesis search using upward and downward generalization}
-Searching a hypothesis by applying both upward and downward generalization may be more efficient than applying one generalization method only. This intuition comes from the path search. Imagine two points A, B at the distance $2r$ in a plane. Searching from A (or B), we need to explore the area in a radius $2r$ until we find B (or A), the total area to be explored by this monodirectional search is $4 \pi r^2$. However, when searching from A and B mutually the closest point of the intersection is in a half way between A and B. Therefore the total area to be explored in a 2d plane by a bidirectional search from A and B is $2 \pi r^2$ which is twice less as for the monodirectional search.
-
-In general a bidirectional search in a $n+1$-dimensional plane is $2^n$ times more efficient as the monodirectional search in the same plane.
-
-The problem statement is to estimate the theoretical maximum efficiency (in terms of the time complexity relative to the two monodirectional methods of upward generalization and downward generalization respectively) for finding the target hypothesis by using both upward and downward generalization method and provide the corresponding heuristics algorithm.
 
 \subsection{Hypothesis selection}
 Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
