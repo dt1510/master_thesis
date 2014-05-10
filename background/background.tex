@@ -4,7 +4,7 @@
 \section{Prerequisities}
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
 \begin{enumerate}
-\item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{cheng1997}
+\item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{nienhuys1997foundations}
 \item Model theory: An introduction by David Marker \cite{marker2002}
 \item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li1997}
 \item Real Analysis by H.L.Royden  \cite{royden1988}, a reference on measure theory
@@ -147,7 +147,7 @@ Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of in
 \section{Logic Programming}
 
 \begin{defn}
-A logic programming language has a \emph{negation on failure}\cite{clark1978} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
+A logic programming language has a \emph{negation on failure}\cite{clark1978negation} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
 \end{defn}
 
 \begin{exmp}
@@ -374,11 +374,11 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 5. Increment $i$ and start from step 1 again.
 
 \chapter{Inductive logic programming}
-The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010}.
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
 
 \subsection{ILP problem}
 
-\begin{defn}\cite{corapi2010}
+\begin{defn}\cite{corapi2010inductive}
 An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
 
 A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
@@ -3021,7 +3021,7 @@ All tested systems suffer from weak-head mode declaration bias.
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
 
-Related to the definition of an ILP problem Cheng and Wolf say in \cite{cheng1997}
+Related to the definition of an ILP problem Cheng and Wolf say in \cite{nienhuys1997foundations}
 "If E + is finite, then E = E -e will be a correct theory, but a rather unin-
 teresting one. In this case, we would not have learned anything beyond the
 given examples: the induced theory has no predictive power. To avoid this,
@@ -3108,7 +3108,7 @@ A set $\mathcal{H}=\powerset{\bot}$ is called a bottom theory bias.
 \section{Generalization}
 In order to define a notion of generalization in an abstracted setting we should understand what a generalization is in various ILP contexts.
 
-Inoue in \cite{inoue2012} defines $\phi$ to be more general than $\psi$ iff
+Inoue in \cite{inoue2012dnf} defines $\phi$ to be more general than $\psi$ iff
 $M(\phi) \subseteq M(\psi)$ iff $\phi \models \psi$. An important observation is that as we generalize $\psi$ strictly the number of the possible models of $\phi$ shrinks, generalization increases certainty.
 
 However, in systems like Toplog and Imparo whose logics use a Negation as Failure NAF, given a set of sentences $\Sigma$ it is complete since
