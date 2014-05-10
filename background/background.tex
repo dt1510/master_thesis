@@ -5,9 +5,9 @@
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
 \begin{enumerate}
 \item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{nienhuys1997foundations}
-\item Model theory: An introduction by David Marker \cite{marker2002}
-\item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li1997}
-\item Real Analysis by H.L.Royden  \cite{royden1988}, a reference on measure theory
+\item Model theory: An introduction by David Marker \cite{marker2002model}
+\item An introduction to Kolmogorov complexity and its applications by Li and Vitanyi \cite{li2009introduction}
+\item Real Analysis by H.L.Royden  \cite{royden1988real}, a reference on measure theory
 \end{enumerate}
 However, the usage of the concepts does not exceed its rudimentary application and the reader is encouraged to proceed further even if one may not be familiar with all the areas outlined, we suggest to use the literature when the need arises.
 \section{A logic language}
@@ -53,8 +53,8 @@ The language $\mathcal{L}_{EST}$ of elementary set theory is given by one consta
 Given a language $L$, $\phi$ is an $L$-formula iff $\phi \in L$.
 \end{defn}
 
-\section{Model theory\cite{marker2002}}
-Since the author to best of his knowledge considers the first-order model theory more developed as well as having better learning resources than model theory  of other logics, he will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002}.
+\section{Model theory\cite{marker2002model}}
+Since the author to best of his knowledge considers the first-order model theory more developed as well as having better learning resources than model theory  of other logics, he will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
 
 \begin{defn}
 An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
@@ -97,7 +97,7 @@ Typically we put further restrictions on the properties of the axiomatization $A
 $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B)=M(O)$.
 \end{defn}
 
-\section{Logics\cite{stanford2010}}
+\section{Logics\cite{stanford2010non-monotonic}}
 \begin{defn}
 A (monotone) \emph{consequence operator}\cite{wikipediaClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisflying the following conditions for all sets $X, Y \subseteq S$:
 \begin{enumerate}
@@ -160,9 +160,9 @@ the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Pr
 
 Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.
 
-The following definitions and concepts are adaptations from Dianhuan Lin's Master thesis\cite{lin2009}.
+The following definitions and concepts are adaptations from Dianhuan Lin's Master thesis\cite{lin2009efficient}.
 
-\subsection{Basic concepts and notation of Logic Programming\cite{lin2009}}
+\subsection{Basic concepts and notation of Logic Programming\cite{lin2009efficient}}
 
 \begin{defn}
 A term is a constant, variable, or the application of a function symbol to the appropriate number of terms. A ground term is a term not containing variables.
@@ -193,7 +193,7 @@ A logic program is a finite set of clauses representing their conjunction.
 The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
 $(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
 
-\subsection{SLD-resolution\cite{lin2009}}
+\subsection{SLD-resolution\cite{lin2009efficient}}
 
 \begin{defn}
 A \emph{substitution} $\theta$ is a finite set of the form
@@ -214,7 +214,7 @@ Let $\Sigma$ be a finite set of expressions. A substitution $\theta$ is called a
 set containing exactly one element). A unifier $\theta$ for $\Sigma$ is called a most general unifier (mgu) for $\Sigma$
 if, for each unifier $\theta$ of $\Sigma$ , there exists a substitution $\Gamma$ such that $\theta = \Sigma \Gamma$
 \end{defn}
-Details about unification algorithm can be found in \cite{lloyd1987}.
+Details about unification algorithm can be found in \cite{lloyd1987foundations}.
 
 \begin{defn}
 Let $G$ be $\leftObjectImplies A_1 , ..., A_m , ..., A_k$ and
@@ -392,7 +392,7 @@ In the context of ILP one divides the observations into positive examples $E^+$ 
 
 \subsection{ILP concepts}
 
-\subsubsection{Duce's rules for inductive inference\cite{muggleton1995}}
+\subsubsection{Duce's rules for inductive inference\cite{muggleton1995inverse}}
 Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
 lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
 
@@ -423,10 +423,10 @@ is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ i
 
 We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretical viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
 
-\subsection{TDHD framework\cite{muggleton2008}}
+\subsection{TDHD framework\cite{muggleton2008toplog}}
 A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
-\subsubsection{Toplog\cite{muggleton2008}}
+\subsubsection{Toplog\cite{muggleton2008toplog}}
 Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
 \item construct the top theory $\top$,
@@ -435,7 +435,7 @@ Toplog is an ILP system implementing TDHD framework. The algorithm used to const
 \item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
 \end{itemize}
 
-\subsubsection{MC-Toplog\cite{muggleton2012}}
+\subsubsection{MC-Toplog\cite{muggleton2012mc}}
 MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
 \subsection{Induction on Failure framework\cite{kimber2011}}
@@ -459,7 +459,7 @@ Imparo is an ILP system based on a general IoF theoretical framework with the fo
 \item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
 
-\subsection{Meta-Interpretive Learning framework\cite{muggleton2013}}
+\subsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
 Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
 
 \begin{defn}
@@ -488,7 +488,7 @@ Metagol is an implementation of an MIL framework that finds the hypothesis of a 
 In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
 \begin{enumerate}
 \item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
-\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995}.
+\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
 \item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
 \item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
 \end{enumerate}
@@ -612,8 +612,8 @@ A formula $\phi$ is a Horn formula iff $\phi$ is a clause with at most one posit
 A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one positive literal. The property of a formula $\phi$ being a definite clause is computable from $\phi$ and therefore it is a \emph{definite clause bias}.
 \end{defn}
 
-The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995}.
-\begin{defn}\cite{muggleton1995}
+The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995inverse}.
+\begin{defn}\cite{muggleton1995inverse}
 A \emph{mode declaration} has either the form
 $modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
 or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
@@ -623,7 +623,7 @@ with place-markers replaced by distinct variables. The sign of $m$ is positive i
 \end{defn}
 
 \begin{exmp}
-\cite{muggleton1995}
+\cite{muggleton1995inverse}
 \begin{lstlisting}
 modeh(1,plus(+int,+int,-int))
 modeb(*,append(-list,+list,+list)
@@ -633,7 +633,7 @@ modeb(4,(+int > \#int))
 \end{exmp}
 
 \begin{remark}
-\cite{muggleton1995}
+\cite{muggleton1995inverse}
 The recall is used to bound the number of alternative solutions for instantiating
 the atom. For simplicity, we assume in the following that all the modes have the
 recall `*', meaning all solutions. The following defines when a clause is within
@@ -641,7 +641,7 @@ Progol's definite mode language $L$.
 \end{remark}
 
 \begin{defn}
-\cite{muggleton1995}
+\cite{muggleton1995inverse}
 \emph{Definite mode language}. Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \objectImplies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
 1) h is the atom
@@ -654,7 +654,7 @@ of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \end{defn}
 
 \begin{remark}
-A mode declaration bias is syntactic since there exists a computable function $g:L \times \mathfrak{M} \to \{0, 1\}$ (e.g. implemented in Progol\cite{muggleton1995}) such that given a mode declaration $M$, then
+A mode declaration bias is syntactic since there exists a computable function $g:L \times \mathfrak{M} \to \{0, 1\}$ (e.g. implemented in Progol\cite{muggleton1995inverse}) such that given a mode declaration $M$, then
 $\forall \phi \in L. g(\phi, M)=1 \iff \phi \in L_{mode}$.
 \end{remark}
 
@@ -673,7 +673,7 @@ $\forall \phi \in L. g(\phi, M)=1 \iff \phi \in L_{mode}$.
 A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi))$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
 \end{defn}
 
-\subsubsection{Toplog top theory bias\cite{muggleton2008}}
+\subsubsection{Toplog top theory bias\cite{muggleton2008toplog}}
 A top theory $\top$ is an extension of the background knowledge $B$. One could convert any ILP system to a TDHD(top-directed hypothesis derivation) ILP system by providing the input background knowledge $B \union \top$ instead of $B$ with the assumptions that the input satisfies the conditions of a quadruple $\langle NT, \top, B, E \rangle$ stated later.
 
 A top theory bias is a mixture of a syntactic bias - e.g. $\top$ has to consist of Horn clauses and semantic bias which is of our interest.
@@ -694,7 +694,7 @@ and $E$ must not contain any occurrences of elements of $NT$,
 4. the head of the first clause in $\top$ is the target predicate and
 the head predicates for other clauses in must be in $NT$.
 
-\subsubsection{Construction of a top theory from the mode declarations\cite{muggleton2008}}
+\subsubsection{Construction of a top theory from the mode declarations\cite{muggleton2008toplog}}
 TODO - explain a construction of a top theory from an arbitrary set of mode declarations.
 A top theory bias is more expressive than a mode declaration bias.
 In a simplified way, given the mode declarations
@@ -731,7 +731,7 @@ TODO
 \item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
 \item Bottom theory subsumption bias. Every hypothesis must subsume the bottom theory.
 \item Top theory subsumption bias. Every hypothesis must be subsumed by the top theory.
-\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012}
+\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012mc}
 TODO: provide a formula of the restriction.
 \item Solo-explanation bias. Every clause $h$ in a hypothesis $H$ has to explain at least \emph{one} example.
 $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
@@ -758,7 +758,7 @@ A boolean property $P$ is a heuristic bias iff $P$ is computable from $\mathcal{
 \end{itemize}
 \fi
 
-\subsection{Toplog\cite{muggleton2008}}
+\subsection{Toplog\cite{muggleton2008toplog}}
 \begin{defn}
 $B$ a Horn theory, $E$ a Horn clause. The bottom clause of $B$ and $E$ is $\bot(B,E)$=$\vee\{L | L $ a ground literal, $B \union {\neg E} \models \neg L\}$.
 \end{defn}
@@ -802,7 +802,7 @@ Toplog violates the properties in our first definition of an ILP system:
 \end{itemize}
 \fi
 
-\subsection{Imparo\cite{kimber2009}}
+\subsection{Imparo\cite{kimber2009induction}}
 Bias:
 \begin{itemize}
 \item Horn theory bias (not present in a IoF framework),
@@ -3032,12 +3032,12 @@ on the particular application at hand, we will not devote much attention to
 them."
 They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
 
-Muggleton in his Inverse Entailment and Progol \cite{muggleton1995} says:
+Muggleton in his Inverse Entailment and Progol \cite{muggleton1995inverse} says:
 "the association of probability values with hypotheses requires the assumption of a prior probability distribution over the hypothesis language. Occam's razor can be taken as an instance of a distribution which assigns higher prior probability to simpler hypotheses. It has been shown [4] that without such distributional assumptions the class of all logic programs is not even PAC-predictable. On the other hand, it has recently been demonstrated [42] that the class of all time-bounded logic programs is polynomial-time learnable (U-learnable) under fairly broad families of prior probability distributions. Appendix B gives more details of the relationship between data, posterior probabilities and U-learnability."
 
 \section{ILP theory and methods}
 \subsection{Completeness}
-From ILP theory and methods \cite{muggleton1994}:
+From ILP theory and methods \cite{muggleton1994inductive}:
 An ILP system with a bias $\mathcal{H}$ is complete iff for all $E+, E-,B$ there exists $H \in \mathcal{H}$ such that $B \cup H \models E+$ and $B \cup H \not \models E-$.
 \subsection{Non-monotonic setting for ILP}
 Validity: all $h \in H$ are true in $M+(B)$,
@@ -3176,5 +3176,5 @@ Fix a description language to be a language of regular expressions. Let $L_1$ be
 
 \section{Incoherence of the generalization - Sawin-Demski paradox}
 Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
-By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013}.
+By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013computable}.
 Therefore we limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
