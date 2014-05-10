@@ -26,12 +26,12 @@
 \BOOKMARK [0][-]{chapter.4}{Background Theory}{}
 \BOOKMARK [1][-]{section.4.1}{Prerequisities}{chapter.4}
 \BOOKMARK [1][-]{section.4.2}{A logic language}{chapter.4}
-\BOOKMARK [1][-]{section.4.3}{Model theorymarker2002}{chapter.4}
-\BOOKMARK [1][-]{section.4.4}{Logicsstanford2010}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Model theorymarker2002model}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Logicsstanford2010non-monotonic}{chapter.4}
 \BOOKMARK [1][-]{section.4.5}{Measure theory}{chapter.4}
 \BOOKMARK [1][-]{section.4.6}{Logic Programming}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.6.1}{Basic concepts and notation of Logic Programminglin2009}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.2}{SLD-resolutionlin2009}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.2}{SLD-resolutionlin2009efficient}{section.4.6}
 \BOOKMARK [1][-]{section.4.7}{Inductive inference}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.7.1}{Languages in the theory of inductive inference}{section.4.7}
 \BOOKMARK [2][-]{subsection.4.7.2}{Inductive inference concepts}{section.4.7}
@@ -44,9 +44,9 @@
 \BOOKMARK [2][-]{subsection.5.0.8}{ILP concepts}{subsection.5.0.7}
 \BOOKMARK [1][-]{section.5.1}{ILP systems}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.1.1}{ILP system definition}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{TDHD frameworkmuggleton2008}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Induction on Failure frameworkkimber2011}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.4}{Meta-Interpretive Learning frameworkmuggleton2013}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{TDHD frameworkmuggleton2008toplog}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Induction on Failure frameworkkimber2012learning}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Meta-Interpretive Learning frameworkmuggleton2014meta}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.5}{Aleph}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.6}{Other systems}{section.5.1}
 \BOOKMARK [1][-]{section.5.2}{The role of a language in learning the models}{chapter.5}
@@ -57,8 +57,8 @@
 \BOOKMARK [2][-]{subsection.5.3.4}{Syntactic biases}{section.5.3}
 \BOOKMARK [2][-]{subsection.5.3.5}{Semantic biases}{section.5.3}
 \BOOKMARK [1][-]{section.5.4}{Biases in ILP systems}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Toplogmuggleton2008}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Imparokimber2009}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.1}{Toplogmuggleton2008toplog}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Imparokimber2009induction}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.3}{Metagol}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.4}{Comparison of biases in ILP systems}{section.5.4}
 \BOOKMARK [1][-]{section.5.5}{Open problems in ILP}{chapter.5}
@@ -169,14 +169,14 @@
 \BOOKMARK [1][-]{section.9.1}{Definition of an ILP problem}{chapter.9}
 \BOOKMARK [1][-]{section.9.2}{Properties of an ILP system}{chapter.9}
 \BOOKMARK [1][-]{section.9.3}{Algorithmic definition of an ILP system}{chapter.9}
-\BOOKMARK [2][-]{subsection.9.3.1}{IE algorithmyamamoto2011}{section.9.3}
+\BOOKMARK [2][-]{subsection.9.3.1}{IE algorithmyamamoto2012inverse}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.2}{Aleph}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.3}{Progol}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.4}{Toplog}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.5}{Imparo}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.6}{Tal}{section.9.3}
 \BOOKMARK [2][-]{subsection.9.3.7}{Xhail}{section.9.3}
-\BOOKMARK [1][-]{section.9.4}{Completeness in generalizationyamamoto2011}{chapter.9}
+\BOOKMARK [1][-]{section.9.4}{Completeness in generalizationyamamoto2012inverse}{chapter.9}
 \BOOKMARK [1][-]{section.9.5}{Example learning}{chapter.9}
 \BOOKMARK [1][-]{section.9.6}{Hypotheses space}{chapter.9}
 \BOOKMARK [1][-]{section.9.7}{Completeness}{chapter.9}

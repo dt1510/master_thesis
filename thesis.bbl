@@ -1,173 +1,131 @@
-\begin{thebibliography}{99}
+\begin{thebibliography}{MLPTN14}
 
-\bibitem{aleph2007}
-    Ashwin Srinivasan
-    \emph{The Aleph Manual}.
-    Version 4 and above,
-    http://www.cs.ox.ac.uk/activities/machlearn/Aleph/aleph.html
-    2007.
+\bibitem[Cla78]{clark1978negation}
+Keith~L Clark.
+\newblock Negation as failure.
+\newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
 
-\bibitem{cheng1997}
-    Shan-Hwei Nienhuys-Cheng,
-    Ronald de Wolf
-    \emph{Foundations of Inductive Logic Programming}.
-    Springer,
-    1997.
-    
-\bibitem{clark1978}
-    Keith L. Clark
-    \emph{Negation as Failure}.
-    Logic and data bases,
-    Springer,
-    1978.
-    
-\bibitem{corapi2010}
-    Domanico Corapi,
-    Alessandra Russo,
-    Emil Lupu
-    \emph{Inductive Logic Programming as Abductive Search}.
-    Technical Communications of the International Conference on Logic Programming,
-    2010 (Edinburgh),
-    pp. 54–63.
-    
-\bibitem{inoue2012}
-    Katsumi Inoue
-    \emph{DNF Hypotheses in Explanatory Induction}.
-    Inductive Logic Programming 2012,
-    Springer,
-    2012.
-    
-\bibitem{li1997}
-    Ming Li,
-    Paul Vitanyi
-    \emph{An introduction to Kolmogorov complexity and its applications}.
-    Springer,
-    Second Edition,
-    1997.
-    
-\bibitem{lin2009}
-    Dianhuan Lin
-    \emph{Efficient, Complete and Declarative Search in Inductive Logic Programming}.
-    Master thesis,
-    Imperial College London,
-    2009.
-    
-\bibitem{lloyd1987}
-    J.W. Lloyd
-    \emph{Foundations of Logic Programming}.
-    Springer-Verlag,
-    Berlin,
-    Second edition,
-    1987.    
+\bibitem[CRL10]{corapi2010inductive}
+Domenico Corapi, Alessandra Russo, and Emil Lupu.
+\newblock Inductive logic programming as abductive search.
+\newblock In {\em ICLP (Technical Communications)}, pages 54--63, 2010.
 
-\bibitem{stove1986}
-    David Charles Stove
-    \emph{The Rationality of Induction}.
-    Clarendon Press,
-    1986.
-    
-\bibitem{kimber2009}
-    Timothy Kimber,
-    Krysia Broda,
-    Alessandra Russo
-    \emph{Induction on failure: learning connected horn theories}.
-    Springer,
-    2009.
-    
-\bibitem{kimber2011}
-    Timothy Kimber
-    \emph{Learning Definite and Normal Logic Programs by Induction on Failure}.
-    PhD thesis,
-    Imperial College London,
-    2011.
-    
-\bibitem{marker2002}
-  Marker David
-  \emph{Model Theory: An Introduction}.
-  Springer-Verlag,
-  2002.
+\bibitem[CW14]{wolframMathworldMeasure}
+Allan Cortzen and Eric~W Weisstein.
+\newblock Measure, 2014.
+\newblock MathWorld--A Wolfram Web Resource.
 
-\bibitem{muggleton1994}
-    Stephen Muggleton,
-    Luc De Raedt
-    \emph{Inductive Logic Programming: Theory and Methods}
-    J.Logic Programming,
-    1994.
-    
-\bibitem{muggleton1995}
-    Stephen Muggleton
-    \emph{Inverse entailment and Progol}.
-    Springer,
-    1995.
-    
-\bibitem{muggleton2008}
-    Stephen Muggleton,
-    Jose Santos,
-    Alizera Tamaddoni-Nezhad
-    \emph{Toplog: ILP using a logic program declarative bias}.
-    Springer,
-    2008.
-    
-\bibitem{muggleton2013}
-    Stephen Muggleton, 
-    Dianhuan Lin, 
-    Niels Pahlavi,
-    Alizera Tamodoni-Nezhad
-    \emph{Meta-interpretive learning: application to grammatical inference}.
-    Springer,
-    2013.
+\bibitem[htt10]{stanford2010non-monotonic}
+Non-monotonic logic, 2010.
+\newblock Stanford Encyclopedia of Philosophy.
 
-\bibitem{muggleton2012}
-    Stephen Muggleton,
-    Dianhuan Lin,
-    Alizera Tamaddoni-Nezhad
-    \emph{MC-Toplog: complete multi-clause learning guided by a top theory}.
-    Springer,
-    2012.
-    
-\bibitem{royden1988}
-    H.L.Royden
-    \emph{Real Analysis}.
-    Macmillan Publishing Company, New York,
-    Collier Macmillan Publishing, London,
-    1988.
-    
-\bibitem{sawin2013}
-    Will Sawin,
-    Abram Demski
-    \emph{Computable probability distributions which converge on $\Pi_1$ will disbelieve true $\Pi_2$}.
-    Unpublished, Machine Intelligence Research Institute,
-    2013.
-    
-\bibitem{stanford2010}
-    Stanford Encyclopedia of Philosophy
-    \emph{Non-monotonic Logic}
-    http://plato.stanford.edu/entries/logic-nonmonotonic/
-    2010.
-    
-\bibitem{wikipediaClosureOperator}
-    Wikipedia, The Free Encyclopedia
-    \emph{Closure Operator}
-    http://en.wikipedia.org/wiki/Closure\_operator
-    2014.
-    
-\bibitem{wikipediaProblemOfInduction}
-    Wikipedia, The Free Encyclopedia
-    \emph{Problem of Induction}
-    http://en.wikipedia.org/wiki/Problem\_of\_induction/
-    2014.    
-        
-\bibitem{wolframMathworldMeasure}
-    Cortzen, Allan,
-    Weisstein, Eric W
-    {Measure}.
-    MathWorld--A Wolfram Web Resource,
-    http://mathworld.wolfram.com/Measure.html
-    2014.
-    
-\bibitem{yamamoto2011}
-    Yoshitaka Yamamoto,
-    Katsumi Inoue,
-    Koji Iwanuma
-    {Inverse Sumsumption for Complete Explanatory Induction}
+\bibitem[htt14a]{wikipediaClosureOperator}
+Closure operator, 2014.
+\newblock Wikipedia, The Free Encyclopedia.
+
+\bibitem[htt14b]{wikipediaProblemOfInduction}
+Problem of induction, 2014.
+\newblock Wikipedia, The Free Encyclopedia.
+
+\bibitem[Ino12]{inoue2012dnf}
+Katsumi Inoue.
+\newblock Dnf hypotheses in explanatory induction.
+\newblock In {\em Inductive Logic Programming}, pages 173--188. Springer, 2012.
+
+\bibitem[KBR09]{kimber2009induction}
+Tim Kimber, Krysia Broda, and Alessandra Russo.
+\newblock Induction on failure: learning connected horn theories.
+\newblock In {\em Logic Programming and Nonmonotonic Reasoning}, pages
+  169--181. Springer, 2009.
+
+\bibitem[Kim12]{kimber2012learning}
+Timothy Kimber.
+\newblock {\em Learning definite and normal logic programs by induction on
+  failure}.
+\newblock PhD thesis, Imperial College London, 2012.
+
+\bibitem[Lin09]{lin2009efficient}
+Dianhuan Lin.
+\newblock Efficient, complete and declarative search in inductive logic
+  programming.
+\newblock Master's thesis, Imperial College London, 2009.
+
+\bibitem[Llo87]{lloyd1987foundations}
+J~Lloyd.
+\newblock {\em Foundations of Logic Programming}.
+\newblock Berlin: Springer-Verlag, 1987.
+
+\bibitem[LV09]{li2009introduction}
+Ming Li and Paul~MB Vit{\'a}nyi.
+\newblock {\em An introduction to Kolmogorov complexity and its applications}.
+\newblock Springer, 2009.
+
+\bibitem[Mar02]{marker2002model}
+David Marker.
+\newblock {\em Model theory}.
+\newblock Springer, 2002.
+
+\bibitem[MDR94]{muggleton1994inductive}
+Stephen Muggleton and Luc De~Raedt.
+\newblock Inductive logic programming: Theory and methods.
+\newblock {\em The Journal of Logic Programming}, 19:629--679, 1994.
+
+\bibitem[MLPTN14]{muggleton2014meta}
+Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
+\newblock Meta-interpretive learning: application to grammatical inference.
+\newblock {\em Machine Learning}, 94(1):25--49, 2014.
+
+\bibitem[MLTN12]{muggleton2012mc}
+Stephen~H Muggleton, Dianhuan Lin, and Alireza Tamaddoni-Nezhad.
+\newblock Mc-toplog: Complete multi-clause learning guided by a top theory.
+\newblock In {\em Inductive Logic Programming}, pages 238--254. Springer, 2012.
+
+\bibitem[MSTN08]{muggleton2008toplog}
+Stephen~H Muggleton, Jos{\'e} Carlos~Almeida Santos, and Alireza
+  Tamaddoni-Nezhad.
+\newblock Toplog: Ilp using a logic program declarative bias.
+\newblock In {\em Logic Programming}, pages 687--692. Springer, 2008.
+
+\bibitem[Mug95]{muggleton1995inverse}
+Stephen Muggleton.
+\newblock Inverse entailment and progol.
+\newblock {\em New generation computing}, 13(3-4):245--286, 1995.
+
+\bibitem[NCDW97]{nienhuys1997foundations}
+Shan-Hwei Nienhuys-Cheng and Ronald De~Wolf.
+\newblock {\em Foundations of inductive logic programming}, volume 1228.
+\newblock Springer, 1997.
+
+\bibitem[RFH88]{royden1988real}
+Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
+\newblock {\em Real analysis}, volume~4.
+\newblock Prentice Hall New York, 1988.
+
+\bibitem[SD13]{sawin2013computable}
+Will Sawin and Abram Demski.
+\newblock Computable probability distributions which converge on $\pi_1$ will
+  disbelieve true $\pi_2$.
+\newblock Machine Intelligence Research Institute, 2013.
+
+\bibitem[Sri07]{aleph2007}
+Ashwin Srinivasan.
+\newblock {\em The Aleph Manual}.
+\newblock http://www.cs.ox.ac.uk/activities/machlearn/Aleph/aleph.html, 2007.
+\newblock Version 4 and above.
+
+\bibitem[SS86]{stove1986rationality}
+David~Charles Stove and Stove.
+\newblock {\em The rationality of induction}.
+\newblock Cambridge Univ Press, 1986.
+
+\bibitem[YII12a]{yamamoto2012comparison}
+Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
+\newblock Comparison of upward and downward generalizations in cf-induction.
+\newblock In {\em Inductive Logic Programming}, pages 373--388. Springer, 2012.
+
+\bibitem[YII12b]{yamamoto2012inverse}
+Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
+\newblock Inverse subsumption for complete explanatory induction.
+\newblock {\em Machine learning}, 86(1):115--139, 2012.
+
 \end{thebibliography}
