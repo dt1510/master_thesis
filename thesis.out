@@ -61,8 +61,9 @@
 \BOOKMARK [2][-]{subsection.5.4.2}{Imparokimber2009induction}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.3}{Metagol}{section.5.4}
 \BOOKMARK [2][-]{subsection.5.4.4}{Comparison of biases in ILP systems}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Open problems in ILP}{chapter.5}
+\BOOKMARK [1][-]{section.5.5}{Problems in ILP}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.5.1}{Problem formulation}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.2}{Inappropriate semantics}{section.5.5}
 \BOOKMARK [0][-]{chapter.6}{Top-down framework}{}
 \BOOKMARK [1][-]{section.6.1}{Toplog}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.1.1}{Mode declarations order bias}{section.6.1}
@@ -155,7 +156,7 @@
 \BOOKMARK [2][-]{subsection.7.15.3}{Preference over earlier mode declarations}{section.7.15}
 \BOOKMARK [2][-]{subsection.7.15.4}{Background knowledge hypotheses}{section.7.15}
 \BOOKMARK [2][-]{subsection.7.15.5}{Other violations and biases}{section.7.15}
-\BOOKMARK [0][-]{chapter.8}{Designing a custom ILP system}{}
+\BOOKMARK [0][-]{chapter.8}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.8.1}{Suggested solutions}{chapter.8}
 \BOOKMARK [2][-]{subsection.8.1.1}{Inverse Subsumption for Complete Explanatory Induction}{section.8.1}
 \BOOKMARK [2][-]{subsection.8.1.2}{Extension to first-order theories}{section.8.1}
@@ -163,6 +164,7 @@
 \BOOKMARK [2][-]{subsection.8.1.4}{Faster consistency checkyamamoto2012comparison}{section.8.1}
 \BOOKMARK [2][-]{subsection.8.1.5}{Hypothesis selection}{section.8.1}
 \BOOKMARK [2][-]{subsection.8.1.6}{Hypotheses enumeration}{section.8.1}
+\BOOKMARK [1][-]{section.8.2}{Unresolved problems}{chapter.8}
 \BOOKMARK [0][-]{chapter.9}{Comparisons of ILP systems}{}
 \BOOKMARK [1][-]{section.9.1}{Definition of an ILP problem}{chapter.9}
 \BOOKMARK [1][-]{section.9.2}{Properties of an ILP system}{chapter.9}

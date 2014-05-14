@@ -835,7 +835,7 @@ $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
 $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mathcal{H}_{connected\_theory}$
 
-\section{Open problems in ILP}
+\section{Problems in ILP}
 \begin{itemize}
 \item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings realy address the problem that we are trying to solve?
 \item Hypothesis selection: among the hypotheses that are consistent and explain the observations which should be selected?
@@ -844,6 +844,10 @@ $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mat
 \end{itemize}
 \subsection{Problem formulation}
 A solution of the hypothesis selection problem is a more precise formulation of ILP setting by an introduction of a preference over $\mathcal{H}$. The problem reduces to the preference choice and its justification. One could introduce Occam's razor postulate, consequently demand that a hypothesis with a smaller Kolmogorov complexity is preferred over a hypothesis with a higher Kolmogorov complexity. However, the choice of the Occam's razor postulate remains unjustified with a deeper theoretical insight to the author's knowledge. Indeed, the hypothesis with the shortest description length need not always be the one desired. One possible problem formulation is the introduction of the postulates inducing the highest preference on the correct target hypothesis from the given data (providing an empirical/statistical justification). This means a systematic search and extraction of the properties of the background knowledge, examples and correct hypotheses. It may turn out that a logical representation of these data is not sufficient to express the necessary preferences.
+\subsection{Inappropriate semantics}
+The background knowledge of the most ILP systems uses the non-monotonic semantics of Progol - if the statement fails to be proved, it is assumed to be false. This represents a problem when reasoning with the incomplete background knowledge. We may desire to express the incompleteness by saying that we do not know the truth value of some logical sentence. However, with the negation as failure, every statement is either true or false. Consequently, undesirably we need to bias the produced hypothesis either in or against the favour of the logical statement whose truth value we do not know.
+
+Monotonic semantics gives us the possibility to work with the theories of the several models, however it does not capture a possible change of the truth values of certain sentences upon the new observations.
 
 \chapter{Top-down framework}
 
@@ -2635,13 +2639,13 @@ But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mo
 \subsection{Other violations and biases}
 If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
 
-\chapter{Designing a custom ILP system}
-After having reviewed ILP systems, we aim to design a custom ILP system that would address some of the problems we have encountered in the ILP systems.
+\chapter{Rationale ILP system}
+After having reviewed ILP systems, we aim to design a custom ILP system called Rationale that would address some of the problems we have encountered in the ILP systems.
 
 \section{Suggested solutions}
+Our suggested solutions are an extension of the work\cite{yamamoto2012inverse} by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
    
-\subsection{Inverse Subsumption for Complete Explanatory Induction}\cite{yamamoto2012inverse}
-Our suggested solutions are an extension of the work by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
+\subsection{Inverse Subsumption for Complete Explanatory Induction}
 \begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
 Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
 respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
@@ -2652,7 +2656,7 @@ $H$ subsumes $\tau(M(F \cup Taut(I_H))$.
 \subsection{Extension to first-order theories}
 A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of the minimal complement, especially if the number of potential tautologies is large and a computation of anti-subsumption since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground.
 
-$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
+$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that has a ground instance that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
 
 \begin{conjecture}\label{subsumptionConjectureFirstOrder}
 Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
@@ -2689,6 +2693,31 @@ We extend the completeness results and algorithm in a more general problem of ex
 \begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E+$, $B \wedge H$ consistent, $B \wedge H \not\models E-$.
 \end{defn}
 
+\begin{lemma}
+Let $B \cup \neg E \models F$. $H$ subsumes $\tau(M(F \cup Taut(I_H)))$ implies
+$B \cup H \models E$.
+\end{lemma}
+\begin{proof}
+By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \equiv \neg F$.
+\end{proof}
+
+\begin{lemma}
+Let $E-=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
+a hypothesis wrt $I_H, B, E+, E-$.
+Then $B \cup H \not\models E-$ iff
+$\forall i \in \{1,...,n\}.$ $H$ does not subsume
+$\tau(M(F_i- \cup Taut(I_H)))$.
+\end{lemma}
+
+\begin{proof}
+Use \ref{yamamoto2012inverseLemma2} and the fact that $E-$ is in a disjunctive normal form.
+\end{proof}
+
+\begin{conjecture}
+$\tau(M(F_i- \cup Taut(I_H)))$ subsumes $\tau(M(F- \cup Taut(I_H)))$
+where $F-=F_1- \wedge ... \wedge F_n-$.
+\end{conjecture}
+
 By the principle of inverse entailment
 $B \wedge H \not\models E-$ iff
 $B \wedge \neg E- \not\models \neg H$.
@@ -2698,6 +2727,7 @@ $B \wedge \neg E- \not\models \neg H$.
 \end{defn}
 
 \begin{conjecture}\label{subsumptionConjectureNegativeExamples}
+(Note: probably false).
 Let $B$, $E-$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F-$ be a negative bridge theory wrt $B$ and $E-$. For every hypothesis $H$ wrt $I_H$ and $F-$,
 
 $B \wedge H \not\models E-$ iff $H$ does not subsume
@@ -2728,6 +2758,11 @@ Given clausal theories $E$, $B$, there may be several non-equivalent clausal the
 We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
 \subsection{Hypotheses enumeration}
 Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
+
+\section{Unresolved problems}
+\begin{itemize}
+\item The background theory has to be Horn.
+\end{itemize}
 
 \chapter{Comparisons of ILP systems}
 * denotes to be tested/proved.
