@@ -837,7 +837,7 @@ $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mat
 
 \section{Problems in ILP}
 \begin{itemize}
-\item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings realy address the problem that we are trying to solve?
+\item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings really address the problem that we are trying to solve?
 \item Hypothesis selection: among the hypotheses that are consistent and explain the observations which should be selected?
 \item What preferences should be induced over the correct hypotheses $\mathcal{H}$ and why?
 \item Can preferences be extracted from the logical representation of the clausal theories?
@@ -2763,8 +2763,8 @@ $H \not\subsumes \tau(M(F- \cup Taut(I_H)))$.
 \begin{defn}
 Let $P=\langle B, U, I \rangle$ be an open definite program, $H$ be a correct hypothesis wrt $P$ and a ground example $E$, then $H$ is derivable by
 \emph{connected theory inverse subsumption}
-iff there exists a connected theory $T. H \subsumes T$.
-We denote the statement by $P, E \models_{CTIS} H$ TODO (change models).
+iff there exists a connected theory $T$ for $P$ and $E$ such that $H \subsumes T$.
+We denote the statement by $P, E \vdash_{CTIS} H$.
 \end{defn}
 
 \begin{thm}\label{yamamoto2012inverseTheorem4}\cite{yamamoto2012inverse}
@@ -2772,21 +2772,21 @@ Let $S$ be a ground clausal theory. Then, $M^2(S) = \mu(S)$ holds.
 \end{thm}
 
 \begin{proposition}
-Let $H \in I_H$ such that $Taut(I_H)=\emptyset$, then $H$ is derivable by connected theory inverse subsumption from $P, E$.
+Let $H \in I_H$ be an inductive solution for $P$ and $E$ such that $Taut(I_H)=\emptyset$, then $H$ is derivable by connected theory inverse subsumption from $P, E$.
 \end{proposition}
 \begin{proof}
-By completeness of connected theory generalization there exists a connected theory $T$ such that $H \models T$. $M(T)$ is a bridge formula.
+By completeness of connected theory generalization\ref{completeness_ctg} there exists a connected theory $T$ such that $H \models T$. $M(T)$ is a bridge formula.
 Hence by \ref{yamamoto2012inverseLemma2}
 $H \subsumes \tau(M(M(T) \cup Taut(I_H))$. From the definition of the connected theory $\tau(T)=T$ and $\mu (T)=T$.
 Therefore $\tau(M(M(T) \cup Taut(I_H))=\tau(M(M(T))=\tau(T)=T$ using
 \ref{yamamoto2012inverseTheorem4}. Therefore $H \subsumes T$ as required.
 \end{proof}
 \begin{remark}
-The previous proposition is stated and proved only to provide an alternative proof of a statement superceded by the following stronger result.
+The previous proposition is stated and proved only to provide an alternative proof of a statement superceded by the stronger result \ref{completeness_ctis}.
 \end{remark}
 
 \begin{thm}\label{implicationByGroundClauses}
-(Implication by Ground Clauses [43]). Let $\Sigma$ be a non-empty set of clauses,
+(Implication by Ground Clauses \cite{nienhuys1997foundations}). Let $\Sigma$ be a non-empty set of clauses,
 and $C$ be a ground clause. Then $\Sigma \models C$ if and only if there is a finite set $\Sigma_g$ of ground
 instances of clauses from $\Sigma$, such that $\Sigma_g \models C$.
 \end{thm}
@@ -2799,7 +2799,7 @@ If $H$ is an inductive solution for $P$ and
 $E = \{e\}$, then $H$ is derivable from $P$ and $E$ by connected theory generalisation.
 \end{thm}
 \begin{proof}\cite{kimber2012learning}
-For the full proof, an interested reader is encourage to read \cite{kimber2012learning}.
+For the full proof, an interested reader is encouraged to read \cite{kimber2012learning}.
 Since $H$ is a correct hypothesis for $P$ and $E$,
 then $B \cup H \models E$ by definition.
 Therefore, by \ref{implicationByGroundClauses}, there is a finite set $S$ of ground instances of clauses in $B \cup H$,
@@ -2811,6 +2811,7 @@ Then Kimber proves that $T$ is a connected theory for $P$ and $E$.
 
 \begin{thm}
 \emph{Completeness of connected theory inverse subsumption}.
+\label{completeness_ctis}
 Let $\langle B, U, I \rangle$ be a definite open program,
 let $H$ be a definite program, and let $e$ be an atom.
 If $H$ is an inductive solution for $P$ and
