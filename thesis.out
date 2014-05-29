@@ -23,6 +23,17 @@
 \BOOKMARK [2][-]{subsection.2.7.5}{Problem of induction - model theoretic setting}{section.2.7}
 \BOOKMARK [2][-]{subsection.2.7.6}{Scientific method}{section.2.7}
 \BOOKMARK [0][-]{chapter.3}{Problems in inductive logic programming}{}
+\BOOKMARK [1][-]{section.3.1}{Learning new information from given data}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{ILP problem definition}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Completeness by problem classes}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Learning concepts}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Complexity of a learning problem}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Learning syntactic representations}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Learning up to logical equivalence}{section.3.3}
+\BOOKMARK [1][-]{section.3.4}{Hypothesis selection}{chapter.3}
+\BOOKMARK [1][-]{section.3.5}{Hypothesis search algorithm}{chapter.3}
+\BOOKMARK [1][-]{section.3.6}{Research in ILP}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{Classification of ILP systems}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Classification of inductive logic programming systems}{}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to problems in inductive logic programming}{}
 \BOOKMARK [0][-]{chapter.6}{Evaluation}{}
