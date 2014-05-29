@@ -24,7 +24,23 @@ Solving certain learning problems requires dealing with the knowledge of the inf
 
 
 \section{Completeness by problem classes}
+The task of a normal problem setting for inductive logic programming is given background knowledge $B$, positive examples $E+$, negative examples $E-$ to find a hypothesis $H$ such that $B \cup H \models E+$,
+$B \cup H \not\models E-$,
+$B \cup H \not\models false$.
+The logical theories $B$, $E+$, $E-$ specify a learning problem and determine the solution space $\mathcal{H}$ of the correct hypotheses. We learn about the nature of the problem by extracting the properties from the given theories. Learning problems with the identical properties are put in a class. Consequently, we can classify the ILP systems and methods based on the ability to solve a well-defined class of learning problems.
+
 \subsection{Learning concepts}
+\begin{defn}
+A concept on a domain $M$ is a relation $R \subseteq M^n$ for $n \ge 0$.
+\end{defn}
+\begin{exmp}
+Let the domain $M$ be a family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
+$male=\{adam, kain, abel\}\subseteq{M}$,
+$female=\{eva\}\subseteq{M}$,
+$father=\{(adam,kain), (adam,abel)\}\subseteq{M^2}$,
+$mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
+$parent=father \cup mother$.
+\end{exmp}
 \subsection{Complexity of a learning problem}
 \subsection{Learning syntactic representations}
 \subsection{Learning up to logical equivalence}
