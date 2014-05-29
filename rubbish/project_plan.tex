@@ -1,0 +1,59 @@
+\chapter{Project Plan}
+The objective of the project is to provide the means of classification of the systems of inductive logic programming.
+
+\section{Current state}
+I have researched ILP systems Toplog, Imparo in detail and Metagol with less detail, in addition other systems in breadth Prolog, Tal, etc. I have learnt the knowledge from the areas of Model Theory, Logic Programming, Measure Theory, Kolmogorov Complexity.
+
+\subsection{Addressed problems}
+The initial problem in the field of ILP has been the lack of the direction in research and mathematical foundations with which a basis of comparison could be made. I researched the ILP systems and devised unifying definitions that identified which concepts may be of importance - a hypotheses space and bias, a score function, model approximation. The definitions have been formed throughout the long process of understanding the differences and similarities of the systems Imparo and Toplog from the observations of the formation of their hypotheses from various inputs as well as from the theoretical frameworks they follow.
+
+\section{Plan}
+
+\subsection{Problems to address}
+Within the general definitions devised it is important to identify and define important subproperties of the main properties of the ILP systems - a hypotheses space/bias, a score function, model approximation. The properties should be weak enough but still interesting so that useful results could be established.
+
+The established results should directly refer and build upon the examples of series of inputs and outputs from the ILP systems Toplog, Imparo and Metagol.
+
+The questions and problems of potential interest include:
+1. find the ways to represent a regular language in a logic programming language in order to reason about the learning capabilities of ILP systems.
+2. are ILP systems capable of learning regular languages (Herbrand models whose language representation is regular)?
+3. How can we reason about learning of regular languages in computability setting of an inductive inference problem?
+4. Are top-down and bottom-up computability abstractions of inductive inference systems equivalent - i.e. capable of learning the same Hebrand models?
+5. Find any BIIS or TIIS that can learn a regular language.
+6. What languages from the Chomsky Hierarchies or definable by formulas from a given arithemetical hierarchy can a TIIS learn?
+
+\subsection{Spring term until the  week 10}
+By week 4 meeting: identify a few subproperties of the hypotheses space,
+choose one most trivial property, make abstractions of Imparo and Toplog and prove whether a given property in these abstractions holds or not.
+
+5. Choose 2nd hypotheses space property.
+
+6. Choose 3rd hypotheses space property.
+
+7. 4th hypotheses space property.
+
+8. Reevaluate the progress on the classification of the ILP systems by their properties on the hypotheses space, correct inconsistences and list other properties of interest.
+
+9. Space for other problems in the classification of ILP systems on hypotheses space.
+
+10. Summarize the work so far, make a plan for the next period.
+
+\subsection{End of Spring term until 20th May}
+Classify the ILP systems by their score function:
+How does the score function affect the hypotheses space bias?
+What properties do models have that are learnable with a system using a given score function?
+
+Classify the ILP systems by their model approximation:
+How much information is preserved in the model that is an approximation of the reality, how much information can be recovered?
+What is the error bound threshold that makes learning still useful?
+
+\subsection{20th May until 17th June}
+Identify the most important problem to focus on from the established results.
+10th June - finalize the report.
+
+\subsection{Fallback-back positions}
+In case the project does not follow the outlined plan. In the end of the Spring term, an alternative plan would be chosen:
+Study the ILP systems from the various examples (potentially biased) and provide a statistical evaluation of the results - hypotheses of what forms (how many clauses, with how many body atoms, predicates, etc.) are learnable by ILP systems and therefore establish minor incompletenss results.
+
+\subsection{Posible extensions}
+A possible extension includes inspecting the coherence of the inductive inference in an abstraction of an ILP system in a probabilistic logic. Note, that some systems like Toplog can learn a hypothesis that is consistent with the examples.

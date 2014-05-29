@@ -1,14 +1,9 @@
-\begin{thebibliography}{MLPTN14}
+\begin{thebibliography}{NCDW97}
 
 \bibitem[Cla78]{clark1978negation}
 Keith~L Clark.
 \newblock Negation as failure.
 \newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
-
-\bibitem[CRL10]{corapi2010inductive}
-Domenico Corapi, Alessandra Russo, and Emil Lupu.
-\newblock Inductive logic programming as abductive search.
-\newblock In {\em ICLP (Technical Communications)}, pages 54--63, 2010.
 
 \bibitem[CW14]{wolframMathworldMeasure}
 Allan Cortzen and Eric~W Weisstein.
@@ -26,17 +21,6 @@ Closure operator, 2014.
 \bibitem[htt14b]{wikipediaProblemOfInduction}
 Problem of induction, 2014.
 \newblock Wikipedia, The Free Encyclopedia.
-
-\bibitem[Ino12]{inoue2012dnf}
-Katsumi Inoue.
-\newblock Dnf hypotheses in explanatory induction.
-\newblock In {\em Inductive Logic Programming}, pages 173--188. Springer, 2012.
-
-\bibitem[KBR09]{kimber2009induction}
-Tim Kimber, Krysia Broda, and Alessandra Russo.
-\newblock Induction on failure: learning connected horn theories.
-\newblock In {\em Logic Programming and Nonmonotonic Reasoning}, pages
-  169--181. Springer, 2009.
 
 \bibitem[Kim12]{kimber2012learning}
 Timothy Kimber.
@@ -65,32 +49,6 @@ David Marker.
 \newblock {\em Model theory}.
 \newblock Springer, 2002.
 
-\bibitem[MDR94]{muggleton1994inductive}
-Stephen Muggleton and Luc De~Raedt.
-\newblock Inductive logic programming: Theory and methods.
-\newblock {\em The Journal of Logic Programming}, 19:629--679, 1994.
-
-\bibitem[MLPTN14]{muggleton2014meta}
-Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
-\newblock Meta-interpretive learning: application to grammatical inference.
-\newblock {\em Machine Learning}, 94(1):25--49, 2014.
-
-\bibitem[MLTN12]{muggleton2012mc}
-Stephen~H Muggleton, Dianhuan Lin, and Alireza Tamaddoni-Nezhad.
-\newblock Mc-toplog: Complete multi-clause learning guided by a top theory.
-\newblock In {\em Inductive Logic Programming}, pages 238--254. Springer, 2012.
-
-\bibitem[MSTN08]{muggleton2008toplog}
-Stephen~H Muggleton, Jos{\'e} Carlos~Almeida Santos, and Alireza
-  Tamaddoni-Nezhad.
-\newblock Toplog: Ilp using a logic program declarative bias.
-\newblock In {\em Logic Programming}, pages 687--692. Springer, 2008.
-
-\bibitem[Mug95]{muggleton1995inverse}
-Stephen Muggleton.
-\newblock Inverse entailment and progol.
-\newblock {\em New generation computing}, 13(3-4):245--286, 1995.
-
 \bibitem[NCDW97]{nienhuys1997foundations}
 Shan-Hwei Nienhuys-Cheng and Ronald De~Wolf.
 \newblock {\em Foundations of inductive logic programming}, volume 1228.
@@ -101,31 +59,9 @@ Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
 \newblock {\em Real analysis}, volume~4.
 \newblock Prentice Hall New York, 1988.
 
-\bibitem[SD13]{sawin2013computable}
-Will Sawin and Abram Demski.
-\newblock Computable probability distributions which converge on $\pi_1$ will
-  disbelieve true $\pi_2$.
-\newblock Machine Intelligence Research Institute, 2013.
-
-\bibitem[Sri07]{aleph2007}
-Ashwin Srinivasan.
-\newblock {\em The Aleph Manual}.
-\newblock http://www.cs.ox.ac.uk/activities/machlearn/Aleph/aleph.html, 2007.
-\newblock Version 4 and above.
-
 \bibitem[SS86]{stove1986rationality}
 David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
-
-\bibitem[YII12a]{yamamoto2012comparison}
-Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
-\newblock Comparison of upward and downward generalizations in cf-induction.
-\newblock In {\em Inductive Logic Programming}, pages 373--388. Springer, 2012.
-
-\bibitem[YII12b]{yamamoto2012inverse}
-Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
-\newblock Inverse subsumption for complete explanatory induction.
-\newblock {\em Machine learning}, 86(1):115--139, 2012.
 
 \end{thebibliography}

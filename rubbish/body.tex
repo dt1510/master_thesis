@@ -1,0 +1,2908 @@
+\chapter{Inductive logic programming}
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
+
+\subsection{ILP problem}
+
+\begin{defn}\cite{corapi2010inductive}
+An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
+
+A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
+i) consistency $false \not \in cl(O \union B \union H)$,
+ii) sufficiency $O \subseteq cl(B \union H)$.
+\end{defn}
+
+In ILP often the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
+
+In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. If the logic programming language is non-monotone, then the consequence operator $cl$ does not satisfly the monotone condition and the division of the examples is conceptually important. The clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
+
+\subsection{ILP concepts}
+
+\subsubsection{Duce's rules for inductive inference\cite{muggleton1995inverse}}
+Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
+lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
+
+Absorption: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
+
+Identification: $A \wedge B \objectImplies p, q \wedge A \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p$,
+
+Intra-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p, C \objectImplies q$
+
+Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models r \wedge B \objectImplies p, A \objectImplies r, r \wedge C \objectImplies q$
+
+\subsubsection{Inverse Entailment}
+Inverse Entailment is a correspondence between an induction and a deduction:
+\begin{thm}\cite{kimber2012learning}
+Let $B$ be a Horn program, and let $h$ and $e$ be
+Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
+\end{thm}
+
+\section{ILP systems}
+
+\subsection{ILP system definition}
+An ILP system is a function
+$f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
+is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
+
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretical viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+
+\subsection{TDHD framework\cite{muggleton2008toplog}}
+A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+
+\subsubsection{Toplog\cite{muggleton2008toplog}}
+Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}
+
+\subsubsection{MC-Toplog\cite{muggleton2012mc}}
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
+
+\subsection{Induction on Failure framework\cite{kimber2012learning}}
+Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
+\begin{defn}
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+\end{defn}
+
+\subsubsection{Imparo\cite{kimber2012learning}}
+Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
+\begin{itemize}
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\end{itemize}
+
+\subsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
+Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
+
+\begin{defn}
+\emph{(Meta-Interpretive Learning setting)} A Meta-Interpretive Learning (MIL)
+problem consists of $Input = \langle B, E \rangle$ and $Output =H$ where the background knowledge
+$B = B_M \union B_A$ . $B_M$ is a definite logic program representing a meta-interpreter and $B_A$ and
+$H$ are ground definite Higher-Order Datalog programs consisting of positive unit clauses.
+The predicate symbol constants in $B_A$ and $H$ are represented by Skolem constants. The examples are $E = E^+ , E^−$ where $E^+$ is a ground logic program consisting of positive unit
+clauses and $E^−$ is a ground logic program consisting of negative unit clauses. The $Input$ and
+$Output$ are such that $B, H \models E^+$ and for all $e^-$ in $E^-$, $B, H \not\models e^-$.
+\end{defn}
+
+\begin{defn}
+\emph{(Meta-interpretive learner)} Let $\mathcal{H}_{B,E}$ represent the complete set of abductive
+hypotheses $H$ for the MIL setting of the previous definition. Algorithm $A$ is said to be a Meta-interpretive learner iff for all $B$, $E$ such that $H$ is the output of Algorithm $A$ given $B$ and $E$
+as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
+\end{defn}
+
+Capability of predicate invention.
+Based on T-directed framework. Unique T element. Unique bottom element.
+
+\subsubsection{Metagol}
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
+
+\subsection{Aleph}
+In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
+\begin{enumerate}
+\item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
+\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
+\item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
+\item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
+\end{enumerate}
+
+\subsection{Other systems}
+Some other ILP systems include Aleph, Golem, Progol,
+Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
+
+\section{The role of a language in learning the models}
+Consider an empty language. It has one possible interpretation and one model up to an isomorphism.
+By extending the language we can distinguish the models further. The problem of predicate invention is to invent a predicate so that the right distinction between models is made based on the language.
+Questions:
+1. How can we measure an expessivity and a complexity of a language?
+2. How much information can be captured by a $\mathcal{L}$-theory given a language $\mathcal{L}$?
+3. What is the maximal complexity of the language $\mathcal{L}$ for which the $\mathcal{L}$-theory is decidable?
+4. Complexity of learning the equivalence class of the reality given a language.
+5. Is there a language for which the task of learning the equivalence class of the reality is undecidable?
+6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
+7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
+
+\section{Language bias}
+\begin{defn}
+Given a language $L$, the \emph{language bias} is a property (a boolean valued function) $P$ defined on all words of $L$.
+\end{defn}
+
+\begin{exmp}
+Define the property $P$ by $\forall w \in L. P(w) \iff w \in L_h$. Then $P$ is a language bias of the hypotheses language $L_h$ in its superlanguage of enquiry $L$.
+\end{exmp}
+
+\begin{exmp}
+The signature of $L$ is
+$\mathcal{L}=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$,
+the signature of $L_h$ is
+$\mathcal{L}_h=\{TastesHot, IsWhite, ContainsSpice\}$.
+Let $P(w) \iff w$ does not contain $ContainsSugar$. $P$ is the language bias of $L_h$ in $L$.
+\end{exmp}
+
+\begin{remark}
+We will often think of a bias on $L$ as a subset $P$ of $L$ rather than a property on $L$ and use the notation interchangeably:
+$P=\{w \in L : P(w)\} \subseteq L$.
+\end{remark}
+
+\begin{defn}
+A bias $P$ of the language $L$ is \emph{sufficiently weak} with respect to the theory $T$ iff there exists an axiomatization $A$ of the theory $T$ such that $A \subseteq P$. If $P$ is not sufficiently weak with respect to the theory $T$ we say that $P$ is \emph{too strong} with respect to the theory $T$.
+\end{defn}
+
+\begin{defn}
+Let $P_1$, $P_2$ be biases on the language $L$. $P_1$ is \emph{weaker} than $P_2$ and $P_2$ is \emph{stronger} than $P_1$ iff $P_2 \subseteq P_1$.
+\end{defn}
+
+\begin{exmp}
+Define biases $P_k$ for $k \in \mathbb{Z}_{\ge 0}$ by $P_k(\phi)$ iff $\phi$ consists of at most $k$ distinct characters. Let $T$ be the theory of the elementary class of the partial orders. Let $A=\{\phi_1, \phi_2, \phi_3\}$ where
+
+$\phi_1=\forall a. a \le a$,
+
+$\phi_2=\forall a \forall b. a \le b \wedge b \le a \objectImplies a=b$,
+
+$\phi_3=\forall a \forall b. a \le b \wedge b \le c \objectImplies a \le c$.
+
+$A$ is an axiomatization of the theory $T$. Note $\forall \phi \in A. P_8(\phi)$ as every axiom of $A$ consists of less than $8$ distinct characters. Therefore $P_8$ is a sufficiently weak bias of the language $L$ with respect to the theory $T$. However there does not exist an axiomatization of the theory $T$ where every axiom consists of at most $3$ distinct characters, therefore $P_3$ is a too strong bias with respect to the theory $T$. The set of the biases is ordered by their strength:
+$P_0 \subseteq P_1 \subseteq P_2 \subseteq P_3 \subseteq ... \subseteq P_8 \subseteq ...$. Thus $P_3$ is stronger than $P_8$.
+\end{exmp}
+
+\begin{remark}
+Let $L$ be the language, $\mathcal{P}$ be the set of all the biases on $L$. Then $\mathcal{P}$ is a lattice ordered by the subset inclusion $\subseteq$ with its join operator the set union $\union$ and its meet operator the set intersection $\cap$.
+\end{remark}
+
+\subsection{Language bias benefits}
+\begin{itemize}
+\item Biases reduce the hypotheses space to focus on the relevant hypotheses,
+\item the problem of finding the hypothesis $H$ can be solved by applying successively a stronger and stronger bias.
+\end{itemize}
+We want our hypothesis to have a specific syntactic form:
+\begin{itemize}
+\item If a hypothesis is a clause with a head $h$ we learn sufficient conditions for $h$ to be implied,
+\item by specifying conditions in a body of a clause of a hypothesis we learn what concepts can be implied,
+\item restricting a head $h$ of an implication $b \objectImplies h$ not to be a disjunction but only a conjuction, we avoid learning the rules implying uncertain facts.
+\end{itemize}
+
+\subsection{Language bias problems}
+Consider the hypotheses space $\mathcal{H} \subseteq \powerset{L}$. An ILP problem is to find the axiomatization $A \in \mathcal{H}$ of $O$ given $B$ of the maximal score $s(A,B,O)$ where $O$ is a set of the observations, $B$ is the background knowledge.
+A simple brute force algorithm may go over all $H \in \mathcal{H}$ and check if $H=A$. This poses problems:
+1. $\mathcal{H}$ may not be finite,
+2. determining if $H=A$ may not be decidable.
+In order to disect the problem more closesly the score function will need to be given a more specific form.
+
+\subsection{Language bias in ILP}
+Different biases may be applied to each of the languages $L, L_o, L_h$. 
+
+\subsection{Syntactic biases}
+
+\begin{defn}
+A bias $P$ on $L$ is syntactic iff there exists a computable function $f:L \to \{0,1\}$ such that $\forall x \in L.P(x) \iff f(x)=1$.
+\end{defn}
+
+\begin{remark}
+A syntactic bias is computable from the language $L$ alone, no other information available on its input.
+\end{remark}
+
+\begin{defn}
+$P$ is a \emph{size bound bias} iff there exist numbers $min, max \in \mathbb{Z}$ such that $\forall \phi \in L. P(\phi) \iff min \le size(\phi) \le max$ where $size(\phi)$ is a length of a word $\phi \in L$.
+\end{defn}
+
+\begin{remark}
+ILP systems with a score function involving a minimum compression length have size bound bias since they do not consider hypotheses of size greater than $\#B \union O$.
+\end{remark}
+
+\begin{remark}
+Similarly, with a syntactic bias we could bound the number of the clauses in their conjunction $\phi \in L$ if necessary.
+\end{remark}
+
+\begin{defn}
+A formula $\phi$ is $k$-adic iff its all predicate symbols (including an equals sign) and function symbols translated to predicate symbols are of the arity at most $k$. A formula $\phi$ is monadic iff $\phi$ is $1$-adic. A set or a theory is $k$-adic iff all its formulas are $k$-adic. The property of a formula $\phi$ being $k-adic$ is computable from $\phi$ and therefore it is a \emph{$k-adic$ bias}.
+\end{defn}
+
+\begin{defn}
+A formula $\phi$ is a Horn formula iff $\phi$ is a clause with at most one positive literal. The property of a formula $\phi$ being a Horn formula is computable from $\phi$ and therefore it is a \emph{Horn bias}.
+\end{defn}
+
+\begin{defn}
+A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one positive literal. The property of a formula $\phi$ being a definite clause is computable from $\phi$ and therefore it is a \emph{definite clause bias}.
+\end{defn}
+
+The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995inverse}.
+\begin{defn}\cite{muggleton1995inverse}
+A \emph{mode declaration} has either the form
+$modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
+or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A place-marker is either $+type$, $-type$ or $\#type$, where
+type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of $m$
+with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
+\end{defn}
+
+\begin{exmp}
+\cite{muggleton1995inverse}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int > \#int))
+\end{lstlisting}
+\end{exmp}
+
+\begin{remark}
+\cite{muggleton1995inverse}
+The recall is used to bound the number of alternative solutions for instantiating
+the atom. For simplicity, we assume in the following that all the modes have the
+recall `*', meaning all solutions. The following defines when a clause is within
+Progol's definite mode language $L$.
+\end{remark}
+
+\begin{defn}
+\cite{muggleton1995inverse}
+\emph{Definite mode language}. Let $C$ be a definite clause with a
+defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \objectImplies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
+1) h is the atom
+of a modeh declaration in $M$ with every place-marker $+type$ and $-type$ replaced by
+variables and every place-marker $\#type$ replaced by a ground term and 2) every
+atom $b_i$ in the body of $C$ is the atom of a modeb declaration in $M$ with every
+place-marker $+type$ and $-type$ replaced by variables and every place-marker $\#type$
+replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is either
+of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
+\end{defn}
+
+\begin{remark}
+A mode declaration bias is syntactic since there exists a computable function $g:L \times \mathfrak{M} \to \{0, 1\}$ (e.g. implemented in Progol\cite{muggleton1995inverse}) such that given a mode declaration $M$, then
+$\forall \phi \in L. g(\phi, M)=1 \iff \phi \in L_{mode}$.
+\end{remark}
+
+\subsubsection{Syntactic biases list}
+\begin{itemize}
+\item Size bound bias.
+\item $k$-adic bias.
+\item Horn bias.
+\item Definite clause bias.
+\item Mode declaration bias.
+\end{itemize}
+
+\subsection{Semantic biases}
+
+\begin{defn}
+A bias $P$ is semantic iff $\forall \phi, \psi \in L. \phi \equiv \psi \implies (P(\phi) \iff P(\psi))$, i.e. $P$ is independent of a syntax of a formula $\phi \in L$.
+\end{defn}
+
+\subsubsection{Toplog top theory bias\cite{muggleton2008toplog}}
+A top theory $\top$ is an extension of the background knowledge $B$. One could convert any ILP system to a TDHD(top-directed hypothesis derivation) ILP system by providing the input background knowledge $B \union \top$ instead of $B$ with the assumptions that the input satisfies the conditions of a quadruple $\langle NT, \top, B, E \rangle$ stated later.
+
+A top theory bias is a mixture of a syntactic bias - e.g. $\top$ has to consist of Horn clauses and semantic bias which is of our interest.
+\begin{defn}
+A predicate symbol is \emph{non-terminal} iff TODO
+\end{defn}
+
+\begin{defn}
+A predicate symbol is a \emph{target} iff TODO
+\end{defn}
+
+The input to an TDHD system is the quadruple $\langle NT, \top, B, E \rangle$ where $NT$ is a set of non-terminal  predicate symbols. Therefore a top theory $\top$ is not constructed from the input but already is a part of an input. $\top$ satisflies the conditions:
+1. $\top$ consists of Horn clauses,
+2. each clause in $\top$
+must contain at least one occurrence of an element of $NT$ while clauses in $B$
+and $E$ must not contain any occurrences of elements of $NT$,
+3. any predicate appearing in the head of some clause in $\top$ must not occur in th	e body of any clause in $B$,
+4. the head of the first clause in $\top$ is the target predicate and
+the head predicates for other clauses in must be in $NT$.
+
+\subsubsection{Construction of a top theory from the mode declarations\cite{muggleton2008toplog}}
+TODO - explain a construction of a top theory from an arbitrary set of mode declarations.
+A top theory bias is more expressive than a mode declaration bias.
+In a simplified way, given the mode declarations
+
+$modeh(mammal(+animal)).$
+
+$modeb(has milk(+animal)).$
+
+$modeb(has eggs(+animal)).$
+
+a top theory can be constructed to be $\top=\{\top_1, \top_2, \top_3, \top_4\}$:
+
+$\top_1=mammal(X) \leftObjectImplies \$body(X).$
+
+$\top_2=body(X) \leftObjectImplies .\%emptybody$
+
+$\top_3=\$body(X) \leftObjectImplies has\_milk(X), \$body(X).$
+
+$\top_4=\$body(X) \leftObjectImplies has\_eggs(X), \$body(X).$
+
+The actual construction of a $\top$ theory has stricter control rules like: variables may only bind with others of the same type, a newly added literal must have its input variables already bound.
+
+Both top theory bias and a mode declaration bias are specified at the input to an ILP system, for some input specifications as one above the biases are equal. Therefore one should distinguish further between a bias and a bias specification.
+
+One could argue that a specification of a bias consists of an algorithm $A$ and an input $i$ where $A$ computes a bias $P$ from the given input $i$. As the input $i$ independent of an ILP system input $\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$ may vary, an algorithm $A$ may compute (specify) multiple possible biases $P$. This can be seen from the ability to specify a mode declaration independent of the input
+$\langle\mathcal{L}, \mathcal{L}_o, \mathcal{L}_h, O, B\rangle$.
+
+\begin{exmp}
+For the following sentence can be entailed by a top theory but there does not exist a mode declaration biased space that includes it:
+TODO
+\end{exmp}
+
+\begin{itemize}
+\item Bottom theory bias. An ILP system constructs a most specific hypothesis $\bot$ according to the bias criteria, then every possible hypothesis $H$ must entail $\bot$: $H \models \bot$.
+\item Bottom theory subsumption bias. Every hypothesis must subsume the bottom theory.
+\item Top theory subsumption bias. Every hypothesis must be subsumed by the top theory.
+\item Solo-generalization bias. The hypotheses space $\mathcal{H}$ is restricted to the generalization of a single example. \cite{muggleton2012mc}
+TODO: provide a formula of the restriction.
+\item Solo-explanation bias. Every clause $h$ in a hypothesis $H$ has to explain at least \emph{one} example.
+$\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$
+\item Inverse entailment bias.
+$B \union H \models E \iff B \union \neg H \models \neg E$.
+\item Negation on failure bias. The lack of an observation $example(x)$
+causes an illusion that $\neg example(x)$ is true as $example(x)$ not provable.
+
+\subsubsection{Heuristic biases}
+\begin{defn}
+A boolean property $P$ is a heuristic bias iff $P$ is computable from $\mathcal{H}, B, O$.
+\end{defn}
+\item Score function bias. Having two correct hypotheses $H_1$, $H_2$ such that $B \union H_1 \models E$ and $B \union H_2 \models E$ choose the hypothesis with the greater score by the (computable) function $s:\mathcal{H} \to \mathbb{R}$.
+\item Search algorithm bias. A search algorithm uses heauristics to navigate via the search space $\mathcal{H}$ in addition to the score function applied after the algorithmic hypotheses generation.
+\end{itemize}
+
+\section{Biases in ILP systems}
+
+\iffalse
+\subsection{Progol}
+\begin{itemize}
+\item Inverse Entailment,
+\item a bias provided by mode declaration,
+\end{itemize}
+\fi
+
+\subsection{Toplog\cite{muggleton2008toplog}}
+\begin{defn}
+$B$ a Horn theory, $E$ a Horn clause. The bottom clause of $B$ and $E$ is $\bot(B,E)$=$\vee\{L | L $ a ground literal, $B \union {\neg E} \models \neg L\}$.
+\end{defn}
+An ILP system implementation Toplog is based on the theoretical framework Top Directed Hypothesis Derivation (TDHD) with the hypothesis space bias called top theory $\top$:
+\begin{itemize}
+\item Horn theory bias,
+\item Bottom theory bias $\bot = \bot(B,E)$,
+\item Solo-generalization bias,
+\item Score function bias,
+\item top theory $\top$ is specified in the input to an ILP system,
+\item top theory $\top$ can be constructed from the mode declarations,
+\item not every top theory bias can be expressed with the mode declarations,
+\item a top theory consists of literals: terminals (in hypothesis language) and non-terminals (not allowed in hypothesis language and background knowledge)
+\item a hypothesis clause in a hypothesis space consists of terminals and is derivable from the top theory by SLD-resolution and substitution, $\top \models h$
+\item restriction on the predicates in the head/body of a hypothesis clause,
+\item every constructed hypothesis must be subsumed by a top theory $\top$. If $H$ is a set of candidate hypotheses, then: $\forall h \in H. \exists e \in E. \top \models h \& B, h \models e$.
+\item inverse entailment bias.
+\end{itemize}
+Toplog violates the properties in our first definition of an ILP system:
+\begin{itemize}
+\item a produced theory may not be complete due to too strong default bias:
+\begin{itemize}
+\item only what is defined by mode declarations can be in theory,
+\item theory can contain only one clause,
+\item only one head clause definable with mode declarations unlike two clauses
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeh(man(+person)).
+\end{lstlisting}
+
+\item restrictions on the top theory related to $NT$ (non-terminals), $B$, $E$; what literals can occur where. Details in TopLog: ILP Using a Logic Program Declarative Bias by Muggleton etal.
+\end{itemize}
+\item a produced theory need not be consistent with the observations: given observations $human(susan)$ and $human(jack)$ a final theory can contain the hypothesis $woman(X) :- human(X)$. The accuracy of a theory is computed, a score function allows a degree of inaccuracy.
+\end{itemize}
+
+\iffalse
+\subsection{ProGolem}
+\begin{itemize}
+\item Inverse Entailment,
+\item co-generalization, 
+\end{itemize}
+\fi
+
+\subsection{Imparo\cite{kimber2009induction}}
+Bias:
+\begin{itemize}
+\item Horn theory bias (not present in a IoF framework),
+\item Bottom theory bias, $\bot=$ a connected theory for $B$ and $e$,
+\item Solo-generalization bias,
+\item Score-function bias,
+\item Mode declaration bias,
+\item a bias specifiable in an input program:
+\begin{lstlisting}
+%a restriction on the length of a clause in a theory
+:-set_max_clause_length(N1).
+%a restriction on the number of clauses in a theory
+:-set_max_clauses(N2).
+%TODO - explain further two
+:-set_connected(N3).
+:-set_max_var_depth(N41).
+\end{lstlisting}
+\end{itemize}
+TODO: an algorithm for a connected theory generation.
+
+\subsection{Metagol}
+TODO
+
+%Bias:
+%Algorithm:
+%Violations:
+
+\subsection{Comparison of biases in ILP systems}
+$\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
+
+$\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mathcal{H}_{connected\_theory}$
+
+\section{Problems in ILP}
+\begin{itemize}
+\item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings really address the problem that we are trying to solve?
+\item Hypothesis selection: among the hypotheses that are consistent and explain the observations which should be selected?
+\item What preferences should be induced over the correct hypotheses $\mathcal{H}$ and why?
+\item Can preferences be extracted from the logical representation of the clausal theories?
+\item Bias automation. ILP systems acquire their efficiency by reducing their vast search space by introducing a bias. There are two problems in the current approaches: 1. the bias has to be specified manually, 2. for the new problems we do not know what we want to learn and therefore cannot introduce any bias with a justification.
+\end{itemize}
+\subsection{Problem formulation}
+A solution of the hypothesis selection problem is a more precise formulation of ILP setting by an introduction of a preference over $\mathcal{H}$. The problem reduces to the preference choice and its justification. One could introduce Occam's razor postulate, consequently demand that a hypothesis with a smaller Kolmogorov complexity is preferred over a hypothesis with a higher Kolmogorov complexity. However, the choice of the Occam's razor postulate remains unjustified with a deeper theoretical insight to the author's knowledge. Indeed, the hypothesis with the shortest description length need not always be the one desired. One possible problem formulation is the introduction of the postulates inducing the highest preference on the correct target hypothesis from the given data (providing an empirical/statistical justification). This means a systematic search and extraction of the properties of the background knowledge, examples and correct hypotheses. It may turn out that a logical representation of these data is not sufficient to express the necessary preferences.
+\subsection{Inappropriate semantics}
+The background knowledge of the most ILP systems uses the non-monotonic semantics of Progol - if the statement fails to be proved, it is assumed to be false. This represents a problem when reasoning with the incomplete background knowledge. We may desire to express the incompleteness by saying that we do not know the truth value of some logical sentence. However, with the negation as failure, every statement is either true or false. Consequently, undesirably we need to bias the produced hypothesis either in or against the favour of the logical statement whose truth value we do not know.
+
+Monotonic semantics gives us the possibility to work with the theories of the several models, however it does not capture a possible change of the truth values of certain sentences upon the new observations.
+
+\chapter{Top-down framework}
+
+\section{Toplog}
+\subsection{Mode declarations order bias}
+Consider the Toplog program:
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p1(+type)).
+:-modeb(1, p2(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p1(a1).
+p1(a2).
+p1(a3).
+
+p2(a1).
+p2(a2).
+p2(a3).
+
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+
+Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode declaration to the following:
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p2(+type)).
+:-modeb(1, p1(+type)).
+\end{lstlisting}
+then Toplog learns a hypothesis $r(A) :- p2(A).$ instead. This experiment therefore shows that Toplog's bias depends on the order of the mode declaration statements.
+
+\subsection{Learning inconsistent hypothesis}
+Toplog can learn inconsistent hypotheses:
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, student(+person)).
+
+student(ann).
+student(tom).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+
+gives an output hypothesis $woman(A) :- student(A)$ although $tom$ is not a woman as indicated by a negative example $example(woman(tom),-1)$.
+But this is intentional, furthermore Toplog provides the information that the default accuracy of its hypothesis is 90\% as $example(woman(ann,9)$ corresponds to 9 positive examples correctly classified out of 10.
+
+\subsection{One head predicate bias}
+All the clauses in the hypotheses space of Toplog have to have the same predicate symbol in its head.
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+
+male(tom).
+female(ann).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+produces a hypothesis $woman(A) :- female(A)$ but adding a second
+head mode declaration $:-modeh(man(+person)).$ after $:-modeh(woman(+person)).$ overwrites the first one.
+
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeh(man(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+
+male(tom).
+female(ann).
+
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+produces no hypotheses.
+
+\subsection{Unlearnability of the term structure}
+Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
+\begin{lstlisting}
+%target concept: in_language(s(A)) :- in_language(A).
+:-modeh(in_language(s(+word))).
+:-modeb(1, in_language(+word)).
+
+example(in_language(s(epsilon)),1).
+example(in_language(s(s(epsilon))),1).
+example(in_language(s(s(s(epsilon)))),1).
+example(in_language(s(s(s(s(epsilon))))),1).
+\end{lstlisting}
+
+However, this is not learnable since Toplog's mode declarations do not allow to specify $in_language(s(A))$ in a head neither in a body. Toplog outputs:
+"Couldn't start model. (no problem defined?)".
+
+\subsection{Clausal bias}
+Since Toplog's hypotheses space consists of clauses, it cannot learn two concepts at one time.
+
+\begin{lstlisting}
+:-modeh(object(+type)).
+:-modeb(10, blue(+type)).
+:-modeb(10, green(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+blue(ball).
+blue(pen).
+blue(bag).
+green(shirt).
+green(grass).
+green(tree).
+
+example(object(ball),1).
+example(object(pen),1).
+example(object(bag),1).
+example(object(shirt),1).
+example(object(grass),1).
+example(object(tree),1).
+\end{lstlisting}
+
+will produce a hypothesis $object(A) :- blue(A)$ since 
+$:-modeb(10, blue(+type)).$ was defined first instead of learning both
+concepts in a hypothesis:
+$object(A) :- blue(A); green(A)$ where the $;$ represents a disjunction.
+
+\subsection{Inability to make deductions from observations}
+Toplog does not learn any hypothesis from the following program:
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, p(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p(a1).
+p(a2).
+p(a3).
+
+t(A) :- r(A).
+
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+Although from the positive examples and the background knowledge included one may deduce examples:
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+which if included in the Toplog program, then a hypothesis
+$t(A) :- p(A)$ would be learnt.
+Therefore the application of the background knowledge to the observations in Toplog is limited.
+
+Nevertheless, Toplog can still learn by making deductions from its background knowledge.
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, r(+type)).
+
+:-set(maximum_literals_in_hypothesis, 10).
+
+p(a1).
+p(a2).
+p(a3).
+
+r(A) :- p(A).
+
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+would give a hypothesis $t(A) :- r(A).$
+
+\subsection{Predicate generalization impossible}
+Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
+\begin{lstlisting}
+example(swims(magician),1).
+example(flies(magician),1).
+example(cooks(magician),1).
+example(makes_fire(magician),1).
+\end{lstlisting}
+The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
+
+\subsection{Ground atom example}
+Toplog has a limitation that every example can be only a ground atom.
+
+\section{MC-Toplog}
+
+
+\chapter{Bottom-up framework}
+
+\section{Imparo's capabilities}
+\subsection{A multiclausal learning}
+Imparo is capable to learn a multi-clausal hypothesis at one time.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   man(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+person(sam).
+
+% Gender, Background knowledge
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+
+% Gender, Examples
+woman(jane).
+woman(susan).
+man(jack).
+man(sam).
+
+:- woman(jack).
+:- man(susan).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+woman(A):-female(A)
+man(A):-male(A)
+\end{lstlisting}
+
+Learning multiple hypotheses is not possible in all systems, e.g. Toplog. Nevertheless the clauses have to be Horn, the ones with at most one positive literal and therefore hypotheses of the form $s \vee p \leftObjectImplies r$ cannot be learnt.
+
+\subsection{Learnability of a nested term structure}
+Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation. Observations below correspond to the language defined by the regular expression \tc{(sr)*}.
+
+\begin{lstlisting}
+head_modes([
+   in_language(+word),
+   in_language(s(+word)),  
+   in_language(s(s(+word))),
+   in_language(r(s(+word))),
+   in_language(s(r(+word))),
+   in_language(r(+word)),
+   in_language(r(r(+word)))
+]).
+
+body_modes([
+    in_language(+word),
+    in_language(s(+word)),
+    in_language(r(+word))
+]).
+
+word(e).
+word(s(X)).
+word(r(X)).
+
+%Examples
+
+in_language(e).
+in_language(r(s(e))).
+in_language(r(s(r(s(e))))).
+in_language(r(s(r(s(r(s(e))))))).
+
+:- in_language(r(e)).
+:- in_language(r(r(e))).
+:- in_language(s(s(r(e)))).
+:- in_language(s(s(s(e)))).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+in_language(e):-true
+in_language(r(s(A))):-true
+\end{lstlisting}
+
+Note, this was not possible in Toplog.
+
+\subsection{Learnability of multi-clausal concepts}
+Imparo can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+\begin{lstlisting}
+head_modes([
+   man(+person),
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+person(martin).
+
+% Gender, Background knowledge
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+
+% Gender, Examples
+man(jack).
+man(martin).
+
+woman(jane).
+woman(susan).
+
+:-man(jane).
+:-woman(sam).
+\end{lstlisting}
+
+produces the hypothesis
+\begin{lstlisting}
+man(A):-male(A)
+woman(A):-female(A)
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Imparo requires at least two clauses.
+
+\section{Imparo's assumed limitations}
+Observations demonstrating the limits of the concept learnability from the system design assuptions are presented.
+
+\subsection{Unlearnability of negative examples}
+Note: Imparo uses a completion semantics.
+In cases when a hypothesis could explain the negative examples, Imparo cannot learn such a clause.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    woman(+person),
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+person(sam).
+
+% Gender, Background knowledge
+
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+
+% Gender, Examples
+
+:- woman(jack).
+:- woman(sam).
+\end{lstlisting}
+
+The hypothesis of the form $\neg male(x) \vee \neg woman(x)$ would explain the examples, however Imparo in this case outputs no hypothesis.
+
+Adding further information to the background knowledge does not remove the limits:
+
+\begin{lstlisting}
+not_man(X) :- woman(X).
+not_woman(X) :- man(X).
+:- woman(X), man(X).
+:- not_woman(X), not_man(X).
+\end{lstlisting}
+The background knowledge says that everybody has to be either a woman or a man. From our observations negative examples are not learnable by Imparo, however a hypothesis produced is consistent with the all the examples and the background knowledge.
+
+This may be related to the existence of a definition of an ILP system where the produced hypothesis $H$ has to explain positive examples, but it is sufficient if negative examples are only consistent with the hypothesis, notationally the necessity condition says:
+$H, B \models E^+$ and $H, B \not \models E^-$.
+
+Favouring this definition results in a bias in which hypotheses space is biased towards positive examples.
+
+\subsection{Assumption of consistency}
+Imparo assumes that the set of observations is consistent.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(glory).
+
+%Background knowledge
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%Examples
+:- man(glory).
+
+man(glory).
+\end{lstlisting}
+
+produces a hypothesis
+\begin{lstlisting}
+man(glory):-true
+\end{lstlisting}
+although it is inconsistent with the observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+
+Imparo still learns
+\begin{lstlisting}
+man(glory):- true
+\end{lstlisting}
+even if we move the negative observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+to the background knowledge.
+
+Systems like Progol check for inconsistencies before learning is started. However, in some definitions of an ILP problem, an assumption that the background knowledge is consistent with the observations is made.
+
+\section{Imparo's violations and biases}
+Limits of the learnability violating the system specification and not stated as assumptions are presented as observations.
+
+\subsection{Default examples bias}
+Imparo has examples in its default bias even if these are not declared in the mode declarations.
+
+\begin{lstlisting}
+head_modes([
+   %woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(jack).
+
+% Gender, Background knowledge
+female(jane).
+female(susan).
+
+male(jack).
+
+% Gender, Examples
+woman(jane).
+woman(susan).
+
+:- woman(jack).
+\end{lstlisting}
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(jane):-true
+woman(susan):-true
+\end{lstlisting}
+
+in which a predicate \tc{woman} is a head symbol although it was not specified in the mode declaration. Once it is specified in a declaration as
+\begin{lstlisting}    
+head_modes([
+   woman(+person)
+]).
+\end{lstlisting}
+
+a more general hypothesis is learnt
+
+\begin{lstlisting}
+woman(A):-female(A)
+\end{lstlisting}.
+
+This demonstrates that in some cases mode declaration bias does not correspond to the actual bias of Imparo.
+
+\subsection{Weak head mode declaration}
+A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+
+% Gender, Background knowledge
+female(jane).
+female(susan).
+female(eugenia).
+
+% Gender, Examples
+woman(sister(jane)).
+woman(sister(eugenia)).
+:- woman(jack).
+\end{lstlisting}
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(sister(jane)):-true
+woman(sister(eugenia)):-true
+\end{lstlisting}.
+
+If we would like generalize on the terms, we have to add them explicitly to the mode declaration, i.e.
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   woman(sister(+person))
+]).
+\end{lstlisting}
+produces a more general hypothesis
+\begin{lstlisting}
+woman(sister(A)):-true
+\end{lstlisting}
+
+In this regard, Imparo treats function symbols as a syntactic sugar - a predicate with a function symbol is treated as a predicate symbol, one could simply replace \tc{woman(sister(x))} by \tc{woman\_sister(x)} in examples and mode declarations and add the following to the background knowledge:
+\begin{lstlisting}
+woman_sister(X) :- woman(sister(X)).
+woman(sister(X)) :- woman_sister(X).
+\end{lstlisting}
+The advantage of a support of a term structure is a matter of convenience rather than an added expressivity of the problem description and produced hypotheses.
+
+\subsection{No generalization downwards}
+Imparo cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$ for all classes of applicable observations.
+
+\begin{lstlisting}
+head_modes([
+   even(+number)
+]).
+
+body_modes([
+    even(+number),
+    even(s(+number)),
+    even(s(s(+number)))
+]).
+
+number(0).
+number(s(X)).
+
+%Background knowledge
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%Examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+
+only learn the examples
+
+\begin{lstlisting}
+even(0):-true
+even(s(s(s(s(s(s(0))))))):-true
+even(s(s(0))):-true
+even(s(s(s(s(0))))):-true
+\end{lstlisting}
+
+where we may expect a more general shorter hypothesis
+
+\begin{lstlisting}
+even(A) :- even(s(s(A)).
+\end{lstlisting}
+This may be related to the mentioned limitation of how Imparo treats the terms. A translated instance of \tc{even(s(s(s(s(0)))))} would be
+\tc{even\_s\_s\_s\_s\_s\_s(0)}, but in fact we want \tc{even\_s\_s(s(s(s(s(0))))} in order to be able to learn
+\tc{even(A) :- even\_s\_s(A)}.
+
+However, the generalization downwards does not work with a hypothesis having an argument with one function symbol in its body either.
+
+\begin{lstlisting}
+head_modes([
+   numeral(+number)
+]).
+
+body_modes([
+    numeral(+number),
+    numberal(s(+number)),
+    numeral(s(s(+number)))
+]).
+number(0).
+number(s(X)).
+
+%Background knowledge
+numeral(s(s(s(s(0))))).
+
+%Examples
+numeral(0).
+numeral(s(0)).
+numeral(s(s(0))).
+numeral(s(s(s(0)))).
+:-numeral(s(not_number)).
+:-numeral(s(s(s(not_number)))).                                   
+\end{lstlisting}
+
+returns a hypothesis
+
+\begin{lstlisting}
+numeral(0):-true
+numeral(s(s(s(0)))):-true
+numeral(s(0)):-true
+numeral(s(s(0))):-true
+\end{lstlisting}
+
+however, a more general hypothesis \tc{numeral(A) :- numeral(s(A)).} would explain the examples.
+
+\subsection{Literal observational bias}
+Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(glory).
+
+%Background knowledge
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%Examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+:- man(glory).
+\end{lstlisting}
+
+Expected hypothesis explaining the examples:
+
+\begin{lstlisting}
+man(X) :- male(X).
+\end{lstlisting}
+
+To the author's knowledge, other ILP systems do not deal with the case of non-literal observations, however the works by Plotkin dealt with the generalization of a general set of clauses.
+
+\subsection{Preference over the later mode declarations}
+The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
+
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   policeman(+person),
+   male(+person)
+]).
+
+person(jack).
+person(sam).
+person(john).
+person(jane).
+
+%Background knowldge
+male(jack).
+male(sam).
+male(john).
+policeman(jack).
+policeman(sam).
+policeman(john).
+
+%Examples
+man(jack).
+man(sam).
+
+:- man(jane).
+\end{lstlisting}
+learns a hypothesis
+\begin{lstlisting}
+man(A):-male(A)
+\end{lstlisting}
+However, changing the body mode declaration to
+\begin{lstlisting}
+body_modes([   
+   male(+person),
+   policeman(+person)
+]).
+\end{lstlisting}
+results in learning the hypothesis
+\begin{lstlisting}
+man(A):-policeman(A)
+\end{lstlisting}
+
+This search bias in Imparo has a priority over the criterion of favouring a stronger or a weaker hypothesis. By adding to the background knowledge
+\begin{lstlisting}
+policeman(X) :- male(X).
+\end{lstlisting}
+or its converse
+\begin{lstlisting}
+male(X) :- policeman(X).
+\end{lstlisting}
+the hypothesis learnt remains the same.
+Note that \tc{male(X) :- policeman(X).} says that every model of \tc{policeman(X)} has to be a model of \tc{male(X)} and with such background knowledge \tc{man(A):-policeman(A)} is true in fewer models than \tc{man(A):-male(A)} is.
+
+\subsection{Other biases}
+Imparo can learn only a conjunction of clauses as a hypothesis.
+Imparo cannot explain the negative observations.
+
+\section{Aleph's capabilities}
+
+\subsection{Multi-clausal learning}
+Aleph can learn several one-clausal hypotheses at one time.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+:-modeb(*, female(+person)).
+
+:- determination(man/1,male/1).
+:- determination(woman/1,female/1).
+
+male(bob).
+male(tom).
+
+female(ann).
+female(mary).
+
+%positive examples
+woman(ann).
+woman(mary).
+
+man(bob).
+man(tom).
+
+%negative examples
+man(ann).
+man(mary).
+
+woman(bob).
+woman(tom).
+\end{lstlisting}
+
+returns hypotheses
+
+\begin{lstlisting}
+woman(A) :- female(A).
+man(A) :- male(A).
+\end{lstlisting}
+
+Note, this is possible in Imparo, but not in Toplog.
+
+\subsection{Learnability of predicates of greater arity}
+Aleph can induce hypotheses that contain predicates of arity greater than 1.
+\begin{lstlisting}
+%background theory
+:-modeh(*, english(+person)).
+:-modeb(*, english_couple(+person, -person)).
+:-modeb(*, english(+person)).
+
+:- determination(english/1, english_couple/2).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%positive examples
+english(adam).
+english(jack).
+
+%negative examples
+english(budha).
+\end{lstlisting}
+
+returns back a generalized hypothesis
+\begin{lstlisting}
+english(A) :- english_couple(A,B).
+\end{lstlisting}.
+
+Note, that since the induce hypothesis does not use the variable \tc{B}, the variable had to be specified in a mode declaration with a minus sign as \tc{-person}.
+
+Similarly, learning of hypotheses with polyadic predicate symbols in their head is possible.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, english_couple(+person, +person)).
+
+:-modeb(*, english(+person)).
+
+:- determination(english_couple/2, english/1).
+
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english(alice).
+english(jane).
+english(barbara).
+english(adam).
+english(bob).
+english(jack).
+
+%positive examples
+english_couple(adam, alice).
+english_couple(bob, barbara).
+english_couple(jack, jane).
+
+%negative examples
+english_couple(budha, karma).
+english_couple(jack, shreedipta).
+english_couple(amir, jane).
+\end{lstlisting}
+
+returns a hypothesis
+
+\begin{lstlisting}
+english_couple(A,B) :- english(B), english(A).
+\end{lstlisting} which has in its head a predicate of arity 2.
+
+\subsection{Term structure learnability}
+Aleph can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person))).
+:-modeb(*, anybody(+person)).
+
+:-determination(woman/1, anybody/1).
+
+anybody(jane).
+anybody(susan).
+anybody(bob).
+
+%positive examples
+woman(sister(bob)).
+woman(sister(jane)).
+woman(sister(susan)).
+
+%negative examples
+woman(sister(frog)).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+In comparison, Imparo can learn the term structure but Toplog cannot.
+
+\subsection{Generalization downwards}
+Aleph can learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, even(+number)).
+:-modeb(*, even(+number)).
+:-modeb(*, even(s(+number))).
+:-modeb(*, even(s(s(+number)))).
+
+:- determination(even/1, even/1).
+
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%positive examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+
+%negative examples
+even(s(0)).
+even(s(s(s(0)))).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+even(A) :- even(s(s(A))).
+\end{lstlisting}
+which comes as a surprise since neither Imparo nor Toplog can learn the hypotheses whose variable in head is wrapped by function symbols in its body literals.
+
+\section{Aleph's assumed limitations}
+\subsection{Unlearnability of negative examples}
+Aleph learns positive examples, but cannot learn the negative ones.
+\begin{lstlisting}
+%background theory
+
+:-modeb(*, woman(+person)).
+
+%positive examples
+
+%negative examples
+woman(bob).
+woman(tom).
+\end{lstlisting}
+does not return any hypothesis, even if we specify the hypothesis in the mode declaration by \tc{:- woman(+person)}.
+
+\subsection{Determination declaration requirement}
+The hypotheses space cannot be defined with the mode declarations alone, mode declarations have to be supplied with the determination declarations.
+\begin{lstlisting}
+%background theory
+
+:-modeh(*, woman(+person)).
+:-modeb(*, female(+person)).
+
+%:- determination(woman/1,female/1).
+
+female(ann).
+female(mary).
+
+%positive examples
+woman(ann).
+woman(mary).
+
+%negative examples
+woman(bob).
+\end{lstlisting}
+
+does not return a generalized hypothesis but the examples
+\begin{lstlisting}
+woman(ann).
+woman(mary).
+\end{lstlisting}.
+After including the determination declaration
+\begin{lstlisting}
+:- determination(woman/1,female/1).
+\end{lstlisting}
+a more general hypothesis \tc{woman(A) :- female(A).} is learnt. To the author it is not clear why the hypothesis space has to be defined with two definitions. Systems like Imparo do not need determinations declarations.
+
+\subsection{Assumption of consistency}
+Aleph assumes the examples are consistent.
+\begin{lstlisting}
+%background theory
+
+%positive examples
+woman(ann).
+
+%negative examples
+woman(ann).
+\end{lstlisting}
+returns a hypothesis \tc{woman(ann).} which is inconsistent with the negative examples. Aleph assumes that the set of background knowledge union with examples is a consistent.
+
+\subsection{Unlearnability of regular languages}
+Although Aleph can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, in_language(s(s(+word)))).
+:-modeh(*, in_language(s(+word))).
+:-modeb(*, in_language(+word)).
+
+:- determination(in_language/1, in_language/1).
+
+in_language(epsilon).
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+
+%positive examples
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+
+%negative examples
+in_language(s(epsilon)).
+in_language(s(s(s(epsilon)))).
+\end{lstlisting}
+returns back positive examples
+\begin{lstlisting}
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+\end{lstlisting}
+A more general hypothesis representing the language is
+\begin{lstlisting}
+in_language(s(s(A)) :- in_language(A).
+\end{lstlisting}
+If our target hypothesis had only one function symbol in its predicate and its correspondent examples, then a simpler hypothesis
+\begin{lstlisting}
+in_language(s(A)) :- in_language(A).
+\end{lstlisting}
+could indeed be learnt.
+
+\subsection{Unlearnability of multi-clausal concepts}
+Aleph cannot learn a hypothesis that needs more that one clause to explain the examples.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeh(*, man(+person)).
+
+:-modeb(*, male(+person)).
+:-modeb(*, female(+person)).
+
+:- determination(woman/1, female/1).
+:- determination(man/1, male/1).
+
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+
+%positive examples
+man(jack).
+man(martin).
+
+woman(jane).
+woman(susan).
+
+%negative examples
+man(jane).
+woman(sam).
+\end{lstlisting}
+
+produces a hypothesis
+\begin{lstlisting}
+man(jack).
+man(martin).
+woman(A) :- female(A).
+\end{lstlisting}
+
+However, if we put the induced hypothesis to the background knowledge, then a hypothesis generalizing \tc{man} examples would be produced
+\begin{lstlisting}
+man(A) :- male(A).
+woman(A) :- female(A).
+\end{lstlisting}
+
+To explain the \tc{man} examples we needed to learn a two clausal hypothesis. This limitation is present in Toplog, however not in Imparo. The limitation not only demonstrates inability to learn more complex concepts, but also to make deductions from the observations such as \tc{woman} examples in order to deduce a hypothesis.
+
+\subsection{Other assumed limitations}
+Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn second-order logic statements. Aleph cannot make deductions from the observations as it can from the background knowledge.
+
+\section{Aleph's violations and biases}
+
+\subsection{Default Example Bias}
+Aleph includes examples in its bias even if these are not specified by mode declarations.
+
+\begin{lstlisting}
+%background theory
+
+%:-modeh(*, woman(+person)).
+%:-modeb(*, female(+person)).
+
+%positive examples
+
+woman(ann).
+
+%negative examples
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+woman(ann).
+\end{lstlisting}
+
+Therefore the hypotheses space is not entirely defined by mode declarations and determination declarations.
+
+\subsection{Weak head mode declaration}
+A head mode declaration in Aleph allows only definitions with specific term structure as opposed to
+the ability to substitute a variable or a type (e.g. \tc{+person}) for any term.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, woman(+person)).
+:-modeb(*, anybody(+person)).
+
+:- determination(woman/1, anybody/1).
+
+person(sister(A)).
+
+anybody(jane).
+anybody(jack).
+
+%positive examples
+woman(sister(jane)).
+woman(sister(jack)).
+
+%negative examples
+woman(sister(frog)).
+\end{lstlisting}
+
+returns back the positive examples
+\begin{lstlisting}
+woman(sister(jane)).
+woman(sister(jack)).
+\end{lstlisting}
+
+However, if we added the \tc{sister} function symbol in the mode declaration explicitly
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person))).
+\end{lstlisting}
+then a more general hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+would be learnt. This constraint is present in Imparo as well. To the author the reason is not clear since \tc{woman(sister(+person))} is subsumed by
+\tc{woman(+person)} which was already present in the mode declaration. Therefore unless specified in the mode declarations, Aleph can learn only the hypothesis whose terms do not contain the function symbols.
+
+\subsection{Literal observation bias}
+Aleph can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+
+:- determination(man/1, male/1).
+
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%positive examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+%negative examples
+man(glory).
+\end{lstlisting}
+
+Expected hypothesis explaining the examples:
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In comparison systems like Imparo and Toplog do not accept examples of non-literal form either.
+
+\subsection{Preference over earlier determinations}
+Aleph prefers learning a hypothesis whose determination declaration has been defined earlier.
+
+\begin{lstlisting}
+%background theory
+:-modeh(*, man(+person)).
+:-modeb(*, male(+person)).
+:-modeb(*, bridegroom(+person)).
+
+:- determination(man/1, bridegroom/1).
+:- determination(man/1, male/1).
+
+bridegroom(jack).
+bridegroom(sam).
+bridegroom(john).
+
+male(jack).
+male(sam).
+male(john).
+
+%positive examples
+man(jack).
+man(sam).
+man(john).
+
+%negative examples
+man(susan).
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+man(A) :- bridegroom(A).
+\end{lstlisting}
+
+Changing the order of the determination declarations to
+\begin{lstlisting}
+:- determination(man/1, male/1).
+:- determination(man/1, bridegroom/1).
+\end{lstlisting}
+results in a hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In both cases, the induced hypothesis had a head atom declared in an earlier determination. This is an opposite search bias to the Imparo's preference over the later mode declarations.
+
+\section{Tal's capabilities}
+
+\subsection{Multiple solutions}
+A hypothesis that can solve the problem of induction may be called a solution. Tal can output multiple solutions to a given learning problem with the corresponding scores.
+
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeb(female(+person), [name(fb)]).
+modeb(male(+person), [name(mb)]).
+person(ann).person(susan).person(adam).person(bob).
+%Background knowledge, female(ann).female(susan).male(adam).male(bob).
+%Examples, example(woman(alice), 1).example(woman(ann), 1).
+example(woman(susan), 1).example(woman(adam), -1).example(woman(bob), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. woman(A). %score 0, 2. woman(A) :- female(A). %score -1
+\end{lstlisting}
+
+The score function is customizable, more can be found in Tal's documentation.
+
+\subsection{Multi-clausal hypothesis}
+Tal can learn a hypothesis that consists of multiple clauses.
+
+\begin{lstlisting}
+%Background knowledge, female(ann).female(susan).male(adam).male(bob). 
+%Examples, example(woman(ann), 1). example(woman(susan), 1).
+example(woman(adam), -1). example(woman(bob), -1).
+example(man(adam), 1). example(man(bob), 1).
+example(man(ann), -1). example(man(susan), -1).
+\end{lstlisting}
+
+returns solutions
+\begin{lstlisting}
+1. woman(_). 2. woman(A) :- female(A). 3. woman(A) :- female(A). man(_).
+4. woman(A) :- female(A). man(A) :- male(A).
+5. man(A) :- male(A). woman(A) :- female(A).
+\end{lstlisting}
+
+Particularly, we observe that the 5th solution consists of two clauses.
+
+\subsection{Term structure learnability}
+Tal can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+modeh(woman(sister(+person)), [name(wh)]).modeb(anybody(+person), [name(wb)]).
+person(jane).person(bob).person(susan).
+%Background knowledge, anybody(jane).anybody(susan).anybody(bob).
+%Examples, example(woman(sister(bob)), 1).example(woman(sister(jane)), 1).
+example(woman(sister(susan)), 1).example(woman(sister(frog)), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. woman(sister(_)). 2. woman(sister(A)) :- anybody(A).
+3. woman(sister(_)).woman(sister(A)) :- anybody(A).
+4. woman(sister(A)) :- anybody(A). woman(sister(_)).
+\end{lstlisting}
+
+in which hypotheses contain a function symbol \tc{sister}.
+
+\subsection{Multi-clausal concepts}
+Tal can learn a hypothesis that needs more that one clause to explain the examples.
+\begin{lstlisting}
+%Background knowledge, female(jane). female(susan). female(eugenia).
+couple(jack, jane).couple(sam, susan).couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).
+%Examples, example(man(jack),1).example(man(martin),1).example(woman(jane),1).
+example(woman(susan),1).example(man(jane),-1).example(woman(sam),-1).
+\end{lstlisting}
+has amongst its solutions a hypothesis
+\begin{lstlisting}
+woman(A) :- female(A). man(A) :- male(A).
+\end{lstlisting}
+To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
+
+\subsection{Specialization in arguments}
+Tal can learn hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has amongst its solutions
+\begin{lstlisting}
+(learns(polymath,_E):-true.
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
+\subsection{Other capabilities}
+Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
+
+\section{Tal's assumed limitations}
+
+\subsection{Correct example bias}
+Tal returns the examples as a hypothesis only if the predicate for the ground instances is specified in the mode declarations.
+\begin{lstlisting}
+modeb(female(+person), [name(fb)]).
+%Background knowledge, female(alice).male(adam).male(bob).
+%Examples
+example(woman(alice), 1).example(woman(adam), -1).example(woman(bob), -1).
+\end{lstlisting}
+returns no solutions as required since the head mode declaration is empty. However, systems like Toplog and Imparo would violate the constrains imposed by defining the search space and would return the examples.
+To accept examples as possible hypotheses in Tal, one can define constant symbols in the mode declarations with a \# symbol.
+\begin{lstlisting}
+modeh(woman(#person), [name(wh)]).modeb(female(+person), [name(fb)]).
+%Background knowledge, female(alice).male(adam).male(bob).
+%Examples
+example(woman(alice), 1).example(woman(adam), -1).example(woman(bob), -1).
+\end{lstlisting}
+returns a solution \tc{woman(alice).} which is an original positive example. Consequently, Tal does not suffer from the default example bias present in the systems Toplog, Imparo and Aleph.
+
+\subsection{Other assumed limitations}
+Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples. Tal can accept only examples in the form of a literal, not a general clause.
+
+\section{Tal's violations and biases}
+
+\subsection{Solution redundancy}
+Tal returns duplicate hypotheses as solutions.
+\begin{lstlisting}
+modeh(woman(sister(+person)), [name(wh)]).modeb(anybody(+person), [name(wb)]).
+person(jane).person(bob).person(susan).
+%Background knowledge, anybody(jane).anybody(susan).anybody(bob).
+%Examples, example(woman(sister(bob)), 1).example(woman(sister(jane)), 1).
+example(woman(sister(susan)), 1).example(woman(sister(frog)), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. woman(sister(_)). 2. woman(sister(A)) :- anybody(A).
+3. woman(sister(_)).woman(sister(A)) :- anybody(A).
+4. woman(sister(A)) :- anybody(A). woman(sister(_)).
+\end{lstlisting}
+Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution.  Moreover, \tc{woman(sister(\_))} subsumes the clause \tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
+
+\subsection{No generalization downwards}
+Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
+\begin{lstlisting}
+modeh(numeral(+number), [name(nh)]).modeb(numeral(+number), [name(nb)]).
+modeb(numberal(s(+number)), [name(nsb)]).modeb(numeral(s(s(+number))), [name(nssb)]).
+number(0).number(s(X)).
+%Background knowledge, numeral(s(s(s(s(0))))).
+%Examples, example(numeral(0),1). example(numeral(s(0)),1). 
+example(numeral(s(s(0))),1).example(numeral(s(s(s(0)))),1).
+example(numeral(s(not_number)),-1).example(numeral(s(s(s(not_number)))),-1).
+\end{lstlisting}
+
+returns solutions
+\begin{lstlisting}
+1. numeral(_). 2. numeral(A) :- numeral(s(s(A))). 3. numeral(A) :- numeral(A).
+\end{lstlisting}
+and then starts outputting a solution of the form
+\begin{lstlisting}
+[(numeral(s(s(s(s(s(s(s(s(...
+\end{lstlisting}
+getting into a loop outputting the successor symbols $s$. Clearly, our expected hypothesis \tc{numberal(X) :- numberal(s(X)).} was not learnt.
+
+In cases of different downwards examples, Tal may not loop, however it would not produce the expected generalization either.
+
+\begin{lstlisting}
+modeh(even(+number), [name(eh)]).modeb(even(+number), [name(eb)]).
+modeb(even(s(+number)), [name(esb)]).modeb(even(s(s(+number))), [name(essb)]).
+number(N).
+%Background knowledge, even(s(s(s(s(s(s(s(s(0))))))))).
+%Examples,example(even(0),1).example(even(s(s(0))),1).
+example(even(s(s(s(s(0))))),1).example(even(s(s(s(s(s(s(0))))))),1).
+example(even(s(0)),-1).example(even(s(s(s(0)))),-1).
+\end{lstlisting}
+produces a hypothesis \tc{even(\_).} which is inconsistent with the negative examples. The target hypotheses \tc{even(A) :- even(s(s(A))).} was not learnt.
+
+\subsection{Loop on learning regular languages}
+Just as the generalization downwards example caused Tal looping, generalization forward, i.e. learning a hypothesis of the form $P(x) \objectImplies P(s(s(x))$ (a regular language \tc{(ss)*}) can cause Tal looping.
+\begin{lstlisting}
+modeh(in_language(s(s(+word))), [name(issh)]).
+modeh(in_language(s(+word)), [name(ish)]).
+modeb(in_language(+word), [name(ib)]).
+word(X).
+in_language(epsilon).in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
+%Examples
+example(in_language(s(s(epsilon))),1).example(in_language(s(s(s(s(epsilon))))),1).
+example(in_language(s(epsilon)),-1).example(in_language(s(s(s(epsilon)))),-1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. in_language(s(_)). in_language(s(s(A))) :- in_language(A).
+2. in_language(s(A)) :- in_language(A).
+\end{lstlisting}
+and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
+Notice that a target hypothesis 2. was learnt, but Tal did not manage to terminate. One can imagine a situation in which a correct hypothesis would be learnt after the infinite loop completes which is impossible.
+
+\subsection{Weak head mode declaration}
+As in Aleph and Imparo, a head mode declaration in Tal allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeb(anybody(+person),[name(ab)]).
+%Background theory, anybody(jane).anybody(jack).
+%Examples, example(woman(sister(jane)),1).example(woman(sister(jack)),1).
+example(woman(sister(frog)),-1).example(woman(sister(cat)),-1).
+\end{lstlisting}
+returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
+
+\subsection{Alphabetical term bias}
+Tal search is biased on the alphabetical order of the terms present in the predicates.
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).modeh(man(+person), [name(mh)]).
+modeb(female(+person), [name(fb)]).modeb(male(+person), [name(mb)]).
+%Background knowledge, male(adam).female(alice).
+%Examples, example(woman(alice), 1).example(man(adam), 1).
+example(woman(adam), -1).example(man(alice), -1).
+\end{lstlisting}
+returns solutions
+\begin{lstlisting}
+1. man(_). 2. man(A) :- male(A). 3. man(A) :- male(A). woman(_).
+4. man(A) :- male(A). woman(A) :- female(A).
+\end{lstlisting}
+However, if we rename the term \tc{adam} to a term that is alphabetically greater than \tc{alice} then a predicate \tc{female} occurs in a greater proportion of solutions than in the previous ones.
+\begin{lstlisting}
+%Background knowledge, male(zygo). female(alice).
+%Examples, example(woman(alice), 1).example(man(zygo), 1).
+example(woman(zygo), -1).example(man(alice), -1).
+\end{lstlisting}
+produces solutions
+\begin{lstlisting}
+woman(_).
+1. woman(A) :- female(A). 2.woman(_).man(_). 3.woman(A) :- female(A).man(_).
+4. woman(_).man(A) :- male(A). 5. woman(A) :- female(A). man(A) :- male(A).
+\end{lstlisting}
+Other interesting change is the increase in the number of the solutions from 4 to 5. In the author's opinion the hypotheses produced should be independent of the description language chosen and therefore alphabetical term bias represents a violation of the ILP problem.
+
+\subsection{Other violations and biases}
+One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does not have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
+
+\section{Xhail's capabilities}
+
+\subsection{Background knowledge generalization}
+Like Progol, Xhail does not distinguish between the examples and the background knowledge. It tries to generalize the background knowledge to learn a hypothesis specified by the mode declarations criteria.
+
+\begin{lstlisting}
+a(0 ; 1).c(0).d(1).p(X) :- a(X), not block(X).
+g :- p(0), not p(1).goal(g).
+modeh(0,1,min,block("+a")).modeb(1,1,neg,c("+a")).
+modeb(1,1,pos,c("+a")).modeb(1,1,pos,d("+a")).
+modeb(1,1,neg,d("+a")).
+modeb(1,1,pos,eql("+a","#a")).modeb(1,1,neg,eql("+a","#a")).
+eql(X,Y) :- X==Y,a(X),a(Y).
+\end{lstlisting}
+produces hypotheses
+\begin{lstlisting}
+1. block(X1) :- not c(X1),d(X1),eql(X1,1),not eql(X1,0),a(X1). ([X1/1])
+2. block(X1) :- not eql(X1,0),a(X1). 3. block(X1) :- not c(X1),a(X1).
+4. block(X1) :- eql(X1,1),a(X1). 5. block(X1) :- d(X1),a(X1).
+\end{lstlisting}
+where the head of the hypotheses is \tc{block}, however, we can notice that there are no examples in the background knowledge with \tc{block} predicate. Moreover, the only occurance of \tc{block} is in the body as a negation as failure literal \tc{not block(X)}.
+
+If one wanted to translate learning from examples problem into the Xhail's learning problem, positive and negative examples could be placed in a goal:
+
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).modeb(0,10,pos,female("+person")).
+goal(g).person(susan; adam).female(susan).male(adam).
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+where \tc{woman(susan)} is a positive example and a \tc{woman(adam)} is a negative example. The hypothesis learnt is
+\tc{woman(X1) :- female(X1), person(X1).}.
+
+\subsection{Multiple hypotheses}
+Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem.
+\begin{lstlisting}
+a.b.e.modeh(0,1,pos,e).modeb(0,1,pos,a).modeb(0,1,pos,b).find(all).
+\end{lstlisting}
+returns the hypotheses
+\begin{lstlisting}
+1. e :- true. 2. e :- b. 3. e :- a. 4. e :- a,b.
+\end{lstlisting}
+
+\subsection{Multi-clausal hypotheses}
+Xhail can learn a hypothesis that consists of multiple clauses:
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeh(0,10,all,man("+person")).
+modeb(0,10,pos,female("+person")).modeb(0,10,pos,male("+person")).
+goal(g).person(susan; adam).female(susan).male(adam).
+g:- woman(susan), not woman(adam), man(adam), not man(susan).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+man(X1):-male(X1), person(X1). woman(X1):-female(X1), person(X1).
+\end{lstlisting}.
+One clause would be insufficient to explain both \tc{man} and \tc{woman} examples.
+
+\subsection{Fine search space control}
+Xhail has extended mode declarations to refine its search space. Xhail's help reads:
+
+\emph{Zero or more head declarations} are of the form
+\tc{modeh(1,3,min,p("\#q","+r","-s")).} meaning between 1 and 3 ground atoms
+ of the form $p(a,b,c)$ should be assumed such that $q(a), r(b), s(c)$ hold 
+ and where $a, b, c$ are constant, input, output terms, respectively;
+ the third flag is either min="attempt to minimize" or all="do not minimize".
+ 
+\begin{lstlisting}
+modeh(0,1,all,woman("+person")).modeb(0,1,pos,female("+person")).goal(g).
+person(susan; ruth; adam).female(susan).female(ruth).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+returns no hypothesis. However, placing only one positive example in a goal
+\tc{g:- woman(susan), not woman(adam).} or modifying the modeh declaration to cover the two positive examples\\
+\tc{modeh(0,2,all,woman("+person")).} makes Xhail to learn a hypothesis\\
+\tc{woman(X1):-female(X1),person(X1).}.
+
+\emph{Zero or more body declarations} are of the form \tc{modeb(1,3,pos,p("\#q","+r","-s")).} meaning this scheme can be used between 
+ depths 1 and 3.  The third flag is either pos="pos. literal" or neg="neg. literal" 
+
+Apart from the mode declarations, additional control has been introduced with \tc{goal}, \tc{find}, \tc{task} statements:
+\emph{Zero or more goal statement} of the form \tc{goal(a).} means to only compute models satisfying the ground atom \tc{a}.
+
+\emph{Zero or one find statement} is of the form \tc{find(all)="all solutions"} or \tc{find(min)="minimal solutions"}.
+
+\emph{Zero or one task declarations} are possible, e.g. \tc{task(abduce).} or \tc{task(induce).}.
+
+\subsection{Learning by integrity constrains}
+Xhail can learn from the background knowledge in a form of integrity constrains.
+\begin{lstlisting}
+p :- r.false :- p, not a. modeh(0,1,all,a).modeh(0,1,all,r).goal(p).
+\end{lstlisting}
+returns a hypothesis \tc{a:-true.r:-true.} where in the learning problem
+\tc{false :- p, not a.} represents an integrity constraint. In comparison, Tal can learn from the integrity constrains too, but other systems cannot (TODO verify).
+
+\subsection{Term structure learnability}
+Xhail can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+modeh(0,10,all,woman(sister("+a"))).modeb(0,10,pos,anybody("+a")).goal(g).
+a(susan; adam; frog).anybody(susan; adam).female(susan).male(adam).
+g:- woman(sister(susan)), woman(sister(adam)), not woman(sister(frog)).
+\end{lstlisting}
+returns a hypothesis
+\tc{woman(sister(X1)):-anybody(X1), a(X1).}.
+\subsection{Other capabilities}
+Xhail can learn a hypothesis which requires ground terms to be in a head predicate by specifying such a hypothesis with the constant type \tc{\#type} in mode declarations. Xhail supports hypotheses containing predicates of arities greater than 1.
+
+\section{Xhail's assumed limitations}
+
+\subsection{Partial explanations impossible}
+Xhail cannot learn a hypothesis that explains some positive examples, but not all.
+
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeb(0,10,pos,female("+person")).goal(g).
+person(susan; ruth; adam).female(susan).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+returns no hypothesis.Although a hypothesis
+\tc{woman(X1):-female(X1),person(X1).} cannot explain the example \tc{woman(ruth).} it would be able to explain the example \tc{woman(susan)}.
+
+In comparison, Aleph can learn partial hypotheses: from the background knowledge\\
+\tc{female(alice).female(mary).}, positive examples \tc{woman(alice).woman(mary).woman(susan).}, negative examples \tc{woman(adam).} Aleph includes in its hypothesis a partial explanation
+\tc{woman(A) :- female(A).}.
+
+\subsection{Learning from clausal examples}
+Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
+
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).modeb(0,10,pos,female("+person")).goal(g).
+person(susan; ruth; adam).woman(susan):-female(susan).
+woman(ruth):-female(ruth).male(adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+does not produce any hypothesis, however a general hypothesis
+\tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
+
+\subsection{Inability to learn from unrestricted clauses}
+Xhail requires that all its clauses are restricted by ground instances - a quantification over all possible ground instances in a domain is not possible.
+
+An attempt to define that everybody in a domain is of type person fails. \tc{person(X1).} returns an error "a non-ground fact person(X1). All terms within a fact must be ground terms." For a clause \tc{person(X1) :- true.} an error message "Unrestricted variable X1." is produced. Therefore we always have to ground the clauses (containing variables) in Xhail, for example
+\tc{grounded(susan; adam).person(X1) :- grounded(X1).} does not produce any complaints.
+
+This has an impact that the learning space is finite - every possible inducible model is a finite set of ground instances. Therefore, multiple learning problems cannot be learnt: generalization downwards, generalization upwards, Kleene star learning, learning a concept of a natural number, etc. because for these the Hebrand models are infinite subsets of the Herbrand base of the Hebrand universe with the function symbols.
+\subsection{Other limitations}
+
+\section{Xhail's violations and biases}
+
+\subsection{Implicit consistency check}
+Xhail does not explicitly report that the learning problem is inconsistent, it only outputs "NO SOLUTIONS" message which is also applicable for consistent problems whose model is not in the specified search space.
+
+\subsection{Redundant hypotheses}
+Xhail returns multiple hypotheses even if they are the same.
+
+\begin{lstlisting}
+modeh(1,3,min,fries("+food")).modeb(1,3,neg,offer("+food")).
+modeb(1,3,pos,offer("+food")).
+modeb(1,3,neg,bistro("+food")).modeb(1,3,pos,bistro("+food")).
+goal(g).
+food(md ; bk ; rz).bistro(md ; bk ; rz).offer(md ; bk).
+meal(X):- food(X),fries(X), burger(X).burger(X):- food(X), fries(X), offer(X).
+g:- meal(md), meal(bk), not meal(rz).
+\end{lstlisting}
+
+returns the hypotheses
+
+\begin{lstlisting}
+1. fries(X1) :- food(X1). 2.fries(X1) :- food(X1).
+\end{lstlisting}
+where the 1st and the 2nd hypotheses are the same. Notice, a general hypothesis has been induced for every example, both \tc{md} and \tc{bk}.
+
+\subsection{Other violations and biases}
+Since Xhail learns multiple solutions, the hypotheses space is not biased towards the order of the mode declarations.
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).modeb(0,10,pos,female("+person")).
+modeb(0,10,pos,cook("+person")).goal(g).
+person(susan; adam).female(susan).cook(susan).male(adam).
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+returns two hypotheses
+\tc{1. woman(X1):-cook(X1), person(X1). 2. woman(X1):-female(X1), person(X1).}. In other systems a preference over the hypotheses is induced based on the order of the hypotheses' predicates \tc{cook(X1), female(X1)} in their modeb and determination declarations.
+
+\section{Progol's capabilities}
+
+\subsection{Specialization in arguments}
+Progol can learn hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+returns hypotheses
+\begin{lstlisting}
+learns(polymath,A).learns(jack,mathematics).learns(susan,physics).
+\end{lstlisting}
+containing a general hypothesis \tc{learns(polymath,A)} that has a constant \tc{polymath} as a first argument and a variable as a second argument.
+
+\subsection{Multi-clausal learning}
+Progol can learn several one-clausal hypotheses at one time.
+
+\begin{lstlisting}
+%background theory, :-modeh(*, woman(+person))? :-modeh(*, man(+person))?
+:-modeb(*, male(+person))? :-modeb(*, female(+person))?
+:- determination(man/1,male/1)?:- determination(woman/1,female/1)?
+male(bob).male(tom).female(ann).female(mary).
+%positive examples,woman(ann).woman(mary).man(bob).man(tom).
+%negative examples,:-man(ann).:-man(mary).:-woman(bob).:-woman(tom).
+\end{lstlisting}
+
+returns hypotheses
+
+\begin{lstlisting}
+woman(A) :- female(A).man(A) :- male(A).
+\end{lstlisting}
+
+Note, this is possible in Imparo and in Aleph, but not in Toplog.
+
+\subsection{Term structure learnability}
+Progol can learn the hypotheses whose terms contain function symbols.
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person)))?:-modeb(*, anybody(+person))?
+:-determination(woman/1, anybody/1)?
+anybody(jane).anybody(susan).anybody(bob).
+%positive examples
+woman(sister(bob)).woman(sister(jane)).woman(sister(susan)).
+%negative examples, :-woman(sister(frog)).
+\end{lstlisting}
+returns a hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
+
+\subsection{Learnability of multi-clausal concepts}
+Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+\begin{lstlisting}
+:-modeh(*, woman(+person))?:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?:-modeb(*, female(+person))?
+:- determination(woman/1, female/1)?:- determination(man/1, male/1)?
+female(jane).female(susan).female(eugenia).
+couple(jack, jane).couple(sam, susan).couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).
+%positive examples,man(jack).man(martin).woman(jane).woman(susan).
+%negative examples,:-man(jane).:-woman(sam).
+\end{lstlisting}
+
+produces the hypotheses
+\begin{lstlisting}
+woman(A):-female(A).man(A):-male(A).
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
+
+\subsection{Clausal examples}
+Progol can learn from the observations that are general Horn clauses not limited to literals.
+\begin{lstlisting}
+%background theory,:-modeh(*, man(+person))?:-modeb(*, male(+person))?
+:- determination(man/1, male/1)?
+male(jack).male(sam).male(john).male(tristan).female(glory).
+%positive examples
+man(jack) :- male(jack).man(sam) :- male(sam).man(john) :- male(john).
+%negative examples, :- man(glory).
+\end{lstlisting}
+produces the expected general hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+
+Other systems like Aleph, Imparo, Tal, Toplog accept only examples in a literal form.
+
+\subsection{Other capabilities}
+Progol can induce hypotheses that contain predicates of arity greater than 1. Progol checks for inconsistency of the observations with the background knowledge and provides an appropriate warning about the contradiction that false is provable.
+
+\section{Progol's assumed limitations}
+
+\subsection{Other limitations}
+Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations. Progol has a weak-head mode declaration, we have to explicitly specify the function symbol in the mode declarations, a specification of a general function symbol pattern is not possible. Progol has a correct example bias - it can learn examples only if these are specified in the mode declarations. Progol can learn only the Horn theories.
+
+\section{Progol's violations and biases}
+\subsection{No generalization downwards}
+Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
+
+\begin{lstlisting}
+%background theory, :-modeh(*, even(+number))?:-modeb(*, even(+number))?
+:-modeb(*, even(s(+number)))?:-modeb(*, even(s(s(+number))))?
+:- determination(even/1, even/1)?
+even(s(s(s(s(s(s(s(s(0))))))))).
+%positive examples,even(0).even(s(s(0))).
+even(s(s(s(s(0))))).even(s(s(s(s(s(s(0))))))).
+%negative examples,:-even(s(0)).:-even(s(s(s(0)))).
+\end{lstlisting}
+produces a hypothesis
+\begin{lstlisting}
+even(A).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+\subsection{Unlearnability of regular languages}
+Although Progol can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
+
+\begin{lstlisting}
+%background theory,:-modeh(*, in_language(s(s(+word))))?
+:-modeh(*, in_language(s(+word)))?:-modeb(*, in_language(+word))?
+:- determination(in_language/1, in_language/1)?
+in_language(epsilon).in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
+%positive examples
+in_language(s(s(epsilon))).in_language(s(s(s(s(epsilon))))).
+%negative examples,:-in_language(s(epsilon)).:-in_language(s(s(s(epsilon)))).
+\end{lstlisting}
+returns back a hypothesis
+\begin{lstlisting}
+in_language(s(s(A))).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+A general consistent hypothesis representing the language is
+\begin{lstlisting}
+in_language(s(s(A)) :- in_language(A).
+\end{lstlisting}
+
+\subsection{Preference over earlier mode declarations}
+Progol prefers learning a hypothesis whose mode declaration has been defined earlier.
+
+\begin{lstlisting}
+:-modeh(*, man(+person))?:-modeb(*, bridegroom(+person))?
+:-modeb(*, male(+person))?
+:- determination(man/1, bridegroom/1)?:- determination(man/1, male/1)?
+bridegroom(jack).bridegroom(sam).bridegroom(john).
+male(jack).male(sam).male(john).
+%positive examples,man(jack).man(sam).man(john).
+%negative examples,:- man(susan).
+\end{lstlisting}
+
+returns a hypothesis
+\begin{lstlisting}
+man(A) :- bridegroom(A).
+\end{lstlisting}
+
+Changing the order of the mode declarations to
+\begin{lstlisting}
+:-modeb(*, male(+person))?:-modeb(*, bridegroom(+person))?
+\end{lstlisting}
+results in a hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In both cases, the induced hypothesis had a body atom declared in an earlier mode declaration. This is an opposite search bias to the Imparo's preference over the later mode declarations.
+
+\subsection{Background knowledge hypotheses}
+Progol explains the examples with the background knowledge even if the mode declarations do not allow such explanations in the language bias.
+
+\begin{lstlisting}
+:-modeh(*, female_person(+person))?:-modeb(*, female(+person))?
+%background theory,
+female(jane).female(susan).woman(A) :- female_person(A).
+%positive examples,woman(jane).woman(susan).
+female_person(jane).female_person(susan).
+%negative examples,:-female_person(sam).
+\end{lstlisting}
+returns the hypotheses
+\begin{lstlisting}
+female_person(A) :- female(A). woman(A) :- female_person(A).
+\end{lstlisting}
+But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mode declarations. Therefore Progol has a default background knowledge bias.
+
+\subsection{Other violations and biases}
+If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
+
+\chapter{Rationale ILP system}
+After having reviewed ILP systems, we aim to design a custom ILP system called Rationale that would address some of the problems we have encountered in the ILP systems.
+
+\section{Suggested solutions}
+Our suggested solutions are an extension of the work\cite{yamamoto2012inverse} by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
+   
+\subsection{Inverse Subsumption for Complete Explanatory Induction}
+\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+
+$H \subsumes \tau(M(F \cup Taut(I_H))$.
+\end{lemma}
+
+\subsection{Extension to first-order theories}
+A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of the minimal complement, especially if the number of potential tautologies is large and a computation of anti-subsumption since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground.
+
+\begin{proposition}(Soundness of the first-order extension)
+Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
+\end{proposition}
+\begin{proof}
+By subsumption $H \models \tau(M(F \cup Taut(I_H))) \equiv \neg F$. By the principle of the inverse entailment $B \cup \neg F \models E$, hence
+$B \cup H \models E$.
+\end{proof}
+
+However, it is not clear whether the completeness is preserved in the first order case.
+
+$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that has a ground instance that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
+
+\begin{conjecture}\label{subsumptionConjectureFirstOrder}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+$H \subsumes \tau'(M(F \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{exmp}
+Let $E=\{r(y)\}$,
+$B=\{\neg p(x) \vee r(x)\}$,
+$H=\{s(x), \neg s(x) \vee p(x)\}$,
+$I_H=\{s(x), \neg s(x), p(x)\}$.
+Then $F=B \cup \neg E=\{\neg p(x) \vee r(x), \neg r(y) \}$.
+$Taut(I_H)=\{s(x) \vee \neg s(x)\}$.
+$M(F \cup Taut(I_H))=$
+$\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z),$
+$\neg r(x) \vee r(y) \vee \neg s(z),\neg r(x) \vee r(y) \vee s(z) \}$.
+
+$\tau'(M(F \cup Taut(I_H))=\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z)\}$ which is subsumed by the hypothesis $H$.
+\end{exmp}
+
+\begin{exmp}
+All theories need not be grounded. Adapting the previous example, if the examples were
+$E_2=\{r(a), r(b)\}$ with the same hypothesis
+$H=\{s(x), \neg s(x) \vee p(x)\}$, then
+$\tau'(M(F_2 \cup Taut(I_H))=\{p(x) \vee r(a) \vee \neg s(z), p(x) \vee r(a) \vee s(z), p(x) \vee r(b) \vee \neg s(z), p(x) \vee r(b) \vee s(z) \}$ which is subsumed by $H$. A careful reader notices that the adapted $\tau'(M(F_2 \cup Taut(I_H))$ is just a partial instantiation of the previous
+$\tau'(M(F \cup Taut(I_H))$ with the same substitution
+$theta=\{a / y, b / y\}$ as used for the examples:
+$\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
+$E_2 \theta = E$.
+\end{exmp}
+
+\subsection{Extension to cover negative examples}
+We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
+\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E+$, $B \wedge H$ consistent, $B \wedge H \not\models E-$.
+\end{defn}
+
+\begin{lemma}\label{yamamoto2012inverseLemma2Converse}
+Let $B \cup \neg E \models F$. $H \subsumes \tau(M(F \cup Taut(I_H)))$ implies
+$B \cup H \models E$.
+\end{lemma}
+\begin{proof}
+By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \equiv \neg F$.
+\end{proof}
+
+\begin{lemma}
+Let $E-=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
+a hypothesis wrt $I_H, B, E+, E-$.
+Then $B \cup H \not\models E-$ iff
+$\forall i \in \{1,...,n\}.$ $H \not\subsumes \tau(M(F_i- \cup Taut(I_H)))$.
+\end{lemma}
+
+\begin{proof}
+Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E-$ is in a disjunctive normal form.
+\end{proof}
+
+\begin{conjecture}
+$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F- \cup Taut(I_H)))$
+where $F-=F_1- \wedge ... \wedge F_n-$.
+\end{conjecture}
+
+By the principle of inverse entailment
+$B \wedge H \not\models E-$ iff
+$B \wedge \neg E- \not\models \neg H$.
+
+\begin{defn}
+(Negative bridge theory) Let $B$ and $E-$ be a background theory and negative examples, respectively. Let $F-$ be a ground clausal theory. Then $F-$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E- \models F-$ holds.
+\end{defn}
+
+\begin{conjecture}\label{subsumptionConjectureNegativeExamples}
+(Note: probably false).
+Let $B$, $E-$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F-$ be a negative bridge theory wrt $B$ and $E-$. For every hypothesis $H$ wrt $I_H$ and $F-$,
+
+$B \wedge H \not\models E-$ iff $H$ does not subsume
+$\tau(M(F- \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{defn}
+Let $B$, $E+$, $E-$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
+Let $F$ be a bridge theory wrt $B$ and $E+$. Let $F-$ be a maximal negative bridge theory wrt $B$ and $E-$. A clausal theory $H$ is derived
+by extended inverse subsumption with minimal complements from $F$ and $F-$ wrt $I_H$ if $H$ is constructed as
+follows:
+\begin{itemize}
+\item Step 1. Compute $Taut(I_H)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
+\item Step 3. Compute $\tau(M(F- \cup Taut(I_H)))$;
+\item Step 4. Construct a clausal theory $H$ satisfying the conditions:
+$H \subsumes \tau(M(F \cup Taut(I_H)))$,
+$H \not\subsumes \tau(M(F- \cup Taut(I_H)))$.
+\end{itemize}
+\end{defn}
+
+\subsection{Imparo extension}
+\begin{defn}
+Let $P=\langle B, U, I \rangle$ be an open definite program, $H$ be a correct hypothesis wrt $P$ and a ground example $E$, then $H$ is derivable by
+\emph{connected theory inverse subsumption}
+iff there exists a connected theory $T$ for $P$ and $E$ such that $H \subsumes T$.
+We denote the statement by $P, E \vdash_{CTIS} H$.
+\end{defn}
+
+\begin{thm}\label{yamamoto2012inverseTheorem4}\cite{yamamoto2012inverse}
+Let $S$ be a ground clausal theory. Then, $M^2(S) = \mu(S)$ holds.
+\end{thm}
+
+\begin{proposition}
+Let $H \in I_H$ be an inductive solution for $P$ and $E$ such that $Taut(I_H)=\emptyset$, then $H$ is derivable by connected theory inverse subsumption from $P, E$.
+\end{proposition}
+\begin{proof}
+By completeness of connected theory generalization\ref{completeness_ctg} there exists a connected theory $T$ such that $H \models T$. $M(T)$ is a bridge formula.
+Hence by \ref{yamamoto2012inverseLemma2}
+$H \subsumes \tau(M(M(T) \cup Taut(I_H))$. From the definition of the connected theory $\tau(T)=T$ and $\mu (T)=T$.
+Therefore $\tau(M(M(T) \cup Taut(I_H))=\tau(M(M(T))=\tau(T)=T$ using
+\ref{yamamoto2012inverseTheorem4}. Therefore $H \subsumes T$ as required.
+\end{proof}
+\begin{remark}
+The previous proposition is stated and proved only to provide an alternative proof of a statement superceded by the stronger result \ref{completeness_ctis}.
+\end{remark}
+
+\begin{thm}\label{implicationByGroundClauses}
+(Implication by Ground Clauses \cite{nienhuys1997foundations}). Let $\Sigma$ be a non-empty set of clauses,
+and $C$ be a ground clause. Then $\Sigma \models C$ if and only if there is a finite set $\Sigma_g$ of ground
+instances of clauses from $\Sigma$, such that $\Sigma_g \models C$.
+\end{thm}
+
+\begin{thm}\label{completeness_ctg}
+\emph{Completeness of connected theory generalization}(Theorem4.6 in \cite{kimber2012learning})
+Let $\langle B, U, I \rangle$ be a definite open program,
+let $H$ be a definite program, and let $e$ be an atom.
+If $H$ is an inductive solution for $P$ and
+$E = \{e\}$, then $H$ is derivable from $P$ and $E$ by connected theory generalisation.
+\end{thm}
+\begin{proof}\cite{kimber2012learning}
+For the full proof, an interested reader is encouraged to read \cite{kimber2012learning}.
+Since $H$ is a correct hypothesis for $P$ and $E$,
+then $B \cup H \models E$ by definition.
+Therefore, by \ref{implicationByGroundClauses}, there is a finite set $S$ of ground instances of clauses in $B \cup H$,
+such that $S \models E$. Let $T = S \cap ground(H)$.
+Since $T \subseteq S$, then $T$ is ground and finite, and
+since $T \subseteq ground(H)$ then $H \models T$. 
+Then Kimber proves that $T$ is a connected theory for $P$ and $E$.
+\end{proof}
+
+\begin{thm}
+\emph{Completeness of connected theory inverse subsumption}.
+\label{completeness_ctis}
+Let $\langle B, U, I \rangle$ be a definite open program,
+let $H$ be a definite program, and let $e$ be an atom.
+If $H$ is an inductive solution for $P$ and
+$E = \{e\}$, then $H$ is derivable from $P$ and $E$ by connected theory inverse subsumption.
+\end{thm}
+\begin{proof}
+Construct a connected theory $T=S \cap ground(H)$ for $P$ and $E$ as in the proof of \ref{completeness_ctg}.
+Then $H \subsumes ground(H) \subsumes S \cap ground(H) = T$,
+hence $H \subsumes T$ by transitivity as required.
+\end{proof}
+
+\subsection{Faster consistency check\cite{yamamoto2012comparison}}
+Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
+
+\subsection{Hypothesis selection}
+Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
+
+We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
+\subsection{Hypotheses enumeration}
+Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
+
+\section{Unresolved problems}
+\begin{itemize}
+\item The background theory has to be Horn.
+\end{itemize}
+
+\chapter{Comparisons of ILP systems}
+* denotes to be tested/proved.
+\section{Definition of an ILP problem}
+We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
+
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E-$ we mean that no example $e- \in E-$ should be implied by $B \cup H$, therefore $E-$ is meant to be a disjunction (rather than a conjunction like $E+$) of examples. Therefore, $\overline{E-} \equiv \neg E-$.
+
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
+given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
+
+The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
+let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+
+Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
+given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
+We define an ILP system:
+\begin{defn}
+An ILP system is a partial function $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$.
+\end{defn}
+Having defined an ILP problem, we define the correctness of an ILP system:
+\begin{defn}
+An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
+then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
+\end{defn}
+
+\section{Properties of an ILP system}
+We further seek properties of ILP systems upon which we could base our comparison of different ILP systems. Recall $L$ is a set of all logical sentences for a given signature $\mathcal{L}$ and $B, E+, E-, H \subseteq L$, $\mathcal{H}, \mathcal{H}_2 \subseteq \powerset{L}$.
+
+We ask:
+\begin{enumerate}
+\item On what inputs is $s$ defined?
+\item What is the algorithm computing $s$?
+\item What is the computational complexity of $s$?
+\item On what inputs do different systems $s_1, s_2$ produce a different output?
+\item If on a given input $i$ and $s_1(i) \not= s_2(i)$, is there a way to compare the systems based on their output solution set?
+\item Is there a way to equip the input and the output with the semantics to provide an interpretation for the output produced from the input?
+\end{enumerate}
+
+
+
+\section{Algorithmic definition of an ILP system}
+We provide a simplified algorithm for each of the systems in order to be able to extract properties of each system upon which a comparison could based.
+
+\subsection{IE algorithm\cite{yamamoto2012inverse}}
+Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E+,E-,\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+ 
+ They compute the hypothesis $H$ in two steps:
+1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
+
+
+\subsection{Aleph}
+\subsection{Progol}
+\subsection{Toplog}
+\subsubsection{Top theory construction}
+\subsection{Imparo}
+\subsection{Tal}
+\subsection{Xhail}
+
+\section{Completeness in generalization\cite{yamamoto2012inverse}}
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Complete in generalization \\ \hline
+    Aleph & no\\ \hline
+    Progol & no\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no*\\ \hline
+    Metagol & yes*\\ \hline
+    Xhail & no\\ \hline
+    Cf-induction & yes\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\section{Example learning}
+None of the tested ILP systems can explain the negative examples. All the systems can induce hypotheses that aim to explain the positive examples. All the tested ILP systems accept ground instances of literals for examples.
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Clausal examples \\ \hline
+    Aleph & no\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no\\ \hline
+    Metagol & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Hypotheses space}
+All systems can learn only the Horn clauses.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Function symbols & Multi-clausal hypotheses & Infinite Herbrand models\\ \hline
+    Aleph & yes & yes & yes\\ \hline
+    Progol & yes & yes & yes*\\ \hline
+    Toplog & no & no & *\\ \hline
+    Imparo & yes & yes & yes\\ \hline
+    Tal & yes & yes & yes\\ \hline
+    Xhail & yes & yes & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Completeness}
+Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
+\begin{center}
+    \begin{tabular}{ | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
+    \hline
+    ILP system & Multi-clausal concepts & Generalization downwards &
+    Double Kleene star & Argument Specialization &
+    Non-observational concepts\\ \hline
+    Aleph & no & yes & no & no & no\\ \hline
+    Progol & yes & no & no & yes & no\\ \hline
+    Toplog & no & no* & no* & no & no\\ \hline
+    Imparo & yes & no & yes* & yes & no\\ \hline
+    Tal & yes & no & no & yes & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Argument Specialization}
+Argument specialization test assesses the ILP system's ability to learn a hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has its target concept
+\begin{lstlisting}
+learns(polymath,A).
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
+
+\subsection{Non-observational concepts}
+The ILP systems were tested if they could learn hypotheses that require multiple hypotheses in order to explain an example, however these hypotheses are not learnable with the cover loop algorithm. A cover loop algorithm learns hypotheses, adds these hypotheses to the background knowledge and tries to learn new hypotheses with the extended background knowledge that would explain not yet covered examples. The cover loop terminates if no new hypothesis is learnt.
+
+An adapted sibling example from Kimber's thesis was used.
+\begin{lstlisting}
+modeh(brother(+person,+person)).modeh(parent(+person,+person)).
+modeb(sibling(+person,+person)).modeb(male(+person)).
+modeb(father(+person,+person)).
+determination(brother/2, sibling/2).determination(brother/2, male/1).
+determination(parent/2, father/2).
+%background knowledge
+male(bart).male(rod).male(todd).parent(homer,bart).
+parent(homer,maggie).father(ned,rod).father(ned,todd).father(homer,lisa).
+male(bart2).male(rod2).male(todd2).parent(homer2,bart2).
+parent(homer2,maggie2).father(ned2,rod2).father(ned2,todd2).father(homer2,lisa2).
+male(bart3).male(rod3).male(todd3).parent(homer3,bart3).
+parent(homer3,maggie3).father(ned3,rod3).father(ned3,todd3).father(homer3,lisa3).
+sibling(X,Y):-parent(Z,X),parent(Z,Y).
+%positive examples
+brother(bart,lisa).brother(rod,todd).
+brother(bart2,lisa2).brother(rod2,todd2).
+brother(bart3,lisa3).brother(rod3,todd3).
+%negative examples, brother(lisa,bart).brother(rod,bart).
+brother(maggie, maggie).parent(lisa,bart).
+\end{lstlisting}
+where we expect to learn the hypothesis
+\begin{lstlisting}
+brother(X,Y):-sibling(X,Y), male(X).parent(X,Y):-father(X,Y).
+\end{lstlisting}
+The second hypothesis \tc{parent(X,Y):-father(X,Y).} generalizes the existing knowledge, however it does not explain any examples. Such learning is called a non-observational learning. In the case of this sibling problem, a general hypothesis consists of an observational part - the first hypothesis and a non-observational part - the second hypothesis.
+Other solutions consisting of purely observational hypotheses are longer and hence depending on our definition of generality, arguably less general.
+
+\subsubsection{Imparo}
+Imparo could not learn the expected hypothesis of the example, it learnt instead
+\begin{lstlisting}
+brother(A,B):-sibling(A,A),male(A)
+brother(rod,todd):-true
+brother(rod3,todd3):-true
+brother(rod2,todd2):-true
+\end{lstlisting}
+
+\subsubsection{Aleph}
+Aleph produces the hypothesis
+\begin{lstlisting}
+brother(A,B) :- sibling(A,A), male(A).
+brother(rod,todd).brother(rod2,todd2).brother(rod3,todd3).
+\end{lstlisting}
+
+\subsubsection{Other systems}
+Progol produces an inconsistent hypothesis \tc{parent(A,B).}. Toplog does not produce any hypothesis. Tal has amongst its solutions the expected hypothesis. However, depending on the depth limit we set, Tal can produce an arbitrarily large number of hypotheses. Thefore, an important work on Tal includes hypothesis selection.
+
+\section{Biases}
+\begin{center}
+    \begin{tabular}{ | l | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Mode declarations & Determinations & Declaration order bias & Alphabetical bias \\ \hline
+    Aleph & yes & yes & yes & no\\ \hline
+    Progol & yes & yes & yes & no\\ \hline
+    Toplog & yes & no & yes & no\\ \hline
+    Imparo & yes & no & yes & no\\ \hline
+    Tal & yes & no & no & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Violations}
+All tested systems suffer from weak-head mode declaration bias.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Correct example bias\\ \hline
+    Aleph & yes\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Robustness}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Consistency check & Always terminated\\ \hline
+    Aleph & no & yes\\ \hline
+    Progol & yes & yes\\ \hline
+    Toplog & no & yes\\ \hline
+    Imparo & no & no\\ \hline
+    Tal & no & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Completeness of theoretical frameworks}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP framework & General Clause Hypothesis\\ \hline
+    Bottom Generalization & no\\ \hline
+    Induction on Failure & no\\ \hline
+    CF-induction & yes\\ \hline
+    TDHD & no\\ \hline
+    MIL & \\ \hline
+    \hline
+    \end{tabular}
+
+\section{Other}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & \\ \hline
+    Progol & \\ \hline
+    Toplog & \\ \hline
+    Imparo & \\ \hline
+    Tal & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+    
+\chapter{Definition of an ILP problem - notes}
+For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
+
+Related to the definition of an ILP problem Cheng and Wolf say in \cite{nienhuys1997foundations}
+"If E + is finite, then E = E -e will be a correct theory, but a rather unin-
+teresting one. In this case, we would not have learned anything beyond the
+given examples: the induced theory has no predictive power. To avoid this,
+we can put some constraints on the theory. For instance, we might demand
+that E contains less clauses than the number of given positive examples. In
+that case, E = E + is ruled out. Since constraints like these mainly depend
+on the particular application at hand, we will not devote much attention to
+them."
+They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
+
+Muggleton in his Inverse Entailment and Progol \cite{muggleton1995inverse} says:
+"the association of probability values with hypotheses requires the assumption of a prior probability distribution over the hypothesis language. Occam's razor can be taken as an instance of a distribution which assigns higher prior probability to simpler hypotheses. It has been shown [4] that without such distributional assumptions the class of all logic programs is not even PAC-predictable. On the other hand, it has recently been demonstrated [42] that the class of all time-bounded logic programs is polynomial-time learnable (U-learnable) under fairly broad families of prior probability distributions. Appendix B gives more details of the relationship between data, posterior probabilities and U-learnability."
+
+\section{ILP theory and methods}
+\subsection{Completeness}
+From ILP theory and methods \cite{muggleton1994inductive}:
+An ILP system with a bias $\mathcal{H}$ is complete iff for all $E+, E-,B$ there exists $H \in \mathcal{H}$ such that $B \cup H \models E+$ and $B \cup H \not \models E-$.
+\subsection{Non-monotonic setting for ILP}
+Validity: all $h \in H$ are true in $M+(B)$,
+Completeness: if general clause $g$ is true in $M+(B)$, then $H \models g$,	
+Minimality: there is no proper subset $G$ of $H$ which is valid and complete.
+Question: is $H$ unique from given the minimality condition?
+
+\chapter{Learning hypotheses of the least Kolmogorov complexity}
+
+Given a set of observations $O$, the background knowledge $B$, if the theory $O \union B$ is not complete, i.e. there is more than one model of $O \union B$ up to isomorphism, then there are several hypotheses $H \in \mathcal{H}$ that can explain the observations from the background knowledge, i.e. $B \union H \models O$, and are consistent with the background knowledge, i.e. $B \union H \not\models false$.
+
+What quantifiable properties hypothesis should have can be captured by a score function. Arguing which score function is more desirable is a problem in its own right. We explore the possibility of a score function to be Kolmogorov complexity measure. We would like to find out what ILP systems induce their hypotheses of the least Kolmogorov complexity. The problem proves to be difficult as due to complex grammatical structure of the first order sentences of a logic program. We therefore provide an abstraction where a sentence is represented by an element of a set in hope that understanding the problem in its relaxed version will shed more light into its original version.
+
+\subsection{Problem of induction - computability setting}
+
+\begin{defn}
+The Kolmogorov complexity $K(S)$ of a set $S$ is the Kolmogorov complexity
+of a formula $\psi$ with the least Kolmogorov complexity that defines $S$.
+\end{defn}
+
+Given a set $P \subseteq \mathbb{N}$ of positive examples,
+a set $N \subseteq \mathbb{N}$ of negative examples,
+find a computable set $S = \{n \in \mathbb{N} : \mathbb{N} \models \phi(n) \} \subseteq \mathbb{N}$ that has the least Kolmogorov complexity.
+
+In a specialized version of the problem, the criterion of Kolmogorov complexity can be replaced by other property definable by a real-valued score function on a triple $\langle P, N, \phi \rangle$. Similarly, we may require weaker conditions on a set $S$, e.g. computable with respect to some oracle set (background knowledge) $B$ or being of other Turing (or enumeration) degree.
+
+\begin{defn}
+TODO Herbrand Interpretation, Hebrand Model.
+\end{defn}
+
+We can think of the model of an environment as a Hebrand model. Notice that the powerset of natural numbers is equinumerous with the set of Herbrand models. Therefore we can think of a natural number as a ground atom.
+
+\begin{defn}
+An \emph{inductive inference system} IIS is a computable function
+$f: \powerset{\mathbb{N}} \times \powerset{\mathbb{N}} \times \powerset{\powerset{\mathbb{N}}}
+\to \powerset{\mathbb{N}},
+\langle P, N, \mathcal{H} \rangle \mapsto S$
+satisfying the conditions:
+
+\begin{enumerate}
+\item $S$ is a computable set,
+\item $S \in \mathcal{H}$,
+\item $P \subseteq S$,
+\item $N \cap S = \emptyset$.
+\end{enumerate}
+\end{defn}
+
+We call $P$ a set of positive examples, $N$ a set of negative examples, $\mathcal{H}$ a bias, $S$ a solution (a hypothesis) to a problem of induction.
+
+\section{Bottom and top theories}
+The following definitions are motivated by a top theory of TDHD framework and a bottom clause of Prolog systems.
+\begin{defn}
+A top theory $\top$ with respect to $\langle P, N \rangle$ is
+$\{x \in \mathbb{N} : \psi_\top(x)\}$,
+a set definable by $\psi_\top$, or implicitly $\psi$ satisfying
+$P \subseteq \top$.
+A set $\mathcal{H}=\powerset{\top}$ is called a top theory bias.
+\end{defn}
+
+\begin{defn}
+A bottom theory $\bot$ with respect to $\langle P, N \rangle$ is
+$\{x \in \mathbb{N} : \psi_\bot(x)\}$,
+a set definable by $\psi_\bot$, or implicitly $\psi$ satisfying
+$N \cap \bot = \emptyset$.
+A set $\mathcal{H}=\powerset{\bot}$ is called a bottom theory bias.
+\end{defn}
+
+\section{Generalization}
+In order to define a notion of generalization in an abstracted setting we should understand what a generalization is in various ILP contexts.
+
+Inoue in \cite{inoue2012dnf} defines $\phi$ to be more general than $\psi$ iff
+$M(\phi) \subseteq M(\psi)$ iff $\phi \models \psi$. An important observation is that as we generalize $\psi$ strictly the number of the possible models of $\phi$ shrinks, generalization increases certainty.
+
+However, in systems like Toplog and Imparo whose logics use a Negation as Failure NAF, given a set of sentences $\Sigma$ it is complete since
+$\forall \psi. \Sigma \models \psi \vee \Sigma \models \neg\psi$. Therefore every such consistent $\Sigma$ has only one Herbrand model. The notion of generalization cannot be defined in terms of models in logics with NAF. The intuition of a generalization comes from the $\theta$-subsumption.
+
+\begin{defn}
+Let a $C$, $D$ be sets of clauses, then $C$ $\theta$-subsumes $D$  written
+$C \ge_\theta D$ iff $C \theta \subseteq D$.
+\end{defn}
+
+Notice that if $C \ge_\theta D$ then $C \models D$. Consider the case of $C=\{\neg female(x) \vee woman(x)\}$ and
+$D=\{
+\neg female(susan) \vee woman(susan),
+\neg female(mary) \vee woman(mary),
+\neg female(ann) \vee woman(ann) \}$.
+Then $C$ $\theta$-subsumes $D$ with the substitution
+$\theta=\{susan \backslash x, mary \backslash x, ann \backslash x\}$.
+From the example we can see that generalization corresponds to deriving a more general rule from the specific instances of that rule. The theory $C$ is shorter than $D$ and less complex in a sense that it is easier to remember that every female is a woman than to remember that Susan is a woman, Mary is a woman, Ann is a woman given that we know that Susan, Mary, Ann are females.
+Intuitively a set $S$ is simpler than a set $T$ if it can be defined in a simpler way:
+
+\begin{defn}
+Let $S$ and $T$ be subsets of $\mathbb{N}$, then we say that $S$ is more general than $T$ iff $K(S)<K(T)$ where $K(-)$ is the Kolmogorov complexity of its input set.
+\end{defn}
+
+\chapter{Model approximation}
+
+\subsection{Approximation and error}
+\begin{defn}
+A theory $\Sigma$ \emph{approximates a theory $\Gamma$ by model} within the number $\epsilon$ called an error measure iff $\mu(M(\Sigma) \triangle M(\Gamma)) < \epsilon$ where $\mu:\{\mathcal{M}:\}\to [0,1]$ is a (probability) measure over the models and $[0,1] \subseteq \mathbb{R}$.
+\end{defn}
+
+\chapter{Score function}
+
+\section{Axiomatization by score}
+Find any axiomatization $A$ of the theory $O$ given $B$ with the greatest score $s(A,B,O)$ where $s$ is the \emph{score function}
+$s:\mathcal{H} \times L \times L \to \mathbb{R}$.
+
+\begin{exmp}
+Define a score function $s$ by:
+i. if $A$ infinite, then $s(A,B,O)=-1$,
+ii. if $A \union B$ inconsistent, then $s(A,B,0)=-1$,
+iii. otherwise $s(A,B,O)=\mu\{o \in O : A \union B \models o\}$.
+\end{exmp}
+
+\begin{exmp}
+Define a score function $s:\mathcal{H} \times L \times L \to \mathbb{R}$ by $s(A,B,O)=1$ iff a theory $A \union B$ approximates a theory $O$ by model within a given error measure $\epsilon$, $s(A,B,O)=0$ otherwise.
+\end{exmp}
+
+\begin{note}
+A score function is any total function taking into the consideration various criteria, e.g. minimum description length of the theory, finiteness of the theory, computational resources required to compute the theory. What a good score function is will be of our interest later.
+\end{note}
+
+\begin{exmp}
+A Kolmogorov complexity with respect to the description language $L$ is a score function $K:L \to \mathbb{N}_0 \subseteq \mathbb{R}$.
+\end{exmp}
+
+\begin{note}
+A Kolmogorov complexity $K$ can be thought of as a minimul description length with respect to the description language.
+\end{note}
+\begin{exmp}
+Fix a description language to be a language of regular expressions. Let $L_1$ be a regular language given by its shortest description $0000000000$, $L_2$ given by its shortest description $10*$. Then $K(L_1)=10<K(L_2)=3$.
+\end{exmp}
+
+\chapter{Statistical learning}
+
+\section{Incoherence of the generalization - Sawin-Demski paradox}
+Consider the observations $P(0), \neg P(1), P(2)$ which are generalized by the rule $R1=\forall x. P(x)$ iff $x$ is even.
+By inducing the $\Pi_1$ statement into the theory, it may be impossible for some true $\Pi_2$ statements to be part of the theory\cite{sawin2013computable}.
+Therefore we limit ourselves to studying only the models where $\Pi_1$ statement true, $\Pi_2$ statement false.
