@@ -10,18 +10,6 @@ Allan Cortzen and Eric~W Weisstein.
 \newblock Measure, 2014.
 \newblock MathWorld--A Wolfram Web Resource.
 
-\bibitem[htt10]{stanford2010non-monotonic}
-Non-monotonic logic, 2010.
-\newblock Stanford Encyclopedia of Philosophy.
-
-\bibitem[htt14a]{wikipediaClosureOperator}
-Closure operator, 2014.
-\newblock Wikipedia, The Free Encyclopedia.
-
-\bibitem[htt14b]{wikipediaProblemOfInduction}
-Problem of induction, 2014.
-\newblock Wikipedia, The Free Encyclopedia.
-
 \bibitem[Kim12]{kimber2012learning}
 Timothy Kimber.
 \newblock {\em Learning definite and normal logic programs by induction on
@@ -68,5 +56,17 @@ Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
 David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
+
+\bibitem[sta10]{stanford2010non-monotonic}
+Non-monotonic logic, 2010.
+\newblock Stanford Encyclopedia of Philosophy.
+
+\bibitem[wik14a]{wikipediaClosureOperator}
+Closure operator, 2014.
+\newblock Wikipedia, The Free Encyclopedia.
+
+\bibitem[wik14b]{wikipediaProblemOfInduction}
+Problem of induction, 2014.
+\newblock Wikipedia, The Free Encyclopedia.
 
 \end{thebibliography}
