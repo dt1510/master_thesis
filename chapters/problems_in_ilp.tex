@@ -1,6 +1,8 @@
 \chapter{Problems in inductive logic programming}
 
 \section{ILP problem definition}
+When reasoning about an ILP problem we will always mean by $B$ the background knowledge, by $E+$ the positive examples, $E-$ the negative examples.
+
 \subsection{Learning problem}
 Inductive logic programming is a subdiscipline of machine learning (subdiscipline of AI) and logic programming. The objective of AI is to construct a machine that capable of doing what requires an intelligence if done by a man. (citation needed). One of the properties of an intelligent entity is the ability to learn. The author would like to put into attention 2 types of learning:
 1. memorization is the ability to record and retrieve the observed data.
@@ -23,11 +25,59 @@ female(alice). female(jane). female(mary).
 woman(alice). woman(jane). woman(mary).
 \end{lstlisting}
 
+Therefore in order to define the ILP problem completely we have to require learning of the hypotheses with a predicting power.
+
+\begin{defn}
+An ILP problem is a tuple $\langle B, \mathcal{E} \rangle$ where
+$\mathcal{E}$ is an environment
+$\mathcal{E}=\langle L, L_O, \mathtt{O}, \mathcal{M} \rangle$
+and 
+$\mathtt{O}:L_O \to \{true, false\}$ is a partial function from which the positive examples $E+$ and the negative examples $E-$ are defined as follows:
+$\forall x \in L_O$
+1. $x \in E+ \implies \mathtt{O}(x)=true$,
+2. $x \in E- \implies \mathtt{O}(x)=false$,
+3. $x \in L_O \setminus (E+ \cup E-) \implies \mathtt{O}(x)=\uparrow$.
+
+
+A hypothesis $H$ correct wrt $B, E+$ has a predictive power iff
+there exists $x \in L_O$ such that ... TODO
+
+
+\end{defn}
 
 \subsection{Learning objective}
 \subsection{Learning new information from given data}
 \subsection{Generalization}
 \subsection{Negative examples}
+An example $e \in L_O$ is negative iff $\mathtt{O}(e)=false$.
+\subsection{Learning positive examples}
+A simple form of an ILP problem does not involve learning with negative examples.
+\begin{defn}
+An ILP problem of an explanatory induction\cite{yamamoto2012inverse} is a tuple $\langle B, E+ \rangle$ where $B$ is the background knowledge, $E+$ are positive examples. A hypothesis $H$ is correct wrt $\langle B, E+\rangle$ iff
+$B \cup H \models E+$ and $B \cup H \not\models false$.
+\end{defn}
+\subsection{Learning negative examples}
+One could require to learn negative examples in the same way as positive examples.
+\begin{defn}
+An ILP problem of learning negative examples is a tuple $\langle B, E+, E- \rangle$ where $B$ is the background theory, $E+$ a conjunction of the positive examples and $E-$ a conjunction of negative examples. A solution to the ILP problem $\langle B, E+, E-$ is a hypothesis $H$ such that
+$B \cup H \models E+ \cup E-$ and $B \cup H \not\models false$.
+\end{defn}
+If the negative examples define a different concept, then this type of the learning problem does not provide any advantage compared to the learning of the positive examples. Indeed one could learn the negations of the negative examples as positive examples.
+
+However, if the positive and negative examples are the observations of the same learnt concept, then negative examples can be used to supervise the learning of the positive examples.
+
+\begin{exmp}
+TODO
+\end{exmp}
+
+\subsection{Learning with negative examples}
+The requirement to learn the negative examples may be too strong. One could benefit from the supervision by the negative examples for the learning of the positive examples without requiring learning the negative examples.
+
+\begin{defn}
+An ILP problem is a tuple $\langle B, E+, E- \rangle$. $H$ is a correct hypothesis wrt $\angle B, E+, E- \rangle$ iff
+$B \cup H \models E+$, $B \cup H \not\models E-$ and $B \cup H \not\models false$.
+\end{defn}
+
 \subsection{Sematics}
 If one would like to deduce the observations $E$ from the background knowledge $B$ and the hypothesis $H$, in notation $E \subseteq Cn(B \cup H)$, one has to define the consequence operator $Cn$ in order to specify the ILP problem setting.
 
