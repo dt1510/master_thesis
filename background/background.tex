@@ -1,7 +1,7 @@
 
 \chapter{Background Theory}
 
-\section{Prerequisities}
+\section{Prerequisites}
 We assume the reader is familiar with basic concepts in several areas and consider the following references to be potentially useful:
 \begin{enumerate}
 \item Foundations of Inductive Logic Programming by Cheng and Wolf \cite{nienhuys1997foundations}
@@ -99,7 +99,7 @@ $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B
 
 \section{Logics\cite{stanford2010non-monotonic}}
 \begin{defn}
-A (monotone) \emph{consequence operator}\cite{wikipediaClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisflying the following conditions for all sets $X, Y \subseteq S$:
+A (monotone) \emph{consequence operator}\cite{wikipediaClosureOperator} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisfying the following conditions for all sets $X, Y \subseteq S$:
 \begin{enumerate}
 \item $X \subseteq cl(X)$ inclusion,
 \item $cl(cl(X))=cl(X)$ idempotence,
@@ -109,7 +109,7 @@ A (monotone) \emph{consequence operator}\cite{wikipediaClosureOperator} on a set
 
 \begin{defn}
 A \emph{non-monotone consequence operator} on a set $S$ is a function
-$cl:\powerset{S} \to \powerset{S}$ satisflying the condition of extensivity, idempotence and not satisflying the condition of monotony.
+$cl:\powerset{S} \to \powerset{S}$ satisfying the condition of extensivity, idempotence and not satisfying the condition of monotony.
 \end{defn}
 
 We will reason about the models in the first-order logic since this is the language of the model theory. However, there are other logics, notably non-monotonic logics that are used in ILP.
