@@ -2,6 +2,28 @@
 
 \section{ILP problem definition}
 \subsection{Learning problem}
+Inductive logic programming is a subdiscipline of machine learning (subdiscipline of AI) and logic programming. The objective of AI is to construct a machine that capable of doing what requires an intelligence if done by a man. (citation needed). One of the properties of an intelligent entity is the ability to learn. The author would like to put into attention 2 types of learning:
+1. memorization is the ability to record and retrieve the observed data.
+2. pattern recognition is the ability to learn the rules generating the observations from the observed data and the ability to use the learnt rules to predict the unobserved data. The definition of a learning system by Mitchell suggests that machine learning concerns with the pattern recognition.
+
+\begin{defn}\cite{mitchell1997machine}
+A computer program (an ILP system) is said to learn from experience $E$
+with respect some class of tasks $T$ and performance measure $P$,
+if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
+\end{defn}
+
+\subsubsection{Predicting unobserved data}
+Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, $B \cup E+ \models E+$.
+However, if there is a new observation $e \in L_O$ to be made such that
+$B \models E+ \not\models e$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $\models$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
+\begin{lstlisting}
+%Background knowledge
+female(alice). female(jane). female(mary).
+%Observations
+woman(alice). woman(jane). woman(mary).
+\end{lstlisting}
+
+
 \subsection{Learning objective}
 \subsection{Learning new information from given data}
 \subsection{Generalization}
@@ -27,12 +49,21 @@ Solving certain learning problems requires dealing with the knowledge of the inf
 The task of a normal problem setting for inductive logic programming is given background knowledge $B$, positive examples $E+$, negative examples $E-$ to find a hypothesis $H$ such that $B \cup H \models E+$,
 $B \cup H \not\models E-$,
 $B \cup H \not\models false$.
-The logical theories $B$, $E+$, $E-$ specify a learning problem and determine the solution space $\mathcal{H}$ of the correct hypotheses. We learn about the nature of the problem by extracting the properties from the given theories. Learning problems with the identical properties are put in a class. Consequently, we can classify the ILP systems and methods based on the ability to solve a well-defined class of learning problems.
+The logical theories $B$, $E+$, $E-$ specify a learning problem and determine the solution space $\mathcal{H}$ of the correct hypotheses.
+
+\begin{defn}
+An \emph{ILP problem} is a tuple $\langle B, E+, E- \rangle$.
+\end{defn}
+
+We learn about the nature of the problem by extracting the properties from the given theories. Learning problems with the identical properties are put in a class. Consequently, we can classify the ILP systems and methods based on the ability to solve a well-defined class of learning problems.
 
 \subsection{Learning concepts}
 \begin{defn}
-A concept on a domain $M$ is a relation $R \subseteq M^n$ for $n \ge 0$.
+A \emph{concept} on a domain $M$ is a relation $R \subseteq M^n$ for some $n \ge 0$.
+The number $n$ is called \emph{arity of a concept}.
+$M^n$ and $\emptyset$ are \emph{trivial concepts}.
 \end{defn}
+
 \begin{exmp}
 Let the domain $M$ be a human family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
 $male=\{adam, kain, abel\}\subseteq{M}$,
@@ -42,7 +73,7 @@ $mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
 $parent=father \cup mother$.
 \end{exmp}
 \begin{defn}
-A concept $R\subseteq M^n$ is definable in terms of the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
+A concept $R\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
 $\forall (x_1, ..., x_n) \in M^n. R(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
 \end{defn}
 \begin{corollary}
@@ -57,6 +88,14 @@ P(x_1, ..., x_n) \lor \neg Q(x_1, ..., x_n)$.
 3. $\forall x_1, ..., x_n. (P \cap Q)(x_1, ..., x_n) \iff
 P(x_1, ..., x_n) \land Q(x_1, ..., x_n)$.
 \end{proof}
+
+\begin{exmp}
+The concept $father$ is definable from the concepts $male$ and $parent$ by:
+$\forall x_1, x_2 \in M. father(x_1, x_2) \iff parent(x_1, x_2) \land male(x_1)$. In addition using the trivial concepts one could define
+$father=parent \cap (male \times M)$.
+\end{exmp}
+
+\subsubsection{Single concept problems}
 
 
 \subsection{Complexity of a learning problem}
