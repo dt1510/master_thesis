@@ -28,7 +28,7 @@ woman(alice). woman(jane). woman(mary).
 Therefore in order to define the ILP problem completely we have to require learning of the hypotheses with a predicting power.
 
 \begin{defn}
-An ILP problem is a tuple $\langle B, \mathcal{E} \rangle$ where
+An ILP problem of learning in an environment is a tuple $\langle B, \mathcal{E} \rangle$ where
 $\mathcal{E}$ is an environment
 $\mathcal{E}=\langle L, L_O, \mathtt{O}, \mathcal{M} \rangle$
 and 
@@ -37,12 +37,31 @@ $\forall x \in L_O$
 1. $x \in E+ \implies \mathtt{O}(x)=true$,
 2. $x \in E- \implies \mathtt{O}(x)=false$,
 3. $x \in L_O \setminus (E+ \cup E-) \implies \mathtt{O}(x)=\uparrow$.
+\end{defn}
 
+\begin{defn}
+A hypothesis $H$ is correct wrt $B$ and $\mathcal{E}$ iff
+$H$ is correct wrt the defined $B, E+, E-$.
+\end{defn}
 
-A hypothesis $H$ correct wrt $B, E+$ has a predictive power iff
-there exists $x \in L_O$ such that ... TODO
+\begin{defn}
+A hypothesis $H$ has \emph{predictive power} iff there exists
+$x \in L_O$ such that $x \not \in Cn(B \cup E+ \cup E-)$
+and either 1. $x \in Cn(B \cup H)$, or
+or 2. $\neg x \in Cn(B \cup H)$.
+\end{defn}
 
+\begin{defn}
+Let $\mu:\powerset{L_O} \to \mathbb{R}$ be a measure.
+Then the information content of $H$ wrt $B, \mathcal{E}, \mu$
+is a real number defined by
+$I_\mu(H)=\sum_{x \in L_O : \{x, \neg x\} \cap Cn(B \cup H) \not= \emptyset} \mu(x)$.
+\end{defn}
+In words, $I_\mu(H)$ measures the data that is explained by $H$ from the background knowledge $B$.
 
+\begin{defn}
+A hypothesis $H$ \emph{predicts correctly} iff
+$\forall x in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
 \end{defn}
 
 \subsection{Learning objective}
