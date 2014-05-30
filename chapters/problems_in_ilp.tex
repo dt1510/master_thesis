@@ -34,13 +34,31 @@ The logical theories $B$, $E+$, $E-$ specify a learning problem and determine th
 A concept on a domain $M$ is a relation $R \subseteq M^n$ for $n \ge 0$.
 \end{defn}
 \begin{exmp}
-Let the domain $M$ be a family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
+Let the domain $M$ be a human family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
 $male=\{adam, kain, abel\}\subseteq{M}$,
 $female=\{eva\}\subseteq{M}$,
 $father=\{(adam,kain), (adam,abel)\}\subseteq{M^2}$,
 $mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
 $parent=father \cup mother$.
 \end{exmp}
+\begin{defn}
+A concept $R\subseteq M^n$ is definable in terms of the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
+$\forall (x_1, ..., x_n) \in M^n. R(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
+\end{defn}
+\begin{corollary}
+If $P\subseteq{M^n}$, $Q\subseteq{M^n}$ are concepts, then
+1. $P \setminus Q$, 2. $P \cup Q$, 3. $P \cap Q$ are concepts.
+\end{corollary}
+\begin{proof}
+1. $\forall x_1, ..., x_n. (P \setminus Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land \neg Q(x_1, ..., x_n)$.
+2. $\forall x_1, ..., x_n. (P \cup Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \lor \neg Q(x_1, ..., x_n)$.
+3. $\forall x_1, ..., x_n. (P \cap Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land Q(x_1, ..., x_n)$.
+\end{proof}
+
+
 \subsection{Complexity of a learning problem}
 \subsection{Learning syntactic representations}
 \subsection{Learning up to logical equivalence}
