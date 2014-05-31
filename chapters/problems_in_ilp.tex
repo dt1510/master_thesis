@@ -60,8 +60,20 @@ $I_\mu(H)=\sum_{x \in L_O : \{x, \neg x\} \cap Cn(B \cup H) \not= \emptyset} \mu
 In words, $I_\mu(H)$ measures the data that is explained by $H$ from the background knowledge $B$.
 
 \begin{defn}
-A hypothesis $H$ \emph{predicts correctly} iff
+A hypothesis $H$ \emph{predicts correctly} wrt $\mathcal{E}$ (or $\mathcal{M}$) iff
 $\forall x in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
+\end{defn}
+
+Now we are ready to define the ILP problem completely.
+\begin{defn}
+An ILP problem of learning in an environment is a tuple
+$\langle B, \mathcal{E}, \mu \rangle$ where
+$\mathcal{E}$ is an environment,
+$\mu:L_O \to \mathbb{R}$ is a measure.
+The solution to $\langle B, \mathcal{E}, \mu \rangle$
+is a hypothesis $H$ that is correct wrt $B, \mathcal{E}$,
+that predicts correctly wrt $\mathcal{E}$ with the maximal possible
+information content $I_\mu(H)$.
 \end{defn}
 
 \subsection{Learning objective}

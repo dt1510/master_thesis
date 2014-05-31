@@ -1,11 +1,5 @@
 \begin{thebibliography}{NCDW97}
 
-\bibitem[Ant12]{sep-logic-nonmonotonic}
-G.~Aldo Antonelli.
-\newblock Non-monotonic logic.
-\newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
-  Philosophy}. Winter 2012 edition, 2012.
-
 \bibitem[Cla78]{clark1978negation}
 Keith~L Clark.
 \newblock Negation as failure.
@@ -15,11 +9,6 @@ Keith~L Clark.
 Allan Cortzen and Eric~W Weisstein.
 \newblock Measure, 2014.
 \newblock MathWorld--A Wolfram Web Resource.
-
-\bibitem[Goo65]{goodman1965new}
-Nelson Goodman.
-\newblock The new riddle of induction.
-\newblock 1965.
 
 \bibitem[Kim12]{kimber2012learning}
 Timothy Kimber.
@@ -72,6 +61,14 @@ Marek Sergot.
 David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
+
+\bibitem[sta10]{stanford2010non-monotonic}
+Non-monotonic logic, 2010.
+\newblock Stanford Encyclopedia of Philosophy.
+
+\bibitem[wik14]{wikipediaProblemOfInduction}
+Problem of induction, 2014.
+\newblock Wikipedia, The Free Encyclopedia.
 
 \bibitem[YII12]{yamamoto2012inverse}
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
