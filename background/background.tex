@@ -374,3 +374,127 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 4. Induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
 
 5. Increment $i$ and start from step 1 again.
+
+\section{Inductive logic programming}
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
+
+\subsection{ILP problem}
+
+\begin{defn}\cite{corapi2010inductive}
+An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
+
+A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
+i) consistency $false \not \in cl(O \union B \union H)$,
+ii) sufficiency $O \subseteq cl(B \union H)$.
+\end{defn}
+
+In ILP often the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
+
+In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. If the logic programming language is non-monotone, then the consequence operator $cl$ does not satisfly the monotone condition and the division of the examples is conceptually important. The clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
+
+\subsection{ILP concepts}
+
+\subsubsection{Duce's rules for inductive inference\cite{muggleton1995inverse}}
+Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
+lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
+
+Absorption: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
+
+Identification: $A \wedge B \objectImplies p, q \wedge A \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p$,
+
+Intra-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p, C \objectImplies q$
+
+Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models r \wedge B \objectImplies p, A \objectImplies r, r \wedge C \objectImplies q$
+
+\subsubsection{Inverse Entailment}
+Inverse Entailment is a correspondence between an induction and a deduction:
+\begin{thm}\cite{kimber2012learning}
+Let $B$ be a Horn program, and let $h$ and $e$ be
+Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
+\end{thm}
+
+\section{ILP systems}
+
+\subsection{ILP system definition}
+An ILP system is a function
+$f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
+is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
+
+We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretical viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+
+\subsection{TDHD framework\cite{muggleton2008toplog}}
+A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+
+\subsubsection{Toplog\cite{muggleton2008toplog}}
+Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}
+
+\subsubsection{MC-Toplog\cite{muggleton2012mc}}
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
+
+\subsection{Induction on Failure framework\cite{kimber2012learning}}
+Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
+\begin{defn}
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+\end{defn}
+
+\subsubsection{Imparo\cite{kimber2012learning}}
+Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
+\begin{itemize}
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\end{itemize}
+
+\subsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
+Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
+
+\begin{defn}
+\emph{(Meta-Interpretive Learning setting)} A Meta-Interpretive Learning (MIL)
+problem consists of $Input = \langle B, E \rangle$ and $Output =H$ where the background knowledge
+$B = B_M \union B_A$ . $B_M$ is a definite logic program representing a meta-interpreter and $B_A$ and
+$H$ are ground definite Higher-Order Datalog programs consisting of positive unit clauses.
+The predicate symbol constants in $B_A$ and $H$ are represented by Skolem constants. The examples are $E = E^+ , E^−$ where $E^+$ is a ground logic program consisting of positive unit
+clauses and $E^−$ is a ground logic program consisting of negative unit clauses. The $Input$ and
+$Output$ are such that $B, H \models E^+$ and for all $e^-$ in $E^-$, $B, H \not\models e^-$.
+\end{defn}
+
+\begin{defn}
+\emph{(Meta-interpretive learner)} Let $\mathcal{H}_{B,E}$ represent the complete set of abductive
+hypotheses $H$ for the MIL setting of the previous definition. Algorithm $A$ is said to be a Meta-interpretive learner iff for all $B$, $E$ such that $H$ is the output of Algorithm $A$ given $B$ and $E$
+as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
+\end{defn}
+
+Capability of predicate invention.
+Based on T-directed framework. Unique T element. Unique bottom element.
+
+\subsubsection{Metagol}
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
+
+\subsection{Aleph}
+In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
+\begin{enumerate}
+\item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
+\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
+\item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
+\item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
+\end{enumerate}
+
+\subsection{Other systems}
+Some other ILP systems include Aleph, Golem, Progol,
+Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
