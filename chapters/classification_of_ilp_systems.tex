@@ -332,3 +332,247 @@ TODO
 $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
 $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mathcal{H}_{connected\_theory}$
+
+\section{Definition of an ILP problem}
+We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
+
+Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E-$ we mean that no example $e- \in E-$ should be implied by $B \cup H$, therefore $E-$ is meant to be a disjunction (rather than a conjunction like $E+$) of examples. Therefore, $\overline{E-} \equiv \neg E-$.
+
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
+given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
+
+The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
+let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+
+Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
+given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
+We define an ILP system:
+\begin{defn}
+An ILP system is a partial function $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$.
+\end{defn}
+Having defined an ILP problem, we define the correctness of an ILP system:
+\begin{defn}
+An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
+then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
+\end{defn}
+
+\section{Summary}
+
+\subsection{Completeness in generalization\cite{yamamoto2012inverse}}
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Complete in generalization \\ \hline
+    Aleph & no\\ \hline
+    Progol & no\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no*\\ \hline
+    Metagol & yes*\\ \hline
+    Xhail & no\\ \hline
+    Cf-induction & yes\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\subsection{Example learning}
+None of the tested ILP systems can explain the negative examples. All the systems can induce hypotheses that aim to explain the positive examples. All the tested ILP systems accept ground instances of literals for examples.
+\begin{center}
+    \begin{tabular}{ | l | p{5cm} |}
+    \hline
+    ILP system &  Clausal examples \\ \hline
+    Aleph & no\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & no\\ \hline
+    Metagol & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Hypotheses space}
+All systems can learn only the Horn clauses.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Function symbols & Multi-clausal hypotheses & Infinite Herbrand models\\ \hline
+    Aleph & yes & yes & yes\\ \hline
+    Progol & yes & yes & yes*\\ \hline
+    Toplog & no & no & *\\ \hline
+    Imparo & yes & yes & yes\\ \hline
+    Tal & yes & yes & yes\\ \hline
+    Xhail & yes & yes & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Completeness}
+Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
+\begin{center}
+    \begin{tabular}{ | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
+    \hline
+    ILP system & Multi-clausal concepts & Generalization downwards &
+    Double Kleene star & Argument Specialization &
+    Non-observational concepts\\ \hline
+    Aleph & no & yes & no & no & no\\ \hline
+    Progol & yes & no & no & yes & no\\ \hline
+    Toplog & no & no* & no* & no & no\\ \hline
+    Imparo & yes & no & yes* & yes & no\\ \hline
+    Tal & yes & no & no & yes & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Argument Specialization}
+Argument specialization test assesses the ILP system's ability to learn a hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has its target concept
+\begin{lstlisting}
+learns(polymath,A).
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
+
+\subsection{Non-observational concepts}
+The ILP systems were tested if they could learn hypotheses that require multiple hypotheses in order to explain an example, however these hypotheses are not learnable with the cover loop algorithm. A cover loop algorithm learns hypotheses, adds these hypotheses to the background knowledge and tries to learn new hypotheses with the extended background knowledge that would explain not yet covered examples. The cover loop terminates if no new hypothesis is learnt.
+
+An adapted sibling example from Kimber's thesis was used.
+\begin{lstlisting}
+modeh(brother(+person,+person)).modeh(parent(+person,+person)).
+modeb(sibling(+person,+person)).modeb(male(+person)).
+modeb(father(+person,+person)).
+determination(brother/2, sibling/2).determination(brother/2, male/1).
+determination(parent/2, father/2).
+%background knowledge
+male(bart).male(rod).male(todd).parent(homer,bart).
+parent(homer,maggie).father(ned,rod).father(ned,todd).father(homer,lisa).
+male(bart2).male(rod2).male(todd2).parent(homer2,bart2).
+parent(homer2,maggie2).father(ned2,rod2).father(ned2,todd2).father(homer2,lisa2).
+male(bart3).male(rod3).male(todd3).parent(homer3,bart3).
+parent(homer3,maggie3).father(ned3,rod3).father(ned3,todd3).father(homer3,lisa3).
+sibling(X,Y):-parent(Z,X),parent(Z,Y).
+%positive examples
+brother(bart,lisa).brother(rod,todd).
+brother(bart2,lisa2).brother(rod2,todd2).
+brother(bart3,lisa3).brother(rod3,todd3).
+%negative examples, brother(lisa,bart).brother(rod,bart).
+brother(maggie, maggie).parent(lisa,bart).
+\end{lstlisting}
+where we expect to learn the hypothesis
+\begin{lstlisting}
+brother(X,Y):-sibling(X,Y), male(X).parent(X,Y):-father(X,Y).
+\end{lstlisting}
+The second hypothesis \tc{parent(X,Y):-father(X,Y).} generalizes the existing knowledge, however it does not explain any examples. Such learning is called a non-observational learning. In the case of this sibling problem, a general hypothesis consists of an observational part - the first hypothesis and a non-observational part - the second hypothesis.
+Other solutions consisting of purely observational hypotheses are longer and hence depending on our definition of generality, arguably less general.
+
+\subsubsection{Imparo}
+Imparo could not learn the expected hypothesis of the example, it learnt instead
+\begin{lstlisting}
+brother(A,B):-sibling(A,A),male(A)
+brother(rod,todd):-true
+brother(rod3,todd3):-true
+brother(rod2,todd2):-true
+\end{lstlisting}
+
+\subsubsection{Aleph}
+Aleph produces the hypothesis
+\begin{lstlisting}
+brother(A,B) :- sibling(A,A), male(A).
+brother(rod,todd).brother(rod2,todd2).brother(rod3,todd3).
+\end{lstlisting}
+
+\subsubsection{Other systems}
+Progol produces an inconsistent hypothesis \tc{parent(A,B).}. Toplog does not produce any hypothesis. Tal has amongst its solutions the expected hypothesis. However, depending on the depth limit we set, Tal can produce an arbitrarily large number of hypotheses. Thefore, an important work on Tal includes hypothesis selection.
+
+\section{Biases}
+\begin{center}
+    \begin{tabular}{ | l | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Mode declarations & Determinations & Declaration order bias & Alphabetical bias \\ \hline
+    Aleph & yes & yes & yes & no\\ \hline
+    Progol & yes & yes & yes & no\\ \hline
+    Toplog & yes & no & yes & no\\ \hline
+    Imparo & yes & no & yes & no\\ \hline
+    Tal & yes & no & no & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Violations}
+All tested systems suffer from weak-head mode declaration bias.
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Correct example bias\\ \hline
+    Aleph & yes\\ \hline
+    Progol & yes\\ \hline
+    Toplog & no\\ \hline
+    Imparo & no\\ \hline
+    Tal & yes\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Robustness}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & Consistency check & Always terminated\\ \hline
+    Aleph & no & yes\\ \hline
+    Progol & yes & yes\\ \hline
+    Toplog & no & yes\\ \hline
+    Imparo & no & no\\ \hline
+    Tal & no & no\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Completeness of theoretical frameworks}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP framework & General Clause Hypothesis\\ \hline
+    Bottom Generalization & no\\ \hline
+    Induction on Failure & no\\ \hline
+    CF-induction & yes\\ \hline
+    TDHD & no\\ \hline
+    MIL & \\ \hline
+    \hline
+    \end{tabular}
+
+\section{Other}
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & \\ \hline
+    Progol & \\ \hline
+    Toplog & \\ \hline
+    Imparo & \\ \hline
+    Tal & \\ \hline
+    \hline
+    \end{tabular}
+\end{center}
