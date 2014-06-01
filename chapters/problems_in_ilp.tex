@@ -56,7 +56,7 @@ $O=\{ H : B \cup H \models E+$, $B \cup H \not\models E-$, $B \cup \not\models f
 
 But before we proceed further we would like to start with a simpler and more general definition.
 \begin{defn}
-\emph{Explanatory induction} is a pair $D=\langle I, R \rangle$
+\emph{Explanatory induction}\cite{yamamoto2012inverse} is a pair $D=\langle I, R \rangle$
 the input is $I=\langle B, E+ \rangle$ and a parial solution is $H$ satifying
 $E+ \subseteq Cn(B \cup H), false \not\in \subseteq Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
@@ -168,6 +168,10 @@ $I_\mu(H_1)=4$, $I_\mu(H_2)=3$, $I_\mu(H_3)=2$. Hence the hypothesis $H_2$ is st
 \end{exmp}
 
 \subsection{Learning objective}
+The reader has seen some of the hints as to what a learning objective may be. However, in a strict sense normal problem setting, explanatory induction and learning in an environment may not provide the objectives of learning that we seek. They may be strategies to achieving the objective, but the distinction should always be kept in mind.
+
+
+
 \subsection{Learning new information from given data}
 \subsection{Generalization}
 \subsection{Negative examples}
@@ -219,10 +223,10 @@ Solving certain learning problems requires dealing with the knowledge of the inf
 \subsubsection{Restricting the solution space}
 Since the logic language $L$ is infinite, the number of the solutions may potentially be infinite as well. If one wishes to consider a smaller set of the solutions one may introduce a space of the possible solutions (a bias) $\mathcal{H}$.
 \begin{defn}
-Given an ILP problem $G=\langle \overrightarrow{g} \rangle$,
-an ILP problem $G$ with a bias $\mathcal{H}$ is a problem
-$G'=\langle g, \mathcal{H} \rangle$.
-A hypothesis $H$ is a solution to $G'$ iff $H$ is a solution of $G$ and $H \in \mathcal{H}$.
+Given an ILP problem $I=\langle \overrightarrow{i} \rangle$,
+an ILP problem $I'$ with a bias $\mathcal{H}$ is a problem
+$I'=\langle \overrightarrow{i}, \mathcal{H} \rangle$.
+A hypothesis $H$ is a (parial) solution to $I'$ iff $H$ is a (partial) solution of $I$ and $H \in \mathcal{H}$.
 \end{defn}
 
 \subsection{Summary of definitions of an ILP problem}
