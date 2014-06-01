@@ -29,14 +29,34 @@ The standard definition of an ILP problem is a normal problem setting\cite{nienh
 \begin{defn}\label{normal_problem_setting}
 Given a finite set of clauses $B$ (background knowledge),
 and a sets of clauses $E+$, $E-$ (positive and negative examples),
-find a theory $H$ such that $B \cup H \models E+$,
+find a theory (correct hypothesis) $H$ such that $B \cup H \models E+$,
 $B \cup H \not\models E-$, $B \cup \not\models false$.
 \end{defn}
 
 We are going to address the problems that are usually sought to be solved withing the field an ILP, the problems that tacitly modify and extend the definition \ref{normal_problem_setting}.
 
-\subsubsection{Notation}
-When reasoning about an ILP problem we will always mean by $B$ the background knowledge, by $E+$ the positive examples, $E-$ the negative examples.
+\begin{defn}
+An \emph{ILP problem definition} is a pair $D=\langle I, R \rangle$ where
+$I=\langle \overrightarrow{i} \rangle$ is an input specified by an input vector,
+$I$ is \emph{an ILP problem} in a problem setting specified by the definition $D$.
+$R$ is a set of rules specifying what constitutes a \emph{unique solution} (or output) $O$ of a problem $I$.
+\end{defn}
+We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A read may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$. An output $O$ is not included in the definition of an ILP problem definition it does not specify the input problem, however we always think of $O$ being part of $D$ implicitly.
+
+The normal problem setting does not provide does not provide information on which hypothesis should be chosen if two hypothesis $H_1$ and $H_2$ are correct wrt $B, E+, E-$. Since we require a unique solution, the solution to the normal problem setting ILP problem is a set of all correct hypotheses wrt $B, E+, E-$.
+\begin{defn}
+\emph{Normal problem setting} is a pair $D=\langle I, R \rangle$ where
+the input is $I=\langle B, E+, E- \rangle$ and the solution (output)
+$O=\{ H : B \cup H \models E+$, $B \cup H \not\models E-$, $B \cup \not\models false \}$ where the semantics of $models$ is induced by some logic programming language interpreter.
+\end{defn}
+
+But before we proceed further we would like to start with a simpler and more general definition.
+\begin{defn}
+\emph{Explanatory induction} is a pair $D=\langle I, R \rangle$
+the input is $I=\langle B, E+ \rangle$ and the solution (output)
+$O=\{ H : E+ \subseteq Cn(B \cup H), false \not\in \subseteq Cn(B \cup H) \}$ for some consequence operator $Cn$.
+\end{defn}
+Unlike normal problem setting, explanatory induction does not specify the solution in terms of the negative examples. The exact spefification of the consequence operator $Cn$ is included in the rules $R$. Hence, we may have explanatory induction with a monotonic consequence operator or explanatory induction with non-monotonic consequence operator. The role of the semantics in the definition of an ILP problem is further explored in \ref{problems_in_ilp_semantics}.
 
 \subsection{Learning problem}
 Inductive logic programming is a subdiscipline of machine learning (subdiscipline of AI) and logic programming. The objective of AI is to construct a machine that capable of doing what requires an intelligence if done by a man. (citation needed). One of the properties of an intelligent entity is the ability to learn. The author would like to put into attention 2 types of learning:
@@ -176,7 +196,7 @@ An ILP problem is a tuple $\langle B, E+, E- \rangle$. $H$ is a correct hypothes
 $B \cup H \models E+$, $B \cup H \not\models E-$ and $B \cup H \not\models false$.
 \end{defn}
 
-\subsection{Sematics}
+\subsection{Sematics}\label{problems_in_ilp_semantics}
 If one would like to deduce the observations $E$ from the background knowledge $B$ and the hypothesis $H$, in notation $E \subseteq Cn(B \cup H)$, one has to define the consequence operator $Cn$ in order to specify the ILP problem setting.
 
 The choice of the consequence operator specifies the interpretation of the learning problem, impacts what concepts $H$ are learnable from the background knowledge $B$ and the observations $E$ and what algorithm should be used to solve a specified inductive learning problem.
