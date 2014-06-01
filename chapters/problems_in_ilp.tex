@@ -43,7 +43,11 @@ $R$ is a set of rules specifying what constitutes a \emph{unique solution} (or o
 \end{defn}
 We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A read may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$. An output $O$ is not included in the definition of an ILP problem definition it does not specify the input problem, however we always think of $O$ being part of $D$ implicitly.
 
-The normal problem setting does not provide does not provide information on which hypothesis should be chosen if two hypothesis $H_1$ and $H_2$ are correct wrt $B, E+, E-$. Since we require a unique solution, the solution to the normal problem setting ILP problem is a set of all correct hypotheses wrt $B, E+, E-$.
+It may not always be convenient to define a definition $D$ in one definition. We may wish to specify the input $I$ and then define several different sets of rules $R_1, ..., R_n$ that define the solution for $I$ and hence defining definitions $D_1=\langle I, R_1\rangle$, ..., $D_n=\langle I, R_n \rangle$.
+
+If a solution to a problem $I$ is a set $O$, then we say that an element $H \in O$ is a \emph{partial solution}. It is sufficient to specify a partial solution $H$, then it is assumed implicitly that the solution $O$ to $I$ is a set of all partial solutions $H$ to $I$.
+
+The normal problem setting does not provide information on which hypothesis should be chosen if two hypothesis $H_1$ and $H_2$ are correct wrt $B, E+, E-$. Since we require a unique solution, the solution to the normal problem setting ILP problem is a set of all correct hypotheses wrt $B, E+, E-$ (partial solutions).
 \begin{defn}
 \emph{Normal problem setting} is a pair $D=\langle I, R \rangle$ where
 the input is $I=\langle B, E+, E- \rangle$ and the solution (output)
@@ -53,8 +57,8 @@ $O=\{ H : B \cup H \models E+$, $B \cup H \not\models E-$, $B \cup \not\models f
 But before we proceed further we would like to start with a simpler and more general definition.
 \begin{defn}
 \emph{Explanatory induction} is a pair $D=\langle I, R \rangle$
-the input is $I=\langle B, E+ \rangle$ and the solution (output)
-$O=\{ H : E+ \subseteq Cn(B \cup H), false \not\in \subseteq Cn(B \cup H) \}$ for some consequence operator $Cn$.
+the input is $I=\langle B, E+ \rangle$ and a parial solution is $H$ satifying
+$E+ \subseteq Cn(B \cup H), false \not\in \subseteq Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
 Unlike normal problem setting, explanatory induction does not specify the solution in terms of the negative examples. The exact spefification of the consequence operator $Cn$ is included in the rules $R$. Hence, we may have explanatory induction with a monotonic consequence operator or explanatory induction with non-monotonic consequence operator. The role of the semantics in the definition of an ILP problem is further explored in \ref{problems_in_ilp_semantics}.
 
@@ -64,15 +68,15 @@ Inductive logic programming is a subdiscipline of machine learning (subdisciplin
 2. pattern recognition is the ability to learn the rules generating the observations from the observed data and the ability to use the learnt rules to predict the unobserved data. The definition of a learning system by Mitchell suggests that machine learning concerns with the pattern recognition.
 
 \begin{defn}\cite{mitchell1997machine}
-A computer program (an ILP system) is said to learn from experience $E$
+A computer program (an ILP system) is said to learn from experience $E$ (observations)
 with respect some class of tasks $T$ and performance measure $P$,
 if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
 \end{defn}
 
 \subsubsection{Predicting unobserved data}
-Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, $B \cup E+ \models E+$.
+Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, i.e. $E+ \subseteq Cn(B \cup E+)$.
 However, if there is a new observation $e \in L_O$ to be made such that
-$B \models E+ \not\models e$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $\models$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
+$e \not \in Cn(B \cup E+)$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $Cn$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
 \begin{exmp}
 \begin{lstlisting}
 %Background knowledge
@@ -85,7 +89,7 @@ woman(alice). woman(jane). woman(mary).
 Therefore in order to define the ILP problem completely we have to require learning of the hypotheses with a predicting power.
 
 \begin{defn}
-An ILP problem of learning in an environment is a tuple $\langle B, \mathcal{E} \rangle$ where
+An ILP problem of \emph{learning in an environment} is a tuple $I=\langle B, \mathcal{E} \rangle$ where
 $\mathcal{E}$ is an environment
 $\mathcal{E}=\langle L, L_O, \mathtt{O}, \mathcal{M} \rangle$
 and 
@@ -126,13 +130,13 @@ A hypothesis $H$ \emph{predicts correctly} wrt $\mathcal{E}$ (or $\mathcal{M}$) 
 $\forall x \in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
 \end{defn}
 
-Now we are ready to define the ILP problem completely.
+Now we are ready to complete the definition of learning in an environment.
 \begin{defn}
 An ILP problem of learning in an environment is a tuple
-$\langle B, \mathcal{E}, \mu \rangle$ where
+$I=\langle B, \mathcal{E}, \mu \rangle$ where
 $\mathcal{E}$ is an environment,
 $\mu:L_O \to \mathbb{R}$ is a measure.
-The solution to $\langle B, \mathcal{E}, \mu \rangle$
+A partial solution to $I$
 is a hypothesis $H$ that is correct wrt $B, \mathcal{E}$,
 that predicts correctly wrt $\mathcal{E}$ with the maximal possible
 information content $I_\mu(H)$.
