@@ -34,6 +34,7 @@
 \BOOKMARK [2][-]{subsection.3.1.8}{Learning with negative examples}{section.3.1}
 \BOOKMARK [2][-]{subsection.3.1.9}{Sematics}{section.3.1}
 \BOOKMARK [2][-]{subsection.3.1.10}{Assumption of the probable information}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.11}{Summary of definitions of an ILP problem}{section.3.1}
 \BOOKMARK [1][-]{section.3.2}{Completeness by problem classes}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.2.1}{Learning concepts}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.2}{Complexity of a learning problem}{section.3.2}
@@ -52,8 +53,9 @@
 \BOOKMARK [1][-]{section.3.5}{Research in ILP}{chapter.3}
 \BOOKMARK [1][-]{section.3.6}{Classification of ILP systems}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Classification of inductive logic programming systems}{}
-\BOOKMARK [1][-]{section.4.1}{Semantics of learning problem}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Expressing non-monotonic semantics in the classical logic}{section.4.1}
+\BOOKMARK [1][-]{section.4.1}{ILP system definition}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Semantics of learning problem}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Expressing non-monotonic semantics in the classical logic}{section.4.2}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to problems in inductive logic programming}{}
 \BOOKMARK [0][-]{chapter.6}{Evaluation}{}
 \BOOKMARK [1][-]{section.6.1}{Self-critique}{chapter.6}

@@ -1,6 +1,41 @@
 \chapter{Problems in inductive logic programming}
 
 \section{ILP problem definition}
+This section explores the problems associated with defining an ILP problem as a learning problem. Although on the surface there may seem to be a standard definition, in the chapter \ref{chap:classification_of_ilp_systems} we demonstrate that when specifying the ILP problem completely, each ILP system classified solves a different problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
+
+\subsubsection{Importance of complete definitions and Chess}
+The author would like to think of problem solving as a process of computation. A problem is specified if there is a definition of what constitutes its input and of what constitutes its output (a solution). Therefore one can think of a problem as a relation (not necessarily computable or total) between the set of inputs and the space of solutions. A problem is \emph{fully specified} if this relation is a function, that is, there is no uncertainty about its solution. If we would like to say that a problem has $n$ solutions, then in our context we will mean that a problem has one solution which is a set of $n$ elements consisting of these \emph{partial solutions}.
+
+Imagine one would like to write a system that wins the game of Chess by playing against other player. One could define all the movements allowed in Chess, but if the objective is left undefined, there are many possibilities for defining what constitutes a win including:
+\begin{enumerate}
+\item\label{itm:i1} get rid of your figures in the fewest possible moves,
+\item\label{itm:i2} get rid of your opponent's figures in the fewest possible moves,
+\item\label{itm:i3} make a move in the shortest possible time,
+\item\label{itm:i4} maximize the number of the moves with the queen in a game,
+\item\label{itm:i4b} make more moves with a queen than your opponent in a game,
+\item\label{itm:i5} remove the opponent's queen in the fewest possible moves since the game start,
+\item\label{itm:i6} minimize the distance of your figures from the center of the chessboard,
+\item\label{itm:i7} force the opponent's king to move into a corner,
+\item\label{itm:i8} maximize the number of checks to the opponent,
+\item\label{itm:i9} checkmate the opponent,
+\item\label{itm:i10} checkmate the opponent and do not run out of the time.
+\end{enumerate}
+The objective of Chess is \ref{itm:i9} or \ref{itm:i10}, although other objectives may seem reasonable, their achievement does not guarantee a win of a player. The rules of chess and the objective \ref{itm:i9} together imply the objective \ref{itm:i10}, hence it is not necessary to require a more complex definition \ref{itm:i10} instead of \ref{itm:i9}. \ref{itm:i4} is an objective of an optimizaton problem. If the opponent makes more moves with a queen, \ref{itm:i4} does not specify whether such a result would constitute a win, a loss or a draw.
+\ref{itm:i4b} and \ref{itm:i4} seem to define the same problem, however the objectives are different and \ref{itm:i4b} defines what it means to win the game over the other player.
+One should distinguish between \emph{strategies} like \ref{itm:i1}, \ref{itm:i2}, \ref{itm:i3}, \ref{itm:i6} and an objective \ref{itm:i9}. Strategies can be used to achieve an objective, however, they do not guarantee its achievement. In particular, \ref{itm:i1} is a unadvisable strategy and would likely result in a loss of the game against a modest opponent.
+
+\subsubsection{Formalising a definition}
+The standard definition of an ILP problem is a normal problem setting\cite{nienhuys1997foundations}
+\begin{defn}\label{normal_problem_setting}
+Given a finite set of clauses $B$ (background knowledge),
+and a sets of clauses $E+$, $E-$ (positive and negative examples),
+find a theory $H$ such that $B \cup H \models E+$,
+$B \cup H \not\models E-$, $B \cup \not\models false$.
+\end{defn}
+
+We are going to address the problems that are usually sought to be solved withing the field an ILP, the problems that tacitly modify and extend the definition \ref{normal_problem_setting}.
+
+\subsubsection{Notation}
 When reasoning about an ILP problem we will always mean by $B$ the background knowledge, by $E+$ the positive examples, $E-$ the negative examples.
 
 \subsection{Learning problem}
@@ -18,12 +53,14 @@ if its performance at tasks $T$ as measured by $P$ improves with the experience 
 Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, $B \cup E+ \models E+$.
 However, if there is a new observation $e \in L_O$ to be made such that
 $B \models E+ \not\models e$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $\models$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
+\begin{exmp}
 \begin{lstlisting}
 %Background knowledge
 female(alice). female(jane). female(mary).
 %Observations
 woman(alice). woman(jane). woman(mary).
 \end{lstlisting}
+\end{exmp}
 
 Therefore in order to define the ILP problem completely we have to require learning of the hypotheses with a predicting power.
 
@@ -36,7 +73,7 @@ $\mathtt{O}:L_O \to \{true, false\}$ is a partial function from which the positi
 $\forall x \in L_O$
 1. $x \in E+ \implies \mathtt{O}(x)=true$,
 2. $x \in E- \implies \mathtt{O}(x)=false$,
-3. $x \in L_O \setminus (E+ \cup E-) \implies \mathtt{O}(x)=\uparrow$.
+3. $x \in L_O \setminus (E+ \cup E-) \implies \mathtt{O}(x)\uparrow$.
 \end{defn}
 
 \begin{defn}
@@ -57,11 +94,16 @@ Then the information content of $H$ wrt $B, \mathcal{E}, \mu$
 is a real number defined by
 $I_\mu(H)=\sum_{x \in L_O : \{x, \neg x\} \cap Cn(B \cup H) \not= \emptyset} \mu(x)$.
 \end{defn}
-In words, $I_\mu(H)$ measures the data that is explained by $H$ from the background knowledge $B$.
+In words, $I_\mu(H)$ measures the observable data that is explained by $H$ from the background knowledge $B$.
+
+\begin{defn}
+A hypothesis $H_1$ is \emph{stronger} wrt $B, \mathcal{E}, \mu$ than the hypothesis $H_2$
+iff $I_\mu(H_1) > I_\mu(H_2)$.
+\end{defn}
 
 \begin{defn}
 A hypothesis $H$ \emph{predicts correctly} wrt $\mathcal{E}$ (or $\mathcal{M}$) iff
-$\forall x in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
+$\forall x \in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
 \end{defn}
 
 Now we are ready to define the ILP problem completely.
@@ -75,6 +117,31 @@ is a hypothesis $H$ that is correct wrt $B, \mathcal{E}$,
 that predicts correctly wrt $\mathcal{E}$ with the maximal possible
 information content $I_\mu(H)$.
 \end{defn}
+That is $H$ is a solution to $\langle B, \mathcal{E}, \mu \rangle$ iff there is no other hypothesis $H'$ correct wrt $B, \mathcal{E}$ predicting correctly wrt $\mathcal{E}$ that is stronger than $H$.
+
+\begin{exmp}
+Let the domain be $M=\{adam, alice, bob, mary\}$.
+Let the signature of the observational language be $\mathcal{L}_O=\{scientist\}$.
+Let the oracle $\mathtt{O}:L_O \to \{true, false\}$ be defined by $\mathtt{O}=\{(academic(adam),true), (academic(alice), true)\}$.
+Hence the corresponding positive examples are
+$E+=\{academic(adam), academic(alice)\}$, and negative examples $E-=\emptyset$.
+Let the measure $\mu:\powerset{L_O} \to \mathbb{R}$ be additive (i.e. linear) defined by $\mu(academic(x))=1$ for $x \in M$.
+Let the background theory be $B=\{mathematician(adam), mathematician(bob),
+\neg mathematician(alice), scientist(alice),\\
+\neg scientist(mary),
+scientist(X) \leftObjectImplies mathematician(X)
+\}$.
+Further let the full theory of the reality $\mathcal{M}$ contain the statements
+$\{academic(alice), \neg academic(mary) \}$.
+Define hypotheses
+$H_1=academic(X)$,
+$H_2=academic(X) \leftObjectImplies scientist(X)$,
+$H_3=academic(X) \leftObjectImplies mathematician(X)$.
+Let $Cn$ be the classical consequence operator.
+
+Then all 3 hypotheses are correct hypotheses. However $H_1$ does not predict correctly an instance $mary$. The information content of the hypotheses is
+$I_\mu(H_1)=4$, $I_\mu(H_2)=3$, $I_\mu(H_3)=2$. Hence the hypothesis $H_2$ is stronger than $H_3$ and if our bias of the possible solutions were $\mathcal{H}=\{H_1, H_2, H_3\}$ then the solution to the ILP problem of learning in an environment with a bias $\mathcal{H}$ is the hypothesis $H_2$ since it predicts correctly and has the maximal information content.
+\end{exmp}
 
 \subsection{Learning objective}
 \subsection{Learning new information from given data}
@@ -125,6 +192,31 @@ Solving certain learning problems requires dealing with the knowledge of the inf
 
 \subsubsection{Ability to withdraw conclusions}
 
+\subsubsection{Restricting the solution space}
+Since the logic language $L$ is infinite, the number of the solutions may potentially be infinite as well. If one wishes to consider a smaller set of the solutions one may introduce a space of the possible solutions (a bias) $\mathcal{H}$.
+\begin{defn}
+Given an ILP problem $G=\langle \overrightarrow{g} \rangle$,
+an ILP problem $G$ with a bias $\mathcal{H}$ is a problem
+$G'=\langle g, \mathcal{H} \rangle$.
+A hypothesis $H$ is a solution to $G'$ iff $H$ is a solution of $G$ and $H \in \mathcal{H}$.
+\end{defn}
+
+\subsection{Summary of definitions of an ILP problem}
+TODO make a summary of the suggested ILP definition, not specific to the systems.
+Let 
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+	ILP problem name & Specification & Solution\\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
 
 \section{Completeness by problem classes}
 The task of a normal problem setting for inductive logic programming is given background knowledge $B$, positive examples $E+$, negative examples $E-$ to find a hypothesis $H$ such that $B \cup H \models E+$,
