@@ -25,26 +25,29 @@
 \BOOKMARK [0][-]{chapter.3}{Problems in inductive logic programming}{}
 \BOOKMARK [1][-]{section.3.1}{ILP problem definition}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{Learning problem}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.2}{Learning objective}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Predicting unobserved data}{section.3.1}
 \BOOKMARK [2][-]{subsection.3.1.3}{Learning new information from given data}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.4}{Generalization}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.5}{Negative examples}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.6}{Learning positive examples}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.7}{Learning negative examples}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.8}{Learning with negative examples}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.9}{Sematics}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.10}{Assumption of the probable information}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.11}{Summary of definitions of an ILP problem}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.4}{Inductive inference}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.5}{Generalization}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.6}{Learning objective}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.7}{Negative examples}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.8}{Learning positive examples}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.9}{Learning negative examples}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.10}{Learning with negative examples}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.11}{Sematics}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.12}{Assumption of the probable information}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.13}{Summary of definitions of an ILP problem}{section.3.1}
 \BOOKMARK [1][-]{section.3.2}{Completeness by problem classes}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.2.1}{Learning concepts}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.2}{Complexity of a learning problem}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.3}{Learning syntactic representations}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.4}{Learning up to logical equivalence}{section.3.2}
 \BOOKMARK [1][-]{section.3.3}{Hypothesis selection}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Information content of a hypothesis}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Inducing preferences over hypotheses space}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{Hypothesis sufficiency}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.4}{Hypothesis approximation}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Hypothesis properties}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Information content of a hypothesis}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Inducing preferences over hypotheses space}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Hypothesis sufficiency}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Hypothesis approximation}{section.3.3}
 \BOOKMARK [1][-]{section.3.4}{Hypothesis search}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.4.1}{Postulates of inductive inference}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.2}{Inductive inference rules}{section.3.4}
@@ -56,6 +59,17 @@
 \BOOKMARK [1][-]{section.4.1}{ILP system definition}{chapter.4}
 \BOOKMARK [1][-]{section.4.2}{Semantics of learning problem}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.2.1}{Expressing non-monotonic semantics in the classical logic}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Language bias}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Language bias benefits}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Language bias problems}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.3}{Language bias in ILP}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.4}{Syntactic biases}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.5}{Semantic biases}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{Biases in ILP systems}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{Toplogmuggleton2008toplog}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{Imparokimber2009induction}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.3}{Metagol}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.4}{Comparison of biases in ILP systems}{section.4.4}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to problems in inductive logic programming}{}
 \BOOKMARK [0][-]{chapter.6}{Evaluation}{}
 \BOOKMARK [1][-]{section.6.1}{Self-critique}{chapter.6}

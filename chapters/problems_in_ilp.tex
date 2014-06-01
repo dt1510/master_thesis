@@ -1,6 +1,6 @@
 \chapter{Problems in inductive logic programming}
 
-\section{ILP problem definition}
+\section{ILP problem definition}\label{ilp_problem_definition}
 This section explores the problems associated with defining an ILP problem as a learning problem. Although on the surface there may seem to be a standard definition, in the chapter \ref{chap:classification_of_ilp_systems} we demonstrate that when specifying the ILP problem completely, each ILP system classified solves a different problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
 
 \subsubsection{Importance of complete definitions and Chess}
@@ -73,7 +73,7 @@ with respect some class of tasks $T$ and performance measure $P$,
 if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
 \end{defn}
 
-\subsubsection{Predicting unobserved data}
+\subsection{Predicting unobserved data}
 Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, i.e. $E+ \subseteq Cn(B \cup E+)$.
 However, if there is a new observation $e \in L_O$ to be made such that
 $e \not \in Cn(B \cup E+)$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $Cn$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
@@ -167,13 +167,16 @@ Then all 3 hypotheses are correct hypotheses. However $H_1$ does not predict cor
 $I_\mu(H_1)=4$, $I_\mu(H_2)=3$, $I_\mu(H_3)=2$. Hence the hypothesis $H_2$ is stronger than $H_3$ and if our bias of the possible solutions were $\mathcal{H}=\{H_1, H_2, H_3\}$ then the solution to the ILP problem of learning in an environment with a bias $\mathcal{H}$ is the hypothesis $H_2$ since it predicts correctly and has the maximal information content.
 \end{exmp}
 
+\subsection{Learning new information from given data}
+\subsection{Inductive inference}
+
+\subsection{Generalization}
+
 \subsection{Learning objective}
 The reader has seen some of the hints as to what a learning objective may be. However, in a strict sense normal problem setting, explanatory induction and learning in an environment may not provide the objectives of learning that we seek. They may be strategies to achieving the objective, but the distinction should always be kept in mind.
 
 
 
-\subsection{Learning new information from given data}
-\subsection{Generalization}
 \subsection{Negative examples}
 An example $e \in L_O$ is negative iff $\mathtt{O}(e)=false$.
 \subsection{Learning positive examples}
@@ -303,7 +306,32 @@ $father=parent \cap (male \times M)$.
 \subsection{Learning syntactic representations}
 \subsection{Learning up to logical equivalence}
 \section{Hypothesis selection}
+In \nameref{ilp_problem_definition} we required that an ILP problem has a unique solution. When formalising a definition that allowed several possible solutions we defined that such solutions were partial and the unique solution to the problem was a set of partial solutions.
+
+For some learning objectives a set of solutions may be acceptable, for other learning objectives several possible solutions indicate that the problem has not been completely solved. This section analyses properties of a hypothesis, what it means for a hypothesis to have some specific property and how this information can be used to make a choice.
+
+\subsection{Hypothesis properties}
+We think of a property on a hypothesis as boolean valued function
+$P:\mathcal{H} \to \{true, false\}$. We seek to list the intuitive notions of possible properties a hypothesis may have and formalise the most relevant ones.
+
+\subsubsection{Hypothesis form}
+An induction of hypotheses of certain forms tends to be statistically more successful than an induction of hypotheses of other forms.
+Although one may hide the problem by introducing the Occam's razor to prefer the hypotheses of the simpler form, Goodman cautions in \cite{goodman1965new} that the form of the hypothesis depends on the description language as paraphrased:
+
+\begin{cite}{goodman1965new}
+Let H1 be a hypothesis that all emeralds are green. Let H2 be a hypothesis that all emeralds are grue - that is green until some time T in the future and blue afterwards. Then both H1 and H2 are (correct in ILP sense) explanations of our observations of green emeralds. However, we prefer inducing that all emeralds are green, not grue. The preference cannot be directly attributed to the complexity of the hypothesis. For suppose that the initial concepts are grue and brue - blue until the time T and green afterwards. Then H1 has a complex definition in terms of grue and brue whereas H2 is defined trivially by the initial concept grue.
+\end{cite}
+
+\subsubsection{Syntactic properties}
+A property $P:\mathcal{H} \to \{true, false\}$ is syntactic iff $P$ is invariant under the logical equivalence, i.e.
+$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
+The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc. TODO
+
+
+\subsubsection{Semantic properties}
+
 \subsection{Information content of a hypothesis}
+
 \subsection{Inducing preferences over hypotheses space}
 \subsection{Hypothesis sufficiency}
 \subsection{Hypothesis approximation}
