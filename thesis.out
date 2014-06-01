@@ -84,18 +84,41 @@
 \BOOKMARK [2][-]{subsection.4.4.2}{Imparokimber2009induction}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.3}{Metagol}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.4}{Comparison of biases in ILP systems}{section.4.4}
+\BOOKMARK [1][-]{section.4.5}{Definition of an ILP problem}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{Inverse Subsumption for Complete Explanatory Induction}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.2}{Extension to first-order theories}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.3}{Extension to cover negative examples}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.4}{Imparo extension}{section.4.5}
+\BOOKMARK [1][-]{section.4.6}{Summary}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.6.1}{Completeness in generalizationyamamoto2012inverse}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.2}{Example learning}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.3}{Hypotheses space}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.4}{Completeness}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.5}{Argument Specialization}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.6}{Non-observational concepts}{section.4.6}
+\BOOKMARK [1][-]{section.4.7}{Biases}{chapter.4}
+\BOOKMARK [1][-]{section.4.8}{Violations}{chapter.4}
+\BOOKMARK [1][-]{section.4.9}{Robustness}{chapter.4}
+\BOOKMARK [1][-]{section.4.10}{Completeness of theoretical frameworks}{chapter.4}
+\BOOKMARK [1][-]{section.4.11}{Other}{chapter.4}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to problems in inductive logic programming}{}
-\BOOKMARK [0][-]{chapter.6}{Evaluation}{}
-\BOOKMARK [1][-]{section.6.1}{Self-critique}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{Measuring the success}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Work nature}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{Work relevance}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Size of contribution}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.4}{Work impact}{section.6.2}
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}
-\BOOKMARK [1][-]{section.7.1}{Summary of Thesis Achievements}{chapter.7}
-\BOOKMARK [1][-]{section.7.2}{Applications}{chapter.7}
-\BOOKMARK [1][-]{section.7.3}{Future Work}{chapter.7}
+\BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
+\BOOKMARK [1][-]{section.6.1}{Suggested solutions}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.1.1}{Faster consistency checkyamamoto2012comparison}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.2}{Hypothesis selection}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.3}{Hypotheses enumeration}{section.6.1}
+\BOOKMARK [1][-]{section.6.2}{Unresolved problems}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Evaluation}{}
+\BOOKMARK [1][-]{section.7.1}{Self-critique}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Measuring the success}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Work nature}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{Work relevance}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.3}{Size of contribution}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.4}{Work impact}{section.7.2}
+\BOOKMARK [0][-]{chapter.8}{Conclusion}{}
+\BOOKMARK [1][-]{section.8.1}{Summary of Thesis Achievements}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Applications}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{Future Work}{chapter.8}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of ILP systems on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Toplog}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Mode declarations order bias}{section.1.1}

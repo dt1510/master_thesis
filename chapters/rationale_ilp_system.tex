@@ -1,0 +1,21 @@
+\chapter{Rationale ILP system}
+
+After having reviewed ILP systems, we aim to design a custom ILP system called Rationale that would address some of the problems we have encountered in the ILP systems.
+
+\section{Suggested solutions}
+Our suggested solutions are an extension of the work\cite{yamamoto2012inverse} by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
+
+\subsection{Faster consistency check\cite{yamamoto2012comparison}}
+Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
+
+\subsection{Hypothesis selection}
+Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
+
+We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
+\subsection{Hypotheses enumeration}
+Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
+
+\section{Unresolved problems}
+\begin{itemize}
+\item The background theory has to be Horn.
+\end{itemize}
