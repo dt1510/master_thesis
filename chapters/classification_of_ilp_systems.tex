@@ -47,7 +47,13 @@ find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \o
 Clark completion translates a normal logic program $P$ into the first order theory $T$ so that for the Herbrand model $M$ of $P$ and the first-order model $\mathcal{M}$ of $T$ for every atom $a$ in the language $L$ the following statement is true:
 $a \in M \iff \mathcal{M} \models a$.
 
+\section{Hypothesis selection}
+
+\section{Hypothesis search}
+
 \section{Language bias}
+One of the strategies ILP systems use for solving the problems of the hypothesis selection and hypothesis search is the introduction of a language bias.
+
 \begin{defn}
 Given a language $L$, the \emph{language bias} is a property (a boolean valued function) $P$ defined on all words of $L$.
 \end{defn}
@@ -373,7 +379,22 @@ $\mathcal{H}_{Toplog} \subseteq \mathcal{H}_{Imparo}$
 
 $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mathcal{H}_{connected\_theory}$
 
-\section{Inverse Subsumption for Complete Explanatory Induction}
+\section{Inverse Subsumption for Complete Explanatory Induction}\cite{yamamoto2012inverse}
+
+\subsection{IE algorithm\cite{yamamoto2012inverse}}
+Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E+,E-,\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+iff
+$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
+ $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+ 
+They compute the hypothesis $H$ in two steps:
+1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
+
+The use of the inverse entailment in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. We classify the ILP systems based on whether the use of their induction technique with the inverse subsumption instead of the inverse entailment preserves the completeness for finding all the correct hypotheses.
+
 \begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
 Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
 respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
@@ -381,112 +402,8 @@ respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $
 $H \subsumes \tau(M(F \cup Taut(I_H))$.
 \end{lemma}
 
-\subsection{Extension to first-order theories}
-A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of the minimal complement, especially if the number of potential tautologies is large and a computation of anti-subsumption since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground.
-
-\begin{proposition}(Soundness of the first-order extension)
-Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
-\end{proposition}
-\begin{proof}
-By subsumption $H \models \tau(M(F \cup Taut(I_H))) \equiv \neg F$. By the principle of the inverse entailment $B \cup \neg F \models E$, hence
-$B \cup H \models E$.
-\end{proof}
-
-However, it is not clear whether the completeness is preserved in the first order case.
-
-$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that has a ground instance that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
-
-\begin{conjecture}\label{subsumptionConjectureFirstOrder}
-Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
-$H \subsumes \tau'(M(F \cup Taut(I_H)))$.
-\end{conjecture}
-
-\begin{exmp}
-Let $E=\{r(y)\}$,
-$B=\{\neg p(x) \vee r(x)\}$,
-$H=\{s(x), \neg s(x) \vee p(x)\}$,
-$I_H=\{s(x), \neg s(x), p(x)\}$.
-Then $F=B \cup \neg E=\{\neg p(x) \vee r(x), \neg r(y) \}$.
-$Taut(I_H)=\{s(x) \vee \neg s(x)\}$.
-$M(F \cup Taut(I_H))=$
-$\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z),$
-$\neg r(x) \vee r(y) \vee \neg s(z),\neg r(x) \vee r(y) \vee s(z) \}$.
-
-$\tau'(M(F \cup Taut(I_H))=\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z)\}$ which is subsumed by the hypothesis $H$.
-\end{exmp}
-
-\begin{exmp}
-All theories need not be grounded. Adapting the previous example, if the examples were
-$E_2=\{r(a), r(b)\}$ with the same hypothesis
-$H=\{s(x), \neg s(x) \vee p(x)\}$, then
-$\tau'(M(F_2 \cup Taut(I_H))=\{p(x) \vee r(a) \vee \neg s(z), p(x) \vee r(a) \vee s(z), p(x) \vee r(b) \vee \neg s(z), p(x) \vee r(b) \vee s(z) \}$ which is subsumed by $H$. A careful reader notices that the adapted $\tau'(M(F_2 \cup Taut(I_H))$ is just a partial instantiation of the previous
-$\tau'(M(F \cup Taut(I_H))$ with the same substitution
-$theta=\{a / y, b / y\}$ as used for the examples:
-$\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
-$E_2 \theta = E$.
-\end{exmp}
-
-\subsection{Extension to cover negative examples}
-We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
-\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E+$, $B \wedge H$ consistent, $B \wedge H \not\models E-$.
-\end{defn}
-
-\begin{lemma}\label{yamamoto2012inverseLemma2Converse}
-Let $B \cup \neg E \models F$. $H \subsumes \tau(M(F \cup Taut(I_H)))$ implies
-$B \cup H \models E$.
-\end{lemma}
-\begin{proof}
-By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \equiv \neg F$.
-\end{proof}
-
-\begin{lemma}
-Let $E-=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
-a hypothesis wrt $I_H, B, E+, E-$.
-Then $B \cup H \not\models E-$ iff
-$\forall i \in \{1,...,n\}.$ $H \not\subsumes \tau(M(F_i- \cup Taut(I_H)))$.
-\end{lemma}
-
-\begin{proof}
-Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E-$ is in a disjunctive normal form.
-\end{proof}
-
-\begin{conjecture}
-$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F- \cup Taut(I_H)))$
-where $F-=F_1- \wedge ... \wedge F_n-$.
-\end{conjecture}
-
-By the principle of inverse entailment
-$B \wedge H \not\models E-$ iff
-$B \wedge \neg E- \not\models \neg H$.
-
-\begin{defn}
-(Negative bridge theory) Let $B$ and $E-$ be a background theory and negative examples, respectively. Let $F-$ be a ground clausal theory. Then $F-$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E- \models F-$ holds.
-\end{defn}
-
-\begin{conjecture}\label{subsumptionConjectureNegativeExamples}
-(Note: probably false).
-Let $B$, $E-$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F-$ be a negative bridge theory wrt $B$ and $E-$. For every hypothesis $H$ wrt $I_H$ and $F-$,
-
-$B \wedge H \not\models E-$ iff $H$ does not subsume
-$\tau(M(F- \cup Taut(I_H)))$.
-\end{conjecture}
-
-\begin{defn}
-Let $B$, $E+$, $E-$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
-Let $F$ be a bridge theory wrt $B$ and $E+$. Let $F-$ be a maximal negative bridge theory wrt $B$ and $E-$. A clausal theory $H$ is derived
-by extended inverse subsumption with minimal complements from $F$ and $F-$ wrt $I_H$ if $H$ is constructed as
-follows:
-\begin{itemize}
-\item Step 1. Compute $Taut(I_H)$;
-\item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
-\item Step 3. Compute $\tau(M(F- \cup Taut(I_H)))$;
-\item Step 4. Construct a clausal theory $H$ satisfying the conditions:
-$H \subsumes \tau(M(F \cup Taut(I_H)))$,
-$H \not\subsumes \tau(M(F- \cup Taut(I_H)))$.
-\end{itemize}
-\end{defn}
-
-\subsection{Imparo extension}
+\subsection{Imparo is complete in inverse subsumption}
+We solve an open problem in \cite{yamamoto2012inverse} proving that for every correct hypothesis $H$ wrt $B, E+, E-$ there is a connected theory $T$ wrt $B, E+, E-$ subsumed by it.
 \begin{defn}
 Let $P=\langle B, U, I \rangle$ be an open definite program, $H$ be a correct hypothesis wrt $P$ and a ground example $E$, then $H$ is derivable by
 \emph{connected theory inverse subsumption}

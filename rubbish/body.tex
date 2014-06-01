@@ -29,19 +29,6 @@ We ask:
 \section{Algorithmic definition of an ILP system}
 We provide a simplified algorithm for each of the systems in order to be able to extract properties of each system upon which a comparison could based.
 
-\subsection{IE algorithm\cite{yamamoto2012inverse}}
-Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
-$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E+,E-,\mathcal{H})$ iff
-$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
- $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
-iff
-$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
- $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
- 
- They compute the hypothesis $H$ in two steps:
-1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
-
-
 \subsection{Aleph}
 \subsection{Progol}
 \subsection{Toplog}

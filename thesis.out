@@ -48,7 +48,7 @@
 \BOOKMARK [2][-]{subsection.3.2.8}{Learning positive examples}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.9}{Learning negative examples}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.10}{Learning with negative examples}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.11}{Sematics}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.11}{Semantics}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.12}{Assumption of the probable information}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.13}{Summary of definitions of an ILP problem}{section.3.2}
 \BOOKMARK [1][-]{section.3.3}{Completeness by problem classes}{chapter.3}
@@ -71,37 +71,41 @@
 \BOOKMARK [1][-]{section.3.7}{Classification of ILP systems}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Classification of inductive logic programming systems}{}
 \BOOKMARK [1][-]{section.4.1}{ILP system definition}{chapter.4}
-\BOOKMARK [1][-]{section.4.2}{Semantics of learning problem}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Expressing non-monotonic semantics in the classical logic}{section.4.2}
-\BOOKMARK [1][-]{section.4.3}{Language bias}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Language bias benefits}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.2}{Language bias problems}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.3}{Language bias in ILP}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.4}{Syntactic biases}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.5}{Semantic biases}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{Biases in ILP systems}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.4.1}{Toplogmuggleton2008toplog}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.2}{Imparokimber2009induction}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.3}{Metagol}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.4}{Comparison of biases in ILP systems}{section.4.4}
-\BOOKMARK [1][-]{section.4.5}{Definition of an ILP problem}{chapter.4}
-\BOOKMARK [1][-]{section.4.6}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.6.1}{Extension to first-order theories}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.2}{Extension to cover negative examples}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.3}{Imparo extension}{section.4.6}
-\BOOKMARK [1][-]{section.4.7}{Summary}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.7.1}{Completeness in generalizationyamamoto2012inverse}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.2}{Example learning}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.3}{Hypotheses space}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.4}{Completeness}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.5}{Argument Specialization}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.6}{Non-observational concepts}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.7}{Biases}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.8}{Violations}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.9}{Robustness}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.10}{Completeness of theoretical frameworks}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.11}{Other}{section.4.7}
+\BOOKMARK [1][-]{section.4.2}{Definition of an ILP problem}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Semantics of learning problem}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Expressing non-monotonic semantics in the classical logic}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Hypothesis selection}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Hypothesis search}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{Language bias}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{Language bias benefits}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.2}{Language bias problems}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.3}{Language bias in ILP}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.4}{Syntactic biases}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.5}{Semantic biases}{section.4.5}
+\BOOKMARK [1][-]{section.4.6}{Biases in ILP systems}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.6.1}{Toplogmuggleton2008toplog}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.2}{Imparokimber2009induction}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.3}{Metagol}{section.4.6}
+\BOOKMARK [2][-]{subsection.4.6.4}{Comparison of biases in ILP systems}{section.4.6}
+\BOOKMARK [1][-]{section.4.7}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.7.1}{IE algorithmyamamoto2012inverse}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.2}{Imparo is complete in inverse subsumption}{section.4.7}
+\BOOKMARK [1][-]{section.4.8}{Summary}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.8.1}{Completeness in generalizationyamamoto2012inverse}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.2}{Example learning}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.3}{Hypotheses space}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.4}{Completeness}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.5}{Argument Specialization}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.6}{Non-observational concepts}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.7}{Biases}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.8}{Violations}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.9}{Robustness}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.10}{Completeness of theoretical frameworks}{section.4.8}
+\BOOKMARK [2][-]{subsection.4.8.11}{Other}{section.4.8}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to problems in inductive logic programming}{}
+\BOOKMARK [1][-]{section.5.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Extension to first-order theories}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Extension to cover negative examples}{section.5.1}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{Suggested solutions}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.1.1}{Faster consistency checkyamamoto2012comparison}{section.6.1}
