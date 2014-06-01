@@ -88,6 +88,21 @@ with respect some class of tasks $T$ and performance measure $P$,
 if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
 \end{defn}
 
+Related to the definition of an ILP problem Cheng and Wolf say:
+
+\begin{cite}{nienhuys1997foundations}
+If $E+$ is finite, then $H = E+$ will be a correct theory, but a rather unin-
+teresting one. In this case, we would not have learned anything beyond the
+given examples: the induced theory has no predictive power. To avoid this,
+we can put some constraints on the theory. For instance, we might demand
+that $H$ contains less clauses than the number of given positive examples. In
+that case, $H = E+$ is ruled out. Since constraints like these mainly depend
+on the particular application at hand, we will not devote much attention to
+them.
+\end{cite}
+
+They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
+
 \subsection{Predicting unobserved data}
 Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, i.e. $E+ \subseteq Cn(B \cup E+)$.
 However, if there is a new observation $e \in L_O$ to be made such that

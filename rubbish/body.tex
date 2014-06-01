@@ -11,8 +11,6 @@ Questions:
 6. What percentage of the reality can we recover from observing and reasoning only with the statements in the restricted language?
 7. Can a language be partitioned (or expressed as posets of sublanguages) into sublanguages and the theories of the sublanguages be learnt, then joint into a theory of the original language?
 
-\chapter{Rationale ILP system}
-
 \section{Properties of an ILP system}
 We further seek properties of ILP systems upon which we could base our comparison of different ILP systems. Recall $L$ is a set of all logical sentences for a given signature $\mathcal{L}$ and $B, E+, E-, H \subseteq L$, $\mathcal{H}, \mathcal{H}_2 \subseteq \powerset{L}$.
 
@@ -54,17 +52,6 @@ $B \cup H \subseteq Cn(E+ \union \overline{E-})$,
     
 \chapter{Definition of an ILP problem - notes}
 For a given set of examples often multiple sets of hypotheses can explain such a set of examples. However, the common definition of an ILP problem does not convey which hypotheses should be chosen in such a case. This chapter presents an investigation of an definition of an ILP problem and critique of the incompleteness of the definition of an ILP problem.
-
-Related to the definition of an ILP problem Cheng and Wolf say in \cite{nienhuys1997foundations}
-"If E + is finite, then E = E -e will be a correct theory, but a rather unin-
-teresting one. In this case, we would not have learned anything beyond the
-given examples: the induced theory has no predictive power. To avoid this,
-we can put some constraints on the theory. For instance, we might demand
-that E contains less clauses than the number of given positive examples. In
-that case, E = E + is ruled out. Since constraints like these mainly depend
-on the particular application at hand, we will not devote much attention to
-them."
-They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
 
 Muggleton in his Inverse Entailment and Progol \cite{muggleton1995inverse} says:
 "the association of probability values with hypotheses requires the assumption of a prior probability distribution over the hypothesis language. Occam's razor can be taken as an instance of a distribution which assigns higher prior probability to simpler hypotheses. It has been shown [4] that without such distributional assumptions the class of all logic programs is not even PAC-predictable. On the other hand, it has recently been demonstrated [42] that the class of all time-bounded logic programs is polynomial-time learnable (U-learnable) under fairly broad families of prior probability distributions. Appendix B gives more details of the relationship between data, posterior probabilities and U-learnability."
