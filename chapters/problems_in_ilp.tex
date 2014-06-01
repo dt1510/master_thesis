@@ -1,5 +1,20 @@
 \chapter{Problems in inductive logic programming}
 
+\section{Problems in ILP}
+\begin{itemize}
+\item Definition of an ILP problem: there are many variations of an ILP problem setting, which one should we use and why? Do these ILP problem settings really address the problem that we are trying to solve?
+\item Hypothesis selection: among the hypotheses that are consistent and explain the observations which should be selected?
+\item What preferences should be induced over the correct hypotheses $\mathcal{H}$ and why?
+\item Can preferences be extracted from the logical representation of the clausal theories?
+\item Bias automation. ILP systems acquire their efficiency by reducing their vast search space by introducing a bias. There are two problems in the current approaches: 1. the bias has to be specified manually, 2. for the new problems we do not know what we want to learn and therefore cannot introduce any bias with a justification.
+\end{itemize}
+\subsection{Problem formulation}
+A solution of the hypothesis selection problem is a more precise formulation of ILP setting by an introduction of a preference over $\mathcal{H}$. The problem reduces to the preference choice and its justification. One could introduce Occam's razor postulate, consequently demand that a hypothesis with a smaller Kolmogorov complexity is preferred over a hypothesis with a higher Kolmogorov complexity. However, the choice of the Occam's razor postulate remains unjustified with a deeper theoretical insight to the author's knowledge. Indeed, the hypothesis with the shortest description length need not always be the one desired. One possible problem formulation is the introduction of the postulates inducing the highest preference on the correct target hypothesis from the given data (providing an empirical/statistical justification). This means a systematic search and extraction of the properties of the background knowledge, examples and correct hypotheses. It may turn out that a logical representation of these data is not sufficient to express the necessary preferences.
+\subsection{Inappropriate semantics}
+The background knowledge of the most ILP systems uses the non-monotonic semantics of Progol - if the statement fails to be proved, it is assumed to be false. This represents a problem when reasoning with the incomplete background knowledge. We may desire to express the incompleteness by saying that we do not know the truth value of some logical sentence. However, with the negation as failure, every statement is either true or false. Consequently, undesirably we need to bias the produced hypothesis either in or against the favour of the logical statement whose truth value we do not know.
+
+Monotonic semantics gives us the possibility to work with the theories of the several models, however it does not capture a possible change of the truth values of certain sentences upon the new observations.
+
 \section{ILP problem definition}\label{ilp_problem_definition}
 This section explores the problems associated with defining an ILP problem as a learning problem. Although on the surface there may seem to be a standard definition, in the chapter \ref{chap:classification_of_ilp_systems} we demonstrate that when specifying the ILP problem completely, each ILP system classified solves a different problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
 
