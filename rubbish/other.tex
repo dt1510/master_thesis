@@ -1,0 +1,47 @@
+\subsection{Problem of Induction}
+From the observations of the environment on Earth the reader knows that the sun has always been rising in the morning and setting in the evening. This does not imply that the sun would rise tomorrow in the morning, however from our statistical observations and assumptions on the environment it is extremely likely. Therefore the reader may induce a hypothesis: the sun rises in the morning, the sun sets in the evening. As an agent the reader can profit from making the decisions based on the induced hypothesis provided that it remains true during the reader's lifespan. For example if the reader would like to maximize the time spent on the daylight, then the reader goes to bed in the evening and wakes up in the morning.
+
+\subsubsection{Hypothesis sufficiency}
+When Newton introduced his laws of motion, these could explain numerous observations and phenomena in nature, but not all. Later, Einstein came with his theory of relativity that could explain more phenomena and paradoxes of Newtonian mechanics. The theory of relativity was a better approximation of the physical world.
+
+\subsection{Inductive Logic Programming}
+Inductive Logic Programming (ILP) systems consist of a theoretical framework including algorithms and its implementation - software that take a set of positive and negative examples represented as sentences in a logic programming language, then they output a set of sentences called a hypothesis which is a finite axiomatization of the theory of the approximated model of the environment that produced the observed examples.
+
+\subsubsection{Problems of Inductive Logic Programming}
+In recent years there has been an expansion in the ILP field. However, to the author's knowledge there have been numerous problems in ILP and in its research that have not been given much attention:
+
+\begin{itemize}
+\item No clear objective of research. The results in the ILP field of research consist of new ILP system frameworks, their implementation and philosophical argumentation of their contribution which is disputable unlike correct proofs of mathematical theorems.
+\item Philosophical foundations on the induction are not complete. Stove \cite{stove1986rationality} resolves some questions on the problem of induction, however the solution is not universaly accepted. We still do not know if an induction is a correct method of learning and how to use it.
+\item A limited development of the formalism and mathematical foundations for the theory of inductive logic programming. Consequently, restricted means of comparisons of the new ILP systems.
+\end{itemize}
+
+The author provides specific manifestations of the problems:
+
+\subsubsection{Reliance on well-behaved examples}
+ILP researchers often consider a narrow set of well-known examples, e.g. learning family relationships, but it is questionable whether the problems we are interested in solving have the same form. From the author's experience, a slight modification to the problem statement can cause some unnamed ILP systems to be very inefficient. However, these problems are not addressed by researchers as they do not become manifested in the set of chosen examples.
+
+\subsubsection{Hypotheses space and bias}
+ILP researchers restrict a hypotheses space arguing that searching for fewer hypotheses is more efficient. However, it is not clear, whether by restricting the hypotheses space we do not become oblivious to the correct hypothesis. Any statement can be a potential hypothesis since it implies consequences that could form a set of its observations.
+
+However, a positive direction has been recorded in ILP systems capable of learning the grammar problems. In such cases we know that if such an ILP system is going to learn a regular or context-free grammar, then our bias on the hypotheses space will include all possible hypotheses.
+
+How the hypotheses space should be restricted depends on the type of the problem we would like to solve.
+
+\subsubsection{Model approximation}
+Systems like Toplog allow hypotheses inconsistent with the observations in favour of generalization. Other systems like Imparo produce only hypotheses consistent with the observations. However, we do not understand for what types of problems what our preference should be.
+
+%\subsubsection{Biased comparisons}
+%Researchers have need to compare these systems based on certain criteria, however to the author's knowledge only a limited formalism has been developed providing the basis of comparison.
+
+\section{Objectives}
+We seek to classify ILP system based on the answers to the following questions:
+\begin{enumerate}
+\item On what examples of background knowledge do ILP systems produce different hypotheses?
+\item What is the underlying characteristic of such examples and their background knowledge causing different results in such ILP systems?
+\item In what kinds of examples and the background knowledge are particular systems more likely to be biased towards their particular induction technique?
+\item Completeness: what hypotheses space is covered by the different approaches?
+\end{enumerate}
+
+\section{Contributions}
+The author is aware of the hardness of the inductive logic programming problems presented and would like to participate in their solving by developing a limited formalism for the comparison of the top-down (Toplog), bottom-up (Imparo) and metainterpretive learning (Metagol) ILP systems by considering their abstracted properties in sequence.
