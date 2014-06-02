@@ -17,17 +17,18 @@ Inductive logic programming is a subdiscipline of machine learning and logic pro
 
 An ILP system is a program that takes as an input a set logical statements $B$ called background knowledge, a set of logical statements $E$ called examples or observations. The output of an ILP system is a set of logical statements $H$ called a hypothesis explaining the observations from the background knowledge. Meaning $E$ can be deduced from $B$ and $H$. The problem of finding $H$ for $B, E$ is called an \emph{ILP task}.
 
-Central questions in ILP are:
+Central issues in ILP are:
 \begin{itemize}
-\item selection: what is a good explanation and how to choose one out of several possibilities,
-\item completeness: how to find every possible (or possibly good) hypothesis $H$ explaining $E$ from $B$,
-\item efficiency: how to find a good explanation efficiently. 
+\item ILP task definition: how to define a machine learning problem in ILP,
+\item completeness by problem classes: how to find a good explanation for every possible pair of $B, E$
+\item hypothesis selection: what is a good explanation and how to choose one out of several possibilities,
+\item hypothesis search: how to find a good hypothesis efficiently.
 \end{itemize}
 
 \section{Classification of inductive logic programming systems}
-Many systems and theoretical frameworks have been designed that use the theory of inductive inference to solve an ILP task. It is important to compare these systems and evaluate their level of contribution to answering the questions in ILP in order to identify and understand the most successful aproaches to direct the research in ILP accordingly. To the author's knowledge no extensive comparisons have been made. ILP researchers typically evaluate their new designed system empirically based on the success of solving a carefully chosen ILP task that may not be representative of a general ILP task that can arise.
+Many systems and theoretical frameworks have been designed that use the theory of inductive inference to solve an ILP task. It is important to compare these systems and evaluate their level of contribution to solving the issues in ILP in order to identify and understand the most successful aproaches to direct the research in ILP accordingly. To the author's knowledge no extensive comparisons have been made. ILP researchers typically evaluate their new designed system empirically based on the success of solving a carefully chosen ILP task that may not be representative of a general ILP task that can arise.
 
-We aim to compare and classify ILP systems based on how their approach answers the central questions in ILP.
+We aim to compare and classify ILP systems based on how their approach solves the central issues in ILP.
 
 \section{Motivation and Objectives}
 
