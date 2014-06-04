@@ -12,24 +12,40 @@ Although on the surface there may seem to be a standard definition of an ILP tas
 We explain the importance of defining an ILP task completely, present building blocks for a definition of an ILP task, construct an ILP definition for each ILP system, classify the ILP systems based on an ILP task they solve and lastly provide a generalized unifying definition of an ILP task for all assessed ILP systems to lay the ground for their comparisons and classification in the subsequent chapters.
 
 \subsection{Importance of complete definitions}
-Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique function} $f$.
+Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique function} $f$. An example of an incomplete definition is explanatory induction: given $I=\langle B, E \rangle$ find a correct $O=H$, i.e. satisfying
+$E \in Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$.
+\begin{exmp}
+Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
+$H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
+Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$. Therefore there are at least 2 different functions $\langle B, E \rangle \mapsto H_1$ and
+$\langle B, E \rangle \mapsto H_2$ specifying the output $O=H$.
+\end{exmp}
 
-An example of an incomplete definition is given an odd number to find an even number. Then constant functions $f_2:I \mapsto 2$, $f_4:I \mapsto 4$, ..., functons $g_1:I \mapsto I+1$, $g_3:I \mapsto I+3$ and many others are compatible with an incomplete definition of a function $f$. However, when the definition of a function problem is completed to given an odd number $I$ to find smallest even number greater than $I$, then unambiguously $f=g_1$.
+The importance of an issue of an incomplete definition becomes apparent when defining a non-ILP function problem as our mind is not biased towards the acceptance of the incompleteness of a definition encountered in the ILP literature.
+
+\begin{exmp}
+Define a function problem $f:I \mapsto O$ by given an odd number, find an even number. Then constant functions $f_2:I \mapsto 2$, $f_4:I \mapsto 4$, ..., functons $g_1:I \mapsto I+1$, $g_3:I \mapsto I+3$ and many others are compatible with an incomplete definition of a function $f$. However, when the definition of a function problem is completed to given an odd number $I$ to find smallest even number greater than $I$, then unambiguously $f=g_1$.
+\end{exmp}
 
 Not specifying an ILP task completely may result in designing an ILP system solving a different function problem than the one intended.
 
 \subsection{Buildings blocks of ILP task definition}
 In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
 
-\begin{defn}
-An \emph{ILP task definition} is a pair $D=\langle I, O, R \rangle$ where
-$I=\langle \overrightarrow{i} \rangle$ called an \emph{ILP task} is an input specified by an input vector. $R$ is a set of rules specifying what constitutes an \emph{output} $O$ of an ILP task $I$.
+\begin{defn}\label{ilp_task_definition}
+An \emph{ILP task definition} is a tuple $D=\langle I, O, R \rangle$ where
+$I=\langle \overrightarrow{i} \rangle$ called an \emph{ILP task} is an input specified by an input vector. $R$ is a set of rules specifying what constitutes a \emph{output} $O$ of an ILP task $I$.
 \end{defn}
 We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A reader may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$.
 
-It may not always be convenient to define a definition $D$ in one definition. We may wish to specify the input $I$ and then define several different sets of rules $R_1, ..., R_n$ that define the output $O$ for $I$ and hence defining definitions $D_1=\langle I, O, R_1\rangle$, ..., $D_n=\langle I, O, R_n \rangle$.
+\begin{exmp}
+The definition of explanatory induction is $D=\langle I, O, R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+\end{exmp}
 
-We demonstrate that a standar
+Alternatively, one may think of an ILP task definition as a function, we provide an alternative definition that we will use interchangeably.
+\begin{defn}
+An \emph{ILP task definition} is a function $f_D:I \mapsto O$ specified by the tuple $D=\langle I, O, R \rangle$ defined in \ref{ilp_task_definition}.
+\end{defn}
 
 \subsubsection{Summary of ILP task definitions}
 

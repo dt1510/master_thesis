@@ -34,7 +34,10 @@ $B \cup H \not\models E-$, $B \cup \not\models false$.
 
 We are going to address the problems that are usually sought to be solved withing the field an ILP, the problems that tacitly modify and extend the definition \ref{normal_problem_setting}.
 
+It may not always be convenient to define a definition $D$ in one definition. We may wish to specify the input $I$ and then define several different sets of rules $R_1, ..., R_n$ that define the output $O$ for $I$ and hence defining definitions $D_1=\langle I, O, R_1\rangle$, ..., $D_n=\langle I, O, R_n \rangle$.
+
 The normal problem setting does not provide information on which hypothesis should be chosen if two hypothesis $H_1$ and $H_2$ are correct wrt $B, E+, E-$. Since we require a unique solution, the solution to the normal problem setting ILP problem is a set of all correct hypotheses wrt $B, E+, E-$ (partial solutions).
+
 \begin{defn}
 \emph{Normal problem setting} is a pair $D=\langle I, R \rangle$ where
 the input is $I=\langle B, E+, E- \rangle$ and the solution (output)
