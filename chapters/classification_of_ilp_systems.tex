@@ -12,9 +12,9 @@ Although on the surface there may seem to be a standard definition of an ILP tas
 We explain the importance of defining an ILP task completely, present building blocks for a definition of an ILP task, construct an ILP definition for each ILP system, classify the ILP systems based on an ILP task they solve and lastly provide a generalized unifying definition of an ILP task for all assessed ILP systems to lay the ground for their comparisons and classification in the subsequent chapters.
 
 \subsection{Importance of complete definitions}
-Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique function} $f$. An example of an incomplete definition is explanatory induction: given $I=\langle B, E \rangle$ find a correct $O=H$, i.e. satisfying
+Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique deterministic function} $f$. An example of an incomplete definition is explanatory induction: given $I=\langle B, E \rangle$ find a correct $O=H$, i.e. satisfying
 $E \in Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$.
-\begin{exmp}
+\begin{exmp}\label{explanatory_induction_definition_incompleteness}
 Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
 $H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
 Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$. Therefore there are at least 2 different functions $\langle B, E \rangle \mapsto H_1$ and
@@ -29,7 +29,7 @@ Define a function problem $f:I \mapsto O$ by given an odd number, find an even n
 
 Not specifying an ILP task completely may result in designing an ILP system solving a different function problem than the one intended.
 
-\subsection{Buildings blocks of ILP task definition}
+\subsection{Buildings blocks of ILP task definition}\label{subsec:building_blocks_of_ilp_task_definition}
 In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
 
 \begin{defn}\label{ilp_task_definition}
@@ -46,15 +46,18 @@ We will often specify $R$ only by its subset of sentences and the rest will be s
 The definition of explanatory induction is $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
 \end{exmp}
 
-Alternatively, one may think of an ILP task definition as a function, we provide an alternative definition that we will use interchangeably.
+By the example \fullref{explanatory_induction_definition_incompleteness} the definition of explanatory induction does not specify a unique deterministic ILP task, we say such a definition is incomplete.
+
 \begin{defn}
-An \emph{ILP task definition} is a function $f_D:I \mapsto O$ specified by the tuple $D=\langle I, O, R \rangle$ defined in \ref{ilp_task_definition}.
+A definition $D=\langle f, dom(f), cod(f), R \rangle$ is a \emph{complete ILP task definition} iff $f:I \mapsto O$ is deterministic. $D$ is \emph{incomplete} iff $D$ is not complete.
 \end{defn}
+
+
 
 \subsubsection{Summary of ILP task definitions}
 
 \subsection{Classification ILP systems by an ILP task definition}
-The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \nameref{building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
+The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
 
 \subsubsection{Definitions of an ILP task for classified ILP systems}
 
