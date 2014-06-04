@@ -30,7 +30,7 @@ Define a function problem $f:I \mapsto O$ by given an odd number, find an even n
 Not specifying an ILP task completely may result in designing an ILP system solving a different function problem than the one intended.
 
 \subsection{Buildings blocks of ILP task definition}\label{subsec:building_blocks_of_ilp_task_definition}
-In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
+In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition and the rules that make the definition more complete from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
 
 \begin{defn}\label{ilp_task_definition}
 An \emph{ILP task definition} is a tuple $D=\langle f, dom(f), cod(f), R \rangle$ where a (possibly non-deterministic) function $f$ is called an \emph{ILP task}, $dom(f)$ is a set of \emph{inputs} vectors
@@ -52,7 +52,21 @@ By the example \fullref{explanatory_induction_definition_incompleteness} the def
 A definition $D=\langle f, dom(f), cod(f), R \rangle$ is a \emph{complete ILP task definition} iff $f:I \mapsto O$ is deterministic. $D$ is \emph{incomplete} iff $D$ is not complete.
 \end{defn}
 
+Since an incomplete definition results in an ambiguous ILP task definition it will be in our interest to make the definitions more complete by introducing additional rules defining an ILP task.
 
+\begin{defn}
+Let $f:X \mapsto Y$ be a (possibly non-deterministic) function, we say that a (possibly non-deterministic) function $g:X \mapsto Y$ is a \emph{possible function} of $f$ iff
+$\forall x \in X. g(x) \subseteq f(x)$. We denote the set of all possible functions of $f$ by $\Box f$.
+\end{defn}
+
+\begin{remark}
+The only possible function of a deterministic function is the function itself, i.e. $\Box f = \{f\}$.
+\end{remark}
+
+\begin{defn}
+A definition $D_1=\langle f_1, dom(f_2), cod(f_2), R \rangle$ is \emph{more complete} than the definition $D_2=\langle f_1, dom(f_2), cod(f_2), R \rangle$ iff
+$f_2$ is a possible function of $f$.
+\end{defn}
 
 \subsubsection{Summary of ILP task definitions}
 
