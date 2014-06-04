@@ -2,7 +2,7 @@
 
 In the chapter \nameref{chap:issues_in_ilp} we analysed the central issues in ILP by providing a brief explanation of an importance of an issue and a list of the properties defining an issue. In this chapter we classify ILP systems and theoretical frameworks based on the use of the defining properties to approach solving a particar issue.
 
-We will define an ILP task by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as a computable function $I \mapsto O$.
+We will define an ILP task $I \mapsto O$ by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as an \emph{algorithm} computing the function $I \mapsto O$.
 
 \section{ILP task definition}
 In \nameref{sec:ilp_task_definition} of the chapter \nameref{chap:issues_in_inductive_logic_programming} we presented machine learning problems: generalization and explanatory induction; together with the properties expressivity, positive examples, negative examples, semantics.
@@ -33,13 +33,17 @@ Not specifying an ILP task completely may result in designing an ILP system solv
 In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
 
 \begin{defn}\label{ilp_task_definition}
-An \emph{ILP task definition} is a tuple $D=\langle I, O, R \rangle$ where
-$I=\langle \overrightarrow{i} \rangle$ called an \emph{ILP task} is an input specified by an input vector. $R$ is a set of rules specifying what constitutes a \emph{output} $O$ of an ILP task $I$.
+An \emph{ILP task definition} is a tuple $D=\langle f, dom(f), cod(f), R \rangle$ where a (possibly non-deterministic) function $f$ is called an \emph{ILP task}, $dom(f)$ is a set of \emph{inputs} vectors
+$I=\langle \overrightarrow{i} \rangle$, $cod(f)$ is a set of \emph{output} vectors $O=\langle \overrightarrow{o} \rangle$ and $R$ is a set of rules (logical sentences) defining $f$,
+i.e. $O \in f(I) \iff R \cup \{O \in f(I)\} \not\models false$ for a classical consequence operator $\models$.
 \end{defn}
-We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A reader may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$.
+
+\begin{remark}
+We will often specify $R$ only by its subset of sentences and the rest will be specified informally or expected from the reader to be deduced from the context in order to avoid unnecessarily long specifications of $R$ and the lost of the focus. We may specify directly a possible input vector $I$ without specifying $dom(f)$ explicitly, it is be understood that $dom(f)$ is a set of all such input vectors $I$. Similarly, $cod(f)$ is a set of all possible output vectors $O$. The notation is abused for vectors with one element, e.g. $H=\langle H \rangle$.
+\end{remark}
 
 \begin{exmp}
-The definition of explanatory induction is $D=\langle I, O, R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+The definition of explanatory induction is $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
 \end{exmp}
 
 Alternatively, one may think of an ILP task definition as a function, we provide an alternative definition that we will use interchangeably.
