@@ -1,5 +1,4 @@
-\chapter{Classification of inductive logic programming systems}
-\label{chap:classification_of_ilp_systems}
+\chapter{Classification of ILP systems}\label{chap:classification_of_ilp_systems}
 
 TODO: where to classify an ILP system and where to classify an ILP framework? How to link a framework to the system in a classification? Can I classify a theoretical framework and its correspondent implementation in one go/place?
 
@@ -13,6 +12,9 @@ Having defined an ILP problem, we define the correctness of an ILP system:
 An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
 then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
 \end{defn}
+
+\section{ILP task definition}
+In \nameref{sec:ilp_task_definition} of the chapter \nameref{chap:issues_in_inductive_logic_programming} we presented machine learning problems: explanatory induction, generalization; together with the properties positive examples, negative examples, semantics important for the comparison of the definitions of an ILP task.
 
 \section{Definition of an ILP problem}
 We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.

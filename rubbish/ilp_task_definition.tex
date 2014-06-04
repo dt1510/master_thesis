@@ -1,0 +1,264 @@
+This section explores the problems associated with defining an ILP problem as a learning problem. Although on the surface there may seem to be a standard definition, in the chapter \ref{chap:classification_of_ilp_systems} we demonstrate that when specifying the ILP problem completely, each ILP system classified solves a different problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
+
+\subsubsection{Importance of complete definitions and Chess}
+The author would like to think of problem solving as a process of computation. A problem is specified if there is a definition of what constitutes its input and of what constitutes its output (a solution). Therefore one can think of a problem as a relation (not necessarily computable or total) between the set of inputs and the space of solutions. A problem is \emph{fully specified} if this relation is a function, that is, there is no uncertainty about its solution. If we would like to say that a problem has $n$ solutions, then in our context we will mean that a problem has one solution which is a set of $n$ elements consisting of these \emph{partial solutions}.
+
+Imagine one would like to write a system that wins the game of Chess by playing against other player. One could define all the movements allowed in Chess, but if the objective is left undefined, there are many possibilities for defining what constitutes a win including:
+\begin{enumerate}
+\item\label{itm:i1} get rid of your figures in the fewest possible moves,
+\item\label{itm:i2} get rid of your opponent's figures in the fewest possible moves,
+\item\label{itm:i3} make a move in the shortest possible time,
+\item\label{itm:i4} maximize the number of the moves with the queen in a game,
+\item\label{itm:i4b} make more moves with a queen than your opponent in a game,
+\item\label{itm:i5} remove the opponent's queen in the fewest possible moves since the game start,
+\item\label{itm:i6} minimize the distance of your figures from the center of the chessboard,
+\item\label{itm:i7} force the opponent's king to move into a corner,
+\item\label{itm:i8} maximize the number of checks to the opponent,
+\item\label{itm:i9} checkmate the opponent,
+\item\label{itm:i10} checkmate the opponent and do not run out of the time.
+\end{enumerate}
+The objective of Chess is \ref{itm:i9} or \ref{itm:i10}, although other objectives may seem reasonable, their achievement does not guarantee a win of a player. The rules of chess and the objective \ref{itm:i9} together imply the objective \ref{itm:i10}, hence it is not necessary to require a more complex definition \ref{itm:i10} instead of \ref{itm:i9}. \ref{itm:i4} is an objective of an optimizaton problem. If the opponent makes more moves with a queen, \ref{itm:i4} does not specify whether such a result would constitute a win, a loss or a draw.
+\ref{itm:i4b} and \ref{itm:i4} seem to define the same problem, however the objectives are different and \ref{itm:i4b} defines what it means to win the game over the other player.
+One should distinguish between \emph{strategies} like \ref{itm:i1}, \ref{itm:i2}, \ref{itm:i3}, \ref{itm:i6} and an objective \ref{itm:i9}. Strategies can be used to achieve an objective, however, they do not guarantee its achievement. In particular, \ref{itm:i1} is a unadvisable strategy and would likely result in a loss of the game against a modest opponent.
+
+\subsubsection{Formalising a definition}
+The standard definition of an ILP problem is a normal problem setting\cite{nienhuys1997foundations}
+\begin{defn}\label{normal_problem_setting}
+Given a finite set of clauses $B$ (background knowledge),
+and a sets of clauses $E+$, $E-$ (positive and negative examples),
+find a theory (correct hypothesis) $H$ such that $B \cup H \models E+$,
+$B \cup H \not\models E-$, $B \cup \not\models false$.
+\end{defn}
+
+We are going to address the problems that are usually sought to be solved withing the field an ILP, the problems that tacitly modify and extend the definition \ref{normal_problem_setting}.
+
+\begin{defn}
+An \emph{ILP problem definition} is a pair $D=\langle I, R \rangle$ where
+$I=\langle \overrightarrow{i} \rangle$ is an input specified by an input vector,
+$I$ is \emph{an ILP problem} in a problem setting specified by the definition $D$.
+$R$ is a set of rules specifying what constitutes a \emph{unique solution} (or output) $O$ of a problem $I$.
+\end{defn}
+We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A read may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$. An output $O$ is not included in the definition of an ILP problem definition it does not specify the input problem, however we always think of $O$ being part of $D$ implicitly.
+
+It may not always be convenient to define a definition $D$ in one definition. We may wish to specify the input $I$ and then define several different sets of rules $R_1, ..., R_n$ that define the solution for $I$ and hence defining definitions $D_1=\langle I, R_1\rangle$, ..., $D_n=\langle I, R_n \rangle$.
+
+If a solution to a problem $I$ is a set $O$, then we say that an element $H \in O$ is a \emph{partial solution}. It is sufficient to specify a partial solution $H$, then it is assumed implicitly that the solution $O$ to $I$ is a set of all partial solutions $H$ to $I$.
+
+The normal problem setting does not provide information on which hypothesis should be chosen if two hypothesis $H_1$ and $H_2$ are correct wrt $B, E+, E-$. Since we require a unique solution, the solution to the normal problem setting ILP problem is a set of all correct hypotheses wrt $B, E+, E-$ (partial solutions).
+\begin{defn}
+\emph{Normal problem setting} is a pair $D=\langle I, R \rangle$ where
+the input is $I=\langle B, E+, E- \rangle$ and the solution (output)
+$O=\{ H : B \cup H \models E+$, $B \cup H \not\models E-$, $B \cup \not\models false \}$ where the semantics of $models$ is induced by some logic programming language interpreter.
+\end{defn}
+
+But before we proceed further we would like to start with a simpler and more general definition.
+\begin{defn}
+\emph{Explanatory induction}\cite{yamamoto2012inverse} is a pair $D=\langle I, R \rangle$
+the input is $I=\langle B, E+ \rangle$ and a parial solution is $H$ satifying
+$E+ \subseteq Cn(B \cup H), false \not\in \subseteq Cn(B \cup H)$ for some consequence operator $Cn$.
+\end{defn}
+Unlike normal problem setting, explanatory induction does not specify the solution in terms of the negative examples. The exact spefification of the consequence operator $Cn$ is included in the rules $R$. Hence, we may have explanatory induction with a monotonic consequence operator or explanatory induction with non-monotonic consequence operator. The role of the semantics in the definition of an ILP problem is further explored in \ref{problems_in_ilp_semantics}.
+
+\subsection{Learning problem}
+Inductive logic programming is a subdiscipline of machine learning (subdiscipline of AI) and logic programming. The objective of AI is to construct a machine that capable of doing what requires an intelligence if done by a man. (citation needed). One of the properties of an intelligent entity is the ability to learn. The author would like to put into attention 2 types of learning:
+1. memorization is the ability to record and retrieve the observed data.
+2. pattern recognition is the ability to learn the rules generating the observations from the observed data and the ability to use the learnt rules to predict the unobserved data. The definition of a learning system by Mitchell suggests that machine learning concerns with the pattern recognition.
+
+\begin{defn}\cite{mitchell1997machine}
+A computer program (an ILP system) is said to learn from experience $E$ (observations)
+with respect some class of tasks $T$ and performance measure $P$,
+if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
+\end{defn}
+
+Related to the definition of an ILP problem Cheng and Wolf say:
+
+\begin{cite}{nienhuys1997foundations}
+If $E+$ is finite, then $H = E+$ will be a correct theory, but a rather unin-
+teresting one. In this case, we would not have learned anything beyond the
+given examples: the induced theory has no predictive power. To avoid this,
+we can put some constraints on the theory. For instance, we might demand
+that $H$ contains less clauses than the number of given positive examples. In
+that case, $H = E+$ is ruled out. Since constraints like these mainly depend
+on the particular application at hand, we will not devote much attention to
+them.
+\end{cite}
+
+They acknowledge that their definition of an ILP problem does not specify what explanation $H$ should explain the examples. However, to the author of this thesis it is unclear how one would complete the definition with respect to the particular application.
+
+\subsection{Predicting unobserved data}
+Given background knowledge $B$, positive examples $E+$, negative examples $E-$, $E+$ is a hypothesis explaning the positive examples $E+$ from the background knowledge $B$, i.e. $E+ \subseteq Cn(B \cup E+)$.
+However, if there is a new observation $e \in L_O$ to be made such that
+$e \not \in Cn(B \cup E+)$ and $e \not\in E-$, the hypothesis $E+$ does not predict the truth value (one should not have any specific semantics for $Cn$ in mind yet) of $e$. The ability of the memorization is not sufficient to learn a rule $woman(X) \leftObjectImplies female(X)$ from the following observations and the background knowledge.
+\begin{exmp}
+\begin{lstlisting}
+%Background knowledge
+female(alice). female(jane). female(mary).
+%Observations
+woman(alice). woman(jane). woman(mary).
+\end{lstlisting}
+\end{exmp}
+
+Therefore in order to define the ILP problem completely we have to require learning of the hypotheses with a predicting power.
+
+\begin{defn}
+An ILP problem of \emph{learning in an environment} is a tuple $I=\langle B, \mathcal{E} \rangle$ where
+$\mathcal{E}$ is an environment
+$\mathcal{E}=\langle L, L_O, \mathtt{O}, \mathcal{M} \rangle$
+and 
+$\mathtt{O}:L_O \to \{true, false\}$ is a partial function from which the positive examples $E+$ and the negative examples $E-$ are defined as follows:
+$\forall x \in L_O$
+1. $x \in E+ \implies \mathtt{O}(x)=true$,
+2. $x \in E- \implies \mathtt{O}(x)=false$,
+3. $x \in L_O \setminus (E+ \cup E-) \implies \mathtt{O}(x)\uparrow$.
+\end{defn}
+
+\begin{defn}
+A hypothesis $H$ is correct wrt $B$ and $\mathcal{E}$ iff
+$H$ is correct wrt the defined $B, E+, E-$.
+\end{defn}
+
+\begin{defn}
+A hypothesis $H$ has \emph{predictive power} iff there exists
+$x \in L_O$ such that $x \not \in Cn(B \cup E+ \cup E-)$
+and either 1. $x \in Cn(B \cup H)$, or
+or 2. $\neg x \in Cn(B \cup H)$.
+\end{defn}
+
+\begin{defn}
+Let $\mu:\powerset{L_O} \to \mathbb{R}$ be a measure.
+Then the information content of $H$ wrt $B, \mathcal{E}, \mu$
+is a real number defined by
+$I_\mu(H)=\sum_{x \in L_O : \{x, \neg x\} \cap Cn(B \cup H) \not= \emptyset} \mu(x)$.
+\end{defn}
+In words, $I_\mu(H)$ measures the observable data that is explained by $H$ from the background knowledge $B$.
+
+\begin{defn}
+A hypothesis $H_1$ is \emph{stronger} wrt $B, \mathcal{E}, \mu$ than the hypothesis $H_2$
+iff $I_\mu(H_1) > I_\mu(H_2)$.
+\end{defn}
+
+\begin{defn}
+A hypothesis $H$ \emph{predicts correctly} wrt $\mathcal{E}$ (or $\mathcal{M}$) iff
+$\forall x \in L_O. x \in Cn(B \cup H) \iff \mathcal{M} \models x$.
+\end{defn}
+
+Now we are ready to complete the definition of learning in an environment.
+\begin{defn}
+An ILP problem of learning in an environment is a tuple
+$I=\langle B, \mathcal{E}, \mu \rangle$ where
+$\mathcal{E}$ is an environment,
+$\mu:L_O \to \mathbb{R}$ is a measure.
+A partial solution to $I$
+is a hypothesis $H$ that is correct wrt $B, \mathcal{E}$,
+that predicts correctly wrt $\mathcal{E}$ with the maximal possible
+information content $I_\mu(H)$.
+\end{defn}
+That is $H$ is a solution to $\langle B, \mathcal{E}, \mu \rangle$ iff there is no other hypothesis $H'$ correct wrt $B, \mathcal{E}$ predicting correctly wrt $\mathcal{E}$ that is stronger than $H$.
+
+\begin{exmp}
+Let the domain be $M=\{adam, alice, bob, mary\}$.
+Let the signature of the observational language be $\mathcal{L}_O=\{scientist\}$.
+Let the oracle $\mathtt{O}:L_O \to \{true, false\}$ be defined by $\mathtt{O}=\{(academic(adam),true), (academic(alice), true)\}$.
+Hence the corresponding positive examples are
+$E+=\{academic(adam), academic(alice)\}$, and negative examples $E-=\emptyset$.
+Let the measure $\mu:\powerset{L_O} \to \mathbb{R}$ be additive (i.e. linear) defined by $\mu(academic(x))=1$ for $x \in M$.
+Let the background theory be $B=\{mathematician(adam), mathematician(bob),
+\neg mathematician(alice), scientist(alice),\\
+\neg scientist(mary),
+scientist(X) \leftObjectImplies mathematician(X)
+\}$.
+Further let the full theory of the reality $\mathcal{M}$ contain the statements
+$\{academic(alice), \neg academic(mary) \}$.
+Define hypotheses
+$H_1=academic(X)$,
+$H_2=academic(X) \leftObjectImplies scientist(X)$,
+$H_3=academic(X) \leftObjectImplies mathematician(X)$.
+Let $Cn$ be the classical consequence operator.
+
+Then all 3 hypotheses are correct hypotheses. However $H_1$ does not predict correctly an instance $mary$. The information content of the hypotheses is
+$I_\mu(H_1)=4$, $I_\mu(H_2)=3$, $I_\mu(H_3)=2$. Hence the hypothesis $H_2$ is stronger than $H_3$ and if our bias of the possible solutions were $\mathcal{H}=\{H_1, H_2, H_3\}$ then the solution to the ILP problem of learning in an environment with a bias $\mathcal{H}$ is the hypothesis $H_2$ since it predicts correctly and has the maximal information content.
+\end{exmp}
+
+\subsection{Learning new information from given data}
+\subsection{Inductive inference}
+
+\subsection{Generalization}
+
+\subsection{Learning objective}
+The reader has seen some of the hints as to what a learning objective may be. However, in a strict sense normal problem setting, explanatory induction and learning in an environment may not provide the objectives of learning that we seek. They may be strategies to achieving the objective, but the distinction should always be kept in mind.
+
+
+
+\subsection{Negative examples}
+An example $e \in L_O$ is negative iff $\mathtt{O}(e)=false$.
+\subsection{Learning positive examples}
+A simple form of an ILP problem does not involve learning with negative examples.
+\begin{defn}
+An ILP problem of an explanatory induction\cite{yamamoto2012inverse} is a tuple $\langle B, E+ \rangle$ where $B$ is the background knowledge, $E+$ are positive examples. A hypothesis $H$ is correct wrt $\langle B, E+\rangle$ iff
+$B \cup H \models E+$ and $B \cup H \not\models false$.
+\end{defn}
+\subsection{Learning negative examples}
+One could require to learn negative examples in the same way as positive examples.
+\begin{defn}
+An ILP problem of learning negative examples is a tuple $\langle B, E+, E- \rangle$ where $B$ is the background theory, $E+$ a conjunction of the positive examples and $E-$ a conjunction of negative examples. A solution to the ILP problem $\langle B, E+, E-$ is a hypothesis $H$ such that
+$B \cup H \models E+ \cup E-$ and $B \cup H \not\models false$.
+\end{defn}
+If the negative examples define a different concept, then this type of the learning problem does not provide any advantage compared to the learning of the positive examples. Indeed one could learn the negations of the negative examples as positive examples.
+
+However, if the positive and negative examples are the observations of the same learnt concept, then negative examples can be used to supervise the learning of the positive examples.
+
+\begin{exmp}
+TODO
+\end{exmp}
+
+\subsection{Learning with negative examples}
+The requirement to learn the negative examples may be too strong. One could benefit from the supervision by the negative examples for the learning of the positive examples without requiring learning the negative examples.
+
+\begin{defn}
+An ILP problem is a tuple $\langle B, E+, E- \rangle$. $H$ is a correct hypothesis wrt $\angle B, E+, E- \rangle$ iff
+$B \cup H \models E+$, $B \cup H \not\models E-$ and $B \cup H \not\models false$.
+\end{defn}
+
+\subsection{Semantics}\label{problems_in_ilp_semantics}
+If one would like to deduce the observations $E$ from the background knowledge $B$ and the hypothesis $H$, in notation $E \subseteq Cn(B \cup H)$, one has to define the consequence operator $Cn$ in order to specify the ILP problem setting.
+
+The choice of the consequence operator specifies the interpretation of the learning problem, impacts what concepts $H$ are learnable from the background knowledge $B$ and the observations $E$ and what algorithm should be used to solve a specified inductive learning problem.
+
+\subsubsection{Allowing several possibilities}
+
+
+\subsubsection{Expressing incompleteness of information}
+Solving a learning problem may require that we make a distinction in our knowledge of information: what is true, what is false and what we do not know.
+Solving certain learning problems requires dealing with the knowledge of the information we do not know.
+
+\subsection{Assumption of the probable information}
+
+\subsubsection{Ability to withdraw conclusions}
+
+\subsubsection{Restricting the solution space}
+Since the logic language $L$ is infinite, the number of the solutions may potentially be infinite as well. If one wishes to consider a smaller set of the solutions one may introduce a space of the possible solutions (a bias) $\mathcal{H}$.
+\begin{defn}
+Given an ILP problem $I=\langle \overrightarrow{i} \rangle$,
+an ILP problem $I'$ with a bias $\mathcal{H}$ is a problem
+$I'=\langle \overrightarrow{i}, \mathcal{H} \rangle$.
+A hypothesis $H$ is a (parial) solution to $I'$ iff $H$ is a (partial) solution of $I$ and $H \in \mathcal{H}$.
+\end{defn}
+
+\subsection{Summary of definitions of an ILP problem}
+TODO make a summary of the suggested ILP definition, not specific to the systems.
+Let 
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+	ILP problem name & Specification & Solution\\ \hline
+    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
+    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    \hline
+    \end{tabular}
+\end{center}
+
+
