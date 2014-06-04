@@ -60,3 +60,14 @@ A solution of the hypothesis selection problem is a more precise formulation of 
 The background knowledge of the most ILP systems uses the non-monotonic semantics of Progol - if the statement fails to be proved, it is assumed to be false. This represents a problem when reasoning with the incomplete background knowledge. We may desire to express the incompleteness by saying that we do not know the truth value of some logical sentence. However, with the negation as failure, every statement is either true or false. Consequently, undesirably we need to bias the produced hypothesis either in or against the favour of the logical statement whose truth value we do not know.
 
 Monotonic semantics gives us the possibility to work with the theories of the several models, however it does not capture a possible change of the truth values of certain sentences upon the new observations.
+\section{ILP system definition}
+We define an ILP system:
+\begin{defn}
+An ILP system is a partial function $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$.
+\end{defn}
+Having defined an ILP problem, we define the correctness of an ILP system:
+\begin{defn}
+An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
+then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
+\end{defn}
+

@@ -1,22 +1,46 @@
 \chapter{Classification of ILP systems}\label{chap:classification_of_ilp_systems}
 
-TODO: where to classify an ILP system and where to classify an ILP framework? How to link a framework to the system in a classification? Can I classify a theoretical framework and its correspondent implementation in one go/place?
+In the chapter \nameref{chap:issues_in_ilp} we analysed the central issues in ILP by providing a brief explanation of an importance of an issue and a list of the properties defining an issue. In this chapter we classify ILP systems and theoretical frameworks based on the use of the defining properties to approach solving a particar issue.
 
-\section{ILP system definition}
-We define an ILP system:
-\begin{defn}
-An ILP system is a partial function $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$.
-\end{defn}
-Having defined an ILP problem, we define the correctness of an ILP system:
-\begin{defn}
-An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution to the problem of the multi-explanatory induction on an input $(E+,E-,B, \mathcal{H})$ iff if $false \not\in Cn(B \cup E+ \cup E-)$,
-then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
-\end{defn}
+We will define an ILP task by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as a computable function $I \mapsto O$.
 
 \section{ILP task definition}
-In \nameref{sec:ilp_task_definition} of the chapter \nameref{chap:issues_in_inductive_logic_programming} we presented machine learning problems: explanatory induction, generalization; together with the properties positive examples, negative examples, semantics important for the comparison of the definitions of an ILP task.
+In \nameref{sec:ilp_task_definition} of the chapter \nameref{chap:issues_in_inductive_logic_programming} we presented machine learning problems: generalization and explanatory induction; together with the properties expressivity, positive examples, negative examples, semantics.
 
-\section{Definition of an ILP problem}
+Although on the surface there may seem to be a standard definition of an ILP task, in this section we demonstrate that when specifying an ILP task completely, each ILP system classified solves a different learning problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
+
+We explain the importance of defining an ILP task completely, present building blocks for a definition of an ILP task, construct an ILP definition for each ILP system, classify the ILP systems based on an ILP task they solve and lastly provide a generalized unifying definition of an ILP task for all assessed ILP systems to lay the ground for their comparisons and classification in the subsequent chapters.
+
+\subsection{Importance of complete definitions}
+Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique function} $f$.
+
+An example of an incomplete definition is given an odd number to find an even number. Then constant functions $f_2:I \mapsto 2$, $f_4:I \mapsto 4$, ..., functons $g_1:I \mapsto I+1$, $g_3:I \mapsto I+3$ and many others are compatible with an incomplete definition of a function $f$. However, when the definition of a function problem is completed to given an odd number $I$ to find smallest even number greater than $I$, then unambiguously $f=g_1$.
+
+Not specifying an ILP task completely may result in designing an ILP system solving a different function problem than the one intended.
+
+\subsection{Buildings blocks of ILP task definition}
+In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
+
+\begin{defn}
+An \emph{ILP task definition} is a pair $D=\langle I, O, R \rangle$ where
+$I=\langle \overrightarrow{i} \rangle$ called an \emph{ILP task} is an input specified by an input vector. $R$ is a set of rules specifying what constitutes an \emph{output} $O$ of an ILP task $I$.
+\end{defn}
+We may require to formalise specify the form of $R$ further, but for our purposes this informal definition is sufficient. A reader may think of $R$ as a set of logical statements in some logic language (or even a metalanguage) of the ILP problem definition $D$.
+
+It may not always be convenient to define a definition $D$ in one definition. We may wish to specify the input $I$ and then define several different sets of rules $R_1, ..., R_n$ that define the output $O$ for $I$ and hence defining definitions $D_1=\langle I, O, R_1\rangle$, ..., $D_n=\langle I, O, R_n \rangle$.
+
+We demonstrate that a standar
+
+\subsubsection{Summary of ILP task definitions}
+
+\subsection{Classification ILP systems by an ILP task definition}
+The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \nameref{building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
+
+\subsubsection{Definitions of an ILP task for classified ILP systems}
+
+\subsubsection{Comparisons of ILP systems based on their ILP task definition}
+
+\subsection{A unified definition of an ILP task}
 We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
 
 Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E-$ we mean that no example $e- \in E-$ should be implied by $B \cup H$, therefore $E-$ is meant to be a disjunction (rather than a conjunction like $E+$) of examples. Therefore, $\overline{E-} \equiv \neg E-$.
@@ -45,11 +69,6 @@ Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $
 Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
 given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
 find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
-
-\subsection{Semantics of learning problem}
-\subsection{Expressing non-monotonic semantics in the classical logic}
-Clark completion translates a normal logic program $P$ into the first order theory $T$ so that for the Herbrand model $M$ of $P$ and the first-order model $\mathcal{M}$ of $T$ for every atom $a$ in the language $L$ the following statement is true:
-$a \in M \iff \mathcal{M} \models a$.
 
 \section{Hypothesis selection}
 
