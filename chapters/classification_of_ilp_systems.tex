@@ -115,15 +115,46 @@ $R=\{Cn(B \cup E+) \subseteq Cn(B \cup H), E- \not\in Cn(B \cup H)\}$ for some c
 
 See an example \fullref{explanatory_induction_example}.
 
-\subsubsection{Bias}
-A bias is an extension of a set of additional rules specifying an ILP task.
+\subsubsection{Hypothesis bias}
+The non-determinism of an ILP task is reduced by an introduction of additional constrains. A set of the constrains on a hypothesis for an ILP task are a hypothesis bias.
 
-\begin{itemize}
-\item \emph{discrete bias}
-\item \emph{preferential bias} is a partial relation $<$ on a set of hypotheses $\mathcal{H}$, $< \subseteq \mathcal{H} \times \mathcal{H}$,
-\end{itemize}
+\begin{defn}
+An ILP task of \emph{explanatory induction with a hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{H}\rangle$, $O=H$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}\}$ for some consequence operator $Cn$. A set $\mathcal{H} \subseteq \powerset{L}$ for a logic language $L$ is called a \emph{hypothesis bias}.
+\end{defn}
+
+\begin{exmp}\label{explanatory_induction_hypothesis_bias}
+Let $B = \{cook(alice), female(alice)\}$, $E=\{woman(alice)\}$,
+$H_1=\{woman(alice) \leftObjectImplies cook(alice)\}$,
+$H_2=\{woman(alice) \leftObjectImplies female(alice)\}$,
+$\mathcal{H}=\{H_1\}$.
+Then $H_1$ and $H_2$ are possible outputs for an input $I=\langle B, E\rangle$ of explanatory induction. However, only $H_2$ is an output for an input $I'=\langle B, E, \mathcal{H}\rangle$ of explanatory induction with a hypothesis bias.
+\end{exmp}
+
+\begin{exmp}
+Let $\mathcal{H} \subseteq \powerset{L}$ be a set of definite clauses. Then $\mathcal{H}$ is a hypothesis bias.
+\end{exmp}
+
+\subsection{Preferential bias}
+Instead of introducing constrains on a hypothesis, one may introduce constrains as a relation on pairs of hypotheses.
+
+\begin{defn}
+An ILP task of \emph{explanatory induction with a preferential hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, <_H\rangle$, $O=H$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), \forall H_2. (Cn(B \cup E) \subseteq Cn(B \cup H_2), false \not\in Cn(B \cup H_2) \implies H_2 <_H H \lor H_2 =_H H \}$ for some consequence operator $Cn$. A relation $<_H \subseteq \powerset{L} \times \powerset{L}$ is called a \emph{preferential hypothesis bias}.
+\end{defn}
+
+\begin{exmp}
+Let $B, E, H_1, H_2$ be as in an example \fullref{explanatory_induction_hypothesis_bias}.
+Let $<_H=\{(H_1, H_2)\}$ be a preferential hypothesis bias.
+Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of explanatory induction with a preferential hypothesis bias, but $H_1$ is not.
+\end{exmp}
 
 \subsubsection{Mode declarations}
+One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, then it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\cite{muggleton1995inverse} specifies the predicates allowed in a hypothesis.
+
+\begin{defn}
+A \emph{mode declaration} for an ILP task $I \mapsto O$.
+\end{defn}
 
 \paragraph{Xhail2}
 \begin{lstlisting}
