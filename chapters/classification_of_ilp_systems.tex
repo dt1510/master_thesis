@@ -78,15 +78,50 @@ Follows directly from the definitions.
 \end{proof}
 
 \subsubsection{Generalization}
+Recall \fullref{generalization}.
+\begin{defn}
+An ILP task of \emph{generalization} is defined by $D=\langle f, L, L, R \rangle$ where $R=\{\forall I \in L. Cn(I) \subseteq Cn(f(I))\}$ for some logic language $L$ and a consequence operator $Cn:L \to L$.
+\end{defn}
 
+An example of an ILP system that puts background knowledge and examples into one theory which is then generalized is Progol\cite{muggleton1995inverse}. An interested reader should consult Progol implementation referenced in the cited paper.
 
 \subsubsection{Hypothesis}
+The properties arising from an ILP task with a hypothesis provide significant means of comparison. A hypothesis is part of the definition of explanatory induction, but it is not present in the definition of generalisation. To be able to compare ILP systems like Progol whose ILP task is an extension of generalisation with ILP systems like Toplog, Imparo, Tal whose ILP task is an extension of explanatory induction we define a hypothesis for the definition of generalization.
+
+\begin{defn}
+Let $D=\langle f, L, L, R \rangle$ be a definition of generalization.
+Then $H \in L$ is a \emph{hypothesis} for $I \in dom(f)$ iff $\exists O \in f(I). H=O \setminus I$.
+\end{defn}
+
+\begin{exmp}
+Let $B, E, H$ be background knowledge, examples, a correct hypothesis wrt $B, E$ such that $E \cap H=\emptyset$.
+Then $Cn(B \cup E) \subseteq Cn(B \cup H)$, hence $O=B \cup H$ is a generalization of $I=B \cup E$.
+$I, O$ define the hypothesis $H'=O \setminus I=(B \cup H) \setminus (B \cup E)=H \setminus E=H$ which is the original hypothesis we started with.
+\end{exmp}
 
 \subsubsection{Explanatory induction}
+Most of the ILP systems solve an ILP task of an extended form of explanatory induction.\cite{kimber2012learning}\cite{aleph2007}\cite{nienhuys1997foundations}
 
-\subsection{Probabilistic setting}
+\begin{defn}
+An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+\end{defn}
+A division of examples $E=E+ \cup \neg E-$ into positive examples $E+$ and negative examples $E-$ results in an alternative definition.
+
+\begin{defn}
+An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E+, E- \rangle$, $O=H$,
+$R=\{Cn(B \cup E+) \subseteq Cn(B \cup H), E- \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+\end{defn}
+
+See an example \fullref{explanatory_induction_example}.
 
 \subsubsection{Bias}
+A bias is an extension of a set of additional rules specifying an ILP task.
+
+\begin{itemize}
+\item \emph{discrete bias}
+\item \emph{preferential bias} is a partial relation $<$ on a set of hypotheses $\mathcal{H}$, $< \subseteq \mathcal{H} \times \mathcal{H}$,
+\end{itemize}
 
 \subsubsection{Mode declarations}
 
@@ -139,6 +174,11 @@ option(max_num_rules, 5).
 option(strategy, breadth).
 option(ic_check, true).
 \end{lstlisting}
+
+\subsection{Probabilistic setting}
+
+\subsection{Approximating requirements}
+Toplog - hypothesis.
 
 \subsubsection{Score function}
 

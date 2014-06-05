@@ -15,9 +15,9 @@ The objectives of this section are to present the main machine learning problems
 We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
 
 \subsection{Learning problem vs. ILP task}
-A \emph{learning problem} is a general machine learning problem. An \emph{ILP task} is a learning problem specified formally by an input and a required output within the context of ILP.
+A \emph{learning problem} is a general machine learning problem. An \emph{ILP task} is a functon learning problem $I \mapsto O$ specified formally by a possible input $I$ and a required output $O$ within the context of ILP.
 
-\subsection{Generalization}
+\subsection{Generalization}\label{generalization}
 
 \begin{defn}
 A theory $T_2$ is \emph{more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subseteq Cn(T_2)$.
@@ -54,7 +54,7 @@ Let $T$ be a theory $\{mortal(aristotle) \leftObjectImplies man(aristotle), man(
 
 This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E+ \cup \neg E-$ where $E, E+, \neg E-$ are conjunctions of logical statements, hence $E-$ being a disjunction of logical statements.
 
-\begin{exmp}
+\begin{exmp}\cite{explanatory_induction_example}
 Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E+=\{man(adam)\}$,
 $\neg E- = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
 $E- = man(alice) \lor man(susan)$.
