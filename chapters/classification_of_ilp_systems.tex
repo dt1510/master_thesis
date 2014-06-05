@@ -65,8 +65,91 @@ The only possible function of a deterministic function is the function itself, i
 
 \begin{defn}
 A definition $D_1=\langle f_1, dom(f_2), cod(f_2), R \rangle$ is \emph{more complete} than the definition $D_2=\langle f_1, dom(f_2), cod(f_2), R \rangle$ iff
-$f_2$ is a possible function of $f$.
+$f_2$ is a possible function of $f_1$.
 \end{defn}
+
+\begin{corollary}
+Let $D_1=\langle f_1, \mathcal{I}, \mathcal{O}, R_1 \rangle$, $D_2=\langle f_2, \mathcal{I}, \mathcal{O}, R_2 \rangle$ be definitions of an ILP task.
+If $R_2 \models R_1$, then $D_2$ is more complete than $D_1$.
+\end{corollary}
+
+\begin{proof}
+Follows directly from the definitions.
+\end{proof}
+
+\subsubsection{Generalization}
+
+
+\subsubsection{Hypothesis}
+
+\subsubsection{Explanatory induction}
+
+\subsection{Probabilistic setting}
+
+\subsubsection{Bias}
+
+\subsubsection{Mode declarations}
+
+\paragraph{Xhail2}
+\begin{lstlisting}
+modeh(1,3,min,fries("+bistro")).
+modeb(1,3,pos,offer("+bistro")).
+\end{lstlisting}
+
+\paragraph{Toplog}
+\begin{lstlisting}
+:-modeh(append(+list,+list,-list)).
+:-modet(2, l2ht(+list/[H|T], -any/H, -list/T)).
+:-modeb(append(+list,+list,-list)).
+\end{lstlisting}
+
+\subsubsection{Determinations}
+
+\subsubsection{Top theory}
+
+\subsection{Integrity constraints}
+
+\subsubsection{Meta-constrains}
+
+\paragraph{Toplog}
+\begin{lstlisting}
+:-set(maximum_literals_in_hypothesis)
+:-set(example_inflation, 10).
+\end{lstlisting}
+
+\paragraph{Imparo}
+\begin{lstlisting}
+:-set_max_clause_length(5).
+:-set_max_clauses(1).
+:-set_verbose(1).
+:-set_connected(1).
+:-set_max_var_depth(3).
+\end{lstlisting}
+
+\paragraph{Tal}
+\begin{lstlisting}
+%Maximum number of body literals
+option(max_body_literals, 5).
+
+%Maximum number of rules
+option(max_num_rules, 5).
+
+%Maximum depth of the proof
+%option(max_depth, 400).
+option(strategy, breadth).
+option(ic_check, true).
+\end{lstlisting}
+
+\subsubsection{Score function}
+
+\subsubsection{Semantics}
+
+\subsubsection{Other constructions}
+The building blocks and the rules we have considered are:
+\begin{itemize}
+\item types in 
+\item episodes in metalearning framework.
+\end{itemize}
 
 \subsubsection{Summary of ILP task definitions}
 
