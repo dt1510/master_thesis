@@ -131,11 +131,11 @@ Most of the ILP systems solve an ILP task of an extended form of explanatory ind
 An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$,
 $R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
 \end{defn}
-A division of examples $E=E+ \cup \neg E-$ into positive examples $E+$ and negative examples $E-$ results in an alternative definition.
+A division of examples $E=E^{+} \cup \neg E^{-}$ into positive examples $E^{+}$ and negative examples $E^{-}$ results in an alternative definition.
 
 \begin{defn}
-An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E+, E- \rangle$, $O=H$,
-$R=\{Cn(B \cup E+) \subseteq Cn(B \cup H), E- \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E^{+}, E^{-} \rangle$, $O=H$,
+$R=\{Cn(B \cup E^{+}) \subseteq Cn(B \cup H), E^{-} \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
 \end{defn}
 
 See an example \fullref{explanatory_induction_example}.
@@ -255,32 +255,32 @@ The objective of this subsection is to summarise ILP task definitions for each I
 \subsection{A unified definition of an ILP task}
 We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
 
-Let $E$ denote examples, $E+$ positive examples, $E-$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E-}$ we denote the set of the negated sentences of $E-$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E-$ we mean that no example $e- \in E-$ should be implied by $B \cup H$, therefore $E-$ is meant to be a disjunction (rather than a conjunction like $E+$) of examples. Therefore, $\overline{E-} \equiv \neg E-$.
+Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $E^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
 
 \begin{center}
     \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
     \hline
     ILP system & \\ \hline
-    Aleph & Given $E+$, $E-$, $B$, $\mathcal{H}$, $B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$\\ \hline
+    Aleph & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, $B \cup E^{+} \cup E^{-} \not\models false$, find $H \in \mathcal{H}. B \cup H \models E^{+}, B \cup E^{-} \not\models false$\\ \hline
     Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \cup H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
-    Toplog & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Imparo & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Tal & Given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E+, B \cup E- \not\models false$ \\ \hline
-    Xhail & Given $E+$, $E-$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E+ \cup \overline{E-} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
+    Toplog & Given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$, find $H \in \mathcal{H}. B \cup H \models E^{+}, B \cup E^{-} \not\models false$ \\ \hline
+    Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$, find $H \in \mathcal{H}. B \cup H \models E^{+}, B \cup E^{-} \not\models false$ \\ \hline
+    Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \cup H \models E^{+}, B \cup E^{-} \not\models false$ \\ \hline
+    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \cup \overline{E^{-}} \subseteq Cl(B \cup H), false \not\in Cl(B \cup H)$\\ \hline
     \hline
     \end{tabular}
 \end{center}
 
 Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
-given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$, find $H \in \mathcal{H}. B \cup H \models E+, B \cup E- \not\models false$
+given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$, find $H \in \mathcal{H}. B \cup H \models E^{+}, B \cup E^{-} \not\models false$
 
-The Progol ILP problem is a generalization of the explanatory induction: given $E+, E-, B, \mathcal{H}, B \cup E+ \cup E- \not\models false$,
-let $B_P=E+ \cup \overline{E-} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E+' \cup \overline{E-'} \cup H_P = H$ where $E+' \subseteq E+, E-' \subseteq E-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E+, B \cup H \not\models E-, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$,
+let $B_P=E^{+} \cup \overline{E^{-}} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E^{+}' \cup \overline{E^{-}'} \cup H_P = H$ where $E^{+}' \subseteq E^{+}, E^{-}' \subseteq E^{-}$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E^{+}, B \cup H \not\models E^{-}, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
 
 Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
-given $E+, E-, B, \mathcal{H}, false \not\in Cn(B \cup E+ \cup E-)$,
-find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \cup E^{+} \cup E^{-})$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \cup \overline{E^{-}} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
 
 \section{Hypothesis selection}
 
@@ -396,9 +396,9 @@ The following definitions, an example and a remark of a mode declaration are due
 A \emph{mode declaration} has either the form
 $modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
 or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
-bracketed tuple of terms. A place-marker is either $+type$, $-type$ or $\#type$, where
+bracketed tuple of terms. A placE^{-}marker is either $+type$, $-type$ or $\#type$, where
 type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of $m$
-with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
+with placE^{-}markers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
 \end{defn}
 
 \begin{exmp}
@@ -424,10 +424,10 @@ Progol's definite mode language $L$.
 \emph{Definite mode language}. Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \objectImplies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
 1) h is the atom
-of a modeh declaration in $M$ with every place-marker $+type$ and $-type$ replaced by
-variables and every place-marker $\#type$ replaced by a ground term and 2) every
+of a modeh declaration in $M$ with every placE^{-}marker $+type$ and $-type$ replaced by
+variables and every placE^{-}marker $\#type$ replaced by a ground term and 2) every
 atom $b_i$ in the body of $C$ is the atom of a modeb declaration in $M$ with every
-place-marker $+type$ and $-type$ replaced by variables and every place-marker $\#type$
+placE^{-}marker $+type$ and $-type$ replaced by variables and every placE^{-}marker $\#type$
 replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is either
 of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \end{defn}
@@ -587,7 +587,7 @@ Bias:
 \item Horn theory bias (not present in a IoF framework),
 \item Bottom theory bias, $\bot=$ a connected theory for $B$ and $e$,
 \item Solo-generalization bias,
-\item Score-function bias,
+\item ScorE^{-}function bias,
 \item Mode declaration bias,
 \item a bias specifiable in an input program:
 \begin{lstlisting}
@@ -618,12 +618,12 @@ $\mathcal{H}_{bottom\_clause} \subseteq \mathcal{H}_{kernel\_set} \subseteq \mat
 
 \subsection{IE algorithm\cite{yamamoto2012inverse}}
 Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
-$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E+,E-,\mathcal{H})$ iff
-$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
- $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
 iff
-$B \cup H \subseteq Cn(E+ \union \overline{E-})$,
- $false \not\in Cn(E+ \cup E-)$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
  
 They compute the hypothesis $H$ in two steps:
 1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
@@ -638,7 +638,7 @@ $H \subsumes \tau(M(F \cup Taut(I_H))$.
 \end{lemma}
 
 \subsection{Imparo is complete in inverse subsumption}
-We solve an open problem in \cite{yamamoto2012inverse} proving that for every correct hypothesis $H$ wrt $B, E+, E-$ there is a connected theory $T$ wrt $B, E+, E-$ subsumed by it.
+We solve an open problem in \cite{yamamoto2012inverse} proving that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
 \begin{defn}
 Let $P=\langle B, U, I \rangle$ be an open definite program, $H$ be a correct hypothesis wrt $P$ and a ground example $E$, then $H$ is derivable by
 \emph{connected theory inverse subsumption}
