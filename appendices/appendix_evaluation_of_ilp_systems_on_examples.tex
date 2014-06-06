@@ -247,11 +247,8 @@ Toplog has a limitation that every example can be only a ground atom.
 \subsection{A multiclausal learning}
 Imparo is capable to learn a multi-clausal hypothesis at one time.
 
-\begin{center}
-    \begin{tabular}{ | l | l | l | l |}
-    \hline
-    Mode declarations & Types & Background knowledge & Examples \\ \hline
-    \begin{lstlisting}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 head_modes([
    woman(+person),
    man(+person)
@@ -260,13 +257,16 @@ head_modes([
 body_modes([
     female(+person),
     male(+person)
-]).\end{lstlisting} &
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
 \begin{lstlisting}
 person(jane).
 person(susan).
 person(jack).
-person(sam).
-\end{lstlisting} &
+person(sam).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
 \begin{lstlisting}
 %Background knowledge
 female(jane).
@@ -274,7 +274,9 @@ female(susan).
 
 male(jack).
 male(sam).
-\end{lstlisting} & 
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 %Examples
 woman(jane).
@@ -285,9 +287,7 @@ man(sam).
 :- woman(jack).
 :- man(susan).
 \end{lstlisting}
-\\ \hline
-    \end{tabular}
-\end{center}
+\end{minipage}
 
 
 produces a hypothesis
@@ -301,6 +301,7 @@ Learning multiple hypotheses is not possible in all systems, e.g. Toplog. Nevert
 \subsection{Learnability of a nested term structure}
 Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation. Observations below correspond to the language defined by the regular expression \tc{(sr)*}.
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 head_modes([
    in_language(+word),
@@ -317,13 +318,15 @@ body_modes([
     in_language(s(+word)),
     in_language(r(+word))
 ]).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
 word(e).
 word(s(X)).
 word(r(X)).
 
 %Examples
-
 in_language(e).
 in_language(r(s(e))).
 in_language(r(s(r(s(e))))).
@@ -334,6 +337,9 @@ in_language(r(s(r(s(r(s(e))))))).
 :- in_language(s(s(r(e)))).
 :- in_language(s(s(s(e)))).
 \end{lstlisting}
+\end{minipage}
+
+
 returns a hypothesis
 \begin{lstlisting}
 in_language(e):-true
@@ -344,6 +350,8 @@ Note, this was not possible in Toplog.
 
 \subsection{Learnability of multi-clausal concepts}
 Imparo can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+
+\begin{minipage}[t]{.27\textwidth}
 \begin{lstlisting}
 head_modes([
    man(+person),
@@ -353,16 +361,21 @@ head_modes([
 body_modes([
     female(+person),
     male(+person)
-]).
-
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.22\textwidth}
+\begin{lstlisting}
 person(jane).
 person(susan).
 person(eugenia).
 person(jack).
 person(sam).
 person(martin).
-
-% Gender, Background knowledge
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+%Background knowledge
 female(jane).
 female(susan).
 female(eugenia).
@@ -372,8 +385,11 @@ couple(sam, susan).
 couple(martin, eugenia).
 
 male(X) :- couple(X,Y), woman(Y).
-
-% Gender, Examples
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
 man(jack).
 man(martin).
 
@@ -383,6 +399,7 @@ woman(susan).
 :-man(jane).
 :-woman(sam).
 \end{lstlisting}
+\end{minipage}
 
 produces the hypothesis
 \begin{lstlisting}
