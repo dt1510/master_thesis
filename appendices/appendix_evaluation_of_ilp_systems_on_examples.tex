@@ -4,25 +4,36 @@
 \subsection{Mode declarations order bias}
 Consider the Toplog program:
 
+\begin{minipage}[t]{.35\textwidth}
 \begin{lstlisting}
 :-modeh(r(+type)).
 :-modeb(1, p1(+type)).
 :-modeb(1, p2(+type)).
-
 :-set(maximum_literals_in_hypothesis, 10).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 p1(a1).
 p1(a2).
 p1(a3).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 p2(a1).
 p2(a2).
 p2(a3).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 example(r(a1),1).
 example(r(a2),1).
 example(r(a3),1).
 \end{lstlisting}
+\end{minipage}
+
 
 Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode declaration to the following:
 \begin{lstlisting}
