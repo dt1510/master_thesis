@@ -276,7 +276,7 @@ given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$,
 
 The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \cup E^{+} \cup E^{-} \not\models false$,
 let $B_P=E^{+} \cup \overline{E^{-}} \cup B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E^{+}' \cup \overline{E^{-}'} \cup H_P = H$ where $E^{+}' \subseteq E^{+}, E^{-}' \subseteq E^{-}$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E^{+}, B \cup H \not\models E^{-}, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+Then $(B' \union H_P) \backslash B=E'^{+} \cup \overline{E'^-} \cup H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of the problem of the explanatory induction since $B \cup H \models E^{+}, B \cup H \not\models E^{-}, B \cup H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
 
 Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
 given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \cup E^{+} \cup E^{-})$,
@@ -396,9 +396,9 @@ The following definitions, an example and a remark of a mode declaration are due
 A \emph{mode declaration} has either the form
 $modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
 or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
-bracketed tuple of terms. A placE^{-}marker is either $+type$, $-type$ or $\#type$, where
+bracketed tuple of terms. A placemarker is either $+type$, $-type$ or $\#type$, where
 type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of $m$
-with placE^{-}markers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
+with placemarkers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
 \end{defn}
 
 \begin{exmp}
@@ -424,10 +424,10 @@ Progol's definite mode language $L$.
 \emph{Definite mode language}. Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \objectImplies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
 1) h is the atom
-of a modeh declaration in $M$ with every placE^{-}marker $+type$ and $-type$ replaced by
-variables and every placE^{-}marker $\#type$ replaced by a ground term and 2) every
+of a modeh declaration in $M$ with every placemarker $+type$ and $-type$ replaced by
+variables and every placemarker $\#type$ replaced by a ground term and 2) every
 atom $b_i$ in the body of $C$ is the atom of a modeb declaration in $M$ with every
-placE^{-}marker $+type$ and $-type$ replaced by variables and every placE^{-}marker $\#type$
+placemarker $+type$ and $-type$ replaced by variables and every placemarker $\#type$
 replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is either
 of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \end{defn}
@@ -587,7 +587,7 @@ Bias:
 \item Horn theory bias (not present in a IoF framework),
 \item Bottom theory bias, $\bot=$ a connected theory for $B$ and $e$,
 \item Solo-generalization bias,
-\item ScorE^{-}function bias,
+\item Score function bias,
 \item Mode declaration bias,
 \item a bias specifiable in an input program:
 \begin{lstlisting}
