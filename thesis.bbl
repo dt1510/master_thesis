@@ -1,4 +1,4 @@
-\begin{thebibliography}{NCDW97}
+\begin{thebibliography}{MLPTN14}
 
 \bibitem[Ant12]{sep-logic-nonmonotonic}
 G.~Aldo Antonelli.
@@ -11,15 +11,49 @@ Keith~L Clark.
 \newblock Negation as failure.
 \newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
 
+\bibitem[CRL10]{corapi2010inductive}
+Domenico Corapi, Alessandra Russo, and Emil Lupu.
+\newblock Inductive logic programming as abductive search.
+\newblock In {\em ICLP (Technical Communications)}, pages 54--63, 2010.
+
 \bibitem[CW14]{wolframMathworldMeasure}
 Allan Cortzen and Eric~W Weisstein.
 \newblock Measure, 2014.
 \newblock MathWorld--A Wolfram Web Resource.
 
+\bibitem[DR97]{de1997logical}
+Luc De~Raedt.
+\newblock Logical settings for concept-learning.
+\newblock {\em Artificial Intelligence}, 95(1):187--201, 1997.
+
+\bibitem[Fla96]{flach1996rationality}
+Peter~A Flach.
+\newblock Rationality postulates for induction.
+\newblock In {\em Proceedings of the 6th conference on Theoretical aspects of
+  rationality and knowledge}, pages 267--281. Morgan Kaufmann Publishers Inc.,
+  1996.
+
 \bibitem[Goo65]{goodman1965new}
 Nelson Goodman.
 \newblock The new riddle of induction.
 \newblock 1965.
+
+\bibitem[Hum02]{hume1902enquiries}
+David Hume.
+\newblock {\em Enquiries Concerning the Human Understanding: And Concerning the
+  Principles of Morals}.
+\newblock Clarendon Press, 1902.
+
+\bibitem[KBR09]{kimber2009induction}
+Tim Kimber, Krysia Broda, and Alessandra Russo.
+\newblock Induction on failure: learning connected horn theories.
+\newblock In {\em Logic Programming and Nonmonotonic Reasoning}, pages
+  169--181. Springer, 2009.
+
+\bibitem[Keu13]{keuth2013karl}
+Herbert Keuth.
+\newblock {\em Karl Popper: Logik der Forschung}, volume~12.
+\newblock Walter de Gruyter, 2013.
 
 \bibitem[Kim12]{kimber2012learning}
 Timothy Kimber.
@@ -48,32 +82,74 @@ David Marker.
 \newblock {\em Model theory}.
 \newblock Springer, 2002.
 
-\bibitem[Mit97]{mitchell1997machine}
-Tom~M Mitchell.
-\newblock Machine learning. 1997.
-\newblock {\em Burr Ridge, IL: McGraw Hill}, 45, 1997.
+\bibitem[MLPTN14]{muggleton2014meta}
+Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
+\newblock Meta-interpretive learning: application to grammatical inference.
+\newblock {\em Machine Learning}, 94(1):25--49, 2014.
+
+\bibitem[MLTN12]{muggleton2012mc}
+Stephen~H Muggleton, Dianhuan Lin, and Alireza Tamaddoni-Nezhad.
+\newblock Mc-toplog: Complete multi-clause learning guided by a top theory.
+\newblock In {\em Inductive Logic Programming}, pages 238--254. Springer, 2012.
+
+\bibitem[MSTN08]{muggleton2008toplog}
+Stephen~H Muggleton, Jos{\'e} Carlos~Almeida Santos, and Alireza
+  Tamaddoni-Nezhad.
+\newblock Toplog: Ilp using a logic program declarative bias.
+\newblock In {\em Logic Programming}, pages 687--692. Springer, 2008.
+
+\bibitem[Mug95]{muggleton1995inverse}
+Stephen Muggleton.
+\newblock Inverse entailment and progol.
+\newblock {\em New generation computing}, 13(3-4):245--286, 1995.
 
 \bibitem[NCDW97]{nienhuys1997foundations}
 Shan-Hwei Nienhuys-Cheng and Ronald De~Wolf.
 \newblock {\em Foundations of inductive logic programming}, volume 1228.
 \newblock Springer, 1997.
 
+\bibitem[PHW35]{peirce1935collected}
+Charles~Sanders Peirce, Charles Hartshorne, and Paul Weiss.
+\newblock {\em Collected papers of charles sanders peirce}, volume~2.
+\newblock Harvard University Press, 1935.
+
 \bibitem[RFH88]{royden1988real}
 Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
 \newblock {\em Real analysis}, volume~4.
 \newblock Prentice Hall New York, 1988.
+
+\bibitem[SBD88]{selby1888treatise}
+Lewis~Amherst Selby-Bigge and Hume David.
+\newblock {\em A Treatise of Human Nature by David Hume}.
+\newblock Рипол Классик, 1888.
 
 \bibitem[Ser05]{sergot2005knowledgeRepresentationLectureNotes}
 Marek Sergot.
 \newblock Knowledge representation, lecture notes, imperial college london,
   2005.
 
+\bibitem[Smi14]{sep-aristotle-logic}
+Robin Smith.
+\newblock Aristotle's logic.
+\newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
+  Philosophy}. Spring 2014 edition, 2014.
+
+\bibitem[Sri07]{aleph2007}
+Ashwin Srinivasan.
+\newblock {\em The Aleph Manual}, 2007.
+\newblock Version 4 and above.
+
 \bibitem[SS86]{stove1986rationality}
 David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
 
-\bibitem[YII12]{yamamoto2012inverse}
+\bibitem[YII12a]{yamamoto2012comparison}
+Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
+\newblock Comparison of upward and downward generalizations in cf-induction.
+\newblock In {\em Inductive Logic Programming}, pages 373--388. Springer, 2012.
+
+\bibitem[YII12b]{yamamoto2012inverse}
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
 \newblock Inverse subsumption for complete explanatory induction.
 \newblock {\em Machine learning}, 86(1):115--139, 2012.
