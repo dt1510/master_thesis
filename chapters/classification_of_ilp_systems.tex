@@ -35,7 +35,7 @@ In this subsection we define an ILP task definition, instantiate the definition 
 \begin{defn}\label{ilp_task_definition}
 An \emph{ILP task definition} is a tuple $D=\langle f, dom(f), cod(f), R \rangle$ where a (possibly non-deterministic) function $f$ is called an \emph{ILP task}, $dom(f)$ is a set of \emph{inputs} vectors
 $I=\langle \overrightarrow{i} \rangle$, $cod(f)$ is a set of \emph{output} vectors $O=\langle \overrightarrow{o} \rangle$ and $R$ is a set of rules (logical sentences) defining $f$,
-i.e. $O \in f(I) \iff R \cup \{O \in f(I)\} \not\models false$ for a classical consequence operator $\models$.
+i.e. $O \in f(I) \iff R \cup \{O \in f(I)\} \not\models false$ for a classical consequence operator $\models$. A vector component of an input(output) vector $\overrightarrow{i}$($\overrightarrow{o}$) is called an \emph{input component}(\emph{output component}) of an ILP task $f$. A \emph{structure component} of an ILP task is its input or output component. A \emph{rule} of an ILP task is a formula $\phi \in R$.
 \end{defn}
 
 \begin{remark}
@@ -43,9 +43,10 @@ We will often specify $R$ only by its subset of sentences and the rest will be s
 \end{remark}
 
 \begin{exmp}
-The definition of explanatory induction is $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+The definition of explanatory induction is $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$. Input components of explanatory inductions are $B, E$. A hypothesis $H$ is an output component of explanatory induction.
 \end{exmp}
 
+\subsubsection{Completeness of definitions of ILP task}
 By the example \fullref{explanatory_induction_definition_incompleteness} the definition of explanatory induction does not specify a unique deterministic ILP task, we say such a definition is incomplete.
 
 \begin{defn}
@@ -76,6 +77,21 @@ If $R_2 \models R_1$, then $D_2$ is more complete than $D_1$.
 \begin{proof}
 Follows directly from the definitions.
 \end{proof}
+
+\subsubsection{Extension of ILP task definition}
+To provide a more accurate and complete specification of an ILP task, its definition can be extended.
+
+\begin{defn}
+Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_2$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
+\end{defn}
+
+\begin{remark}
+An extension of an ILP task definition defines a different ILP task. Later a correspondence between an ILP task defined by $D$ and an ILP task defined by an extension of $D$ will be shown.
+\end{remark}
+
+\begin{corollary}
+
+\end{corollary}
 
 \subsubsection{Generalization}
 Recall \fullref{generalization}.
@@ -135,7 +151,7 @@ Then $H_1$ and $H_2$ are possible outputs for an input $I=\langle B, E\rangle$ o
 Let $\mathcal{H} \subseteq \powerset{L}$ be a set of definite clauses. Then $\mathcal{H}$ is a hypothesis bias.
 \end{exmp}
 
-\subsection{Preferential bias}
+\subsubsection{Preferential bias}
 Instead of introducing constrains on a hypothesis, one may introduce constrains as a relation on pairs of hypotheses.
 
 \begin{defn}
@@ -150,11 +166,7 @@ Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of ex
 \end{exmp}
 
 \subsubsection{Mode declarations}
-One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, then it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\cite{muggleton1995inverse} specifies the predicates allowed in a hypothesis.
-
-\begin{defn}
-A \emph{mode declaration} for an ILP task $I \mapsto O$.
-\end{defn}
+One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\cite{muggleton1995inverse} specifies the predicates allowed in a hypothesis.
 
 \paragraph{Xhail2}
 \begin{lstlisting}
@@ -173,7 +185,7 @@ modeb(1,3,pos,offer("+bistro")).
 
 \subsubsection{Top theory}
 
-\subsection{Integrity constraints}
+\subsubsection{Integrity constraints}
 
 \subsubsection{Meta-constrains}
 
@@ -206,9 +218,9 @@ option(strategy, breadth).
 option(ic_check, true).
 \end{lstlisting}
 
-\subsection{Probabilistic setting}
+\subsubsection{Probabilistic setting}
 
-\subsection{Approximating requirements}
+\subsubsection{Approximating requirements}
 Toplog - hypothesis.
 
 \subsubsection{Score function}
