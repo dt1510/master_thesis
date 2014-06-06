@@ -50,7 +50,7 @@ $E_2 \theta = E$.
 
 \subsection{Extension to cover negative examples}
 We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
-\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E+$, $B \wedge H$ consistent, $B \wedge H \not\models E-$.
+\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E^{+}$, $B \wedge H$ consistent, $B \wedge H \not\models E^{-}$.
 \end{defn}
 
 \begin{lemma}\label{yamamoto2012inverseLemma2Converse}
@@ -62,48 +62,48 @@ By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \eq
 \end{proof}
 
 \begin{lemma}
-Let $E-=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
-a hypothesis wrt $I_H, B, E+, E-$.
-Then $B \cup H \not\models E-$ iff
+Let $E^{-}=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
+a hypothesis wrt $I_H, B, E^{+}, E^{-}$.
+Then $B \cup H \not\models E^{-}$ iff
 $\forall i \in \{1,...,n\}.$ $H \not\subsumes \tau(M(F_i- \cup Taut(I_H)))$.
 \end{lemma}
 
 \begin{proof}
-Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E-$ is in a disjunctive normal form.
+Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E^{-}$ is in a disjunctive normal form.
 \end{proof}
 
 \begin{conjecture}
-$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F- \cup Taut(I_H)))$
-where $F-=F_1- \wedge ... \wedge F_n-$.
+$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F^{-} \cup Taut(I_H)))$
+where $F^{-}=F_1- \wedge ... \wedge F_n-$.
 \end{conjecture}
 
 By the principle of inverse entailment
-$B \wedge H \not\models E-$ iff
-$B \wedge \neg E- \not\models \neg H$.
+$B \wedge H \not\models E^{-}$ iff
+$B \wedge \neg E^{-} \not\models \neg H$.
 
 \begin{defn}
-(Negative bridge theory) Let $B$ and $E-$ be a background theory and negative examples, respectively. Let $F-$ be a ground clausal theory. Then $F-$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E- \models F-$ holds.
+(Negative bridge theory) Let $B$ and $E^{-}$ be a background theory and negative examples, respectively. Let $F^{-}$ be a ground clausal theory. Then $F^{-}$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E^{-} \models F^{-}$ holds.
 \end{defn}
 
 \begin{conjecture}\label{subsumptionConjectureNegativeExamples}
 (Note: probably false).
-Let $B$, $E-$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F-$ be a negative bridge theory wrt $B$ and $E-$. For every hypothesis $H$ wrt $I_H$ and $F-$,
+Let $B$, $E^{-}$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F^{-}$ be a negative bridge theory wrt $B$ and $E^{-}$. For every hypothesis $H$ wrt $I_H$ and $F^{-}$,
 
-$B \wedge H \not\models E-$ iff $H$ does not subsume
-$\tau(M(F- \cup Taut(I_H)))$.
+$B \wedge H \not\models E^{-}$ iff $H$ does not subsume
+$\tau(M(F^{-} \cup Taut(I_H)))$.
 \end{conjecture}
 
 \begin{defn}
-Let $B$, $E+$, $E-$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
-Let $F$ be a bridge theory wrt $B$ and $E+$. Let $F-$ be a maximal negative bridge theory wrt $B$ and $E-$. A clausal theory $H$ is derived
-by extended inverse subsumption with minimal complements from $F$ and $F-$ wrt $I_H$ if $H$ is constructed as
+Let $B$, $E^{+}$, $E^{-}$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
+Let $F$ be a bridge theory wrt $B$ and $E^{+}$. Let $F^{-}$ be a maximal negative bridge theory wrt $B$ and $E^{-}$. A clausal theory $H$ is derived
+by extended inverse subsumption with minimal complements from $F$ and $F^{-}$ wrt $I_H$ if $H$ is constructed as
 follows:
 \begin{itemize}
 \item Step 1. Compute $Taut(I_H)$;
 \item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
-\item Step 3. Compute $\tau(M(F- \cup Taut(I_H)))$;
+\item Step 3. Compute $\tau(M(F^{-} \cup Taut(I_H)))$;
 \item Step 4. Construct a clausal theory $H$ satisfying the conditions:
 $H \subsumes \tau(M(F \cup Taut(I_H)))$,
-$H \not\subsumes \tau(M(F- \cup Taut(I_H)))$.
+$H \not\subsumes \tau(M(F^{-} \cup Taut(I_H)))$.
 \end{itemize}
 \end{defn}

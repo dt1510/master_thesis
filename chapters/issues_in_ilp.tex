@@ -52,19 +52,19 @@ Let $T$ be a theory $\{mortal(aristotle) \leftObjectImplies man(aristotle), man(
 \begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
 
-This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E+ \cup \neg E-$ where $E, E+, \neg E-$ are conjunctions of logical statements, hence $E-$ being a disjunction of logical statements.
+This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E+ \cup \neg E^{-}$ where $E, E+, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
 
 \begin{exmp}\cite{explanatory_induction_example}
-Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E+=\{man(adam)\}$,
-$\neg E- = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
-$E- = man(alice) \lor man(susan)$.
+Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
+$\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
+$E^{-} = man(alice) \lor man(susan)$.
 \end{exmp}
 
 Therefore one can define explanatory induction with the negative examples.
-\begin{defn}A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, positive examples $E+$, negative examples $E-$ to find a hypothesis $H$ satisfying
-$E+ \subseteq Cn(B \cup H)$ and $E- \not\in Cn(B \cup H)$.
+\begin{defn}A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying
+$E^{+} \subseteq Cn(B \cup H)$ and $E^{-} \not\in Cn(B \cup H)$.
 \end{defn}
-The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E- \in Cn(B \cup H)$.
+The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
 
 Explanatory induction is a case of generalization where the theory $T_2=B \cup H$ generalizes the theory $T = B \cup E$.
 
@@ -77,7 +77,7 @@ One may wish to limit the logical theories $T, B, E, H$ to be of a certain form 
 
 \subsubsection{Logical representation}
 \emph{Clausal theories} allow sentences to be clauses, but one may restrict the theories to be \emph{extended logic programs}, \emph{normal logic programs}, 
-\emph{Horn theories}, \emph{definite logic programs}, \emph{Datalog programs}, \emph{literals}, \emph{atoms}. For example, Imparo\cite{kimber2012learning} requires background knowledge and a hypothesis to be a definite logic programs and examples $E+$ and $E-$ to be ground atomic whereas Yamamoto et al. reason about the explanatory induction in \cite{yamamoto2012inverse} with any clausal theories $B, E, H$. This has an impact on the complexity of the learning problem as every definite theory can be expressed as a clausal theory, but not vice versa.
+\emph{Horn theories}, \emph{definite logic programs}, \emph{Datalog programs}, \emph{literals}, \emph{atoms}. For example, Imparo\cite{kimber2012learning} requires background knowledge and a hypothesis to be a definite logic programs and examples $E^{+}$ and $E^{-}$ to be ground atomic whereas Yamamoto et al. reason about the explanatory induction in \cite{yamamoto2012inverse} with any clausal theories $B, E, H$. This has an impact on the complexity of the learning problem as every definite theory can be expressed as a clausal theory, but not vice versa.
 
 \subsubsection{Other properties}
 The expressivity of the learning problem is further affected by
@@ -87,7 +87,7 @@ The expressivity of the learning problem is further affected by
 \end{itemize}
 
 \subsection{Examples}
-Positive examples $E+$ and negative examples $E-$ in explanatory induction put conditions on a possible explanation $H$: $E+ \in Cn(B \cup E+)$, $E- \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
+Positive examples $E^{+}$ and negative examples $E^{-}$ in explanatory induction put conditions on a possible explanation $H$: $E^{+} \in Cn(B \cup E^{+})$, $E^{-} \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
 
 \subsection{Semantics}
 If two ILP tasks use a different consequence operator, then each specifies a different learning problem and a solution to one of them does not necessarily constitute a solution to the other problem.
@@ -100,13 +100,13 @@ Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is no
 An important property of a consequence operator is \emph{monotonicity}.
 
 \section{Completeness by problem classes}
-The task of a normal problem setting for inductive logic programming is given background knowledge $B$, positive examples $E+$, negative examples $E-$ to find a hypothesis $H$ such that $B \cup H \models E+$,
-$B \cup H \not\models E-$,
+The task of a normal problem setting for inductive logic programming is given background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ such that $B \cup H \models E^{+}$,
+$B \cup H \not\models E^{-}$,
 $B \cup H \not\models false$.
-The logical theories $B$, $E+$, $E-$ specify a learning problem and determine the solution space $\mathcal{H}$ of the correct hypotheses.
+The logical theories $B$, $E^{+}$, $E^{-}$ specify a learning problem and determine the solution space $\mathcal{H}$ of the correct hypotheses.
 
 \begin{defn}
-An \emph{ILP problem} is a tuple $\langle B, E+, E- \rangle$.
+An \emph{ILP problem} is a tuple $\langle B, E^{+}, E^{-} \rangle$.
 \end{defn}
 
 We learn about the nature of the problem by extracting the properties from the given theories. Learning problems with the identical properties are put in a class. Consequently, we can classify the ILP systems and methods based on the ability to solve a well-defined class of learning problems.
