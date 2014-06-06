@@ -69,7 +69,7 @@ A definition $D_1=\langle f_1, dom(f_2), cod(f_2), R \rangle$ is \emph{more comp
 $f_2$ is a possible function of $f_1$.
 \end{defn}
 
-\begin{corollary}
+\begin{corollary}\label{corollary_more_complete_1}
 Let $D_1=\langle f_1, \mathcal{I}, \mathcal{O}, R_1 \rangle$, $D_2=\langle f_2, \mathcal{I}, \mathcal{O}, R_2 \rangle$ be definitions of an ILP task.
 If $R_2 \models R_1$, then $D_2$ is more complete than $D_1$.
 \end{corollary}
@@ -81,17 +81,26 @@ Follows directly from the definitions.
 \subsubsection{Extension of ILP task definition}
 To provide a more accurate and complete specification of an ILP task, its definition can be extended.
 
-\begin{defn}
+\begin{defn}\label{definition_ilp_task_definition_extension}
 Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_2$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
 \end{defn}
 
 \begin{remark}
-An extension of an ILP task definition defines a different ILP task. Later a correspondence between an ILP task defined by $D$ and an ILP task defined by an extension of $D$ will be shown.
+An extension of an ILP task definition defines a different ILP task.
 \end{remark}
 
-\begin{corollary}
+A correspondence between an ILP task defined by $D$ and an ILP task defined by an extension of $D$ is shown.
 
+\begin{corollary}
+Let $D_2$, $D_1$ be ILP task definitions. If $D_2$ is a rule extension of $D_1$, then $D_2$ is more complete than $D_1$.
 \end{corollary}
+\begin{proof}
+Follows from \fullref{definition_ilp_task_definition_extension} and \fullref{corollary_more_complete_1}.
+\end{proof}
+
+\begin{proposition}
+Let $D_2, D_1$ be ILP task definitions. Suppose that $D_2$ is an input extension with an input $I_2$ of $D_1$ with an input $I_1$, but not an output extension, not a rule extension. Then $f_2(I_2)=f_1(I_1)$.
+\end{proposition}
 
 \subsubsection{Generalization}
 Recall \fullref{generalization}.
