@@ -81,12 +81,17 @@ Follows directly from the definitions.
 \subsubsection{Extension of ILP task definition}
 To provide a more accurate and complete specification of an ILP task, its definition can be extended.
 
+\begin{defn}
+Let $R \subseteq L$ be a set of rules, let $S$ be any mathematical object with a syntactic denotation $D_S$. Then $r \in R$ \emph{constraints} $S$ iff $r$ is formed from a function or a predicate symbol in $D_S$.
+\end{defn}
+
 \begin{defn}\label{definition_ilp_task_definition_extension}
 Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_1$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
-A component $i \in \langle \overrightarrow{i_2} \rangle \setminus \langle \overrightarrow{i_1}$ is an \emph{extending input component} of $D_2$ for $D_1$.
+A component $i \in \langle \overrightarrow{i_2} \rangle \setminus \langle \overrightarrow{i_1}$ with its set is an \emph{extending input component} of $D_2$ for $D_1$.
 A component $o \in \langle \overrightarrow{o_2} \rangle \setminus \langle \overrightarrow{o_1}$ is an \emph{extending output component} of $D_2$ for $D_1$.
 A component is an \emph{extending component} iff it is an extending input component or an extending output component.
 A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule} of $D_2$ for $D_1$.
+A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule of an extending component} $c$ iff the formula $r$ contains any of the symbols of $c$.
 \end{defn}
 
 \begin{remark}
@@ -156,6 +161,10 @@ The non-determinism of an ILP task is reduced by an introduction of additional c
 An ILP task of \emph{explanatory induction with a hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{H}\rangle$, $O=H$,
 $R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}\}$ for some consequence operator $Cn$. A set $\mathcal{H} \subseteq \powerset{L}$ for a logic language $L$ is called a \emph{hypothesis bias}.
 \end{defn}
+
+\begin{remark}
+A hypothesis bias $\mathcal{H}$ is an input extension of explanatory induction with its extending rules $R$.
+\end{remark}
 
 \begin{exmp}\label{explanatory_induction_hypothesis_bias}
 Let $B = \{cook(alice), female(alice)\}$, $E=\{woman(alice)\}$,
