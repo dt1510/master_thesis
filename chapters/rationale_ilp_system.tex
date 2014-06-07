@@ -1,52 +1,6 @@
 \chapter{Rationale ILP system}
 An ILP system Rationale is designed and implemented based on the work by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
-\section{Inverse subsumption with minimal complements algorithm}\cite{yamamoto2012inverse}
-Rationale derives a hypothesis $H$ by inverse subsumption with minimal complements\cite{yamamoto2012inverse} which uses an induction field bias. This section presents the work by Yamamoto as cited, not the author's.
-
-\begin{defn}\label{induction_field_definition}
-An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
-where $L$ is a finite
-set of literals to appear in ground hypotheses.
-A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
-every literal in $H_g$ is included in $L$.
-Given an induction field $\mathcal{I}_H = \langle L \rangle$, $Taut(\mathcal{I}_H)$ is defined
-as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
-\end{defn}
-
-We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$ , together with a bridge theory $F$ as follows:
-
-\begin{defn}
-Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
-$F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
-\end{defn}
-
-Now, the generalization procedure based on inverse subsumption with minimal comple
-ments is as follows:
-
-\begin{defn}
-Let $B, E$ and $\mathcal{I}_H = \langle L \rangle$ be a background theory, examples and an induction
-field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. A clausal theory $H$ is derived
-by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$ if $H$ is constructed as follows.
-\begin{itemize}
-\item Step 1. Compute $Taut(\mathcal{I}_H)$;
-\item Step 2. Compute $\tau(M(F \cup Taut(\mathcal{I}_H)))$;
-\item Step 3. Construct a clausal theory $H$ satisfying the condition:
-$H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H)))$.
-\end{itemize}
-\end{defn}
-
-Inverse subsumption with minimal complements ensures the completeness for finding
-hypotheses wrt $\mathcal{I}_H$ and $F$:
-
-\begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
-respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,
-$H$ is derived by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$.
-\end{thm}
-\begin{proof}
-Follows from \fullref{yamamoto2012inverseLemma2}.
-\end{proof}
-
 \section{Bias}
 
 \section{Completeness}

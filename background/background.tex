@@ -505,3 +505,49 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 \subsection{Other systems}
 Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
+
+\section{Inverse subsumption for complete explanatory induction}\cite{yamamoto2012inverse}
+This section presents paraphrased work by Yamamoto et al. \cite{yamamoto2012inverse}. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption instead in lieu of the antientailment.
+
+\begin{defn}\label{induction_field_definition}
+An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
+where $L$ is a finite
+set of literals to appear in ground hypotheses.
+A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+every literal in $H_g$ is included in $L$.
+Given an induction field $\mathcal{I}_H = \langle L \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
+\end{defn}
+
+We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$ , together with a bridge theory $F$ as follows:
+
+\begin{defn}
+Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+$F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
+\end{defn}
+
+Now, the generalization procedure based on inverse subsumption with minimal comple
+ments is as follows:
+
+\begin{defn}
+Let $B, E$ and $\mathcal{I}_H = \langle L \rangle$ be a background theory, examples and an induction
+field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. A clausal theory $H$ is derived
+by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$ if $H$ is constructed as follows.
+\begin{itemize}
+\item Step 1. Compute $Taut(\mathcal{I}_H)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(\mathcal{I}_H)))$;
+\item Step 3. Construct a clausal theory $H$ satisfying the condition:
+$H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H)))$.
+\end{itemize}
+\end{defn}
+
+Inverse subsumption with minimal complements ensures the completeness for finding
+hypotheses wrt $\mathcal{I}_H$ and $F$:
+
+\begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,
+$H$ is derived by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$.
+\end{thm}
+\begin{proof}
+Follows from \fullref{yamamoto2012inverseLemma2}.
+\end{proof}
