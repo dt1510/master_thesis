@@ -1,0 +1,363 @@
+\chapter{Appendix - evaluation of Progol on examples}
+
+\section{Progol's capabilities}
+
+\subsection{Specialization in arguments}
+Progol can learn hypothesis which require ground terms to be in a head predicate.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(learns(+person, +subject)).
+modeh(learns(#person, +subject)).
+
+%background
+male(adam).
+male(bob).
+female(alice).
+female(mary).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+learns(polymath, mathematics).
+learns(polymath, physics).
+learns(polymath, chemistry).
+learns(jack, mathematics).
+learns(susan, physics).
+
+%negative examples
+:- learns(jack, physics).
+:- learns(susan, chemistry).
+\end{lstlisting}
+\end{minipage}
+
+returns hypotheses
+\begin{lstlisting}
+learns(polymath,A).
+learns(jack,mathematics).
+learns(susan,physics).
+\end{lstlisting}
+containing a general hypothesis \tc{learns(polymath,A)} that has a constant \tc{polymath} as a first argument and a variable as a second argument.
+
+\subsection{Multi-clausal learning}
+Progol can learn several one-clausal hypotheses at one time.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, woman(+person))?
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:-modeb(*, female(+person))?
+:- determination(man/1,male/1)?
+:- determination(woman/1,female/1)?
+
+%background
+male(bob).
+male(tom).
+female(ann).
+female(mary).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+woman(ann).
+woman(mary).
+man(bob).
+man(tom).
+
+%negative examples
+:-man(ann).
+:-man(mary).
+:-woman(bob).
+:-woman(tom).
+\end{lstlisting}
+\end{minipage}
+
+returns hypotheses
+
+\begin{lstlisting}
+woman(A) :- female(A).
+man(A) :- male(A).
+\end{lstlisting}
+
+Note, this is possible in Imparo and in Aleph, but not in Toplog.
+
+\subsection{Term structure learnability}
+Progol can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, woman(sister(+person)))?
+:-modeb(*, anybody(+person))?
+:-determination(woman/1, anybody/1)?
+
+anybody(jane).
+anybody(susan).
+anybody(bob).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+woman(sister(bob)).
+woman(sister(jane)).
+woman(sister(susan)).
+
+%negative examples
+:-woman(sister(frog)).
+\end{lstlisting}
+\end{minipage}
+
+returns a hypothesis
+\begin{lstlisting}
+woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
+
+\subsection{Learnability of multi-clausal concepts}
+Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, woman(+person))?
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:-modeb(*, female(+person))?
+:- determination(woman/1, female/1)?
+:- determination(man/1, male/1)?
+
+female(jane).
+female(susan).
+female(eugenia).
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+man(jack).
+man(martin).
+woman(jane).
+woman(susan).
+
+%negative examples
+:-man(jane).
+:-woman(sam).
+\end{lstlisting}
+\end{minipage}
+
+produces the hypotheses
+\begin{lstlisting}
+woman(A):-female(A).
+man(A):-male(A).
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
+
+\subsection{Clausal examples}
+Progol can learn from the observations that are general Horn clauses not limited to literals.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:- determination(man/1, male/1)?
+
+%positive examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+
+%negative examples
+:- man(glory).
+\end{lstlisting}
+\end{minipage}
+
+produces the expected general hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+
+Other systems like Aleph, Imparo, Tal, Toplog accept only examples in a literal form.
+
+\subsection{Other capabilities}
+Progol can induce hypotheses that contain predicates of arity greater than 1. Progol checks for inconsistency of the observations with the background knowledge and provides an appropriate warning about the contradiction that false is provable.
+
+\section{Progol's assumed limitations}
+
+\subsection{Other limitations}
+Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations. Progol has a weak-head mode declaration, we have to explicitly specify the function symbol in the mode declarations, a specification of a general function symbol pattern is not possible. Progol has a correct example bias - it can learn examples only if these are specified in the mode declarations. Progol can learn only the Horn theories.
+
+\section{Progol's violations and biases}
+\subsection{No generalization downwards}
+Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, even(+number))?
+:-modeb(*, even(+number))?
+:-modeb(*, even(s(+number)))?
+:-modeb(*, even(s(s(+number))))?
+:- determination(even/1, even/1)?
+
+%background theory
+even(s(s(s(s(s(s(s(s(0))))))))).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+
+%negative examples
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+\end{minipage}
+
+produces a hypothesis
+\begin{lstlisting}
+even(A).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+\subsection{Unlearnability of regular languages}
+Although Progol can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
+
+\begin{lstlisting}
+:-modeh(*, in_language(s(s(+word))))?
+:-modeh(*, in_language(s(+word)))?
+:-modeb(*, in_language(+word))?
+:- determination(in_language/1, in_language/1)?
+
+%background theory
+in_language(epsilon).
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+\end{lstlisting}
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%positive examples
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%negative examples
+:-in_language(s(epsilon)).
+:-in_language(s(s(s(epsilon)))).
+\end{lstlisting}
+\end{minipage}
+
+returns back a hypothesis
+\begin{lstlisting}
+in_language(s(s(A))).
+\end{lstlisting}
+which is inconsistent with the negative examples.
+
+A general consistent hypothesis representing the language is
+\begin{lstlisting}
+in_language(s(s(A)) :- in_language(A).
+\end{lstlisting}
+
+\subsection{Preference over earlier mode declarations}
+Progol prefers learning a hypothesis whose mode declaration has been defined earlier.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, man(+person))?
+:-modeb(*, bridegroom(+person))?
+:-modeb(*, male(+person))?
+:- determination(man/1, bridegroom/1)?
+:- determination(man/1, male/1)?
+
+%positive examples
+man(jack).
+man(sam).
+man(john).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background theory
+bridegroom(jack).
+bridegroom(sam).
+bridegroom(john).
+male(jack).
+male(sam).
+male(john).
+
+%negative examples
+:- man(susan).
+\end{lstlisting}
+\end{minipage}
+
+returns a hypothesis
+\begin{lstlisting}
+man(A) :- bridegroom(A).
+\end{lstlisting}
+
+Changing the order of the mode declarations to
+\begin{lstlisting}
+:-modeb(*, male(+person))?
+:-modeb(*, bridegroom(+person))?
+\end{lstlisting}
+results in a hypothesis
+\begin{lstlisting}
+man(A) :- male(A).
+\end{lstlisting}
+In both cases, the induced hypothesis had a body atom declared in an earlier mode declaration. This is an opposite search bias to the Imparo's preference over the later mode declarations.
+
+\subsection{Background knowledge hypotheses}
+Progol explains the examples with the background knowledge even if the mode declarations do not allow such explanations in the language bias.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, female_person(+person))?
+:-modeb(*, female(+person))?
+
+%background theory
+female(jane).
+female(susan).
+woman(A) :- female_person(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+woman(jane).
+woman(susan).
+female_person(jane).
+female_person(susan).
+
+%negative examples
+:-female_person(sam).
+\end{lstlisting}
+\end{minipage}
+
+returns the hypotheses
+\begin{lstlisting}
+female_person(A) :- female(A).
+woman(A) :- female_person(A).
+\end{lstlisting}
+But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mode declarations. Therefore Progol has a default background knowledge bias.
+
+\subsection{Other violations and biases}
+If examples are allowed in a head mode declaration, then no general hypothesis is learnt, only examples.

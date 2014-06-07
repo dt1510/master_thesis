@@ -1,0 +1,337 @@
+\chapter{Appendix - evaluation of Xhail on examples}
+\section{Xhail's capabilities}
+
+\subsection{Background knowledge generalization}
+Like Progol, Xhail does not distinguish between the examples and the background knowledge. It tries to generalize the background knowledge to learn a hypothesis specified by the mode declarations criteria.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,1,min,block("+a")).
+modeb(1,1,neg,c("+a")).
+modeb(1,1,pos,c("+a")).
+modeb(1,1,pos,d("+a")).
+modeb(1,1,neg,d("+a")).
+modeb(1,1,pos,eql("+a","#a")).
+modeb(1,1,neg,eql("+a","#a")).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+a(0 ; 1).
+c(0).
+d(1).
+p(X) :- a(X), not block(X).
+g :- p(0), not p(1).
+goal(g).
+eql(X,Y) :- X==Y,a(X),a(Y).
+\end{lstlisting}
+\end{minipage}
+
+produces hypotheses
+\begin{lstlisting}
+1. block(X1) :- not c(X1),d(X1),eql(X1,1),not eql(X1,0),a(X1). ([X1/1])
+2. block(X1) :- not eql(X1,0),a(X1).
+3. block(X1) :- not c(X1),a(X1).
+4. block(X1) :- eql(X1,1),a(X1).
+5. block(X1) :- d(X1),a(X1).
+\end{lstlisting}
+where the head of the hypotheses is \tc{block}, however, we can notice that there are no examples in the background knowledge with \tc{block} predicate. Moreover, the only occurance of \tc{block} is in the body as a negation as failure literal \tc{not block(X)}.
+
+If one wanted to translate learning from examples problem into the Xhail's learning problem, positive and negative examples could be placed in a goal:
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).
+modeb(0,10,pos,female("+person")).
+
+person(susan; adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+female(susan).
+male(adam).
+goal(g).
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+
+where \tc{woman(susan)} is a positive example and a \tc{woman(adam)} is a negative example. The hypothesis learnt is
+\tc{woman(X1) :- female(X1), person(X1).}.
+
+\subsection{Multiple hypotheses}
+Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,1,pos,e).
+modeb(0,1,pos,a).
+modeb(0,1,pos,b).
+find(all).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background
+a.
+b.
+e.
+\end{lstlisting}
+\end{minipage}
+
+returns the hypotheses
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+1. e :- true.
+2. e :- b.
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. e :- a.
+4. e :- a,b.
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Multi-clausal hypotheses}
+Xhail can learn a hypothesis that consists of multiple clauses:
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).
+modeh(0,10,all,man("+person")).
+modeb(0,10,pos,female("+person")).
+modeb(0,10,pos,male("+person")).
+
+g:- woman(susan), not woman(adam), man(adam), not man(susan).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+goal(g).
+person(susan; adam).
+female(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+returns a hypothesis
+\begin{lstlisting}
+man(X1):-male(X1), person(X1).
+woman(X1):-female(X1), person(X1).
+\end{lstlisting}.
+One clause would be insufficient to explain both \tc{man} and \tc{woman} examples.
+
+\subsection{Fine search space control}
+Xhail has extended mode declarations to refine its search space. Xhail's help reads:
+
+\emph{Zero or more head declarations} are of the form
+\tc{modeh(1,3,min,p("\#q","+r","-s")).} meaning between 1 and 3 ground atoms
+ of the form $p(a,b,c)$ should be assumed such that $q(a), r(b), s(c)$ hold 
+ and where $a, b, c$ are constant, input, output terms, respectively;
+ the third flag is either min="attempt to minimize" or all="do not minimize".
+ 
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,1,all,woman("+person")).
+modeb(0,1,pos,female("+person")).
+person(susan; ruth; adam).
+
+goal(g).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background
+female(susan).
+female(ruth).male(adam).
+\end{lstlisting}
+\end{minipage}
+
+returns no hypothesis. However, placing only one positive example in a goal
+\tc{g:- woman(susan), not woman(adam).} or modifying the modeh declaration to cover the two positive examples\\
+\tc{modeh(0,2,all,woman("+person")).} makes Xhail to learn a hypothesis\\
+\tc{woman(X1):-female(X1),person(X1).}.
+
+\emph{Zero or more body declarations} are of the form \tc{modeb(1,3,pos,p("\#q","+r","-s")).} meaning this scheme can be used between 
+ depths 1 and 3.  The third flag is either pos="pos. literal" or neg="neg. literal" 
+
+Apart from the mode declarations, additional control has been introduced with \tc{goal}, \tc{find}, \tc{task} statements:
+\emph{Zero or more goal statement} of the form \tc{goal(a).} means to only compute models satisfying the ground atom \tc{a}.
+
+\emph{Zero or one find statement} is of the form \tc{find(all)="all solutions"} or \tc{find(min)="minimal solutions"}.
+
+\emph{Zero or one task declarations} are possible, e.g. \tc{task(abduce).} or \tc{task(induce).}.
+
+\subsection{Learning by integrity constrains}
+Xhail can learn from the background knowledge in a form of integrity constrains.
+
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+modeh(0,1,all,a).
+modeh(0,1,all,r).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+goal(p).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+p :- r.
+false :- p, not a.
+\end{lstlisting}
+\end{minipage}
+
+returns a hypothesis \tc{a:-true. r:-true.} where in the learning problem
+\tc{false :- p, not a.} represents an integrity constraint.
+
+\subsection{Term structure learnability}
+Xhail can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+modeh(0,10,all,woman(sister("+a"))).
+modeb(0,10,pos,anybody("+a")).
+
+a(susan; adam; frog).
+anybody(susan; adam).
+goal(g).
+g:- woman(sister(susan)), woman(sister(adam)), not woman(sister(frog)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+female(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+returns a hypothesis
+\tc{woman(sister(X1)):-anybody(X1), a(X1).}.
+\subsection{Other capabilities}
+Xhail can learn a hypothesis which requires ground terms to be in a head predicate by specifying such a hypothesis with the constant type \tc{\#type} in mode declarations. Xhail supports hypotheses containing predicates of arities greater than 1.
+
+\section{Xhail's assumed limitations}
+
+\subsection{Partial explanations impossible}
+Xhail cannot learn a hypothesis that explains some positive examples, but not all.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).
+modeb(0,10,pos,female("+person")).
+person(susan; ruth; adam).
+goal(g).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+female(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+returns no hypothesis.Although a hypothesis
+\tc{woman(X1):-female(X1),person(X1).} cannot explain the example \tc{woman(ruth).} it would be able to explain the example \tc{woman(susan)}.
+
+In comparison, Aleph can learn partial hypotheses: from the background knowledge\\
+\tc{female(alice).female(mary).}, positive examples \tc{woman(alice).woman(mary).woman(susan).}, negative examples \tc{woman(adam).} Aleph includes in its hypothesis a partial explanation
+\tc{woman(A) :- female(A).}.
+
+\subsection{Learning from clausal examples}
+Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).
+modeb(0,10,pos,female("+person")).
+goal(g).
+person(susan; ruth; adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+woman(susan):-female(susan).
+woman(ruth):-female(ruth).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+does not produce any hypothesis, however a general hypothesis\\
+\tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
+
+\subsection{Inability to learn from unrestricted clauses}
+Xhail requires that all its clauses are restricted by ground instances - a quantification over all possible ground instances in a domain is not possible.
+
+An attempt to define that everybody in a domain is of type person fails. \tc{person(X1).} returns an error "a non-ground fact person(X1). All terms within a fact must be ground terms." For a clause \tc{person(X1) :- true.} an error message "Unrestricted variable X1." is produced. Therefore we always have to ground the clauses (containing variables) in Xhail, for example
+\tc{grounded(susan; adam).person(X1) :- grounded(X1).} does not produce any complaints.
+
+This has an impact that the learning space is finite - every possible inducible model is a finite set of ground instances. Therefore, multiple learning problems cannot be learnt: generalization downwards, generalization upwards, Kleene star learning, learning a concept of a natural number, etc. because for these the Hebrand models are infinite subsets of the Herbrand base of the Hebrand universe with the function symbols.
+
+\section{Xhail's violations and biases}
+
+\subsection{Implicit consistency check}
+Xhail does not explicitly report that the learning problem is inconsistent, it only outputs "NO SOLUTIONS" message which is also applicable for consistent problems whose model is not in the specified search space.
+
+\subsection{Redundant hypotheses}
+Xhail returns multiple hypotheses even if they are the same.
+
+\begin{minipage}[t]{.43\textwidth}
+\begin{lstlisting}
+modeh(1,3,min,fries("+food")).
+modeb(1,3,neg,offer("+food")).
+modeb(1,3,pos,offer("+food")).
+modeb(1,3,neg,bistro("+food")).
+modeb(1,3,pos,bistro("+food")).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+goal(g).
+food(md ; bk ; rz).
+bistro(md ; bk ; rz).
+offer(md ; bk).
+meal(X):- food(X),fries(X), burger(X).
+burger(X):- food(X), fries(X), offer(X).
+g:- meal(md), meal(bk), not meal(rz).
+\end{lstlisting}
+\end{minipage}
+
+returns the hypotheses
+
+\begin{lstlisting}
+1. fries(X1) :- food(X1).
+2. fries(X1) :- food(X1).
+\end{lstlisting}
+where the 1st and the 2nd hypotheses are the same. Notice, a general hypothesis has been induced for every example, both \tc{md} and \tc{bk}.
+
+\subsection{Other violations and biases}
+Since Xhail learns multiple solutions, the hypotheses space is not biased towards the order of the mode declarations.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(0,10,max,woman("+person")).
+modeb(0,10,pos,female("+person")).
+modeb(0,10,pos,cook("+person")).
+
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+goal(g).
+person(susan; adam).
+female(susan).
+cook(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+returns two hypotheses
+\tc{1. woman(X1):-cook(X1), person(X1). 2. woman(X1):-female(X1), person(X1).}. In other systems a preference over the hypotheses is induced based on the order of the hypotheses' predicates \tc{cook(X1), female(X1)} in their modeb and determination declarations.

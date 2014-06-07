@@ -1,0 +1,244 @@
+\chapter{Appendix - evaluation of Toplog on examples}
+
+\section{Toplog}
+\subsection{Mode declarations order bias}
+Consider the Toplog program:
+
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p1(+type)).
+:-modeb(1, p2(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+p1(a1).
+p1(a2).
+p1(a3).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+p2(a1).
+p2(a2).
+p2(a3).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+\end{minipage}
+
+
+Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode declaration to the following:
+\begin{lstlisting}
+:-modeh(r(+type)).
+:-modeb(1, p2(+type)).
+:-modeb(1, p1(+type)).
+\end{lstlisting}
+then Toplog learns a hypothesis $r(A) :- p2(A).$ instead. This experiment therefore shows that Toplog's bias depends on the order of the mode declaration statements.
+
+\subsection{Learning inconsistent hypothesis}
+Toplog can learn inconsistent hypotheses:
+
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, student(+person)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+student(ann).
+student(tom).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+\end{minipage}
+
+
+gives an output hypothesis $woman(A) :- student(A)$ although $tom$ is not a woman as indicated by a negative example $example(woman(tom),-1)$.
+But this is intentional, furthermore Toplog provides the information that the default accuracy of its hypothesis is 90\% as $example(woman(ann,9)$ corresponds to 9 positive examples correctly classified out of 10.
+
+\subsection{One head predicate bias}
+All the clauses in the hypotheses space of Toplog have to have the same predicate symbol in its head.
+
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+male(tom).
+female(ann).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+\end{minipage}
+
+produces a hypothesis \tc{woman(A) :- female(A)} but adding a second
+head mode declaration \\
+\tc{:-modeh(man(+person)).} after \tc{:-modeh(woman(+person)).} overwrites the first one.
+
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeh(man(+person)).
+:-modeb(1, female(+person)).
+:-modeb(1, male(+person)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+male(tom).
+female(ann).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(woman(ann),9).
+example(woman(tom),-1).
+\end{lstlisting}
+\end{minipage}
+
+produces no hypotheses.
+
+\subsection{Unlearnability of the term structure}
+Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
+\begin{lstlisting}
+%target concept: in_language(s(A)) :- in_language(A).
+:-modeh(in_language(s(+word))).
+:-modeb(1, in_language(+word)).
+
+example(in_language(s(epsilon)),1).
+example(in_language(s(s(epsilon))),1).
+example(in_language(s(s(s(epsilon)))),1).
+example(in_language(s(s(s(s(epsilon))))),1).
+\end{lstlisting}
+
+However, this is not learnable since Toplog's mode declarations do not allow to specify\\
+\tc{in\_language(s(A))} in a head neither in a body. Toplog outputs:
+"Couldn't start model. (no problem defined?)".
+
+\subsection{Clausal bias}
+Since Toplog's hypotheses space consists of clauses, it cannot learn two concepts at one time.
+
+\begin{lstlisting}
+:-modeh(object(+type)).
+:-modeb(10, blue(+type)).
+:-modeb(10, green(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+blue(ball).
+blue(pen).
+blue(bag).
+green(shirt).
+green(grass).
+green(tree).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(object(ball),1).
+example(object(pen),1).
+example(object(bag),1).
+example(object(shirt),1).
+example(object(grass),1).
+example(object(tree),1).
+\end{lstlisting}
+\end{minipage}
+
+will produce a hypothesis \tc{object(A) :- blue(A)} since 
+\tc{:-modeb(10, blue(+type)).} was defined first instead of learning both
+concepts in a hypothesis:
+\tc{object(A) :- blue(A); green(A)} where the \tc{;} represents a disjunction.
+
+\subsection{Inability to make deductions from observations}
+Toplog does not learn any hypothesis from the following program:
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, p(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+p(a1).
+p(a2).
+p(a3).
+t(A) :- r(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+\end{minipage}
+
+Although from the positive examples and the background knowledge included one may deduce examples:
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+which if included in the Toplog program, then a hypothesis
+\tc{tc(A) :- p(A)} would be learnt.
+Therefore the application of the background knowledge to the observations in Toplog is limited.
+
+Nevertheless, Toplog can still learn by making deductions from its background knowledge.
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, r(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+p(a1).
+p(a2).
+p(a3).
+r(A) :- p(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+\end{minipage}
+
+would give a hypothesis \tc{t(A) :- r(A).}
+
+\subsection{Predicate generalization impossible}
+Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
+\begin{lstlisting}
+example(swims(magician),1).
+example(flies(magician),1).
+example(cooks(magician),1).
+example(makes_fire(magician),1).
+\end{lstlisting}
+The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
+
+\subsection{Ground atom example}
+Toplog has a limitation that every example can be only a ground atom.

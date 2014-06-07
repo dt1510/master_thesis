@@ -1,0 +1,673 @@
+\chapter{Appendix - evaluation of Imparo on examples}
+
+\section{Imparo's capabilities}
+\subsection{A multiclausal learning}
+Imparo is capable to learn a multi-clausal hypothesis at one time.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   man(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jane).
+person(susan).
+person(jack).
+person(sam).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+woman(jane).
+woman(susan).
+man(jack).
+man(sam).
+
+:- woman(jack).
+:- man(susan).
+\end{lstlisting}
+\end{minipage}
+
+
+produces a hypothesis
+\begin{lstlisting}
+woman(A):-female(A)
+man(A):-male(A)
+\end{lstlisting}
+
+Learning multiple hypotheses is not possible in all systems, e.g. Toplog. Nevertheless the clauses have to be Horn, the ones with at most one positive literal and therefore hypotheses of the form $s \vee p \leftObjectImplies r$ cannot be learnt.
+
+\subsection{Learnability of a nested term structure}
+Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation. Observations below correspond to the language defined by the regular expression \tc{(sr)*}.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+head_modes([
+   in_language(+word),
+   in_language(s(+word)),  
+   in_language(s(s(+word))),
+   in_language(r(s(+word))),
+   in_language(s(r(+word))),
+   in_language(r(+word)),
+   in_language(r(r(+word)))
+]).
+
+body_modes([
+    in_language(+word),
+    in_language(s(+word)),
+    in_language(r(+word))
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+word(e).
+word(s(X)).
+word(r(X)).
+
+%Examples
+in_language(e).
+in_language(r(s(e))).
+in_language(r(s(r(s(e))))).
+in_language(r(s(r(s(r(s(e))))))).
+
+:- in_language(r(e)).
+:- in_language(r(r(e))).
+:- in_language(s(s(r(e)))).
+:- in_language(s(s(s(e)))).
+\end{lstlisting}
+\end{minipage}
+
+
+returns a hypothesis
+\begin{lstlisting}
+in_language(e):-true
+in_language(r(s(A))):-true
+\end{lstlisting}
+
+Note, this was not possible in Toplog.
+
+\subsection{Learnability of multi-clausal concepts}
+Imparo can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+
+\begin{minipage}[t]{.26\textwidth}
+\begin{lstlisting}
+head_modes([
+   man(+person),
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.22\textwidth}
+\begin{lstlisting}
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+person(martin).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.34\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+female(eugenia).
+
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+
+male(X) :- couple(X,Y), woman(Y).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+man(jack).
+man(martin).
+
+woman(jane).
+woman(susan).
+
+:-man(jane).
+:-woman(sam).
+\end{lstlisting}
+\end{minipage}
+
+produces the hypothesis
+\begin{lstlisting}
+man(A):-male(A)
+woman(A):-female(A)
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Imparo requires at least two clauses.
+
+\section{Imparo's assumed limitations}
+Observations demonstrating the limits of the concept learnability from the system design assuptions are presented.
+
+\subsection{Unlearnability of negative examples}
+Note: Imparo uses a completion semantics.
+In cases when a hypothesis could explain the negative examples, Imparo cannot learn such a clause.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    woman(+person),
+    female(+person),
+    male(+person)
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jane).
+person(susan).
+person(jack).
+person(sam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+
+male(jack).
+male(sam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+:- woman(jack).
+:- woman(sam).
+\end{lstlisting}
+\end{minipage}
+
+The hypothesis of the form $\neg male(x) \vee \neg woman(x)$ would explain the examples, however Imparo in this case outputs no hypothesis.
+
+Adding further information to the background knowledge does not remove the limits:
+
+\begin{minipage}[t]{.45\textwidth}
+\begin{lstlisting}
+not_man(X) :- woman(X).
+not_woman(X) :- man(X).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+:- woman(X), man(X).
+:- not_woman(X), not_man(X).
+\end{lstlisting}
+\end{minipage}
+
+The background knowledge says that everybody has to be either a woman or a man. From our observations negative examples are not learnable by Imparo, however a hypothesis produced is consistent with the all the examples and the background knowledge.
+
+This may be related to the existence of a definition of an ILP system where the produced hypothesis $H$ has to explain positive examples, but it is sufficient if negative examples are only consistent with the hypothesis, notationally the necessity condition says:
+$H, B \models E^+$ and $H, B \not \models E^-$.
+
+Favouring this definition results in a bias in which hypotheses space is biased towards positive examples.
+
+\subsection{Assumption of consistency}
+Imparo assumes that the set of observations is consistent.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jack).
+person(sam).
+person(john).
+person(glory).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+:- man(glory).
+
+man(glory).
+\end{lstlisting}
+\end{minipage}
+
+produces a hypothesis
+\begin{lstlisting}
+man(glory):-true
+\end{lstlisting}
+although it is inconsistent with the observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+
+Imparo still learns
+\begin{lstlisting}
+man(glory):- true
+\end{lstlisting}
+even if we move the negative observation
+\begin{lstlisting}
+:- man(glory).
+\end{lstlisting}
+to the background knowledge.
+
+Systems like Progol check for inconsistencies before learning is started. However, in some definitions of an ILP problem, an assumption that the background knowledge is consistent with the observations is made.
+
+\section{Imparo's violations and biases}
+Limits of the learnability violating the system specification and not stated as assumptions are presented as observations.
+
+\subsection{Default examples bias}
+Imparo has examples in its default bias even if these are not declared in the mode declarations.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   %woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jane).
+person(susan).
+person(jack).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+
+male(jack).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+woman(jane).
+woman(susan).
+
+:- woman(jack).
+\end{lstlisting}
+\end{minipage}
+
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(jane):-true
+woman(susan):-true
+\end{lstlisting}
+
+in which a predicate \tc{woman} is a head symbol although it was not specified in the mode declaration. Once it is specified in a declaration as
+\begin{lstlisting}    
+head_modes([
+   woman(+person)
+]).
+\end{lstlisting}
+
+a more general hypothesis is learnt
+
+\begin{lstlisting}
+woman(A):-female(A)
+\end{lstlisting}.
+
+This demonstrates that in some cases mode declaration bias does not correspond to the actual bias of Imparo.
+
+\subsection{Weak head mode declaration}
+A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+head_modes([
+   woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+person(jane).
+person(susan).
+person(eugenia).
+person(jack).
+person(sam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+female(eugenia).
+
+%Examples
+woman(sister(jane)).
+woman(sister(eugenia)).
+:- woman(jack).
+\end{lstlisting}
+\end{minipage}
+
+produces a hypothesis 
+\begin{lstlisting}
+woman(sister(jane)):-true
+woman(sister(eugenia)):-true
+\end{lstlisting}.
+
+If we would like generalize on the terms, we have to add them explicitly to the mode declaration, i.e.
+\begin{lstlisting}
+head_modes([
+   woman(+person),
+   woman(sister(+person))
+]).
+\end{lstlisting}
+produces a more general hypothesis
+\begin{lstlisting}
+woman(sister(A)):-true
+\end{lstlisting}
+
+In this regard, Imparo treats function symbols as a syntactic sugar - a predicate with a function symbol is treated as a predicate symbol, one could simply replace \tc{woman(sister(x))} by \tc{woman\_sister(x)} in examples and mode declarations and add the following to the background knowledge:
+\begin{lstlisting}
+woman_sister(X) :- woman(sister(X)).
+woman(sister(X)) :- woman_sister(X).
+\end{lstlisting}
+The advantage of a support of a term structure is a matter of convenience rather than an added expressivity of the problem description and produced hypotheses.
+
+\subsection{No generalization downwards}
+Imparo cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$ for all classes of applicable observations.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   even(+number)
+]).
+
+body_modes([
+    even(+number),
+    even(s(+number)),
+    even(s(s(+number)))
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+number(0).
+number(s(X)).
+
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Background knowledge
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%Examples
+even(0).
+even(s(s(0))).
+even(s(s(s(s(0))))).
+even(s(s(s(s(s(s(0))))))).
+:-even(s(0)).
+:-even(s(s(s(0)))).
+\end{lstlisting}
+\end{minipage}
+
+
+only learn the examples
+
+\begin{minipage}[t]{.45\textwidth}
+\begin{lstlisting}
+even(0):-true
+even(s(s(s(s(s(s(0))))))):-true
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+even(s(s(0))):-true
+even(s(s(s(s(0))))):-true
+\end{lstlisting}
+\end{minipage}
+
+
+where we may expect a more general shorter hypothesis
+
+\begin{lstlisting}
+even(A) :- even(s(s(A)).
+\end{lstlisting}
+This may be related to the mentioned limitation of how Imparo treats the terms. A translated instance of \tc{even(s(s(s(s(0)))))} would be
+\tc{even\_s\_s\_s\_s\_s\_s(0)}, but in fact we want \tc{even\_s\_s(s(s(s(s(0))))} in order to be able to learn
+\tc{even(A) :- even\_s\_s(A)}.
+
+However, the generalization downwards does not work with a hypothesis having an argument with one function symbol in its body either.
+
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+head_modes([
+   numeral(+number)
+]).
+
+body_modes([
+    numeral(+number),
+    numberal(s(+number)),
+    numeral(s(s(+number)))
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+number(0).
+number(s(X)).
+
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
+numeral(s(s(s(s(0))))).
+
+%Examples
+numeral(0).
+numeral(s(0)).
+numeral(s(s(0))).
+numeral(s(s(s(0)))).
+:-numeral(s(not_number)).
+:-numeral(s(s(s(not_number)))).                                   
+\end{lstlisting}
+\end{minipage}
+
+
+returns a hypothesis
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+numeral(0):-true
+numeral(s(s(s(0)))):-true
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+numeral(s(0)):-true
+numeral(s(s(0))):-true
+\end{lstlisting}
+\end{minipage}
+
+
+however, a more general hypothesis \tc{numeral(A) :- numeral(s(A)).} would explain the examples.
+
+\subsection{Literal observational bias}
+Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   male(+person)
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jack).
+person(sam).
+person(john).
+person(glory).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background
+%knowledge
+male(jack).
+male(sam).
+male(john).
+male(tristan).
+female(glory).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+
+:- man(glory).
+\end{lstlisting}
+\end{minipage}
+
+Expected hypothesis explaining the examples:
+
+\begin{lstlisting}
+man(X) :- male(X).
+\end{lstlisting}
+
+To the author's knowledge, other ILP systems do not deal with the case of non-literal observations, however the works by Plotkin dealt with the generalization of a general set of clauses.
+
+\subsection{Preference over the later mode declarations}
+The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
+
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+head_modes([
+   man(+person)
+]).
+
+body_modes([
+   policeman(+person),
+   male(+person)
+]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jack).
+person(sam).
+person(john).
+person(jane).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowldge
+male(jack).
+male(sam).
+male(john).
+policeman(jack).
+policeman(sam).
+policeman(john).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
+man(jack).
+man(sam).
+
+:- man(jane).
+\end{lstlisting}
+\end{minipage}
+
+
+learns a hypothesis
+\begin{lstlisting}
+man(A):-male(A)
+\end{lstlisting}
+However, changing the body mode declaration to
+\begin{lstlisting}
+body_modes([   
+   male(+person),
+   policeman(+person)
+]).
+\end{lstlisting}
+results in learning the hypothesis
+\begin{lstlisting}
+man(A):-policeman(A)
+\end{lstlisting}
+
+This search bias in Imparo has a priority over the criterion of favouring a stronger or a weaker hypothesis. By adding to the background knowledge
+\begin{lstlisting}
+policeman(X) :- male(X).
+\end{lstlisting}
+or its converse
+\begin{lstlisting}
+male(X) :- policeman(X).
+\end{lstlisting}
+the hypothesis learnt remains the same.
+Note that \tc{male(X) :- policeman(X).} says that every model of \tc{policeman(X)} has to be a model of \tc{male(X)} and with such background knowledge \tc{man(A):-policeman(A)} is true in fewer models than \tc{man(A):-male(A)} is.
+
+\subsection{Other biases}
+Imparo can learn only a conjunction of clauses as a hypothesis.
+Imparo cannot explain the negative observations.

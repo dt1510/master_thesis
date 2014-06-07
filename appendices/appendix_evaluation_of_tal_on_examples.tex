@@ -1,0 +1,524 @@
+\chapter{Appendix - evaluation of Tal on examples}
+
+\section{Tal's capabilities}
+
+\subsection{Multiple solutions}
+A hypothesis that can solve the problem of induction may be called a solution. Tal can output multiple solutions to a given learning problem with the corresponding scores.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).
+modeb(female(+person), [name(fb)]).
+modeb(male(+person), [name(mb)]).
+
+%Examples
+example(woman(alice), 1).
+example(woman(ann), 1).
+example(woman(susan), 1).
+example(woman(adam), -1).
+example(woman(bob), -1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(ann).
+person(susan).
+person(adam).
+person(bob).
+
+%Background knowledge
+female(ann).
+female(susan).
+male(adam).
+male(bob).
+\end{lstlisting}
+\end{minipage}
+
+
+returns solutions
+\begin{lstlisting}
+1. woman(A). %score 0
+2. woman(A) :- female(A). %score -1
+\end{lstlisting}
+
+The score function is customizable, more can be found in Tal's documentation.
+
+\subsection{Multi-clausal hypothesis}
+Tal can learn a hypothesis that consists of multiple clauses.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(ann).
+female(susan).
+male(adam).
+male(bob). 
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(woman(ann), 1).
+example(woman(susan), 1).
+example(woman(adam), -1).
+example(woman(bob), -1).
+example(man(adam), 1).
+example(man(bob), 1).
+example(man(ann), -1).
+example(man(susan), -1).
+\end{lstlisting}
+\end{minipage}
+
+returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+1. woman(_).
+2. woman(A) :- female(A).
+3. woman(A) :- female(A).
+   man(_).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+4. woman(A) :- female(A).
+   man(A) :- male(A).
+5. man(A) :- male(A).
+   woman(A) :- female(A).
+\end{lstlisting}
+\end{minipage}
+
+\begin{lstlisting}
+\end{lstlisting}
+
+Particularly, we observe that the 5th solution consists of two clauses.
+
+\subsection{Term structure learnability}
+Tal can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+modeh(woman(sister(+person)), [name(wh)]).
+modeb(anybody(+person), [name(wb)]).
+
+%Examples
+example(woman(sister(bob)), 1).
+example(woman(sister(jane)), 1).
+example(woman(sister(susan)), 1).
+example(woman(sister(frog)), -1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jane).
+person(bob).
+person(susan).
+
+%Background knowledge
+anybody(jane).
+anybody(susan).
+anybody(bob).
+\end{lstlisting}
+\end{minipage}
+
+returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+1. woman(sister(_)).
+2. woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. woman(sister(_)).
+   woman(sister(A)) :- anybody(A).
+4. woman(sister(A)) :- anybody(A).
+   woman(sister(_)).
+\end{lstlisting}
+\end{minipage}
+
+in which hypotheses contain a function symbol \tc{sister}.
+
+\subsection{Multi-clausal concepts}
+Tal can learn a hypothesis that needs more that one clause to explain the examples.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%Background knowledge
+female(jane).
+female(susan).
+female(eugenia).
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(man(jack),1).
+example(man(martin),1).
+example(woman(jane),1).
+example(woman(susan),1).
+example(man(jane),-1).
+example(woman(sam),-1).
+\end{lstlisting}
+\end{minipage}
+
+has amongst its solutions a hypothesis
+\begin{lstlisting}
+woman(A) :- female(A).
+man(A) :- male(A).
+\end{lstlisting}
+To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
+
+\subsection{Specialization in arguments}
+Tal can learn hypothesis which require ground terms to be in a head predicate.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(learns(+person, +subject)).
+modeh(learns(#person, +subject)).
+
+%background
+male(adam).
+male(bob).
+female(alice).
+female(mary).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+learns(polymath, mathematics).
+learns(polymath, physics).
+learns(polymath, chemistry).
+learns(jack, mathematics).
+learns(susan, physics).
+
+%negative examples
+:- learns(jack, physics).
+:- learns(susan, chemistry).
+\end{lstlisting}
+\end{minipage}
+
+has amongst its solutions
+\begin{lstlisting}
+(learns(polymath,_E):-true.
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.
+\subsection{Other capabilities}
+Tal can impose the bias on the hypotheses space by user-specified integrity constraints. Tal has several hypothesis searching strategies specifying a score function on the criteria of heuristics, termination, solution score; and search algorithms, e.g. breadth first search. More information can be found in Tal's manual.
+
+\section{Tal's assumed limitations}
+
+\subsection{Correct example bias}
+Tal returns the examples as a hypothesis only if the predicate for the ground instances is specified in the mode declarations.
+
+\begin{minipage}[t]{.55\textwidth}
+\begin{lstlisting}
+modeb(female(+person), [name(fb)]).
+
+%Background knowledge
+female(alice).
+male(adam).male(bob).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(woman(alice), 1).
+example(woman(adam), -1).
+example(woman(bob), -1).
+\end{lstlisting}
+\end{minipage}
+
+returns no solutions as required since the head mode declaration is empty. However, systems like Toplog and Imparo would violate the constrains imposed by defining the search space and would return the examples.
+To accept examples as possible hypotheses in Tal, one can define constant symbols in the mode declarations with a \# symbol.
+
+\begin{minipage}[t]{.55\textwidth}
+\begin{lstlisting}
+modeh(woman(#person), [name(wh)]).
+modeb(female(+person), [name(fb)]).
+
+%Background knowledge
+female(alice).
+male(adam).
+male(bob).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(woman(alice), 1).
+example(woman(adam), -1).
+example(woman(bob), -1).
+\end{lstlisting}
+\end{minipage}
+
+returns a solution \tc{woman(alice).} which is an original positive example. Consequently, Tal does not suffer from the default example bias present in the systems Toplog, Imparo and Aleph.
+
+\subsection{Other assumed limitations}
+Tal cannot learn the negative examples. It can learn only Horn theories. Tal assumes the consistency of the background knowlege, the consistency of the examples and the consistency of the background knowledge with the examples. Tal can accept only examples in the form of a literal, not a general clause.
+
+\section{Tal's violations and biases}
+
+\subsection{Solution redundancy}
+Tal returns duplicate hypotheses as solutions.
+
+\begin{minipage}[t]{.65\textwidth}
+\begin{lstlisting}
+modeh(woman(sister(+person)), [name(wh)]).
+modeb(anybody(+person), [name(wb)]).
+
+%Examples
+example(woman(sister(bob)), 1).
+example(woman(sister(jane)), 1).
+example(woman(sister(susan)), 1).
+example(woman(sister(frog)), -1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+person(jane).
+person(bob).
+person(susan).
+
+%Background knowledge
+anybody(jane).
+anybody(susan).
+anybody(bob).
+\end{lstlisting}
+\end{minipage}
+
+returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+1. woman(sister(_)).
+2. woman(sister(A)) :- anybody(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. woman(sister(_)).
+   woman(sister(A)) :- anybody(A).
+4. woman(sister(A)) :- anybody(A).
+   woman(sister(_)).
+\end{lstlisting}
+\end{minipage}
+
+Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution. Moreover, \tc{woman(sister(\_))} subsumes the clause\\
+\tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
+
+\subsection{No generalization downwards}
+Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
+\begin{lstlisting}
+
+\end{lstlisting}
+
+\begin{minipage}[t]{.65\textwidth}
+\begin{lstlisting}
+modeh(numeral(+number), [name(nh)]).
+modeb(numeral(+number), [name(nb)]).
+modeb(numberal(s(+number)), [name(nsb)]).
+modeb(numeral(s(s(+number))), [name(nssb)]).
+
+%Examples
+example(numeral(0),1).
+example(numeral(s(0)),1). 
+example(numeral(s(s(0))),1).
+example(numeral(s(s(s(0)))),1).
+example(numeral(s(not_number)),-1).
+example(numeral(s(s(s(not_number)))),-1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+number(0).
+number(s(X)).
+
+%Background knowledge
+numeral(s(s(s(s(0))))).
+\end{lstlisting}
+\end{minipage}
+
+returns solutions
+\begin{lstlisting}
+1. numeral(_).
+2. numeral(A) :- numeral(s(s(A))).
+3. numeral(A) :- numeral(A).
+\end{lstlisting}
+and then starts outputting a solution of the form
+\begin{lstlisting}
+[(numeral(s(s(s(s(s(s(s(s(...
+\end{lstlisting}
+getting into a loop outputting the successor symbols $s$. Clearly, our expected hypothesis \tc{numberal(X) :- numberal(s(X)).} was not learnt.
+
+In cases of different downwards examples, Tal may not loop, however it would not produce the expected generalization either.
+
+\begin{lstlisting}
+modeh(even(+number), [name(eh)]).
+modeb(even(+number), [name(eb)]).
+modeb(even(s(+number)), [name(esb)]).
+modeb(even(s(s(+number))), [name(essb)]).
+
+number(N).
+
+%Background knowledge
+even(s(s(s(s(s(s(s(s(0))))))))).
+
+%Examples
+example(even(0),1).
+example(even(s(s(0))),1).
+example(even(s(s(s(s(0))))),1).
+example(even(s(s(s(s(s(s(0))))))),1).
+example(even(s(0)),-1).
+example(even(s(s(s(0)))),-1).
+\end{lstlisting}
+
+produces a hypothesis \tc{even(\_).} which is inconsistent with the negative examples. The target hypotheses \tc{even(A) :- even(s(s(A))).} was not learnt.
+
+\subsection{Loop on learning regular languages}
+Just as the generalization downwards example caused Tal looping, generalization forward, i.e. learning a hypothesis of the form $P(x) \objectImplies P(s(s(x))$ (a regular language \tc{(ss)*}) can cause Tal looping.
+\begin{lstlisting}
+modeh(in_language(s(s(+word))), [name(issh)]).
+modeh(in_language(s(+word)), [name(ish)]).
+modeb(in_language(+word), [name(ib)]).
+
+word(X).
+
+%Background
+in_language(epsilon).
+in_language(s(s(epsilon))).
+in_language(s(s(s(s(epsilon))))).
+
+%Examples
+example(in_language(s(s(epsilon))),1).
+example(in_language(s(s(s(s(epsilon))))),1).
+example(in_language(s(epsilon)),-1).
+example(in_language(s(s(s(epsilon)))),-1).
+\end{lstlisting}
+
+returns solutions
+\begin{lstlisting}
+1. in_language(s(_)).
+   in_language(s(s(A))) :- in_language(A).
+2. in_language(s(A)) :- in_language(A).
+\end{lstlisting}
+and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
+Notice that a target hypothesis 2. was learnt, but Tal did not manage to terminate. One can imagine a situation in which a correct hypothesis would be learnt after the infinite loop completes which is impossible.
+
+\subsection{Weak head mode declaration}
+As in Aleph and Imparo, a head mode declaration in Tal allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).
+modeb(anybody(+person),[name(ab)]).
+
+%Background theory
+anybody(jane).
+anybody(jack).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Example
+example(woman(sister(jane)),1).
+example(woman(sister(jack)),1).
+example(woman(sister(frog)),-1).
+example(woman(sister(cat)),-1).
+\end{lstlisting}
+\end{minipage}
+
+returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
+
+\subsection{Alphabetical term bias}
+Tal search is biased on the alphabetical order of the terms present in the predicates.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(woman(+person), [name(wh)]).
+modeh(man(+person), [name(mh)]).
+modeb(female(+person), [name(fb)]).
+modeb(male(+person), [name(mb)]).
+
+%Background
+male(adam).
+female(alice).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(woman(alice), 1).
+example(man(adam), 1).
+example(woman(adam), -1).
+example(man(alice), -1).
+\end{lstlisting}
+\end{minipage}
+
+returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+1. man(_).
+2. man(A) :- male(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. man(A) :- male(A).
+   woman(_).
+4. man(A) :- male(A).
+   woman(A) :- female(A).
+\end{lstlisting}
+\end{minipage}
+
+However, if we rename the term \tc{adam} to a term that is alphabetically greater than \tc{alice} then a predicate \tc{female} occurs in a greater proportion of solutions than in the previous ones.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%Background
+male(zygo).
+female(alice).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Examples
+example(woman(alice), 1).
+example(man(zygo), 1).
+example(woman(zygo), -1).
+example(man(alice), -1).
+\end{lstlisting}
+\end{minipage}
+
+produces solutions
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+0. woman(_).
+1. woman(A) :- female(A).
+2. woman(_).
+   man(_).
+3. woman(A) :- female(A).
+   man(_).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+4. woman(_).
+   man(A) :- male(A).
+5. woman(A) :- female(A).
+   man(A) :- male(A).
+\end{lstlisting}
+\end{minipage}
+
+Other interesting change is the increase in the number of the solutions from 4 to 5. In the author's opinion the hypotheses produced should be independent of the description language chosen and therefore alphabetical term bias represents a violation of the ILP problem.
+
+\subsection{Other violations and biases}
+One may argue that returning multiple solutions does not solve the inductive learning problem if the definition allows only one such hypothesis to be learnt. We could think of solutions as their disjunction, however such a disjunction does not have a short description, a frequent requeriment of a produced hypothesis. As mentioned earlier, Tal learns hypotheses inconsistent with the background knowledge and the observations, therefore Tal is not sound.
