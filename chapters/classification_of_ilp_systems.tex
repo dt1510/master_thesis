@@ -81,21 +81,20 @@ Follows directly from the definitions.
 \subsubsection{Extension of ILP task definition}
 To provide a more accurate and complete specification of an ILP task, its definition can be extended.
 
-\begin{defn}
-Let $R \subseteq L$ be a set of rules, let $S$ be any mathematical object with a syntactic denotation $D_S$. Then $r \in R$ \emph{constraints} $S$ iff $r$ is formed from a function or a predicate symbol in $D_S$.
-\end{defn}
-
 \begin{defn}\label{definition_ilp_task_definition_extension}
 Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_1$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
 A component $i \in \langle \overrightarrow{i_2} \rangle \setminus \langle \overrightarrow{i_1}$ with its set is an \emph{extending input component} of $D_2$ for $D_1$.
 A component $o \in \langle \overrightarrow{o_2} \rangle \setminus \langle \overrightarrow{o_1}$ is an \emph{extending output component} of $D_2$ for $D_1$.
 A component is an \emph{extending component} iff it is an extending input component or an extending output component.
 A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule} of $D_2$ for $D_1$.
-A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule of an extending component} $c$ iff the formula $r$ contains any of the symbols of $c$.
 \end{defn}
 
 \begin{remark}
 An extension of an ILP task definition defines a different ILP task.
+\end{remark}
+
+\begin{remark}
+\emph{Extending rules of a component} are the rules which define the component (i.e. rules containing the symbols present in the denotation of the of the component). When a definition is extended by an extending component, the corresponding extending rules of an extending component need to be added as extending rules to the new definition.
 \end{remark}
 
 A correspondence between an ILP task defined by $D$ and an ILP task defined by an extension of $D$ is shown.
@@ -141,7 +140,7 @@ $I, O$ define the hypothesis $H'=O \setminus I=(B \cup H) \setminus (B \cup E)=H
 \subsubsection{Explanatory induction}
 Most of the ILP systems solve an ILP task of an extended form of explanatory induction.\cite{kimber2012learning}\cite{aleph2007}\cite{nienhuys1997foundations}
 
-\begin{defn}
+\begin{defn}\label{defn_explanatory_induction}
 An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$,
 $R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
 \end{defn}
@@ -153,6 +152,25 @@ $R=\{Cn(B \cup E^{+}) \subseteq Cn(B \cup H), E^{-} \not\in Cn(B \cup H)\}$ for 
 \end{defn}
 
 See an example \fullref{explanatory_induction_example}.
+
+\subsection{Multiexplanatory induction}
+While the output of explanatory induction is an explanation $H$ for $E$ in terms of $B$, we define multiexplanatory induction as an ILP task allowing multiple explanations for $E$ in terms of $B$ on the output.
+
+\begin{defn}\label{defn_multiexplanatory_induction}
+An ILP task of \emph{multiexplanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $H \in O$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+\end{defn}
+
+An example of an ILP system solving an extension of an ILP task of multiexplanatory induction is Tal.\fullref{subsec:tal_multiple_solutions} There is an obvious correspondence between explanatory induction and multiexplanatory induction.
+
+\begin{proposition}
+Let $f_1:I_1 \mapsto O_2$ be an ILP task of explanatory induction, $f_2:I_2 \mapsto O_2$ an ILP task of multiexplanatory induction. If $I_1=I_2$, then
+$f_1(I_1) \in f_2(I_2)$.
+\end{proposition}
+
+\begin{proof}
+Follows from the definitions \fullref{defn_explanatory_induction}, \fullref{defn_multiexplanatory_induction}.
+\end{proof}
 
 \subsubsection{Hypothesis bias}
 The non-determinism of an ILP task is reduced by an introduction of additional constrains. A set of the constrains on a hypothesis for an ILP task are a hypothesis bias.
@@ -193,12 +211,64 @@ Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of ex
 \end{exmp}
 
 \subsubsection{Mode declarations}
-One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\cite{muggleton1995inverse} specifies the predicates allowed in a hypothesis.
+One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\cite{muggleton1995inverse} specifies the predicates allowed in a hypothesis. We consider a mode declaration bias to be a special case of a hypothesis bias extending component.
 
-\paragraph{Xhail2}
+The following mode declarations are excerpts and adapations of the examples provided with an implementation of a specific ILP system.
+
+\paragraph{Progol}
 \begin{lstlisting}
-modeh(1,3,min,fries("+bistro")).
-modeb(1,3,pos,offer("+bistro")).
+:- modeh(1,class(+animal,#class))?
+:- modeb(1,has_gills(+animal))?
+:- modeb(1,has_covering(+animal,#covering))?
+:- modeb(1,has_legs(+animal,#nat))?
+:- modeb(1,homeothermic(+animal))?
+:- modeb(1,has_eggs(+animal))?
+% :- modeb(1,not has_milk(+animal))?
+%:- modeb(1,not has_gills(+animal))?
+:- modeb(*,habitat(+animal,#habitat))?
+:- modeb(1,has_milk(+animal))?
+:- modeh(1,false)?
+:- modeb(1,class(+animal,#class))?
+:- modeh(1,append([+constant|+clist],+clist,[-constant|-clist]))?
+:- modeh(1,append(+clist,+clist,-clist))?
+:- modeb(1,+clist = [])?
+:- modeb(1,append(+clist,+clist,-clist))?
+:- modeh(1,arch(+block,+block,+block))?
+:- modeb(1,left_of(+block,+block))?
+:- modeb(1,supports(+block,+block))?
+:- modeb(1,not touches(+block,+block))?
+:- modeb(1,brick(+block))?
+:- modeb(1,wedge(+block))?
+:- modeb(1,block(+block))?
+:- modeh(1,s(+wlist,-wlist))?
+:- modeb(1,s(+wlist,-wlist))?
+:- modeb(1,det(+wlist,-wlist))?
+:- modeb(1,conj(+wlist,-wlist))?
+:- modeb(1,adj(+wlist,-wlist))?
+:- modeh(*,np(+wlist,-wlist))?
+:- modeb(*,np(+wlist,-wlist))?
+:- modeh(*,vp(+wlist,-wlist))?
+:- modeb(*,vp(+wlist,-wlist))?
+:- modeb(1,prep(+wlist,-wlist))?
+:- modeb(1,noun(+wlist,-wlist))?
+:- modeb(1,verb(+wlist,-wlist))?
+:- modeh(1,det([#constant|+wlist],-wlist))?
+:- modeh(1,adj([#constant|+wlist],-wlist))?
+:- modeh(1,noun([#constant|+wlist],-wlist))?
+:- modeh(1,verb([#constant|+wlist],-wlist))?
+:- modeh(1,prep([#constant|+wlist],-wlist))?
+:- modeh(1,conj([#constant|+wlist],-wlist))?
+\end{lstlisting}
+
+\paragraph{Aleph}
+\begin{lstlisting}
+:-modeh(*, woman(+person)).
+:-modeb(*, female(+person)).
+:-modeb(*, male(+person)).
+:-modeh(*, english(+person)).
+:-modeb(*, english_couple(+person, -person)).
+:-modeb(*, english(+person)).
+
 \end{lstlisting}
 
 \paragraph{Toplog}
@@ -206,15 +276,127 @@ modeb(1,3,pos,offer("+bistro")).
 :-modeh(append(+list,+list,-list)).
 :-modet(2, l2ht(+list/[H|T], -any/H, -list/T)).
 :-modeb(append(+list,+list,-list)).
+:- modeh(class(+animal,#class)).
+:- modeb(has_milk(+animal)).
+:- modeb(has_gills(+animal)).
+:- modeb(has_covering(+animal,#covering)).
+:- modeb(has_legs(+animal,#nat)).
+:- modeb(homeothermic(+animal)).
+:- modeb(has_eggs(+animal)).
+:- modeb(habitat(+animal,#habitat)).
+:-modeh(uncle(+person, -person)).
+:-modeb(1, male(+person)).
+:-modeb(1, parent(-person, +person)).
+:-modeh(nchoosem(+int,+int,-int)).
+:-modeb(3, fact(+int, -int)). 
+:-modeb(minus(+int,+int,-int)).
+:-modeb(mult(+int,+int, -int), commutative).
+:-modeb(int_division(+int,+int,-int)).
+\end{lstlisting}
+
+\paragraph{Xhail2}
+\begin{lstlisting}
+modeh(1,3,min,fries("+bistro")).
+modeb(1,3,pos,offer("+bistro")).
+modeh(0,1,pos,e).
+modeb(0,1,pos,a).
+modeb(0,1,pos,b).
+modeh(0,2,min,initiates("#event","#fluent","+time")).
+modeh(0,2,min,terminates("#event","#fluent","+time")).
+modeb(0,5,pos,holdsAt("#fluent","+time")).
+modeb(0,5,neg,holdsAt("#fluent","+time")).
+modeh(0,10,min,inhibited("#metabolite","#enzyme","#metabolite")).
+modeh(0,2,min,odd("+list")).
+modeb(0,3,pos,"+list" = ["-int"|"-list"]).
+\end{lstlisting}
+
+\paragraph{Imparo}
+\begin{lstlisting}
+head_modes([
+    even(+number)
+]).
+
+body_modes([
+    even(+number)
+]).
+head_modes([
+    s(+wlist,-wlist),
+    np(+wlist,-wlist),
+    vp(+wlist,-wlist),
+    det([#word|+wlist],-wlist),
+    adj([#word|+wlist],-wlist),
+    noun([#word|+wlist],-wlist),
+    verb([#word|+wlist],-wlist),
+    prep([#word|+wlist],-wlist)
+]).
+
+body_modes([
+    det(+wlist,-wlist),
+    adj(+wlist,-wlist),
+    np(+wlist,-wlist),
+    vp(+wlist,-wlist),
+    prep(+wlist,-wlist),
+    noun(+wlist,-wlist),
+    verb(+wlist,-wlist)
+]).
+head_modes([
+    woman(+person)
+]).
+
+body_modes([
+    female(+person),
+    male(+person)
+]).
+\end{lstlisting}
+
+\paragraph{Tal}
+\begin{lstlisting}
+modeh(happens("#event","#time","#scenario")).
+%modeh(holds_at("#fluent","+time","+scenario")).
+
+%modeb(holds_at_before("#fluent","+time","+scenario")).
+%modeb(holds_at_before("#fluent","+time","+scenario")).
+modeh(del(1, 4)).
+modeh(del(2, 3)).
+modeh(del(3, 3)).
+modeh(del(4, 3)).
+modeh(extension(1, holds(#goal_exp, +timepoint, +scenario), [])). 
+modeh(extension(2, holds(#goal_exp, +timepoint, +scenario), [+timepoint])). 
+modeh(extension(3, holds(#goal_exp, +timepoint, +scenario), [])). 
+modeh(extension(4, holds(#goal_exp, +timepoint, +scenario), [])). 
+modeb(4, holds_at(#fluent, +timepoint, +scenario)).
+modeb(4, \+ holds_at(#fluent, +timepoint, +scenario)).
+modeh(penguin(+bird)).  
+modeh(abird(+bird), [name(a)]).
+modeb(abird(+bird), [name(ab)]).
+modeb(\+ canfly(+bird)).
+modeh(woman(+person), [name(wh)]).
+modeb(female(+person), [name(fb)]).
+modeb(male(+person), [name(mb)]).
 \end{lstlisting}
 
 \subsubsection{Determinations}
+
+\paragraph{Aleph}
+\begin{lstlisting}
+:- determination(woman/1, female/1).
+:- determination(woman/1, male/1).
+:- determination(english/1, english/1).
+:- determination(english/1, english_couple/2).
+\end{lstlisting}
 
 \subsubsection{Top theory}
 
 \subsubsection{Integrity constraints}
 
 \subsubsection{Meta-constrains}
+
+\paragraph{Progol}
+\begin{lstlisting}
+:- op(40,xfx,left_of)?
+:- op(40,xfx,supports)?
+:- op(40,xfx,touches)?
+\end{lstlisting}
 
 \paragraph{Toplog}
 \begin{lstlisting}
@@ -255,10 +437,11 @@ Toplog - hypothesis.
 \subsubsection{Semantics}
 
 \subsubsection{Other constructions}
-The building blocks and the rules we have considered are:
+The building blocks and the rules we have not considered are:
 \begin{itemize}
-\item types in 
-\item episodes in metalearning framework.
+\item types on the ground instances in a logic program as in the appendix,
+\item induction field\cite{yamamoto2012inverse} and production field\cite{inoue2004induction},
+\item episodes in metalearning framework\cite{muggleton2013meta}.
 \end{itemize}
 
 \subsubsection{Summary of ILP task definitions}
