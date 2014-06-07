@@ -99,8 +99,13 @@ Follows from \fullref{definition_ilp_task_definition_extension} and \fullref{cor
 \end{proof}
 
 \begin{proposition}
-Let $D_2, D_1$ be ILP task definitions. Suppose that $D_2$ is an input extension with an input $I_2$ of $D_1$ with an input $I_1$, but not an output extension, not a rule extension. Then $f_2(I_2)=f_1(I_1)$.
+Let $D_2=\langle f_2, dom(f_2), cod(f_2), R_2 \rangle$,
+$D_1=\langle f_1, dom(f_1), cod(f_1), R_1 \rangle$ be ILP task definitions. Suppose that $D_2$ with an input $I_2$ is an input extension of $D_1$ with an input $I_1$, but not an output extension, not a rule extension. Then $f_2(I_2)=f_1(I_1)$.
 \end{proposition}
+
+\begin{proof}
+$O \in f_1(I_1) \iff R_1 \cup \{O \in f_1(I_1)\} \not\models false \iff  R_2 \cup \{O \in f_2(I_2)\} \not\models false \iff O \in f_2(I_2)$ since $O \in f_2(I_2)$ is defined in terms of $I_1 \subseteq I_2$ and for the defining rules $R_1(f_1 \mapsto f_2) = R_2$, $R_2(f_2 \mapsto f_1)=R_1$ for substitutions $f_1 \mapsto f_2$, $f_2 \mapsto f_1$.
+\end{proof}
 
 \subsubsection{Generalization}
 Recall \fullref{generalization}.
