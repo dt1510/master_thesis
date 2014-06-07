@@ -32,6 +32,8 @@
 \BOOKMARK [2][-]{subsection.2.9.4}{Meta-Interpretive Learning frameworkmuggleton2014meta}{section.2.9}
 \BOOKMARK [2][-]{subsection.2.9.5}{Aleph}{section.2.9}
 \BOOKMARK [2][-]{subsection.2.9.6}{Other systems}{section.2.9}
+\BOOKMARK [1][-]{section.2.10}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.10.1}{Inverse subsumption with minimal complements}{section.2.10}
 \BOOKMARK [0][-]{chapter.3}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.3.1}{ILP task definition}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{Learning problem vs. ILP task}{section.3.1}
@@ -100,16 +102,15 @@
 \BOOKMARK [2][-]{subsection.5.1.4}{Hypothesis selection}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.5}{Hypotheses enumeration}{section.5.1}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
-\BOOKMARK [1][-]{section.6.1}{Inverse subsumption with minimal complements algorithm}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{Bias}{chapter.6}
-\BOOKMARK [1][-]{section.6.3}{Completeness}{chapter.6}
-\BOOKMARK [1][-]{section.6.4}{Hypothesis selection}{chapter.6}
-\BOOKMARK [1][-]{section.6.5}{Hypothesis search}{chapter.6}
-\BOOKMARK [1][-]{section.6.6}{ILP task definition}{chapter.6}
-\BOOKMARK [1][-]{section.6.7}{Implementation details}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.7.1}{Language choice}{section.6.7}
-\BOOKMARK [2][-]{subsection.6.7.2}{Libraries used}{section.6.7}
-\BOOKMARK [1][-]{section.6.8}{Comparison of Rationale with other ILP systems}{chapter.6}
+\BOOKMARK [1][-]{section.6.1}{Bias}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Completeness}{chapter.6}
+\BOOKMARK [1][-]{section.6.3}{Hypothesis selection}{chapter.6}
+\BOOKMARK [1][-]{section.6.4}{Hypothesis search}{chapter.6}
+\BOOKMARK [1][-]{section.6.5}{ILP task definition}{chapter.6}
+\BOOKMARK [1][-]{section.6.6}{Implementation details}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.6.1}{Language choice}{section.6.6}
+\BOOKMARK [2][-]{subsection.6.6.2}{Libraries used}{section.6.6}
+\BOOKMARK [1][-]{section.6.7}{Comparison of Rationale with other ILP systems}{chapter.6}
 \BOOKMARK [0][-]{chapter.7}{Evaluation}{}
 \BOOKMARK [1][-]{section.7.1}{Self-critique}{chapter.7}
 \BOOKMARK [1][-]{section.7.2}{Measuring the success}{chapter.7}

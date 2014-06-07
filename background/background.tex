@@ -506,8 +506,14 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
 
-\section{Inverse subsumption for complete explanatory induction}\cite{yamamoto2012inverse}
-This section presents paraphrased work by Yamamoto et al. \cite{yamamoto2012inverse}. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption instead in lieu of the antientailment.
+\section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
+This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse}. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+
+\begin{defn}
+Let $B$ and $E$ be a background theory and examples, respectively.
+Let $F$ be a ground clausal theory. Then $F$ is a bridge theory wrt $B$ and $E$ if
+$B \land \neg E \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+\end{defn}
 
 \begin{defn}\label{induction_field_definition}
 An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
@@ -526,8 +532,8 @@ Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} 
 $F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
 \end{defn}
 
-Now, the generalization procedure based on inverse subsumption with minimal comple
-ments is as follows:
+\subsection{Inverse subsumption with minimal complements}
+The generalization procedure based on inverse subsumption with minimal complements is as follows:
 
 \begin{defn}
 Let $B, E$ and $\mathcal{I}_H = \langle L \rangle$ be a background theory, examples and an induction
@@ -542,7 +548,14 @@ $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H)))$.
 \end{defn}
 
 Inverse subsumption with minimal complements ensures the completeness for finding
-hypotheses wrt $\mathcal{I}_H$ and $F$:
+hypotheses wrt $\mathcal{I}_H$ and $F$.
+
+\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+
+$H \subsumes \tau(M(F \cup Taut(I_H))$.
+\end{lemma}
 
 \begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
 respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,

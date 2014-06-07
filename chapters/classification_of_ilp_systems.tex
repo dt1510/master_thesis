@@ -871,13 +871,6 @@ They compute the hypothesis $H$ in two steps:
 
 The use of the inverse entailment in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. We classify the ILP systems based on whether the use of their induction technique with the inverse subsumption instead of the inverse entailment preserves the completeness for finding all the correct hypotheses.
 
-\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
-Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
-respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
-
-$H \subsumes \tau(M(F \cup Taut(I_H))$.
-\end{lemma}
-
 \subsection{Imparo is complete in inverse subsumption}
 We solve an open problem in \cite{yamamoto2012inverse} proving that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
 \begin{defn}
