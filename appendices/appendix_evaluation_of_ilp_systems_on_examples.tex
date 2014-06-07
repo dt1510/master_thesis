@@ -92,8 +92,9 @@ example(woman(tom),-1).
 \end{lstlisting}
 \end{minipage}
 
-produces a hypothesis $woman(A) :- female(A)$ but adding a second
-head mode declaration $:-modeh(man(+person)).$ after $:-modeh(woman(+person)).$ overwrites the first one.
+produces a hypothesis \tc{woman(A) :- female(A)} but adding a second
+head mode declaration \\
+\tc{:-modeh(man(+person)).} after \tc{:-modeh(woman(+person)).} overwrites the first one.
 
 \begin{minipage}[t]{.40\textwidth}
 \begin{lstlisting}
@@ -131,7 +132,8 @@ example(in_language(s(s(s(epsilon)))),1).
 example(in_language(s(s(s(s(epsilon))))),1).
 \end{lstlisting}
 
-However, this is not learnable since Toplog's mode declarations do not allow to specify \tc{in\_language(s(A))} in a head neither in a body. Toplog outputs:
+However, this is not learnable since Toplog's mode declarations do not allow to specify\\
+\tc{in\_language(s(A))} in a head neither in a body. Toplog outputs:
 "Couldn't start model. (no problem defined?)".
 
 \subsection{Clausal bias}
@@ -164,10 +166,10 @@ example(object(tree),1).
 \end{lstlisting}
 \end{minipage}
 
-will produce a hypothesis $object(A) :- blue(A)$ since 
-$:-modeb(10, blue(+type)).$ was defined first instead of learning both
+will produce a hypothesis \tc{object(A) :- blue(A)} since 
+\tc{:-modeb(10, blue(+type)).} was defined first instead of learning both
 concepts in a hypothesis:
-$object(A) :- blue(A); green(A)$ where the $;$ represents a disjunction.
+\tc{object(A) :- blue(A); green(A)} where the \tc{;} represents a disjunction.
 
 \subsection{Inability to make deductions from observations}
 Toplog does not learn any hypothesis from the following program:
@@ -200,7 +202,7 @@ example(t(a2),1).
 example(t(a3),1).
 \end{lstlisting}
 which if included in the Toplog program, then a hypothesis
-$t(A) :- p(A)$ would be learnt.
+\tc{tc(A) :- p(A)} would be learnt.
 Therefore the application of the background knowledge to the observations in Toplog is limited.
 
 Nevertheless, Toplog can still learn by making deductions from its background knowledge.
@@ -226,7 +228,7 @@ example(t(a3),1).
 \end{lstlisting}
 \end{minipage}
 
-would give a hypothesis $t(A) :- r(A).$
+would give a hypothesis \tc{t(A) :- r(A).}
 
 \subsection{Predicate generalization impossible}
 Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
@@ -240,8 +242,6 @@ The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our lang
 
 \subsection{Ground atom example}
 Toplog has a limitation that every example can be only a ground atom.
-
-\section{MC-Toplog}
 
 \section{Imparo's capabilities}
 \subsection{A multiclausal learning}
@@ -351,7 +351,7 @@ Note, this was not possible in Toplog.
 \subsection{Learnability of multi-clausal concepts}
 Imparo can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
 
-\begin{minipage}[t]{.27\textwidth}
+\begin{minipage}[t]{.26\textwidth}
 \begin{lstlisting}
 head_modes([
    man(+person),
@@ -373,7 +373,7 @@ person(sam).
 person(martin).
 \end{lstlisting}
 \end{minipage}
-\begin{minipage}[t]{.35\textwidth}
+\begin{minipage}[t]{.34\textwidth}
 \begin{lstlisting}
 %Background knowledge
 female(jane).
@@ -1767,7 +1767,8 @@ returns solutions
 \end{lstlisting}
 \end{minipage}
 
-Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution.  Moreover, \tc{woman(sister(\_))} subsumes the clause \tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
+Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution. Moreover, \tc{woman(sister(\_))} subsumes the clause\\
+\tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
 
 \subsection{No generalization downwards}
 Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
@@ -2167,7 +2168,7 @@ false :- p, not a.
 \end{minipage}
 
 returns a hypothesis \tc{a:-true. r:-true.} where in the learning problem
-\tc{false :- p, not a.} represents an integrity constraint. In comparison, Tal can learn from the integrity constrains too, but other systems cannot (TODO verify).
+\tc{false :- p, not a.} represents an integrity constraint.
 
 \subsection{Term structure learnability}
 Xhail can learn the hypotheses whose terms contain function symbols.
@@ -2253,7 +2254,6 @@ An attempt to define that everybody in a domain is of type person fails. \tc{per
 \tc{grounded(susan; adam).person(X1) :- grounded(X1).} does not produce any complaints.
 
 This has an impact that the learning space is finite - every possible inducible model is a finite set of ground instances. Therefore, multiple learning problems cannot be learnt: generalization downwards, generalization upwards, Kleene star learning, learning a concept of a natural number, etc. because for these the Hebrand models are infinite subsets of the Herbrand base of the Hebrand universe with the function symbols.
-\subsection{Other limitations}
 
 \section{Xhail's violations and biases}
 
@@ -2677,4 +2677,4 @@ woman(A) :- female_person(A).
 But notice that \tc{woman(A) :- female\_person(A)} cannot be derived from the mode declarations. Therefore Progol has a default background knowledge bias.
 
 \subsection{Other violations and biases}
-If examples allowed in a head mode declaration, then no general hypothesis is learnt only examples.
+If examples are allowed in a head mode declaration, then no general hypothesis is learnt, only examples.
