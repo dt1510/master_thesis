@@ -1,6 +1,100 @@
 \chapter{Appendix - evaluation of Toplog on examples}
 
-\section{Toplog}
+\section{Toplog's capabilities}
+Toplog validates the final hypothesis with the cross-validaton algorithm.
+
+\section{Toplog's assumed limitations}
+\subsection{Inability to make deductions from observations}
+Toplog does not learn any hypothesis from the following program:
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, p(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+p(a1).
+p(a2).
+p(a3).
+t(A) :- r(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
+example(r(a1),1).
+example(r(a2),1).
+example(r(a3),1).
+\end{lstlisting}
+\end{minipage}
+
+Although from the positive examples and the background knowledge included one may deduce examples:
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+which if included in the Toplog program, then a hypothesis
+\tc{tc(A) :- p(A)} would be learnt.
+Therefore the application of the background knowledge to the observations in Toplog is limited.
+
+Nevertheless, Toplog can still learn by making deductions from its background knowledge.
+
+\begin{lstlisting}
+:-modeh(t(+type)).
+:-modeb(1, r(+type)).
+:-set(maximum_literals_in_hypothesis, 10).
+\end{lstlisting}
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+p(a1).
+p(a2).
+p(a3).
+r(A) :- p(A).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+example(t(a1),1).
+example(t(a2),1).
+example(t(a3),1).
+\end{lstlisting}
+\end{minipage}
+
+would give a hypothesis \tc{t(A) :- r(A).}
+
+\subsection{Predicate generalization impossible}
+Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
+\begin{lstlisting}
+example(swims(magician),1).
+example(flies(magician),1).
+example(cooks(magician),1).
+example(makes_fire(magician),1).
+\end{lstlisting}
+The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
+
+\subsection{Ground atom example}
+Toplog has a limitation that every example can be only a ground atom.
+
+\subsection{Unlearnability of the term structure}
+Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
+\begin{lstlisting}
+%target concept: in_language(s(A)) :- in_language(A).
+:-modeh(in_language(s(+word))).
+:-modeb(1, in_language(+word)).
+
+example(in_language(s(epsilon)),1).
+example(in_language(s(s(epsilon))),1).
+example(in_language(s(s(s(epsilon)))),1).
+example(in_language(s(s(s(s(epsilon))))),1).
+\end{lstlisting}
+
+However, this is not learnable since Toplog's mode declarations do not allow to specify\\
+\tc{in\_language(s(A))} in a head neither in a body. Toplog outputs:
+"Couldn't start model. (no problem defined?)".
+
+
+\section{Toplog's violations and biases}
 \subsection{Mode declarations order bias}
 Consider the Toplog program:
 
@@ -119,23 +213,6 @@ example(woman(tom),-1).
 
 produces no hypotheses.
 
-\subsection{Unlearnability of the term structure}
-Consider one would like to learn a concept of a Kleene star operator on the terms evident from the following examples:
-\begin{lstlisting}
-%target concept: in_language(s(A)) :- in_language(A).
-:-modeh(in_language(s(+word))).
-:-modeb(1, in_language(+word)).
-
-example(in_language(s(epsilon)),1).
-example(in_language(s(s(epsilon))),1).
-example(in_language(s(s(s(epsilon)))),1).
-example(in_language(s(s(s(s(epsilon))))),1).
-\end{lstlisting}
-
-However, this is not learnable since Toplog's mode declarations do not allow to specify\\
-\tc{in\_language(s(A))} in a head neither in a body. Toplog outputs:
-"Couldn't start model. (no problem defined?)".
-
 \subsection{Clausal bias}
 Since Toplog's hypotheses space consists of clauses, it cannot learn two concepts at one time.
 
@@ -170,75 +247,3 @@ will produce a hypothesis \tc{object(A) :- blue(A)} since
 \tc{:-modeb(10, blue(+type)).} was defined first instead of learning both
 concepts in a hypothesis:
 \tc{object(A) :- blue(A); green(A)} where the \tc{;} represents a disjunction.
-
-\subsection{Inability to make deductions from observations}
-Toplog does not learn any hypothesis from the following program:
-
-\begin{lstlisting}
-:-modeh(t(+type)).
-:-modeb(1, p(+type)).
-:-set(maximum_literals_in_hypothesis, 10).
-\end{lstlisting}
-\begin{minipage}[t]{.40\textwidth}
-\begin{lstlisting}
-p(a1).
-p(a2).
-p(a3).
-t(A) :- r(A).
-\end{lstlisting}
-\end{minipage}
-\begin{minipage}[t]{.40\textwidth}
-\begin{lstlisting}
-example(r(a1),1).
-example(r(a2),1).
-example(r(a3),1).
-\end{lstlisting}
-\end{minipage}
-
-Although from the positive examples and the background knowledge included one may deduce examples:
-\begin{lstlisting}
-example(t(a1),1).
-example(t(a2),1).
-example(t(a3),1).
-\end{lstlisting}
-which if included in the Toplog program, then a hypothesis
-\tc{tc(A) :- p(A)} would be learnt.
-Therefore the application of the background knowledge to the observations in Toplog is limited.
-
-Nevertheless, Toplog can still learn by making deductions from its background knowledge.
-
-\begin{lstlisting}
-:-modeh(t(+type)).
-:-modeb(1, r(+type)).
-:-set(maximum_literals_in_hypothesis, 10).
-\end{lstlisting}
-\begin{minipage}[t]{.35\textwidth}
-\begin{lstlisting}
-p(a1).
-p(a2).
-p(a3).
-r(A) :- p(A).
-\end{lstlisting}
-\end{minipage}
-\begin{minipage}[t]{.20\textwidth}
-\begin{lstlisting}
-example(t(a1),1).
-example(t(a2),1).
-example(t(a3),1).
-\end{lstlisting}
-\end{minipage}
-
-would give a hypothesis \tc{t(A) :- r(A).}
-
-\subsection{Predicate generalization impossible}
-Toplog cannot generalize over the predicates as this cannot be expressed in the mode declarations bias, consider the illustrative example.
-\begin{lstlisting}
-example(swims(magician),1).
-example(flies(magician),1).
-example(cooks(magician),1).
-example(makes_fire(magician),1).
-\end{lstlisting}
-The hypothesis $\forall x. x(magician)$ cannot be induced. Depending on our language and the predicates it contains and the context of the problem, we may need to express hypotheses as second-order logic formulas.
-
-\subsection{Ground atom example}
-Toplog has a limitation that every example can be only a ground atom.
