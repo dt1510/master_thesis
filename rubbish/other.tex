@@ -71,3 +71,10 @@ An ILP system $s:(E+,E-,B, \mathcal{H}) \mapsto \mathcal{H}_2$ gives a solution 
 then $\forall H \in \mathcal{H}_2. E+ \cup \overline{E-} \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$. We also say that $s$ is correct on an input $(E+,E-,B, \mathcal{H})$ wrt to the problem of the multi-explanatory induction.
 \end{defn}
 
+
+Since we are interested in non-ground hypotheses to be in a hypotheses space we define induction field language as a specific form of a hypothesis bias constructed from the induction field.
+\begin{defn}
+A hypothesis $H$ is in the \emph{induction field language} $\mathcal{L}(\mathcal{I}_H)$ of an induction field $\mathcal{I}_H=\langle L \rangle$ iff
+1) $H$ is a ground hypothesis and $H$ belongs to $\mathcal{I_H}$ or
+2) $H$ has a ground instance $H_g$ that belongs to $\mathcal{I_H}$.
+\end{defn}
