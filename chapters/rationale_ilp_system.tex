@@ -1,21 +1,60 @@
 \chapter{Rationale ILP system}
+An ILP system Rationale is designed and implemented based on the work by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
-After having reviewed ILP systems, we aim to design a custom ILP system called Rationale that would address some of the problems we have encountered in the ILP systems.
+\section{Algorithm outline}
+Rationale derives a hypothesis $H$ by inverse subsumption with minimal complements\cite{yamamoto2012inverse} which uses an induction field bias.
 
-\section{Suggested solutions}
-Our suggested solutions are an extension of the work\cite{yamamoto2012inverse} by Yamamoto, et al. in which they provide a complete theoretical framework for solving the problem of an explanatory induction.
+\begin{defn}\label{induction_field_definition}\cite{yamamoto2012inverse}
+An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
+where $L$ is a finite
+set of literals to appear in ground hypotheses.
+A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+every literal in $H_g$ is included in $L$.
+Given an induction field $\mathcal{I}_H = \langle L \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
+\end{defn}
 
-\subsection{Faster consistency check\cite{yamamoto2012comparison}}
-Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
 
-\subsection{Hypothesis selection}
-Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
 
-We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
-\subsection{Hypotheses enumeration}
-Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
+Since we are interested in non-ground hypotheses to be in a hypotheses space we define induction field language as a specific form of a hypothesis bias constructed from the induction field.
+\begin{defn}
+A hypothesis $H$ is in the \emph{induction field language} $\mathcal{L}(\mathcal{I}_H)$ of an induction field $\mathcal{I}_H=\langle L \rangle$ iff
+1) $H$ is a ground hypothesis and $H$ belongs to $\mathcal{I_H}$ or
+2) $H$ has a ground instance $H_g$ that belongs to $\mathcal{I_H}$.
+\end{defn}
 
-\section{Unresolved problems}
-\begin{itemize}
-\item The background theory has to be Horn.
-\end{itemize}
+Definition 5 (Hypothesis wrt IH and F ) Let H be a hypothesis. H is a hypothesis wrt
+IH and F if there is a ground hypothesis Hg such that Hg consists of instances from H ,
+F | ¬Hg and Hg belongs to IH .
+Now, the generalization procedure based on inverse subsumption with minimal comple-
+ments is as follows:
+Definition 6 Let B, E and IH = L be a background theory, examples and an induction
+field, respectively. Let F be a bridge theory wrt B and E. A clausal theory H is derived
+by inverse subsumption with minimal complements from F wrt IH if H is constructed as
+follows.
+Step 1. Compute Taut(IH );
+Step 2. Compute τ (M(F ∪ Taut(IH )));
+Step 3. Construct a clausal theory H satisfying the condition:
+H
+τ (M(F ∪ Taut(IH ))).
+
+
+\section{Bias}
+
+
+\section{Completeness}
+
+\section{Hypothesis selection}
+
+\section{Hypothesis search}
+
+\section{ILP task definition}
+
+\section{Implementation details}
+The yet uncovered details of the Rationale implementation are summarised.
+
+\subsection{Language choice}
+
+\subsection{Libraries used}
+
+\section{Comparison of Rationale with other ILP systems}
