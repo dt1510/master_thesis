@@ -1724,9 +1724,21 @@ Tal cannot learn the negative examples. It can learn only Horn theories. Tal ass
 
 \subsection{Solution redundancy}
 Tal returns duplicate hypotheses as solutions.
+
+\begin{minipage}[t]{.65\textwidth}
 \begin{lstlisting}
 modeh(woman(sister(+person)), [name(wh)]).
 modeb(anybody(+person), [name(wb)]).
+
+%Examples
+example(woman(sister(bob)), 1).
+example(woman(sister(jane)), 1).
+example(woman(sister(susan)), 1).
+example(woman(sister(frog)), -1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jane).
 person(bob).
 person(susan).
@@ -1735,37 +1747,40 @@ person(susan).
 anybody(jane).
 anybody(susan).
 anybody(bob).
-
-%Examples
-example(woman(sister(bob)), 1).
-example(woman(sister(jane)), 1).
-example(woman(sister(susan)), 1).
-example(woman(sister(frog)), -1).
 \end{lstlisting}
+\end{minipage}
+
 returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 1. woman(sister(_)).
 2. woman(sister(A)) :- anybody(A).
-3. woman(sister(_)).
-woman(sister(A)) :- anybody(A).
-4. woman(sister(A)) :- anybody(A).
-woman(sister(_)).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. woman(sister(_)).
+   woman(sister(A)) :- anybody(A).
+4. woman(sister(A)) :- anybody(A).
+   woman(sister(_)).
+\end{lstlisting}
+\end{minipage}
+
 Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution.  Moreover, \tc{woman(sister(\_))} subsumes the clause \tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
 
 \subsection{No generalization downwards}
 Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
 \begin{lstlisting}
+
+\end{lstlisting}
+
+\begin{minipage}[t]{.65\textwidth}
+\begin{lstlisting}
 modeh(numeral(+number), [name(nh)]).
 modeb(numeral(+number), [name(nb)]).
 modeb(numberal(s(+number)), [name(nsb)]).
 modeb(numeral(s(s(+number))), [name(nssb)]).
-
-number(0).
-number(s(X)).
-
-%Background knowledge
-numeral(s(s(s(s(0))))).
 
 %Examples
 example(numeral(0),1).
@@ -1775,6 +1790,16 @@ example(numeral(s(s(s(0)))),1).
 example(numeral(s(not_number)),-1).
 example(numeral(s(s(s(not_number)))),-1).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+number(0).
+number(s(X)).
+
+%Background knowledge
+numeral(s(s(s(s(0))))).
+\end{lstlisting}
+\end{minipage}
 
 returns solutions
 \begin{lstlisting}
@@ -1809,6 +1834,7 @@ example(even(s(s(s(s(s(s(0))))))),1).
 example(even(s(0)),-1).
 example(even(s(s(s(0)))),-1).
 \end{lstlisting}
+
 produces a hypothesis \tc{even(\_).} which is inconsistent with the negative examples. The target hypotheses \tc{even(A) :- even(s(s(A))).} was not learnt.
 
 \subsection{Loop on learning regular languages}
@@ -1831,10 +1857,11 @@ example(in_language(s(s(s(s(epsilon))))),1).
 example(in_language(s(epsilon)),-1).
 example(in_language(s(s(s(epsilon)))),-1).
 \end{lstlisting}
+
 returns solutions
 \begin{lstlisting}
 1. in_language(s(_)).
-in_language(s(s(A))) :- in_language(A).
+   in_language(s(s(A))) :- in_language(A).
 2. in_language(s(A)) :- in_language(A).
 \end{lstlisting}
 and subsequently loops outputting \tc{[(in\_language(s(s(s(s...} as before.
@@ -1842,6 +1869,8 @@ Notice that a target hypothesis 2. was learnt, but Tal did not manage to termina
 
 \subsection{Weak head mode declaration}
 As in Aleph and Imparo, a head mode declaration in Tal allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(woman(+person), [name(wh)]).
 modeb(anybody(+person),[name(ab)]).
@@ -1849,17 +1878,24 @@ modeb(anybody(+person),[name(ab)]).
 %Background theory
 anybody(jane).
 anybody(jack).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %Example
 example(woman(sister(jane)),1).
 example(woman(sister(jack)),1).
 example(woman(sister(frog)),-1).
 example(woman(sister(cat)),-1).
 \end{lstlisting}
+\end{minipage}
+
 returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
 
 \subsection{Alphabetical term bias}
 Tal search is biased on the alphabetical order of the terms present in the predicates.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(woman(+person), [name(wh)]).
 modeh(man(+person), [name(mh)]).
@@ -1869,47 +1905,75 @@ modeb(male(+person), [name(mb)]).
 %Background
 male(adam).
 female(alice).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %Examples
 example(woman(alice), 1).
 example(man(adam), 1).
 example(woman(adam), -1).
 example(man(alice), -1).
 \end{lstlisting}
+\end{minipage}
+
 returns solutions
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 1. man(_).
 2. man(A) :- male(A).
-3. man(A) :- male(A).
-woman(_).
-4. man(A) :- male(A).
-woman(A) :- female(A).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+3. man(A) :- male(A).
+   woman(_).
+4. man(A) :- male(A).
+   woman(A) :- female(A).
+\end{lstlisting}
+\end{minipage}
+
 However, if we rename the term \tc{adam} to a term that is alphabetically greater than \tc{alice} then a predicate \tc{female} occurs in a greater proportion of solutions than in the previous ones.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 %Background
 male(zygo).
 female(alice).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %Examples
 example(woman(alice), 1).
 example(man(zygo), 1).
 example(woman(zygo), -1).
 example(man(alice), -1).
 \end{lstlisting}
+\end{minipage}
+
 produces solutions
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 0. woman(_).
 1. woman(A) :- female(A).
 2. woman(_).
-man(_).
-3.woman(A) :- female(A).
-man(_).
-4. woman(_).
-man(A) :- male(A).
-5. woman(A) :- female(A).
-man(A) :- male(A).
+   man(_).
+3. woman(A) :- female(A).
+   man(_).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+4. woman(_).
+   man(A) :- male(A).
+5. woman(A) :- female(A).
+   man(A) :- male(A).
+\end{lstlisting}
+\end{minipage}
+
 Other interesting change is the increase in the number of the solutions from 4 to 5. In the author's opinion the hypotheses produced should be independent of the description language chosen and therefore alphabetical term bias represents a violation of the ILP problem.
 
 \subsection{Other violations and biases}
@@ -1920,13 +1984,8 @@ One may argue that returning multiple solutions does not solve the inductive lea
 \subsection{Background knowledge generalization}
 Like Progol, Xhail does not distinguish between the examples and the background knowledge. It tries to generalize the background knowledge to learn a hypothesis specified by the mode declarations criteria.
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-a(0 ; 1).
-c(0).
-d(1).
-p(X) :- a(X), not block(X).
-g :- p(0), not p(1).
-goal(g).
 modeh(0,1,min,block("+a")).
 modeb(1,1,neg,c("+a")).
 modeb(1,1,pos,c("+a")).
@@ -1934,8 +1993,20 @@ modeb(1,1,pos,d("+a")).
 modeb(1,1,neg,d("+a")).
 modeb(1,1,pos,eql("+a","#a")).
 modeb(1,1,neg,eql("+a","#a")).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+a(0 ; 1).
+c(0).
+d(1).
+p(X) :- a(X), not block(X).
+g :- p(0), not p(1).
+goal(g).
 eql(X,Y) :- X==Y,a(X),a(Y).
 \end{lstlisting}
+\end{minipage}
+
 produces hypotheses
 \begin{lstlisting}
 1. block(X1) :- not c(X1),d(X1),eql(X1,1),not eql(X1,0),a(X1). ([X1/1])
@@ -1948,52 +2019,83 @@ where the head of the hypotheses is \tc{block}, however, we can notice that ther
 
 If one wanted to translate learning from examples problem into the Xhail's learning problem, positive and negative examples could be placed in a goal:
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(0,10,max,woman("+person")).
 modeb(0,10,pos,female("+person")).
 
 person(susan; adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 female(susan).
 male(adam).
-
 goal(g).
 g:- woman(susan), not woman(adam).
 \end{lstlisting}
+\end{minipage}
+
 where \tc{woman(susan)} is a positive example and a \tc{woman(adam)} is a negative example. The hypothesis learnt is
 \tc{woman(X1) :- female(X1), person(X1).}.
 
 \subsection{Multiple hypotheses}
 Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-a.
-b.
-e.
 modeh(0,1,pos,e).
 modeb(0,1,pos,a).
 modeb(0,1,pos,b).
 find(all).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background
+a.
+b.
+e.
+\end{lstlisting}
+\end{minipage}
+
 returns the hypotheses
+
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 1. e :- true.
 2. e :- b.
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 3. e :- a.
 4. e :- a,b.
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Multi-clausal hypotheses}
 Xhail can learn a hypothesis that consists of multiple clauses:
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(0,10,all,woman("+person")).
 modeh(0,10,all,man("+person")).
 modeb(0,10,pos,female("+person")).
 modeb(0,10,pos,male("+person")).
+
+g:- woman(susan), not woman(adam), man(adam), not man(susan).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 goal(g).
 person(susan; adam).
 female(susan).
 male(adam).
-g:- woman(susan), not woman(adam), man(adam), not man(susan).
 \end{lstlisting}
+\end{minipage}
+
 returns a hypothesis
 \begin{lstlisting}
 man(X1):-male(X1), person(X1).
@@ -2010,15 +2112,24 @@ Xhail has extended mode declarations to refine its search space. Xhail's help re
  and where $a, b, c$ are constant, input, output terms, respectively;
  the third flag is either min="attempt to minimize" or all="do not minimize".
  
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(0,1,all,woman("+person")).
 modeb(0,1,pos,female("+person")).
-goal(g).
 person(susan; ruth; adam).
-female(susan).
-female(ruth).male(adam).
+
+goal(g).
 g:- woman(susan), woman(ruth), not woman(adam).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background
+female(susan).
+female(ruth).male(adam).
+\end{lstlisting}
+\end{minipage}
+
 returns no hypothesis. However, placing only one positive example in a goal
 \tc{g:- woman(susan), not woman(adam).} or modifying the modeh declaration to cover the two positive examples\\
 \tc{modeh(0,2,all,woman("+person")).} makes Xhail to learn a hypothesis\\
@@ -2036,26 +2147,49 @@ Apart from the mode declarations, additional control has been introduced with \t
 
 \subsection{Learning by integrity constrains}
 Xhail can learn from the background knowledge in a form of integrity constrains.
+
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+modeh(0,1,all,a).
+modeh(0,1,all,r).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+goal(p).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
 \begin{lstlisting}
 p :- r.
 false :- p, not a.
-modeh(0,1,all,a).
-modeh(0,1,all,r).
-goal(p).
 \end{lstlisting}
-returns a hypothesis \tc{a:-true.r:-true.} where in the learning problem
+\end{minipage}
+
+returns a hypothesis \tc{a:-true. r:-true.} where in the learning problem
 \tc{false :- p, not a.} represents an integrity constraint. In comparison, Tal can learn from the integrity constrains too, but other systems cannot (TODO verify).
 
 \subsection{Term structure learnability}
 Xhail can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 modeh(0,10,all,woman(sister("+a"))).
-modeb(0,10,pos,anybody("+a")).goal(g).
+modeb(0,10,pos,anybody("+a")).
+
 a(susan; adam; frog).
 anybody(susan; adam).
-female(susan).male(adam).
+goal(g).
 g:- woman(sister(susan)), woman(sister(adam)), not woman(sister(frog)).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+female(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
 returns a hypothesis
 \tc{woman(sister(X1)):-anybody(X1), a(X1).}.
 \subsection{Other capabilities}
@@ -2066,15 +2200,22 @@ Xhail can learn a hypothesis which requires ground terms to be in a head predica
 \subsection{Partial explanations impossible}
 Xhail cannot learn a hypothesis that explains some positive examples, but not all.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 modeh(0,10,all,woman("+person")).
 modeb(0,10,pos,female("+person")).
-goal(g).
 person(susan; ruth; adam).
-female(susan).
-male(adam).
+goal(g).
 g:- woman(susan), woman(ruth), not woman(adam).
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+female(susan).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
 returns no hypothesis.Although a hypothesis
 \tc{woman(X1):-female(X1),person(X1).} cannot explain the example \tc{woman(ruth).} it would be able to explain the example \tc{woman(susan)}.
 
@@ -2085,17 +2226,24 @@ In comparison, Aleph can learn partial hypotheses: from the background knowledge
 \subsection{Learning from clausal examples}
 Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 modeh(0,10,all,woman("+person")).
 modeb(0,10,pos,female("+person")).
 goal(g).
 person(susan; ruth; adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 woman(susan):-female(susan).
 woman(ruth):-female(ruth).
 male(adam).
-g:- woman(susan), woman(ruth), not woman(adam).
 \end{lstlisting}
-does not produce any hypothesis, however a general hypothesis
+\end{minipage}
+
+does not produce any hypothesis, however a general hypothesis\\
 \tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
 
 \subsection{Inability to learn from unrestricted clauses}
@@ -2115,12 +2263,17 @@ Xhail does not explicitly report that the learning problem is inconsistent, it o
 \subsection{Redundant hypotheses}
 Xhail returns multiple hypotheses even if they are the same.
 
+\begin{minipage}[t]{.43\textwidth}
 \begin{lstlisting}
 modeh(1,3,min,fries("+food")).
 modeb(1,3,neg,offer("+food")).
 modeb(1,3,pos,offer("+food")).
 modeb(1,3,neg,bistro("+food")).
 modeb(1,3,pos,bistro("+food")).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 goal(g).
 food(md ; bk ; rz).
 bistro(md ; bk ; rz).
@@ -2129,28 +2282,38 @@ meal(X):- food(X),fries(X), burger(X).
 burger(X):- food(X), fries(X), offer(X).
 g:- meal(md), meal(bk), not meal(rz).
 \end{lstlisting}
+\end{minipage}
 
 returns the hypotheses
 
 \begin{lstlisting}
 1. fries(X1) :- food(X1).
-2.fries(X1) :- food(X1).
+2. fries(X1) :- food(X1).
 \end{lstlisting}
 where the 1st and the 2nd hypotheses are the same. Notice, a general hypothesis has been induced for every example, both \tc{md} and \tc{bk}.
 
 \subsection{Other violations and biases}
 Since Xhail learns multiple solutions, the hypotheses space is not biased towards the order of the mode declarations.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(0,10,max,woman("+person")).
 modeb(0,10,pos,female("+person")).
 modeb(0,10,pos,cook("+person")).
+
+g:- woman(susan), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 goal(g).
 person(susan; adam).
 female(susan).
 cook(susan).
 male(adam).
-g:- woman(susan), not woman(adam).
 \end{lstlisting}
+\end{minipage}
+
 returns two hypotheses
 \tc{1. woman(X1):-cook(X1), person(X1). 2. woman(X1):-female(X1), person(X1).}. In other systems a preference over the hypotheses is induced based on the order of the hypotheses' predicates \tc{cook(X1), female(X1)} in their modeb and determination declarations.
 
@@ -2158,6 +2321,8 @@ returns two hypotheses
 
 \subsection{Specialization in arguments}
 Progol can learn hypothesis which require ground terms to be in a head predicate.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(learns(+person, +subject)).
 modeh(learns(#person, +subject)).
@@ -2167,7 +2332,10 @@ male(adam).
 male(bob).
 female(alice).
 female(mary).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 learns(polymath, mathematics).
 learns(polymath, physics).
@@ -2179,6 +2347,8 @@ learns(susan, physics).
 :- learns(jack, physics).
 :- learns(susan, chemistry).
 \end{lstlisting}
+\end{minipage}
+
 returns hypotheses
 \begin{lstlisting}
 learns(polymath,A).
@@ -2190,6 +2360,7 @@ containing a general hypothesis \tc{learns(polymath,A)} that has a constant \tc{
 \subsection{Multi-clausal learning}
 Progol can learn several one-clausal hypotheses at one time.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, woman(+person))?
 :-modeh(*, man(+person))?
@@ -2202,8 +2373,10 @@ Progol can learn several one-clausal hypotheses at one time.
 male(bob).
 male(tom).
 female(ann).
-female(mary).
-
+female(mary).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(ann).
 woman(mary).
@@ -2216,6 +2389,7 @@ man(tom).
 :-woman(bob).
 :-woman(tom).
 \end{lstlisting}
+\end{minipage}
 
 returns hypotheses
 
@@ -2228,6 +2402,8 @@ Note, this is possible in Imparo and in Aleph, but not in Toplog.
 
 \subsection{Term structure learnability}
 Progol can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, woman(sister(+person)))?
 :-modeb(*, anybody(+person))?
@@ -2235,8 +2411,10 @@ Progol can learn the hypotheses whose terms contain function symbols.
 
 anybody(jane).
 anybody(susan).
-anybody(bob).
-
+anybody(bob).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(sister(bob)).
 woman(sister(jane)).
@@ -2245,6 +2423,8 @@ woman(sister(susan)).
 %negative examples
 :-woman(sister(frog)).
 \end{lstlisting}
+\end{minipage}
+
 returns a hypothesis
 \begin{lstlisting}
 woman(sister(A)) :- anybody(A).
@@ -2253,6 +2433,8 @@ In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
 
 \subsection{Learnability of multi-clausal concepts}
 Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
+
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, woman(+person))?
 :-modeh(*, man(+person))?
@@ -2267,8 +2449,10 @@ female(eugenia).
 couple(jack, jane).
 couple(sam, susan).
 couple(martin, eugenia).
-male(X) :- couple(X,Y), woman(Y).
-
+male(X) :- couple(X,Y), woman(Y).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 man(jack).
 man(martin).
@@ -2279,6 +2463,7 @@ woman(susan).
 :-man(jane).
 :-woman(sam).
 \end{lstlisting}
+\end{minipage}
 
 produces the hypotheses
 \begin{lstlisting}
@@ -2290,11 +2475,21 @@ To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and t
 
 \subsection{Clausal examples}
 Progol can learn from the observations that are general Horn clauses not limited to literals.
+
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, man(+person))?
 :-modeb(*, male(+person))?
 :- determination(man/1, male/1)?
 
+%positive examples
+man(jack) :- male(jack).
+man(sam) :- male(sam).
+man(john) :- male(john).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %background
 male(jack).
 male(sam).
@@ -2302,14 +2497,11 @@ male(john).
 male(tristan).
 female(glory).
 
-%positive examples
-man(jack) :- male(jack).
-man(sam) :- male(sam).
-man(john) :- male(john).
-
 %negative examples
 :- man(glory).
 \end{lstlisting}
+\end{minipage}
+
 produces the expected general hypothesis
 \begin{lstlisting}
 man(A) :- male(A).
@@ -2329,6 +2521,7 @@ Progol can learn positive examples, but cannot learn the negative ones. Like Ale
 \subsection{No generalization downwards}
 Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, even(+number))?
 :-modeb(*, even(+number))?
@@ -2338,7 +2531,10 @@ Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
 %background theory
 even(s(s(s(s(s(s(s(s(0))))))))).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 even(0).
 even(s(s(0))).
@@ -2349,6 +2545,8 @@ even(s(s(s(s(s(s(0))))))).
 :-even(s(0)).
 :-even(s(s(s(0)))).
 \end{lstlisting}
+\end{minipage}
+
 produces a hypothesis
 \begin{lstlisting}
 even(A).
@@ -2360,22 +2558,31 @@ Although Progol can learn a simple term structure, it cannot learn more complex 
 
 \begin{lstlisting}
 :-modeh(*, in_language(s(s(+word))))?
-:-modeh(*, in_language(s(+word)))?:-modeb(*, in_language(+word))?
+:-modeh(*, in_language(s(+word)))?
+:-modeb(*, in_language(+word))?
 :- determination(in_language/1, in_language/1)?
 
 %background theory
 in_language(epsilon).
 in_language(s(s(epsilon))).
 in_language(s(s(s(s(epsilon))))).
+\end{lstlisting}
 
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
 %positive examples
 in_language(s(s(epsilon))).
 in_language(s(s(s(s(epsilon))))).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %negative examples
 :-in_language(s(epsilon)).
 :-in_language(s(s(s(epsilon)))).
 \end{lstlisting}
+\end{minipage}
+
 returns back a hypothesis
 \begin{lstlisting}
 in_language(s(s(A))).
@@ -2390,6 +2597,7 @@ in_language(s(s(A)) :- in_language(A).
 \subsection{Preference over earlier mode declarations}
 Progol prefers learning a hypothesis whose mode declaration has been defined earlier.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, man(+person))?
 :-modeb(*, bridegroom(+person))?
@@ -2397,22 +2605,26 @@ Progol prefers learning a hypothesis whose mode declaration has been defined ear
 :- determination(man/1, bridegroom/1)?
 :- determination(man/1, male/1)?
 
-bridegroom(jack).
-bridegroom(sam).
-bridegroom(john).
-
-male(jack).
-male(sam).
-male(john).
-
 %positive examples
 man(jack).
 man(sam).
 man(john).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background theory
+bridegroom(jack).
+bridegroom(sam).
+bridegroom(john).
+male(jack).
+male(sam).
+male(john).
 
 %negative examples
 :- man(susan).
 \end{lstlisting}
+\end{minipage}
 
 returns a hypothesis
 \begin{lstlisting}
@@ -2433,6 +2645,7 @@ In both cases, the induced hypothesis had a body atom declared in an earlier mod
 \subsection{Background knowledge hypotheses}
 Progol explains the examples with the background knowledge even if the mode declarations do not allow such explanations in the language bias.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 :-modeh(*, female_person(+person))?
 :-modeb(*, female(+person))?
@@ -2441,7 +2654,10 @@ Progol explains the examples with the background knowledge even if the mode decl
 female(jane).
 female(susan).
 woman(A) :- female_person(A).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(jane).
 woman(susan).
@@ -2451,6 +2667,8 @@ female_person(susan).
 %negative examples
 :-female_person(sam).
 \end{lstlisting}
+\end{minipage}
+
 returns the hypotheses
 \begin{lstlisting}
 female_person(A) :- female(A).
