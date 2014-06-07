@@ -416,6 +416,7 @@ Observations demonstrating the limits of the concept learnability from the syste
 Note: Imparo uses a completion semantics.
 In cases when a hypothesis could explain the negative examples, Imparo cannot learn such a clause.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    woman(+person)
@@ -426,36 +427,51 @@ body_modes([
     female(+person),
     male(+person)
 ]).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jane).
 person(susan).
 person(jack).
 person(sam).
-
-% Gender, Background knowledge
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
 female(jane).
 female(susan).
 
 male(jack).
 male(sam).
-
-% Gender, Examples
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
 :- woman(jack).
 :- woman(sam).
 \end{lstlisting}
+\end{minipage}
 
 The hypothesis of the form $\neg male(x) \vee \neg woman(x)$ would explain the examples, however Imparo in this case outputs no hypothesis.
 
 Adding further information to the background knowledge does not remove the limits:
 
+\begin{minipage}[t]{.45\textwidth}
 \begin{lstlisting}
 not_man(X) :- woman(X).
 not_woman(X) :- man(X).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 :- woman(X), man(X).
 :- not_woman(X), not_man(X).
 \end{lstlisting}
+\end{minipage}
+
 The background knowledge says that everybody has to be either a woman or a man. From our observations negative examples are not learnable by Imparo, however a hypothesis produced is consistent with the all the examples and the background knowledge.
 
 This may be related to the existence of a definition of an ILP system where the produced hypothesis $H$ has to explain positive examples, but it is sufficient if negative examples are only consistent with the hypothesis, notationally the necessity condition says:
@@ -466,6 +482,7 @@ Favouring this definition results in a bias in which hypotheses space is biased 
 \subsection{Assumption of consistency}
 Imparo assumes that the set of observations is consistent.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    man(+person)
@@ -473,25 +490,34 @@ head_modes([
 
 body_modes([
    male(+person)
-]).
-
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jack).
 person(sam).
 person(john).
 person(glory).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %Background knowledge
 male(jack).
 male(sam).
 male(john).
 male(tristan).
 female(glory).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 %Examples
 :- man(glory).
 
 man(glory).
 \end{lstlisting}
+\end{minipage}
 
 produces a hypothesis
 \begin{lstlisting}
@@ -520,6 +546,7 @@ Limits of the learnability violating the system specification and not stated as 
 \subsection{Default examples bias}
 Imparo has examples in its default bias even if these are not declared in the mode declarations.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    %woman(+person)
@@ -528,24 +555,34 @@ head_modes([
 body_modes([
     female(+person),
     male(+person)
-]).
-
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jane).
 person(susan).
 person(jack).
-
-% Gender, Background knowledge
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
 female(jane).
 female(susan).
 
 male(jack).
-
-% Gender, Examples
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
+%Examples
 woman(jane).
 woman(susan).
 
 :- woman(jack).
 \end{lstlisting}
+\end{minipage}
+
 
 produces a hypothesis 
 \begin{lstlisting}
@@ -571,6 +608,7 @@ This demonstrates that in some cases mode declaration bias does not correspond t
 \subsection{Weak head mode declaration}
 A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
 
+\begin{minipage}[t]{.30\textwidth}
 \begin{lstlisting}
 head_modes([
    woman(+person)
@@ -580,23 +618,30 @@ body_modes([
     female(+person),
     male(+person)
 ]).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 person(jane).
 person(susan).
 person(eugenia).
 person(jack).
 person(sam).
-
-% Gender, Background knowledge
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%Background knowledge
 female(jane).
 female(susan).
 female(eugenia).
 
-% Gender, Examples
+%Examples
 woman(sister(jane)).
 woman(sister(eugenia)).
 :- woman(jack).
 \end{lstlisting}
+\end{minipage}
 
 produces a hypothesis 
 \begin{lstlisting}
@@ -626,6 +671,7 @@ The advantage of a support of a term structure is a matter of convenience rather
 \subsection{No generalization downwards}
 Imparo cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$ for all classes of applicable observations.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    even(+number)
@@ -636,10 +682,17 @@ body_modes([
     even(s(+number)),
     even(s(s(+number)))
 ]).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 number(0).
 number(s(X)).
 
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 %Background knowledge
 even(s(s(s(s(s(s(s(s(0))))))))).
 
@@ -651,15 +704,24 @@ even(s(s(s(s(s(s(0))))))).
 :-even(s(0)).
 :-even(s(s(s(0)))).
 \end{lstlisting}
+\end{minipage}
+
 
 only learn the examples
 
+\begin{minipage}[t]{.45\textwidth}
 \begin{lstlisting}
 even(0):-true
 even(s(s(s(s(s(s(0))))))):-true
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 even(s(s(0))):-true
 even(s(s(s(s(0))))):-true
 \end{lstlisting}
+\end{minipage}
+
 
 where we may expect a more general shorter hypothesis
 
@@ -672,6 +734,7 @@ This may be related to the mentioned limitation of how Imparo treats the terms. 
 
 However, the generalization downwards does not work with a hypothesis having an argument with one function symbol in its body either.
 
+\begin{minipage}[t]{.30\textwidth}
 \begin{lstlisting}
 head_modes([
    numeral(+number)
@@ -682,9 +745,17 @@ body_modes([
     numberal(s(+number)),
     numeral(s(s(+number)))
 ]).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 number(0).
 number(s(X)).
 
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %Background knowledge
 numeral(s(s(s(s(0))))).
 
@@ -696,21 +767,31 @@ numeral(s(s(s(0)))).
 :-numeral(s(not_number)).
 :-numeral(s(s(s(not_number)))).                                   
 \end{lstlisting}
+\end{minipage}
+
 
 returns a hypothesis
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 numeral(0):-true
 numeral(s(s(s(0)))):-true
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 numeral(s(0)):-true
 numeral(s(s(0))):-true
 \end{lstlisting}
+\end{minipage}
+
 
 however, a more general hypothesis \tc{numeral(A) :- numeral(s(A)).} would explain the examples.
 
 \subsection{Literal observational bias}
 Imparo can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    man(+person)
@@ -718,20 +799,29 @@ head_modes([
 
 body_modes([
    male(+person)
-]).
-
+]).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jack).
 person(sam).
 person(john).
 person(glory).
-
-%Background knowledge
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%Background
+%knowledge
 male(jack).
 male(sam).
 male(john).
 male(tristan).
 female(glory).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 %Examples
 man(jack) :- male(jack).
 man(sam) :- male(sam).
@@ -739,6 +829,7 @@ man(john) :- male(john).
 
 :- man(glory).
 \end{lstlisting}
+\end{minipage}
 
 Expected hypothesis explaining the examples:
 
@@ -751,6 +842,7 @@ To the author's knowledge, other ILP systems do not deal with the case of non-li
 \subsection{Preference over the later mode declarations}
 The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
 
+\begin{minipage}[t]{.25\textwidth}
 \begin{lstlisting}
 head_modes([
    man(+person)
@@ -760,12 +852,18 @@ body_modes([
    policeman(+person),
    male(+person)
 ]).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 person(jack).
 person(sam).
 person(john).
 person(jane).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %Background knowldge
 male(jack).
 male(sam).
@@ -773,13 +871,19 @@ male(john).
 policeman(jack).
 policeman(sam).
 policeman(john).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 %Examples
 man(jack).
 man(sam).
 
 :- man(jane).
 \end{lstlisting}
+\end{minipage}
+
+
 learns a hypothesis
 \begin{lstlisting}
 man(A):-male(A)
@@ -816,36 +920,49 @@ Imparo cannot explain the negative observations.
 \subsection{Multi-clausal learning}
 Aleph can learn several one-clausal hypotheses at one time.
 
+\begin{minipage}[t]{.45\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, woman(+person)).
 :-modeh(*, man(+person)).
 :-modeb(*, male(+person)).
 :-modeb(*, female(+person)).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 :- determination(man/1,male/1).
 :- determination(woman/1,female/1).
+\end{lstlisting}
+\end{minipage}
 
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+%background theory
 male(bob).
 male(tom).
 
 female(ann).
 female(mary).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(ann).
 woman(mary).
-
 man(bob).
 man(tom).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %negative examples
 man(ann).
 man(mary).
-
 woman(bob).
 woman(tom).
 \end{lstlisting}
+\end{minipage}
 
 returns hypotheses
 
@@ -865,18 +982,27 @@ Aleph can induce hypotheses that contain predicates of arity greater than 1.
 :-modeb(*, english(+person)).
 
 :- determination(english/1, english_couple/2).
-
+\end{lstlisting}
+\begin{minipage}[t]{.40\textwidth}
+\begin{lstlisting}
 english_couple(adam, alice).
 english_couple(bob, barbara).
 english_couple(jack, jane).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.27\textwidth}
+\begin{lstlisting}
 %positive examples
 english(adam).
 english(jack).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.25\textwidth}
+\begin{lstlisting}
 %negative examples
 english(budha).
 \end{lstlisting}
+\end{minipage}
 
 returns back a generalized hypothesis
 \begin{lstlisting}
@@ -888,13 +1014,14 @@ Note, that since the induce hypothesis does not use the variable \tc{B}, the var
 Similarly, learning of hypotheses with polyadic predicate symbols in their head is possible.
 
 \begin{lstlisting}
-%background theory
 :-modeh(*, english_couple(+person, +person)).
-
 :-modeb(*, english(+person)).
-
 :- determination(english_couple/2, english/1).
+\end{lstlisting}
 
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%background theory
 english_couple(adam, alice).
 english_couple(bob, barbara).
 english(alice).
@@ -903,7 +1030,10 @@ english(barbara).
 english(adam).
 english(bob).
 english(jack).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 english_couple(adam, alice).
 english_couple(bob, barbara).
@@ -914,6 +1044,7 @@ english_couple(budha, karma).
 english_couple(jack, shreedipta).
 english_couple(amir, jane).
 \end{lstlisting}
+\end{minipage}
 
 returns a hypothesis
 
@@ -923,6 +1054,8 @@ english_couple(A,B) :- english(B), english(A).
 
 \subsection{Term structure learnability}
 Aleph can learn the hypotheses whose terms contain function symbols.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 :-modeh(*, woman(sister(+person))).
 :-modeb(*, anybody(+person)).
@@ -932,7 +1065,10 @@ Aleph can learn the hypotheses whose terms contain function symbols.
 anybody(jane).
 anybody(susan).
 anybody(bob).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(sister(bob)).
 woman(sister(jane)).
@@ -941,6 +1077,8 @@ woman(sister(susan)).
 %negative examples
 woman(sister(frog)).
 \end{lstlisting}
+\end{minipage}
+
 returns a hypothesis
 \begin{lstlisting}
 woman(sister(A)) :- anybody(A).
@@ -950,17 +1088,20 @@ In comparison, Imparo can learn the term structure but Toplog cannot.
 \subsection{Generalization downwards}
 Aleph can learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, even(+number)).
 :-modeb(*, even(+number)).
 :-modeb(*, even(s(+number))).
 :-modeb(*, even(s(s(+number)))).
-
 :- determination(even/1, even/1).
 
+%background theory
 even(s(s(s(s(s(s(s(s(0))))))))).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 even(0).
 even(s(s(0))).
@@ -971,6 +1112,8 @@ even(s(s(s(s(s(s(0))))))).
 even(s(0)).
 even(s(s(s(0)))).
 \end{lstlisting}
+\end{minipage}
+
 produces a hypothesis
 \begin{lstlisting}
 even(A) :- even(s(s(A))).
@@ -980,32 +1123,40 @@ which comes as a surprise since neither Imparo nor Toplog can learn the hypothes
 \section{Aleph's assumed limitations}
 \subsection{Unlearnability of negative examples}
 Aleph learns positive examples, but cannot learn the negative ones.
+
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-%background theory
-
 :-modeb(*, woman(+person)).
-
+%background theory
 %positive examples
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %negative examples
 woman(bob).
 woman(tom).
 \end{lstlisting}
+\end{minipage}
+
 does not return any hypothesis, even if we specify the hypothesis in the mode declaration by \tc{:- woman(+person)}.
 
 \subsection{Determination declaration requirement}
 The hypotheses space cannot be defined with the mode declarations alone, mode declarations have to be supplied with the determination declarations.
-\begin{lstlisting}
-%background theory
 
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
 :-modeh(*, woman(+person)).
 :-modeb(*, female(+person)).
-
 %:- determination(woman/1,female/1).
 
+%background theory
 female(ann).
 female(mary).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(ann).
 woman(mary).
@@ -1013,6 +1164,7 @@ woman(mary).
 %negative examples
 woman(bob).
 \end{lstlisting}
+\end{minipage}
 
 does not return a generalized hypothesis but the examples
 \begin{lstlisting}
@@ -1027,32 +1179,47 @@ a more general hypothesis \tc{woman(A) :- female(A).} is learnt. To the author i
 
 \subsection{Assumption of consistency}
 Aleph assumes the examples are consistent.
+
+\begin{minipage}[t]{.30\textwidth}
 \begin{lstlisting}
 %background theory
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(ann).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %negative examples
 woman(ann).
 \end{lstlisting}
+\end{minipage}
+
 returns a hypothesis \tc{woman(ann).} which is inconsistent with the negative examples. Aleph assumes that the set of background knowledge union with examples is a consistent.
 
 \subsection{Unlearnability of regular languages}
 Although Aleph can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
 
 \begin{lstlisting}
-%background theory
 :-modeh(*, in_language(s(s(+word)))).
 :-modeh(*, in_language(s(+word))).
 :-modeb(*, in_language(+word)).
-
 :- determination(in_language/1, in_language/1).
+\end{lstlisting}
 
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+%background theory
 in_language(epsilon).
 in_language(s(s(epsilon))).
 in_language(s(s(s(s(epsilon))))).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 in_language(s(s(epsilon))).
 in_language(s(s(s(s(epsilon))))).
@@ -1061,6 +1228,8 @@ in_language(s(s(s(s(epsilon))))).
 in_language(s(epsilon)).
 in_language(s(s(s(epsilon)))).
 \end{lstlisting}
+\end{minipage}
+
 returns back positive examples
 \begin{lstlisting}
 in_language(s(s(epsilon))).
@@ -1079,8 +1248,8 @@ could indeed be learnt.
 \subsection{Unlearnability of multi-clausal concepts}
 Aleph cannot learn a hypothesis that needs more that one clause to explain the examples.
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, woman(+person)).
 :-modeh(*, man(+person)).
 
@@ -1090,6 +1259,16 @@ Aleph cannot learn a hypothesis that needs more that one clause to explain the e
 :- determination(woman/1, female/1).
 :- determination(man/1, male/1).
 
+%positive examples
+man(jack).
+man(martin).
+woman(jane).
+woman(susan).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background theory
 female(jane).
 female(susan).
 female(eugenia).
@@ -1100,17 +1279,11 @@ couple(martin, eugenia).
 
 male(X) :- couple(X,Y), woman(Y).
 
-%positive examples
-man(jack).
-man(martin).
-
-woman(jane).
-woman(susan).
-
 %negative examples
 man(jane).
 woman(sam).
 \end{lstlisting}
+\end{minipage}
 
 produces a hypothesis
 \begin{lstlisting}
@@ -1135,18 +1308,18 @@ Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn secon
 \subsection{Default Example Bias}
 Aleph includes examples in its bias even if these are not specified by mode declarations.
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-%background theory
-
 %:-modeh(*, woman(+person)).
 %:-modeb(*, female(+person)).
-
-%positive examples
-
-woman(ann).
-
-%negative examples
 \end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+woman(ann).
+\end{lstlisting}
+\end{minipage}
 
 returns a hypothesis
 \begin{lstlisting}
@@ -1159,18 +1332,20 @@ Therefore the hypotheses space is not entirely defined by mode declarations and 
 A head mode declaration in Aleph allows only definitions with specific term structure as opposed to
 the ability to substitute a variable or a type (e.g. \tc{+person}) for any term.
 
+\begin{minipage}[t]{.55\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, woman(+person)).
 :-modeb(*, anybody(+person)).
-
 :- determination(woman/1, anybody/1).
-
 person(sister(A)).
 
+%background theory
 anybody(jane).
 anybody(jack).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
 %positive examples
 woman(sister(jane)).
 woman(sister(jack)).
@@ -1178,6 +1353,7 @@ woman(sister(jack)).
 %negative examples
 woman(sister(frog)).
 \end{lstlisting}
+\end{minipage}
 
 returns back the positive examples
 \begin{lstlisting}
@@ -1199,19 +1375,22 @@ would be learnt. This constraint is present in Imparo as well. To the author the
 \subsection{Literal observation bias}
 Aleph can accept only the examples in the form of literals. If presented with other clauses in the example file, it will not run
 
+\begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, man(+person)).
 :-modeb(*, male(+person)).
-
 :- determination(man/1, male/1).
 
+%background theory
 male(jack).
 male(sam).
 male(john).
 male(tristan).
 female(glory).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 %positive examples
 man(jack) :- male(jack).
 man(sam) :- male(sam).
@@ -1220,6 +1399,7 @@ man(john) :- male(john).
 %negative examples
 man(glory).
 \end{lstlisting}
+\end{minipage}
 
 Expected hypothesis explaining the examples:
 \begin{lstlisting}
@@ -1230,8 +1410,8 @@ In comparison systems like Imparo and Toplog do not accept examples of non-liter
 \subsection{Preference over earlier determinations}
 Aleph prefers learning a hypothesis whose determination declaration has been defined earlier.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
-%background theory
 :-modeh(*, man(+person)).
 :-modeb(*, male(+person)).
 :-modeb(*, bridegroom(+person)).
@@ -1242,7 +1422,11 @@ Aleph prefers learning a hypothesis whose determination declaration has been def
 bridegroom(jack).
 bridegroom(sam).
 bridegroom(john).
-
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background theory
 male(jack).
 male(sam).
 male(john).
@@ -1255,6 +1439,7 @@ man(john).
 %negative examples
 man(susan).
 \end{lstlisting}
+\end{minipage}
 
 returns a hypothesis
 \begin{lstlisting}
