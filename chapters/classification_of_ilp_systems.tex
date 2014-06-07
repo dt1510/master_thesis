@@ -82,7 +82,11 @@ Follows directly from the definitions.
 To provide a more accurate and complete specification of an ILP task, its definition can be extended.
 
 \begin{defn}\label{definition_ilp_task_definition_extension}
-Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_2$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
+Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_1$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
+A component $i \in \langle \overrightarrow{i_2} \rangle \setminus \langle \overrightarrow{i_1}$ is an \emph{extending input component} of $D_2$ for $D_1$.
+A component $o \in \langle \overrightarrow{o_2} \rangle \setminus \langle \overrightarrow{o_1}$ is an \emph{extending output component} of $D_2$ for $D_1$.
+A component is an \emph{extending component} iff it is an extending input component or an extending output component.
+A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule} of $D_2$ for $D_1$.
 \end{defn}
 
 \begin{remark}
