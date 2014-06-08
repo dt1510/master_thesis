@@ -39,9 +39,13 @@
 \BOOKMARK [2][-]{subsection.2.11.2}{Inverse subsumption with minimal complements}{section.2.11}
 \BOOKMARK [0][-]{chapter.3}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.3.1}{Properties of logical theory}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.1.1}{Expressivity}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.2}{Syntactic properties}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.3}{Information content of a logical theory}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.1}{Properties of predicate and function symbol}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Properties of a logical formula}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.3}{Properties of a logic theory}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.4}{Expressivity}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.5}{Syntactic properties}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.6}{Conceptual properties}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.7}{Information content of a logical theory}{section.3.1}
 \BOOKMARK [1][-]{section.3.2}{ILP task definition}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.2.1}{Generalization}{section.3.2}
 \BOOKMARK [2][-]{subsection.3.2.2}{Explanatory inductionyamamoto2012inverse}{section.3.2}

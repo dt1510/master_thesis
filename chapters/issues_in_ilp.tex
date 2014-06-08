@@ -9,7 +9,32 @@ For an analysis of an issue to establish the means for a useful comparison of IL
 
 
 \section{Properties of logical theory}\label{sec:properties_of_logical_theory}
-The objective of this section is to extract the properties of logical theories that may serve for the classification of ILP systems by completeness by problem class, by their hypothesis selection and by their bias.
+The objective of this section is to extract the properties of logical theories that may serve for the classification of ILP systems by completeness by problem classes, by their hypothesis selection and by their hypothesis bias.
+
+For analysing the properties of the logical theory, one has several conceptual divisions by which the properties can be grouped and analysed.
+
+\subsubsection{Property classes by syntactic compositionality}
+The properties of the logical theories can be ordered by the defining hierarchies.
+\begin{itemize}
+\item \emph{properties of a predicate or a function symbol} are atomic properties as these are specifications of a definition of a particular symbol: an arity of a language symbol,
+\item \emph{properties of a logic formula} are the properties arising from a construction of a formula by the formation rules from the language symbols
+\item \emph{properties of a logic theory}.
+\end{itemize}
+
+The covered properties of the logical theories:
+\begin{itemize}
+\item language properties - arity
+\item structural properties - the size of the theory in numbers of the symbols, the number of the formulas in the theory, the number of the distinct predicate/function symbols used, 
+\item syntactic properties,
+\item semantic properties,
+\item expressivity
+\end{itemize}
+
+\subsection{Properties of predicate and function symbol}
+
+\subsection{Properties of a logical formula}
+
+\subsection{Properties of a logic theory}
 
 \subsection{Expressivity}
 One may wish to limit the logical theories $T, B, E, H$ to be of a certain form to specify or relax a learning problem by affecting the expressivity of the respective theories.
@@ -30,11 +55,12 @@ The expressivity of the learning problem is further affected by
 \end{itemize}
 
 \subsection{Syntactic properties}
-A property $P:\mathcal{H} \to \{true, false\}$ is syntactic iff $P$ is invariant under the logical equivalence, i.e.
-$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
-The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc. TODO
 
 \subsubsection{Semantic properties}
+A property $P:\mathcal{H} \to \{true, false\}$ is semantic iff $P$ is invariant under the logical equivalence, i.e.
+$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
+The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc.
+
 
 \subsection{Conceptual properties}
 \begin{defn}
