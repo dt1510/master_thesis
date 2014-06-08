@@ -1,0 +1,69 @@
+\subsection{Extension to cover negative examples}
+We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
+\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E^{+}$, $B \wedge H$ consistent, $B \wedge H \not\models E^{-}$.
+\end{defn}
+
+\begin{lemma}\label{yamamoto2012inverseLemma2Converse}
+Let $B \cup \neg E \models F$. $H \subsumes \tau(M(F \cup Taut(I_H)))$ implies
+$B \cup H \models E$.
+\end{lemma}
+\begin{proof}
+By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \equiv \neg F$.
+\end{proof}
+
+\begin{lemma}
+Let $E^{-}=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
+a hypothesis wrt $I_H, B, E^{+}, E^{-}$.
+Then $B \cup H \not\models E^{-}$ iff
+$\forall i \in \{1,...,n\}.$ $H \not\subsumes \tau(M(F_i- \cup Taut(I_H)))$.
+\end{lemma}
+
+\begin{proof}
+Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E^{-}$ is in a disjunctive normal form.
+\end{proof}
+
+\begin{conjecture}
+$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F^{-} \cup Taut(I_H)))$
+where $F^{-}=F_1- \wedge ... \wedge F_n-$.
+\end{conjecture}
+
+By the principle of inverse entailment
+$B \wedge H \not\models E^{-}$ iff
+$B \wedge \neg E^{-} \not\models \neg H$.
+
+\begin{defn}
+(Negative bridge theory) Let $B$ and $E^{-}$ be a background theory and negative examples, respectively. Let $F^{-}$ be a ground clausal theory. Then $F^{-}$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E^{-} \models F^{-}$ holds.
+\end{defn}
+
+\begin{conjecture}\label{subsumptionConjectureNegativeExamples}
+(Note: probably false).
+Let $B$, $E^{-}$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F^{-}$ be a negative bridge theory wrt $B$ and $E^{-}$. For every hypothesis $H$ wrt $I_H$ and $F^{-}$,
+
+$B \wedge H \not\models E^{-}$ iff $H$ does not subsume
+$\tau(M(F^{-} \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{defn}
+Let $B$, $E^{+}$, $E^{-}$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
+Let $F$ be a bridge theory wrt $B$ and $E^{+}$. Let $F^{-}$ be a maximal negative bridge theory wrt $B$ and $E^{-}$. A clausal theory $H$ is derived
+by extended inverse subsumption with minimal complements from $F$ and $F^{-}$ wrt $I_H$ if $H$ is constructed as
+follows:
+\begin{itemize}
+\item Step 1. Compute $Taut(I_H)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
+\item Step 3. Compute $\tau(M(F^{-} \cup Taut(I_H)))$;
+\item Step 4. Construct a clausal theory $H$ satisfying the conditions:
+$H \subsumes \tau(M(F \cup Taut(I_H)))$,
+$H \not\subsumes \tau(M(F^{-} \cup Taut(I_H)))$.
+\end{itemize}
+\end{defn}
+
+\subsection{Faster consistency check\cite{yamamoto2012comparison}}
+Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
+
+\subsection{Hypothesis selection}
+Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
+
+We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
+\subsection{Hypotheses enumeration}
+Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.

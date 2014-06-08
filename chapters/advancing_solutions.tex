@@ -1,5 +1,5 @@
 \chapter{Advancing solutions to issues in ILP}\label{chap:advancing_solutions_to_issues_in_ilp}
-The objective of this chapter is to provide extensions and future directions for the existing approaches to the issues in ILP by the ILP systems classified.
+The objective of this chapter is to provide extensions and future directions for the existing approaches to the issues in ILP by the ILP systems classified. Some of the extensions are used in the implementation of an ILP system Rationale described in \autoref{chap:rationale_ilp_system}.
 
 \section{Inverse Subsumption for Complete Explanatory Induction}\cite{yamamoto2012inverse}
 Influenced by the results in \cite{yamamoto2012inverse}, we seek further extensions.
@@ -49,72 +49,24 @@ $\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
 $E_2 \theta = E$.
 \end{exmp}
 
-\subsection{Extension to cover negative examples}
-We extend the completeness results and algorithm in a more general problem of explanatory induction that includes the negative examples.
-\begin{defn}General ILP Problem setting: given the clausal theories $B$, $H$, $E^+$, $E^-$ find a hypothesis $H$ such that $B \wedge H \models E^{+}$, $B \wedge H$ consistent, $B \wedge H \not\models E^{-}$.
-\end{defn}
-
-\begin{lemma}\label{yamamoto2012inverseLemma2Converse}
-Let $B \cup \neg E \models F$. $H \subsumes \tau(M(F \cup Taut(I_H)))$ implies
-$B \cup H \models E$.
-\end{lemma}
-\begin{proof}
-By the principle of the inverse entailment and by $\tau(M(F \cup Taut(I_H))) \equiv \neg F$.
-\end{proof}
-
-\begin{lemma}
-Let $E^{-}=\{e_1,...,e_n\}$, $F_i-=B \cup \{\neg e_i\}$ and $H$ be
-a hypothesis wrt $I_H, B, E^{+}, E^{-}$.
-Then $B \cup H \not\models E^{-}$ iff
-$\forall i \in \{1,...,n\}.$ $H \not\subsumes \tau(M(F_i- \cup Taut(I_H)))$.
-\end{lemma}
-
-\begin{proof}
-Use \ref{yamamoto2012inverseLemma2}, \ref{yamamoto2012inverseLemma2Converse} and the fact that $E^{-}$ is in a disjunctive normal form.
-\end{proof}
-
-\begin{conjecture}
-$\tau(M(F_i- \cup Taut(I_H))) \subsumes \tau(M(F^{-} \cup Taut(I_H)))$
-where $F^{-}=F_1- \wedge ... \wedge F_n-$.
-\end{conjecture}
-
-By the principle of inverse entailment
-$B \wedge H \not\models E^{-}$ iff
-$B \wedge \neg E^{-} \not\models \neg H$.
+\subsection{Relaxation of minimal complements by a hypothesis subsumer}
+We relax the procedure of the minimal complements by using a notion of a hypothesis subsumer while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
 
 \begin{defn}
-(Negative bridge theory) Let $B$ and $E^{-}$ be a background theory and negative examples, respectively. Let $F^{-}$ be a ground clausal theory. Then $F^{-}$ is a negative bridge theory wrt $B$ and $E$ iff $B \wedge \neg E^{-} \models F^{-}$ holds.
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ is a theory
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a maximal bridge theory $F=B \land \bar{E}$.
 \end{defn}
 
-\begin{conjecture}\label{subsumptionConjectureNegativeExamples}
-(Note: probably false).
-Let $B$, $E^{-}$ and $I_H$ be a background theory, negative examples and an induction field, respectively. Let $F^{-}$ be a negative bridge theory wrt $B$ and $E^{-}$. For every hypothesis $H$ wrt $I_H$ and $F^{-}$,
-
-$B \wedge H \not\models E^{-}$ iff $H$ does not subsume
-$\tau(M(F^{-} \cup Taut(I_H)))$.
-\end{conjecture}
+By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a hypothesis subsumer.
 
 \begin{defn}
-Let $B$, $E^{+}$, $E^{-}$ and $I_H = \langle L \rangle$ be a background theory, positive examples, negative examples and an induction field, respectively.
-Let $F$ be a bridge theory wrt $B$ and $E^{+}$. Let $F^{-}$ be a maximal negative bridge theory wrt $B$ and $E^{-}$. A clausal theory $H$ is derived
-by extended inverse subsumption with minimal complements from $F$ and $F^{-}$ wrt $I_H$ if $H$ is constructed as
-follows:
-\begin{itemize}
-\item Step 1. Compute $Taut(I_H)$;
-\item Step 2. Compute $\tau(M(F \cup Taut(I_H)))$;
-\item Step 3. Compute $\tau(M(F^{-} \cup Taut(I_H)))$;
-\item Step 4. Construct a clausal theory $H$ satisfying the conditions:
-$H \subsumes \tau(M(F \cup Taut(I_H)))$,
-$H \not\subsumes \tau(M(F^{-} \cup Taut(I_H)))$.
-\end{itemize}
+A hypothesis $H$ is derived by \emph{inverse subsumption with minimal complements with a hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ iff
+$H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
 \end{defn}
 
-\subsection{Faster consistency check\cite{yamamoto2012comparison}}
-Checking of the consistency of $B \cup E$ in upward generalization can be done by finding a refutation for example, but in general this verification is expensive. However, using \ref{yamamoto2012inverseLemma2} one can reduce the consistency check problem into subsumption problem by verifying $\tau(M(B \cup \neg E \cup Taut(I_H))$ is subsumed by the hypothesis $H$. Computing $\tau(M(B \cup \neg E \cup Taut(I_H))$ is deterministic and with the application of \ref{subsumptionConjectureFirstOrder} tractable and potentially efficient. Checking the subsumption condition is trivial and efficient.
+\subsubsection{Comparison with the original algorithm}
+Minimal complements with a hypothesis subsumer is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \bar{E}$. The requirement for a maximal bridge theory $B \cup \bar{E}$ results in an in efficiency if the background knowledge is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a correct hypothesis $H$ wrt $B, E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
-\subsection{Hypothesis selection}
-Given clausal theories $E$, $B$, there may be several non-equivalent clausal theories $H$ such that $B \cup H \models E$ and $B \cup H \not\models false$. Denote the set of such (correct wrt $E$, $B$) hypotheses $\mathcal{H}$. The problem of hypothesis selection is to induce only one $H \in \mathcal{H}$.
+\subsubsection{Hypothesis subsumer and connected theory}
 
-We seek to resolve the hypothesis selection problem by providing a justification for the selected hypotheses. The problem may be reduced to the use of the argumentation frameworks such as Abstract Argumentation (AA) or Assumption Based Argumentation (ABA).
-\subsection{Hypotheses enumeration}
-Enumerating all the correct hypotheses can be done efficiently using the antisubsumption and the result \ref{yamamoto2012inverseLemma2}. First $\tau(M(B \cup \neg E \cup Taut(I_H))$ is computed, then antisubsumed theories $H$ can be enumerated trivially and efficiently.
+\subsection{Negative examples}
