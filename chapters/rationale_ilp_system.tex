@@ -2,11 +2,12 @@
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
 \section{Algorithm overview}
-Rationale uses a default maximal bridge theory $F=B \land \neg{E}$. By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Therefore the steps of the Rationale algorithm are:
+Rationale uses a default maximal bridge theory $F=B \land \neg E$. By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Therefore the steps of the Rationale algorithm are:
 \begin{itemize}
-\item Step 1. compute the bridge theory $F$,
-\item Step 2. compute the $Taut(\mathcal{I}_H)$.
-\item Step 3. ... etc.
+\item Step 1. compute the bridge theory $F=B \land \neg E$,
+\item Step 2. compute the tautologies $Taut(\mathcal{I}_H)$,
+\item Step 3. compute the complement of $F \cup Taut(\mathcal{I}_H)$,
+\item Step 4. compute the 
 \end{itemize}
 
 \section{Bias}

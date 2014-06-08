@@ -507,13 +507,51 @@ Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
 
 \section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
-This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse}. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse}. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+
+\subsection{Preliminaries}
+\begin{defn}
+Let $C$, $D$ be clauses, then $C$ \emph{(theta-)subsumes} $D$ iff there is a substitution $\theta$ such that $C \theta \subseteq D$. We denote the relation by $C \subsumes D$.
+\end{defn}
+
+\begin{defn}
+Let $S$ and $T$ be two clausal theories. Then, $S$ \emph{(theory-)subsumes} $T$, denoted by $S \subsumes T$, if for any clause $D \in T$, there is a clause $C \in S$ such
+that $C \subsumes D$. We denote by the inverse relation $\subsumed$ of the (theory-) subsumption, called \emph{anti-subsumption}.
+\end{defn}
 
 \begin{defn}
 Let $B$ and $E$ be a background theory and examples, respectively.
 Let $F$ be a ground clausal theory. Then $F$ is a bridge theory wrt $B$ and $E$ if
 $B \land \neg E \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
 \end{defn}
+
+\begin{defn}
+Let $S$ be a ground clausal theory $\{C_1, C_2,... ,C_n\}$ where each clause $C_i$ $(1 \le i \le n)= l_{i,1} \lor l_{i,2} \lor... \lor l_{i,m_i}$.
+The complement of $S$ is defined as
+\\$\bar{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
+1 \le k_1 \le m_1 , 1 \le k_2 \le m_2,..., 1 \le k_n \le m_n\}$.
+In case that $S$ is empty, $\bar{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
+\end{defn}
+
+\begin{remark}
+$S$ is a CNF formula such that $\bar{S} \equiv \neg S$.
+\end{remark}
+
+\begin{defn}
+\emph{$\tau(S)$} denotes the clausal theory obtained by removing all the tautologies from a logic theory $S$.
+\end{defn}
+
+\begin{defn}
+\emph{$\mu(S)$} denotes the clausal theory obtained by removing from $S$ all clauses that are properly subsumed by clauses in a logic theory $S$.
+The \emph{minimal complement} of $S$ is $M(S)=\mu(\bar{S})$.
+\end{defn}
+
+\begin{exmp}
+Let $S=\{a \lor b, b \lor c, \neg c\}$. Then
+$\bar{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, \neg b \lor \neg c \lor c\}$.
+$M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
+$\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
+\end{exmp}
 
 \begin{defn}\label{induction_field_definition}
 An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
