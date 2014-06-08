@@ -580,7 +580,7 @@ $\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
 
 The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to the bridge theory $F$ and the induction field $\mathcal{I}_H$.
 
-\begin{defn}
+\begin{defn}\label{definition_bridge_theory}
 Let $B$ and $E$ be a background theory and examples, respectively.
 Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
 $B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
@@ -606,7 +606,7 @@ as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
 
 We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$ , together with a bridge theory $F$ as follows:
 
-\begin{defn}
+\begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
 Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
 $F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
 \end{defn}
