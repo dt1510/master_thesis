@@ -36,6 +36,43 @@ The syntactic properties of a hypothesis to be considered are the number of the 
 
 \subsubsection{Semantic properties}
 
+\subsection{Conceptual properties}
+\begin{defn}
+A \emph{concept} on a domain $M$ is a relation $C \subseteq M^n$ for some $n \ge 0$.
+The number $n$ is called \emph{arity of a concept}.
+$M^n$ and $\emptyset$ are \emph{trivial concepts}.
+\end{defn}
+
+\begin{exmp}
+Let the domain $M$ be a human family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
+$male=\{adam, kain, abel\}\subseteq{M}$,
+$female=\{eva\}\subseteq{M}$,
+$father=\{(adam,kain), (adam,abel)\}\subseteq{M^2}$,
+$mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
+$parent=father \cup mother$.
+\end{exmp}
+\begin{defn}
+A concept $C\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
+$\forall (x_1, ..., x_n) \in M^n. C(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
+\end{defn}
+\begin{corollary}
+If $P\subseteq{M^n}$, $Q\subseteq{M^n}$ are concepts, then
+1. $P \setminus Q$, 2. $P \cup Q$, 3. $P \cap Q$ are concepts.
+\end{corollary}
+\begin{proof}
+1. $\forall x_1, ..., x_n. (P \setminus Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land \neg Q(x_1, ..., x_n)$.
+2. $\forall x_1, ..., x_n. (P \cup Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \lor \neg Q(x_1, ..., x_n)$.
+3. $\forall x_1, ..., x_n. (P \cap Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land Q(x_1, ..., x_n)$.
+\end{proof}
+
+\begin{exmp}
+The concept $father$ is definable from the concepts $male$ and $parent$ by:
+$\forall x_1, x_2 \in M. father(x_1, x_2) \iff parent(x_1, x_2) \land male(x_1)$. In addition using the trivial concepts one could define
+$father=parent \cap (male \times M)$.
+\end{exmp}
 
 \subsection{Information content of a logical theory}
 
@@ -119,43 +156,8 @@ A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a lea
 
 For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
 
+
 \subsection{Learning concepts}
-\begin{defn}
-A \emph{concept} on a domain $M$ is a relation $C \subseteq M^n$ for some $n \ge 0$.
-The number $n$ is called \emph{arity of a concept}.
-$M^n$ and $\emptyset$ are \emph{trivial concepts}.
-\end{defn}
-
-\begin{exmp}
-Let the domain $M$ be a human family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
-$male=\{adam, kain, abel\}\subseteq{M}$,
-$female=\{eva\}\subseteq{M}$,
-$father=\{(adam,kain), (adam,abel)\}\subseteq{M^2}$,
-$mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
-$parent=father \cup mother$.
-\end{exmp}
-\begin{defn}
-A concept $C\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
-$\forall (x_1, ..., x_n) \in M^n. C(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
-\end{defn}
-\begin{corollary}
-If $P\subseteq{M^n}$, $Q\subseteq{M^n}$ are concepts, then
-1. $P \setminus Q$, 2. $P \cup Q$, 3. $P \cap Q$ are concepts.
-\end{corollary}
-\begin{proof}
-1. $\forall x_1, ..., x_n. (P \setminus Q)(x_1, ..., x_n) \iff
-P(x_1, ..., x_n) \land \neg Q(x_1, ..., x_n)$.
-2. $\forall x_1, ..., x_n. (P \cup Q)(x_1, ..., x_n) \iff
-P(x_1, ..., x_n) \lor \neg Q(x_1, ..., x_n)$.
-3. $\forall x_1, ..., x_n. (P \cap Q)(x_1, ..., x_n) \iff
-P(x_1, ..., x_n) \land Q(x_1, ..., x_n)$.
-\end{proof}
-
-\begin{exmp}
-The concept $father$ is definable from the concepts $male$ and $parent$ by:
-$\forall x_1, x_2 \in M. father(x_1, x_2) \iff parent(x_1, x_2) \land male(x_1)$. In addition using the trivial concepts one could define
-$father=parent \cap (male \times M)$.
-\end{exmp}
 
 \subsubsection{Single concept problems}
 \begin{defn}
