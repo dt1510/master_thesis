@@ -1,13 +1,28 @@
 \chapter{Rationale ILP system}
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
-\section{Algorithm overview}
-Rationale uses a default maximal bridge theory $F=B \land \neg E$. By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Therefore the steps of the Rationale algorithm are:
+\section{Algorithm}
+Rationale finds all the hypotheses correct wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis subsumer.
+\begin{defn}
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ is a theory
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a maximal bridge theory $F=B \land \neg E$.
+\end{defn}
+
+By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a hypothesis subsumer.
+
+\begin{defn}
+
+\end{defn}
+
+
+Therefore the steps of the Rationale algorithm are:
 \begin{itemize}
-\item Step 1. compute the bridge theory $F=B \land \neg E$,
+\item Step 1. compute the (maximal) bridge theory $F=B \land \neg E$,
 \item Step 2. compute the tautologies $Taut(\mathcal{I}_H)$,
-\item Step 3. compute the complement of $F \cup Taut(\mathcal{I}_H)$,
-\item Step 4. compute the 
+\item Step 3. compute the complement $\overline{F \cup Taut(\mathcal{I}_H)}$,
+\item Step 4. compute the minimal complement $M(F \cup Taut(\mathcal{I}_H))$,
+\item Step 5. remove the tautological clauses to get $\tau(M(F \cup Taut(\mathcal{I}_H)))$.
+\item Step 6.  
 \end{itemize}
 
 \section{Bias}
