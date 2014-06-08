@@ -7,6 +7,38 @@ For an analysis of an issue to establish the means for a useful comparison of IL
 \item an extraction of the defining properties of an issue in terms of which a corresponding answer is formed.
 \end{itemize}
 
+
+\section{Properties of logical theory}\label{sec:properties_of_logical_theory}
+The objective of this section is to extract the properties of logical theories that may serve for the classification of ILP systems by completeness by problem class, by their hypothesis selection and by their bias.
+
+\subsection{Expressivity}
+One may wish to limit the logical theories $T, B, E, H$ to be of a certain form to specify or relax a learning problem by affecting the expressivity of the respective theories.
+
+\subsubsection{Expressivity by arithmetical hierarchies}
+\paragraph{Ground theories} do not contain sentences with bound variables. A ground theory has a correspondent equivalent propositional theory. Treating unbounded variables as Skolem constants theories whose variables are free can be treated as "template" ground theories.
+\paragraph{First-order theories} allow sentences to have variables bounded by an \emph{existential} and \emph{universal} quantifier. One may limit bounding to be induced by existential quantifiers only or universal quantifiers only; or put additional restrictions on the occurance of quantifiers in the logical sentences.
+
+\subsubsection{Logical representation}
+\emph{Clausal theories} allow sentences to be clauses, but one may restrict the theories to be \emph{extended logic programs}, \emph{normal logic programs}, 
+\emph{Horn theories}, \emph{definite logic programs}, \emph{Datalog programs}, \emph{literals}, \emph{atoms}. For example, Imparo\cite{kimber2012learning} requires background knowledge and a hypothesis to be a definite logic programs and examples $E^{+}$ and $E^{-}$ to be ground atomic whereas Yamamoto et al. reason about the explanatory induction in \cite{yamamoto2012inverse} with any clausal theories $B, E, H$. This has an impact on the complexity of the learning problem as every definite theory can be expressed as a clausal theory, but not vice versa.
+
+\subsubsection{Other properties}
+The expressivity of the learning problem is further affected by
+\begin{itemize}
+\item \emph{concept limitations} on how many predicate and function symbols are allowed in the theories,
+\item \emph{theory size limitations} whether the allowed theories have to be finite or of what maximal size. 
+\end{itemize}
+
+\subsection{Syntactic properties}
+A property $P:\mathcal{H} \to \{true, false\}$ is syntactic iff $P$ is invariant under the logical equivalence, i.e.
+$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
+The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc. TODO
+
+\subsubsection{Semantic properties}
+
+
+\subsection{Information content of a logical theory}
+
 \section{ILP task definition}\label{sec:ilp_task_definition}
 ILP task definition issue arises from ILP systems using the same \emph{incomplete ILP task definition} although each solves a different machine learning problem.
 
@@ -66,26 +98,11 @@ The consistency condition has become redundant since $false \in Cn(B \cup H$ imp
 
 Explanatory induction is a case of generalization where the theory $T_2=B \cup H$ generalizes the theory $T = B \cup E$.
 
-\subsection{Expressivity}
-One may wish to limit the logical theories $T, B, E, H$ to be of a certain form to specify or relax a learning problem by affecting the expressivity of the respective theories.
-
-\subsubsection{Expressivity by arithmetical hierarchies}
-\paragraph{Ground theories} do not contain sentences with bound variables. A ground theory has a correspondent equivalent propositional theory. Treating unbounded variables as Skolem constants theories whose variables are free can be treated as "template" ground theories.
-\paragraph{First-order theories} allow sentences to have variables bounded by an \emph{existential} and \emph{universal} quantifier. One may limit bounding to be induced by existential quantifiers only or universal quantifiers only; or put additional restrictions on the occurance of quantifiers in the logical sentences.
-
-\subsubsection{Logical representation}
-\emph{Clausal theories} allow sentences to be clauses, but one may restrict the theories to be \emph{extended logic programs}, \emph{normal logic programs}, 
-\emph{Horn theories}, \emph{definite logic programs}, \emph{Datalog programs}, \emph{literals}, \emph{atoms}. For example, Imparo\cite{kimber2012learning} requires background knowledge and a hypothesis to be a definite logic programs and examples $E^{+}$ and $E^{-}$ to be ground atomic whereas Yamamoto et al. reason about the explanatory induction in \cite{yamamoto2012inverse} with any clausal theories $B, E, H$. This has an impact on the complexity of the learning problem as every definite theory can be expressed as a clausal theory, but not vice versa.
-
-\subsubsection{Other properties}
-The expressivity of the learning problem is further affected by
-\begin{itemize}
-\item \emph{concept limitations} on how many predicate and function symbols are allowed in the theories,
-\item \emph{theory size limitations} whether the allowed theories have to be finite or of what maximal size. 
-\end{itemize}
-
 \subsection{Examples}
 Positive examples $E^{+}$ and negative examples $E^{-}$ in explanatory induction put conditions on a possible explanation $H$: $E^{+} \in Cn(B \cup E^{+})$, $E^{-} \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
+
+\subsection{Expressivity}
+Additional restrictions on the properties of the logical theories\fullref{sec:properties_of_logical_theory} on the input and output can make the definition of an ILP task more complete.
 
 \subsection{Semantics}
 If two ILP tasks use a different consequence operator, then each specifies a different learning problem and a solution to one of them does not necessarily constitute a solution to the other problem.
@@ -98,7 +115,7 @@ Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is no
 An important property of a consequence operator is \emph{monotonicity}.
 
 \section{Completeness by problem classes}
-An ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f(I)=f'(I)$. The properties of an input $I \in \mathcal{I}$ affect the computation of the output $O$. Inputs with the identical properties create a class of inputs $\mathcal{I}'$ and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs in the chapter \fullref{chap:classification_of_ilp_systems}.
+A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
 
 For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
 
@@ -141,6 +158,14 @@ $father=parent \cap (male \times M)$.
 \end{exmp}
 
 \subsubsection{Single concept problems}
+\begin{defn}
+A function $f:I \mapsto O$ is a \emph{single-concept learning problem}
+iff 
+\end{defn}
+
+\subsubsection{Multiple concept problems}
+
+\subsubsection{Multiple concept hypothesis}
 
 \subsection{Complexity of a learning problem}
 \subsection{Learning syntactic representations}
@@ -162,16 +187,6 @@ Although one may hide the problem by introducing the Occam's razor to prefer the
 \begin{cite}{goodman1965new}
 Let H1 be a hypothesis that all emeralds are green. Let H2 be a hypothesis that all emeralds are grue - that is green until some time T in the future and blue afterwards. Then both H1 and H2 are (correct in ILP sense) explanations of our observations of green emeralds. However, we prefer inducing that all emeralds are green, not grue. The preference cannot be directly attributed to the complexity of the hypothesis. For suppose that the initial concepts are grue and brue - blue until the time T and green afterwards. Then H1 has a complex definition in terms of grue and brue whereas H2 is defined trivially by the initial concept grue.
 \end{cite}
-
-\subsubsection{Syntactic properties}
-A property $P:\mathcal{H} \to \{true, false\}$ is syntactic iff $P$ is invariant under the logical equivalence, i.e.
-$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
-The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc. TODO
-
-
-\subsubsection{Semantic properties}
-
-\subsection{Information content of a hypothesis}
 
 \subsection{Inducing preferences over hypotheses space}
 \subsection{Hypothesis sufficiency}
