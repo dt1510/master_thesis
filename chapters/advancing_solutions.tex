@@ -49,24 +49,44 @@ $\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
 $E_2 \theta = E$.
 \end{exmp}
 
-\subsection{Relaxation of minimal complements by a hypothesis subsumer}
-We relax the procedure of the minimal complements by using a notion of a hypothesis subsumer while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
+\subsection{Relaxation of minimal complements to a maximal bridge theory}
+We relax the procedure of the minimal complements by using a maximal bridge theory\fullref{maximal_bridge_theory_definition} while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
 
 \begin{defn}
-Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ is a theory
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H, F$ is a theory
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a bridge theory $F=B \land \bar{E}$.
+\end{defn}
+
+\begin{defn}
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{maximal hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ is a theory
 $T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a maximal bridge theory $F=B \land \bar{E}$.
 \end{defn}
 
-By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a hypothesis subsumer.
+By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a maximal bridge theory.
 
 \begin{defn}
-A hypothesis $H$ is derived by \emph{inverse subsumption with minimal complements with a hypothesis subsumer} wrt $B, E, \mathcal{I}_H$ iff
+A hypothesis $H$ is derived by \emph{inverse subsumption with minimal complements with a maximal bridge theory} wrt $B, E, \mathcal{I}_H$ iff
 $H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
 \end{defn}
+
+\begin{proposition}\emph{Completeness of inverse subsumption with minimal complements with a maximal bridge theory}.
+Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ correct wrt $B, E$, then $H$ can be derived by inverse subsumption with minimal complements with a maximal bridge theory.
+\end{proposition}
+
+\begin{proof}
+By \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$ if $H$ is a hypothesis wrt $\mathcal{I_H}$ and $F=B \cup \bar{E}$. $H$ a hypothesis wrt $\mathcal{I_H}$, $F$ iff there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+$F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$. TODO
+\end{proof}
 
 \subsubsection{Comparison with the original algorithm}
 Minimal complements with a hypothesis subsumer is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \bar{E}$. The requirement for a maximal bridge theory $B \cup \bar{E}$ results in an in efficiency if the background knowledge is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a correct hypothesis $H$ wrt $B, E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
-\subsubsection{Hypothesis subsumer and connected theory}
+\subsection{Inverse subsumption with minimal complements and connected theory}
+There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
+
+\begin{conjecture}
+Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.
+Then $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is a connected theory for $P$ and $E$ and $H \subsumes T$.
+\end{conjecture}
 
 \subsection{Negative examples}

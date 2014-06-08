@@ -98,8 +98,9 @@
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to issues in ILP}{}
 \BOOKMARK [1][-]{section.5.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.1.1}{Extension to first-order theories}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Relaxation of minimal complements by a hypothesis subsumer}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Negative examples}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Relaxation of minimal complements to a maximal bridge theory}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Inverse subsumption with minimal complements and connected theory}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Negative examples}{section.5.1}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{Algorithm}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{Bias}{chapter.6}

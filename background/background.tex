@@ -507,7 +507,7 @@ Some other ILP systems include Aleph, Golem, Progol,
 Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
 
 \section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
-This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse}. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
 
 \subsection{Preliminaries}
 \begin{defn}
@@ -552,8 +552,16 @@ The inverse subsumption with minimal complements computes a hypothesis $H$ wrt t
 \begin{defn}
 Let $B$ and $E$ be a background theory and examples, respectively.
 Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
-$B \land \neg E \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+$B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
 \end{defn}
+
+The author finds the notion of the maximal bridge theory useful in later chapters.
+\begin{defn}\label{maximal_bridge_theory_definition}
+A \emph{maximal bridge theory} wrt $B$ and $E$ is a theory $F = B \cup \bar{E}$.
+\end{defn}
+\begin{remark}
+Every bridge theory is entailed by a maximal bridge theory.
+\end{remark}
 
 \begin{defn}\label{induction_field_definition}
 An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
@@ -563,11 +571,6 @@ A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
 every literal in $H_g$ is included in $L$.
 Given an induction field $\mathcal{I}_H = \langle L \rangle$, $Taut(\mathcal{I}_H)$ is defined
 as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
-\end{defn}
-
-\begin{defn}
-A theory $\Sigma$ is a \emph{theory wrt an induction field $\mathcal{I}_H$} iff
-there is a ground theory $\Sigma_g$ such that $\Sigma_g$ consists of instances from $\Sigma$ and $\Sigma_g$ belongs to $\mathcal{I}_H$.
 \end{defn}
 
 We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$ , together with a bridge theory $F$ as follows:
