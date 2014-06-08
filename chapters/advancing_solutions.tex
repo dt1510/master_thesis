@@ -7,7 +7,7 @@ Influenced by the results in \cite{yamamoto2012inverse}, we seek further extensi
 \subsection{Extension to first-order theories}
 A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of the minimal complement, especially if the number of potential tautologies is large and a computation of anti-subsumption since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground.
 
-\begin{proposition}(Soundness of the first-order extension)
+\begin{proposition}\label{soundness_first_order_extension}(Soundness of the first-order extension)
 Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
 \end{proposition}
 \begin{proof}
@@ -104,4 +104,14 @@ For a non-monotonic consequence opearator $\models$, there are two possible cons
 \item\label{first_negative_examples_constraint} $B \cup H \models \neg E^-$,
 \item\label{second_negative_examples_constraint} $B \cup H \not\models E^-$.
 \end{enumerate}
-\ref{first_negative_examples_constraint} constraint implies \ref{second_negative_examples_constraint} assuming that $B \cup H \not\models false$, but not vice versa. Inverse subsumption with minimal complements algorithm covers the \ref{first_negative_examples_constraint} case since $B \cup H \models E = E^+ \cup \neg E^- = E^+ \land \neg E^-$ and a bridge theory used is a bridge theory wrt $B$ and both positive and negative examples. For the \ref{second_negative_examples_constraint} case, one has to construct a bridge theory wrt $B$, $E^+$ only, then check the constraint imposed by the negative examples $E^-$ separately.
+\ref{first_negative_examples_constraint} constraint implies \ref{second_negative_examples_constraint} assuming that $B \cup H \not\models false$, but not vice versa. Inverse subsumption with minimal complements algorithm covers the \ref{first_negative_examples_constraint} case since $B \cup H \models E = E^+ \cup \neg E^- = E^+ \land \neg E^-$ and a bridge theory used is a bridge theory wrt $B$ and both positive and negative examples. For the \ref{second_negative_examples_constraint} case, one has to construct a bridge theory wrt $B$, $E^+$ only, then check the constraint imposed by the negative examples $E^-$ separately. However, it is possible to construct a bridge theory $F_i$ wrt $B$ and $\{e\}$ for every ground example $e \in E-$. Then one can still use the inverse subsumption algorithm to check \ref{second_negative_examples_constraint}.
+
+\begin{proposition}
+Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$, a bridge theory $F$. Then $B \cup H \not\models E^-$ iff $\forall e \in E^-. H \not\subsumes \tau(M(B \cup \{e\} \cup Taut(\mathcal{I}_H)))$.
+\end{proposition}
+\begin{proof}
+As $E^-$ is a disjunction of negative examples $e$, it is sufficient to prove
+$B \cup H \not\models e$ iff
+$H \not\subsumes \tau(M(B \cup \{e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$ which is equivalent to proving
+$B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{e\} \cup Taut(\mathcal{I}_H)))$. But this follows from \ref{yamamoto2012inverseLemma2} and \ref{soundness_first_order_extension}.
+\end{proof}
