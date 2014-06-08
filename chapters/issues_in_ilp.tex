@@ -15,6 +15,8 @@ The objectives of this section are to present the main machine learning problems
 We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
 
 \subsection{Learning problem vs. ILP task}
+In general by a problem 
+
 A \emph{learning problem} is a general machine learning problem. An \emph{ILP task} is a functon learning problem $I \mapsto O$ specified formally by a possible input $I$ and a required output $O$ within the context of ILP.
 
 \subsection{Generalization}\label{generalization}
@@ -101,13 +103,13 @@ Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is no
 An important property of a consequence operator is \emph{monotonicity}.
 
 \section{Completeness by input classes}
-For an ILP task $f:I \mapsto O$ the properties of the input $I$ affect the computation of the output $O$. Inputs with the identical properties create a class of inputs. The objective of this section is extract the main properties of an input $I$ to provide the ground for the classification of ILP systems based on their ability to solve an ILP task on well-defined class of inputs in the chapter \fullref{chap:classification_of_ilp_systems}.
+For an ILP task $f:I \mapsto O$ the properties of an input $I$ affect the computation of the output $O$. Inputs with the identical properties create a class of inputs. The objective of this section is extract the main properties of an input $I$ to provide the ground for the classification of ILP systems based on their ability to solve an ILP task on well-defined class of inputs in the chapter \fullref{chap:classification_of_ilp_systems}.
 
 For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
 
 \subsection{Learning concepts}
 \begin{defn}
-A \emph{concept} on a domain $M$ is a relation $R \subseteq M^n$ for some $n \ge 0$.
+A \emph{concept} on a domain $M$ is a relation $C \subseteq M^n$ for some $n \ge 0$.
 The number $n$ is called \emph{arity of a concept}.
 $M^n$ and $\emptyset$ are \emph{trivial concepts}.
 \end{defn}
@@ -121,8 +123,8 @@ $mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
 $parent=father \cup mother$.
 \end{exmp}
 \begin{defn}
-A concept $R\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
-$\forall (x_1, ..., x_n) \in M^n. R(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
+A concept $C\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
+$\forall (x_1, ..., x_n) \in M^n. C(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
 \end{defn}
 \begin{corollary}
 If $P\subseteq{M^n}$, $Q\subseteq{M^n}$ are concepts, then
@@ -145,10 +147,11 @@ $father=parent \cap (male \times M)$.
 
 \subsubsection{Single concept problems}
 
-
 \subsection{Complexity of a learning problem}
 \subsection{Learning syntactic representations}
 \subsection{Learning up to logical equivalence}
+
+\section{Completeness by output classes}
 
 \section{Hypothesis selection}
 In \nameref{ilp_problem_definition} we required that an ILP problem has a unique solution. When formalising a definition that allowed several possible solutions we defined that such solutions were partial and the unique solution to the problem was a set of partial solutions.

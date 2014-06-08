@@ -245,6 +245,27 @@ such a derivation exists, $\Sigma \vdash_r C$. Thus $C$ can be derived from $\Si
 
 SLD-refutation is a special case of SLD-derivation which derives empty clause $\emptyclause$.
 
+\section{Machine learning}
+The author presets general concepts from machine learning and foundations of computer science.
+
+\subsection{Types of problem}
+Let $\mathcal{I}$, $\mathcal{O}$ be any sets of inputs and outputs.
+
+\begin{defn}
+A \emph{function problem} is a function $\mathcal{I} \to \mathcal{O}$.
+\end{defn}
+
+\begin{defn}
+A \emph{decision problem} is a function problem $\mathcal{I} \to \{yes, no\}$.
+\end{defn}
+
+\begin{defn}
+A mathematical object $f':\mathcal{I}' \to \mathcal{O}'$ \emph{solves a problem} $f:\mathcal{I} \to \mathcal{O}$ iff $\mathcal{I} \subseteq \mathcal{I}'$ and
+$\forall I \in \mathcal{I}. f'(I)=f(I)$.
+\end{defn}
+
+In machine learning a function problem $\mathcal{I} \to \mathcal{O}$ is called a \emph{learning problem}. In ILP a learning problem is called an \emph{ILP task}, an input $I \in \mathcal{I}$ may consist of logical theories $B, E$ and an output of a logical theory $H$ explaining $E$ in terms of $B$, i.e. $E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
+
 \section{Inductive inference}
 The main strategy used by the field of inductive logic programming to solve a learning problem is to use the knowledge and techniques of inductive inference.
 The author provides his own exposition of inductive inference not influenced by any specific sources apart from the general knowledge in the field inductive logic programming and other scientific disciplines.
