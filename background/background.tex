@@ -520,14 +520,8 @@ that $C \subsumes D$. We denote by the inverse relation $\subsumed$ of the (theo
 \end{defn}
 
 \begin{defn}
-Let $B$ and $E$ be a background theory and examples, respectively.
-Let $F$ be a ground clausal theory. Then $F$ is a bridge theory wrt $B$ and $E$ if
-$B \land \neg E \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
-\end{defn}
-
-\begin{defn}
 Let $S$ be a ground clausal theory $\{C_1, C_2,... ,C_n\}$ where each clause $C_i$ $(1 \le i \le n)= l_{i,1} \lor l_{i,2} \lor... \lor l_{i,m_i}$.
-The complement of $S$ is defined as
+The \emph{complement} of $S$ is defined as
 \\$\bar{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
 1 \le k_1 \le m_1 , 1 \le k_2 \le m_2,..., 1 \le k_n \le m_n\}$.
 In case that $S$ is empty, $\bar{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
@@ -552,6 +546,14 @@ $\bar{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, 
 $M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
 $\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
 \end{exmp}
+
+The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to the bridge theory $F$ and the induction field $\mathcal{I}_H$.
+
+\begin{defn}
+Let $B$ and $E$ be a background theory and examples, respectively.
+Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
+$B \land \neg E \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+\end{defn}
 
 \begin{defn}\label{induction_field_definition}
 An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
