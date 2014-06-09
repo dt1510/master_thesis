@@ -50,8 +50,10 @@ Although finding a hypothesis using the antisubsumption instead of the antientai
 \end{itemize}
 
 \section{Bias}
+While the systems we have classified use the mode declarations and determinations as a form of a bias, Rationale uses the induction field\ref{induction_field_definition} to constraint the hypothesis space $\mathcal{H}$.
 
 \section{Completeness}
+By \ref{yamamoto2012inverseLemma2} and \ref{completeness_of_inverse_subsumption_with_maximal_bridge_theory} Rationale derives any hypothesis $H$ wrt $\mathcal{I}_H$ and some bridge theory $F$ wrt $B, E$. For a correct hypothesis $H$ wrt $B, E^+, E^-$, we know that $B \land H \models E^+$, thus $B \land \bar{E+} \models \neg H$, therefore $H$ is a hypothesis wrt the maximal bridge theory $B \land \bar{E+}$ and an induction field $\mathcal{I}_H=\langle Lit \rangle$ constructed from all the literals $Lit$ present in a hypothesis $H$. Therefore can interpret the completeness for finding a hypothesis wrt an induction field and a bridge theory as the completeness for finding a correct hypothesis wrt $B, E$.
 
 \section{Hypothesis selection}
 
