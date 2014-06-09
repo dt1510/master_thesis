@@ -2,18 +2,30 @@
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
 \section{Algorithm}
-Rationale finds all the hypotheses correct wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis subsumer.
+Rationale finds all the hypotheses wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis antisubsumer.
 
+Therefore the main steps of the Rationale algorithm are:
+\begin{itemize}
+\item Step 1. compute the maximal hypothesis antisubsumer $T=M(B 
+cup \bar{E} \cup Taut(\mathcal{I}_H))$,
+\item Step 2. compute the antisubsumed hypotheses $H \subsumes T$,
+\item Step 3. prune the hypotheses entailing the negative examples,
+\item Step 4. prune the inconsistent hypotheses.
+\end{itemize}
 
-Therefore the steps of the Rationale algorithm are:
+\subsection{Maximal hypothesis antisubsumer}
+The maximal hypothesis antisubsumer is computed as follows:
+
 \begin{itemize}
 \item Step 1. compute the (maximal) bridge theory $F=B \land \neg E$,
 \item Step 2. compute the tautologies $Taut(\mathcal{I}_H)$,
 \item Step 3. compute the complement $\overline{F \cup Taut(\mathcal{I}_H)}$,
 \item Step 4. compute the minimal complement $M(F \cup Taut(\mathcal{I}_H))$,
-\item Step 5. remove the tautological clauses to get $\tau(M(F \cup Taut(\mathcal{I}_H)))$.
-\item Step 6.  
+\item Step 5. remove the tautological clauses to get the maximal antisubsumer $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$.
 \end{itemize}
+
+\subsection{Computing the antisubsumed hypotheses}
+The computation of the hypotheses $H$ subsuming the maximal hypothesis  antisubsumer $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards}. A hypothesis $H \subsumes T$ is a generalization of the hypothesis antisubsumer $T$.
 
 \section{Bias}
 
