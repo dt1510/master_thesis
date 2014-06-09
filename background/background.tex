@@ -505,7 +505,46 @@ of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \end{defn}
 
 \subsubsection{Determinations}
+Some ILP systems like Aleph in additions to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
 
+\begin{defn}\cite{aleph2007}
+A \emph{determination} is a logic statement of the form\\
+\tc{determination(TargetName/TargetArity, BackgroundName/BackgroundArity).}
+where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
+\tc{TargetArity}, \tc{BackgroundArity} are their arities (non-negative integers) respectively.
+\end{defn}
+
+\begin{defn}
+Let $\mathcal{D}=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in a a \emph{determination language} $\mathcal{L}(\mathcal{D})$ iff
+1) $\mathcal{D}\not=\emptyset$, 2) $tn_1=h$, 3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
+\end{defn}
+
+\begin{exmp}
+Let $\mathcal{D}$ be the list of the determinations
+\begin{lstlisting}
+:− determination(man/ 1, male/1).
+:− determination(man/ 1, bridegroom/1).
+:− determination(woman/ 1, female/1).
+\end{lstlisting}
+Let the hypotheses be
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H1=man(X) :- male(X).
+H2=man(X) :- bridegroom(X).
+H3=man(X) :- male(X), bridegroom(X).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H4=woman(X) :- female(X).
+H5=man(X) :- male(X), female(X).
+\end{lstlisting}
+\end{minipage}
+
+Then for the hypothesis bias (determination language) $\mathcal{H}=\mathcal{L}(\mathcal{D})$,
+$\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
+\end{exmp}
 
 \subsubsection{Induction and production field}
 Inoue defines a production field as another form of a language bias.
