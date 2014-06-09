@@ -572,9 +572,7 @@ $\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
 Follows trivially from the definition of a metaconstraint.
 \end{proof}
 
-\begin{remark}
 Therefore we will often think of a set of the metaconstraints to be a metaconstraint created from their conjunction.
-\end{remark}
 
 \begin{defn}
 Let $C=\{Cond_1, ..., Cond_n\}$ be a set of metaconstraints defining subsets of the language $L$.
@@ -592,7 +590,7 @@ $\langle Lit, Cond\rangle$, where $Lit$
 A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
 \end{defn}
 
-A special case of the production field when the set of the conditions $Cond$ is empty is called an induction field.
+A special case of the production field when a condition $Cond \equiv true$ is called an induction field.
 
 \begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
 An \emph{induction field}, denoted by $\mathcal{I}_H = \langle Lit \rangle$,
@@ -600,15 +598,13 @@ where $Lit$ is a finite
 set of literals to appear in ground hypotheses.
 A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
 every literal in $H_g$ is included in $L$.
-Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
-as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
 \end{defn}
 
 \subsubsection{Correspondence between mode declarations, determinations, meta constraints and production field}
 A production field is clearly a generalization of mode declarations, determinations and metaconstraints.
 
 \begin{proposition}\label{md_d_pf_correspondence_proposition}
-Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints. Then there exist production fields
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
 $\mathcal{P}_M$,
 $\mathcal{P}_D$,
 $\mathcal{P}_{M,D}$
@@ -632,7 +628,9 @@ $\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
 satisfy the conditions 1, 2, 3 respectively trivially.
 \end{proof}
 
-\begin{proposition}
+Given production fields defining the bias of mode declarations and determinations, productions fields with the additional metaconstrains can be constructed.
+
+\begin{proposition}\label{proposition_metaconstraints_production_field}
 Let $\mathcal{P}$ be any production field, $C$ a set of metaconstraints.
 Then there exists a production field $\mathcal{P}_C$ such that
 $\mathcal{P}_C=\mathcal{P} \cap L(C)$, i.e.
@@ -648,7 +646,20 @@ $Lit(H) \subseteq Lit$ and $Cond(H)$ and $Cond_1(H) \land ... \land Cond_n(H)$
 iff $H \in \langle Lit, Cond \rangle = \mathcal{P}$ and $H \in L(Cond_1 \land ... \land Cond_n) = L(C)$. Thus $\mathcal{P}_C=\mathcal{P} \cap L(C)$.
 \end{proof}
 
-The converse depends on the possible meta constraints. If one allowed a meta constraint for every possible definable condition $Cond$ then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and meta constraints.
+\begin{corollary}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
+Then there exist production fields
+$\mathcal{P}_{M,C}$,
+$\mathcal{P}_{M,D,C}$
+such that for any clause $H \in L$:
+1) $H \in L(M) \cap L(C) \iff H \in \mathcal{P}_{M,C}$,
+2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.
+\end{corollary}
+\begin{proof}
+Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metaconstraints_production_field}.
+\end{proof}
+
+The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
 
 \section{ILP systems}
 
@@ -795,6 +806,11 @@ We next define the target hypotheses using the notion of an induction field $\ma
 \begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
 Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
 $F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
+\end{defn}
+
+\begin{defn}\emph{Tautologies of an induction field.}
+Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
 \end{defn}
 
 \subsection{Inverse subsumption with minimal complements}
