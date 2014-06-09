@@ -457,11 +457,11 @@ Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
 \subsection{Language bias}
-The search space of all possible hypotheses $\mathcal{H}$ is restricted by a language bias. The main types of the biases in ILP are:
+The search space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
 \begin{itemize}
 \item mode declarations,
 \item determinations,
-\item induction and production fields.
+\item induction and production field.
 \end{itemize}
 
 \subsubsection{Mode declarations}\label{background_mode_declarations}
@@ -507,7 +507,27 @@ of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \subsubsection{Determinations}
 
 
-\subsubsection{Induction and production fields}
+\subsubsection{Induction and production field}
+Inoue defines a production field as another form of a language bias.
+
+\begin{defn}\cite{inoue2004induction}
+A \emph{production field} $\mathcal{P}$ is a represented by a pair,
+$\langle Lit, Cond\rangle$, where $Lit$
+(\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantlatlon (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
+A clause $C$ is said to belong to a producnon field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
+\end{defn}
+
+A special case of the production field when the set of the conditions $Cond$ is empty is called an induction field.
+
+\begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
+An \emph{induction field}, denoted by $\mathcal{I}_H = \langle Lit \rangle$,
+where $Lit$ is a finite
+set of literals to appear in ground hypotheses.
+A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+every literal in $H_g$ is included in $L$.
+Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
+\end{defn}
 
 \section{ILP systems}
 
@@ -649,17 +669,7 @@ A \emph{maximal bridge theory} wrt $B$ and $E$ is a theory $F = B \cup \bar{E}$.
 Every bridge theory is entailed by a maximal bridge theory.
 \end{remark}
 
-\begin{defn}\label{induction_field_definition}
-An \emph{induction field}, denoted by $\mathcal{I}_H = \langle L \rangle$,
-where $L$ is a finite
-set of literals to appear in ground hypotheses.
-A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
-every literal in $H_g$ is included in $L$.
-Given an induction field $\mathcal{I}_H = \langle L \rangle$, $Taut(\mathcal{I}_H)$ is defined
-as the set of tautologies $\{\neg A \land A | A \in L, \neg A \in L\}$.
-\end{defn}
-
-We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$ , together with a bridge theory $F$ as follows:
+We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$\ref{induction_field_definition}, together with a bridge theory $F$ as follows:
 
 \begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
 Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
