@@ -1,6 +1,13 @@
 \chapter{Rationale ILP system}\label{chap:rationale_ilp_system}
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
+\section{ILP task definition}
+Rationale solves the defined ILP task:
+\begin{defn}
+An ILP task $f:I \mapsto O$ of \emph{explanatory induction with negative examples with a classical consequence operator} is defined by $\langle f, dom(f), cod(f), R \rangle$ where
+
+\end{defn}
+
 \section{Algorithm}
 Rationale finds all the hypotheses wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis antisubsumer.
 
@@ -14,7 +21,7 @@ cup \bar{E} \cup Taut(\mathcal{I}_H))$,
 \end{itemize}
 
 \subsection{Maximal hypothesis antisubsumer}
-The maximal hypothesis antisubsumer is computed as follows:
+The maximal hypothesis antisubsumer is computed based on the definitons in \fullref{subsec:preliminaries} as follows:
 
 \begin{itemize}
 \item Step 1. compute the (maximal) bridge theory $F=B \land \neg E$,
@@ -31,6 +38,11 @@ The computation of the hypotheses $\mathcal{H}$ subsuming the maximal hypothesis
 \item Step 1. compute $\mathcal{H}$ derivable by dropping from the antisubsumer $T$,
 \item Step 2. given formulas $\mathcal{H}$, for every $H \in \mathcal{H}$ add theories derivable by antiinstantiation from $H$ to $\mathcal{H}$.
 \end{itemize}
+
+Then the resulting $\mathcal{H}$ contains all the hypothesis wrt $\mathcal{I_H}$ and some bridge formula.
+
+\subsection{Prune the hypotheses by the negative examples}
+
 
 \section{Bias}
 

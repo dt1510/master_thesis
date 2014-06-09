@@ -272,6 +272,7 @@ A \emph{decision problem} is a function problem $\mathcal{I} \to \{yes, no\}$.
 \begin{defn}
 A mathematical object $f':\mathcal{I}' \to \mathcal{O}'$ \emph{solves a problem} $f:\mathcal{I} \to \mathcal{O}$ iff $\mathcal{I} \subseteq \mathcal{I}'$ and
 $\forall I \in \mathcal{I}. f'(I)=f(I)$.
+$f$ is called a \emph{subproblem} of $f'$.
 \end{defn}
 
 In machine learning a function problem $f:\mathcal{I} \to \mathcal{O}$ is called a \emph{learning problem} and a computer program $f'$ \emph{learns} a problem $f$ if $f'$ solves $f$. In ILP a learning problem is called an \emph{ILP task}, an input $I \in \mathcal{I}$ may consist of logical theories $B, E$ and an output of a logical theory $H$ explaining $E$ in terms of $B$, i.e. $E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
@@ -540,7 +541,7 @@ Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper
 \section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
 This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
 
-\subsection{Preliminaries}
+\subsection{Preliminaries}\label{subsec:preliminaries}
 \begin{defn}
 Let $C$, $D$ be clauses, then $C$ \emph{(theta-)subsumes} $D$ iff there is a substitution $\theta$ such that $C \theta \subseteq D$. We denote the relation by $C \subsumes D$.
 \end{defn}
