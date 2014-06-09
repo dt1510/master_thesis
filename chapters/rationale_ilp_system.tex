@@ -60,7 +60,7 @@ By \ref{yamamoto2012inverseLemma2} and \ref{completeness_of_inverse_subsumption_
 Rationale returns all the hypotheses $H \in \mathcal{H}$ wrt a specified induction field and a maximal bridge theory, hence the problem of selecting a single hypothesis is avoided.
 
 \subsection{Hypothesis search}\label{subsec:rationale_hypothesis_search}
-There is no heuristic or a dedicated search algorithm associated with finding hypotheses. Similarly, Rationale does not use any \emph{metacontrol} mechanisms (e.g. variable depth for a hypothesis, types, maximum number of literals in a hypothesis, maximum clauses in a hypothesis) to bind its search space.
+There is no heuristic or a dedicated search algorithm associated with finding hypotheses. Similarly, Rationale does not use any metacontrol mechanisms (\emph{metaconstrains}, e.g. variable depth for a hypothesis, types, maximum number of literals in a hypothesis, maximum clauses in a hypothesis) to bind its search space.
 
 \subsection{Implementation details}
 
@@ -81,6 +81,6 @@ Because of the distinctively different approach taken in design of Rationale ILP
   Theories & definite, normal definite and Horn & clausal \\
   Consequence operator & non-monotonic with NBF & classical \\
   Bias & mode declarations and determinations & induction field \\
-  Metacontrol support\ref{subsec:rationale_hypothesis_search} & yes & no\\
+  Meta constraints support\ref{subsec:rationale_hypothesis_search} & yes & no\\
 \hline
 \end{tabular}
