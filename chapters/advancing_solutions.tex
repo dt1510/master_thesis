@@ -115,3 +115,37 @@ $B \cup H \not\models e$ iff
 $H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$ which is equivalent to proving
 $B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$. But this follows from \ref{yamamoto2012inverseLemma2} and \ref{soundness_first_order_extension}.
 \end{proof}
+
+\subsubsection{Complete inverse subsumption operators}\label{complete_inverse_subsumption_operators}
+Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by antisumbsumption using two generalization operators dropping and antiinstantiation.
+
+\begin{defn}
+A logic theory $S$ is derivable from the logic theory $T$ by \emph{dropping} denoted $T \vdash_d S$ iff
+$\forall D \in T. \exists C \in S. C \subseteq D$.
+\end{defn}
+
+\begin{exmp}
+$\{p \lor q\} \vdash_d \{p, q\}$.
+\end{exmp}
+
+\begin{defn}
+A logic theory $S$ is derivable from the logic theory $T$ by \emph{antiinstantiation} denoted $T \vdash_a S$ iff
+$\forall D \in T. \exists$ a substitution $\theta$, $\exists C \in S. C\theta = D$.
+\end{defn}
+
+\begin{exmp}
+If $T=\{p(X) \lor q(X), r(X)\}$, then $T\vdash_a\{p(a) \lor q(a), r(X)\}$,
+but $T\not\vdash_a\{p(a) \lor q(b), r(X)\}$.
+\end{exmp}
+
+\begin{proposition}(Completeness of dropping and antiinstantiation for antisumption).
+Suppose that a logic theory $S$ theory-subsumes a logic theory $T$, then $S$ is derivable by dropping and antiinstantiation from $T$:
+$S \subsumes T \implies \exists U. T \vdash_d U \vdash_a S$.
+\end{proposition}
+\begin{proof}
+Suppose that $S$ theory-subsumes $T$, then by \ref{definition_theory_subsumption} for any clause $D \in T$, there is a clause $C_D \in S$ such
+that $C_D \subsumes D$, i.e. $\exists \theta_{D}. C_D \theta_D \subseteq D$.
+Then construct a theory $U=\{C_D \theta_D | D \in T \}$.
+Since $\forall D \in T \exists C_D \theta_D \in U. C_D \theta_D \subseteq D$, thus $T \vdash_d U$.
+Since $\forall C_D \theta_D \in U \exists C_D \in S. C_D \theta_D=C_D \theta_D$, thus $U \vdash_d S$. Hence $T \vdash_d U \vdash_a S$.
+\end{proof}
