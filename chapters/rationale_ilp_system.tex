@@ -2,11 +2,9 @@
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
 \section{ILP task definition}
-Rationale solves the defined ILP task:
-\begin{defn}
-An ILP task $f:I \mapsto O$ of \emph{explanatory induction with negative examples with a classical consequence operator} is defined by $\langle f, dom(f), cod(f), R \rangle$ where
-
-\end{defn}
+Rationale solves an ILP task $f:I \mapsto O$ of \emph{explanatory induction with negative examples with a classical consequence operator} is defined by $\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E^+, E^-, \mathcal{I}_H \rangle$,
+$O=\mathcal{H}$,
+$R=\{E^- \cap Cl(B \cup H) = \emptyset, E^+ \subseteq Cl(B \cup H), H \in \mathcal{H}\}$ where $B, E^+, E^-, H$ are clausal first order theories and $Cl$ is a classical consequence operator.
 
 \section{Algorithm}
 Rationale finds all the hypotheses wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis antisubsumer.
@@ -41,8 +39,15 @@ The computation of the hypotheses $\mathcal{H}$ subsuming the maximal hypothesis
 
 Then the resulting $\mathcal{H}$ contains all the hypothesis wrt $\mathcal{I_H}$ and some bridge formula.
 
-\subsection{Prune the hypotheses by the negative examples}
+\subsection{Pruning hypotheses by negative examples}
+Rationale could prune the hypotheses $\mathcal{H}$ entailing negative examples using antisubsumption \fullref{proposition_negative_examples_subsumption}.
+Although finding a hypothesis using the antisubsumption instead of the antientailment is argued to be more efficient\cite{yamamoto2012inverse}, once a hypothesis $H$ has been found, checking for an entailment $B \cup H \models e$ may be more efficient than checking if $e$ is derivable by antisubsumption from $B \cup H$ with the its additional constructions of hypothesis subsumers required. Given the minor importance of the question, the author has decided to use the binary resolution to check the condition $E^- \cap Cl(B \cup H)=\emptyset$:
 
+\begin{itemize}
+\item Step 1. for every hypothesis $H \in \mathcal{H}$ go to Step2:
+\item Step 2. for every negative example $e \in E^-$ go to Step 3:
+\item Step 3. if $false$ derivable from $B \land H \land \neg e$ by binary resolution, then remove the hypothesis $H$, $\mathcal{H}:=\mathcal{H} \setminus \{H\}$.
+\end{itemize}
 
 \section{Bias}
 

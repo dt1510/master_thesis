@@ -44,6 +44,11 @@ David Hume.
   Principles of Morals}.
 \newblock Clarendon Press, 1902.
 
+\bibitem[Ino04]{inoue2004induction}
+Katsumi Inoue.
+\newblock Induction as consequence finding.
+\newblock {\em Machine Learning}, 55(2):109--135, 2004.
+
 \bibitem[KBR09]{kimber2009induction}
 Tim Kimber, Krysia Broda, and Alessandra Russo.
 \newblock Induction on failure: learning connected horn theories.
@@ -81,6 +86,18 @@ Ming Li and Paul~MB Vit{\'a}nyi.
 David Marker.
 \newblock {\em Model theory}.
 \newblock Springer, 2002.
+
+\bibitem[Mit97]{mitchell1997machine}
+Tom~M Mitchell.
+\newblock Machine learning. 1997.
+\newblock {\em Burr Ridge, IL: McGraw Hill}, 45, 1997.
+
+\bibitem[ML13]{muggleton2013meta}
+Stephen Muggleton and Dianhuan Lin.
+\newblock Meta-interpretive learning of higher-order dyadic datalog: Predicate
+  invention revisited.
+\newblock In {\em Proceedings of the Twenty-Third international joint
+  conference on Artificial Intelligence}, pages 1551--1557. AAAI Press, 2013.
 
 \bibitem[MLPTN14]{muggleton2014meta}
 Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
@@ -144,14 +161,15 @@ David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
 
-\bibitem[YII12a]{yamamoto2012comparison}
-Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
-\newblock Comparison of upward and downward generalizations in cf-induction.
-\newblock In {\em Inductive Logic Programming}, pages 373--388. Springer, 2012.
-
-\bibitem[YII12b]{yamamoto2012inverse}
+\bibitem[YII12]{yamamoto2012inverse}
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
 \newblock Inverse subsumption for complete explanatory induction.
 \newblock {\em Machine learning}, 86(1):115--139, 2012.
+
+\bibitem[YRI08]{yamamoto2008towards}
+Yoshitaka Yamamoto, Oliver Ray, and Katsumi Inoue.
+\newblock Towards a logical reconstruction of cf-induction.
+\newblock In {\em New Frontiers in Artificial Intelligence}, pages 330--343.
+  Springer, 2008.
 
 \end{thebibliography}

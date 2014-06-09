@@ -115,7 +115,7 @@
 \BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.2.1}{Maximal hypothesis antisubsumer}{section.6.2}
 \BOOKMARK [2][-]{subsection.6.2.2}{Computing the antisubsumed hypotheses}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Prune the hypotheses by the negative examples}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{Pruning hypotheses by negative examples}{section.6.2}
 \BOOKMARK [1][-]{section.6.3}{Bias}{chapter.6}
 \BOOKMARK [1][-]{section.6.4}{Completeness}{chapter.6}
 \BOOKMARK [1][-]{section.6.5}{Hypothesis selection}{chapter.6}
