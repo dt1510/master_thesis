@@ -492,7 +492,7 @@ the atom. For simplicity, we assume in the following that all the modes have the
 recall \tc{*}, meaning all solutions. The following defines when a clause is within Progol's definite mode language $L$.
 \end{remark}
 
-\begin{defn}\cite{muggleton1995inverse}
+\begin{defn}\label{definition_definite_mode_language}\cite{muggleton1995inverse}
 Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations.
 $C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
@@ -505,7 +505,7 @@ of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \end{defn}
 
 \subsubsection{Determinations}
-Some ILP systems like Aleph in additions to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
+Some ILP systems like Aleph in addition to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
 
 \begin{defn}\cite{aleph2007}
 A \emph{determination} is a logic statement of the form\\
@@ -514,13 +514,13 @@ where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
 \tc{TargetArity}, \tc{BackgroundArity} are their arities (non-negative integers) respectively.
 \end{defn}
 
-\begin{defn}
-Let $\mathcal{D}=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in a a \emph{determination language} $\mathcal{L}(\mathcal{D})$ iff
-1) $\mathcal{D}\not=\emptyset$, 2) $tn_1=h$, 3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
+\begin{defn}\label{definition_determination_language}
+Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff
+1) $D \not=\emptyset$, 2) $tn_1=h$, 3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
 \end{defn}
 
 \begin{exmp}
-Let $\mathcal{D}$ be the list of the determinations
+Let $D$ be the list of the determinations
 \begin{lstlisting}
 :− determination(man/ 1, male/1).
 :− determination(man/ 1, bridegroom/1).
@@ -542,7 +542,7 @@ H5=man(X) :- male(X), female(X).
 \end{lstlisting}
 \end{minipage}
 
-Then for the hypothesis bias (determination language) $\mathcal{H}=\mathcal{L}(\mathcal{D})$,
+Then for the hypothesis bias (determination language) $\mathcal{H}=L(D)$,
 $\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
 \end{exmp}
 
@@ -552,8 +552,8 @@ Inoue defines a production field as another form of a language bias.
 \begin{defn}\cite{inoue2004induction}
 A \emph{production field} $\mathcal{P}$ is a represented by a pair,
 $\langle Lit, Cond\rangle$, where $Lit$
-(\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantlatlon (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
-A clause $C$ is said to belong to a producnon field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
+(\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantiation (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
+A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
 \end{defn}
 
 A special case of the production field when the set of the conditions $Cond$ is empty is called an induction field.
@@ -567,6 +567,40 @@ every literal in $H_g$ is included in $L$.
 Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
 as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
 \end{defn}
+
+\subsubsection{Correspondence between mode declarations, determinations and production field}
+A production field is clearly a generalization mode declarations and determinations.
+
+\begin{proposition}\label{md_d_pf_correspondence_proposition}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
+$\mathcal{P}_M$,
+$\mathcal{P}_D$,
+$\mathcal{P}_{M,D}$
+such that for any clause $H \in L$:
+1) $H \in L(M) \iff H \in \mathcal{P}_M$,
+2) $H \in L(D) \iff H \in \mathcal{P}_D$,
+3) $H \in L(M) \cap L(D) \iff H \in \mathcal{P}_{M,D}$.
+\end{proposition}
+The following proof is non-constructive.
+\begin{proof}
+Let $L$ be a logic language. By the definitios of definite mode language\ref{definition_definite_mode_language} and determination language\ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
+Let $Cond_M$, $Cond_D$ be defining formulas for $L(M)$ and $L(D)$, i.e. $L(M)=\{x \in L | Cond_M(x)\}$, $L(D)=\{x \in L | Cond_D(x)\}$.
+Let $Cond_{M,D}=Cond_M \land Cond_D$. Let $Lit$ be a set of all literals of $L$ and let
+$Lit_M=L(M) \cap Lit$,
+$Lit_D=L(D) \cap Lit$,
+$Lit_{M,D}=Lit_M \cap Lit_D$.
+Then for every clause $H \in L$ the production fields
+$\mathcal{P}_M=\langle Lit_M, Cond_M \rangle$,
+$\mathcal{P}_D=\langle Lit_D, Cond_D \rangle$,
+$\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
+satisfy the conditions 1, 2, 3 respectively trivially.
+\end{proof}
+
+However, not every production field bias can be expressed with mode declarations and determinations.
+
+\begin{exmp}
+
+\end{exmp}
 
 \section{ILP systems}
 
