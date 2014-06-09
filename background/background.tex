@@ -416,9 +416,10 @@ A scientific method is an algorithm used to solve the ultimate problem of the sc
 5. Increment $i$ and start from step 1 again.
 
 \section{Inductive logic programming}
-The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
 
 \subsection{ILP problem}
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
+
 \begin{defn}\cite{corapi2010inductive}
 An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
 
@@ -454,6 +455,59 @@ Inverse Entailment is a correspondence between an induction and a deduction:
 Let $B$ be a Horn program, and let $h$ and $e$ be
 Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
+
+\subsection{Language bias}
+The search space of all possible hypotheses $\mathcal{H}$ is restricted by a language bias. The main types of the biases in ILP are:
+\begin{itemize}
+\item mode declarations,
+\item determinations,
+\item induction and production fields.
+\end{itemize}
+
+\subsubsection{Mode declarations}\label{background_mode_declarations}
+\paragraph{Mode declaration in Progol}
+Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode declarations.
+\begin{defn}\cite{muggleton1995inverse}
+A \emph{mode declaration} has either the form
+\tc{modeh(n,atom)} or \tc{modeb(n,atom)} where $n$, the \emph{recall}, is either an integer, $n \ge 1$,
+or \tc{*} and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A place-marker is either \tc{+type}, \tc{-type} or \tc{\#type}, where
+type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of m
+with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$
+is a \tc{modeh} and negative if $m$ is a \tc{modeb}.
+\end{defn}
+
+\begin{exmp}\cite{muggleton1995inverse}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int ? #int))
+\end{lstlisting}
+\end{exmp}
+
+\begin{remark}\cite{muggleton1995inverse}
+The recall is used to bound the number of alternative solutions for instantiating
+the atom. For simplicity, we assume in the following that all the modes have the
+recall \tc{*}, meaning all solutions. The following defines when a clause is within Progol's definite mode language $L$.
+\end{remark}
+
+\begin{defn}\cite{muggleton1995inverse}
+Let $C$ be a definite clause with a
+defined total ordering over the literals and $M$ be a set of mode declarations.
+$C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
+of a \tc{modeh} declaration in $M$ with every place-marker \tc{+type} and \tc{-type} replaced by
+variables and every place-marker \tc{\#type} replaced by a ground term and 2) every
+atom $b_i$ in the body of $C$ is the atom of a \tc{modeb} declaration in $M$ with every
+place-marker \tc{+type} and \tc{-type} replaced by variables and every place-marker \tc{\#type}
+replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
+of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
+\end{defn}
+
+\subsubsection{Determinations}
+
+
+\subsubsection{Induction and production fields}
 
 \section{ILP systems}
 
