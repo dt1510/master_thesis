@@ -389,7 +389,7 @@ In addition to modeb, modeh mode declarations, Toplog uses modet declarations. E
 \tc{modeb(+list=[-any|-list])}.
 For references and further details, an interested reader should consult the Toplog's source code\cite{santos2008toplogWebsite}.
 
-\paragraph{Xhail}
+\paragraph{Xhail}\label{xhail_mode_declarations}
 Xhail has extended mode declarations to include metaconstraint statements in order to refine its search space.
 
 Xhail executable's help\cite{ray2007xhail} reads:
@@ -473,13 +473,19 @@ Metaconstraints supplement mode declarations and determinations in specifying th
 
 \paragraph{Toplog}
 \begin{lstlisting}
-:-set(maximum_literals_in_hypothesis)
+%:-set(cross_validation_folds, 5).%dsstox.pl
+%:-set(evalfn, laplace).%dsstox.pl
+%:-set(evalfn, coverage).%dsstox.pl
+:-set(maximum_singletons_in_hypothesis,3)%carcinogenesis.pl
+:-set(maximum_literals_in_hypothesis,4).%carcinogenesis.pl
 :-set(example_inflation, 10).
+:-set(maximum_hypothesis_interpretations, 10).%animals.pl
+:-set(maximum_proof_depth, 10).%fib.pl
+:-set(maximum_proof_unifications, 500).%fib.pl
 \end{lstlisting}
 
 \paragraph{Xhail}
-\begin{lstlisting}
-\end{lstlisting}
+In \ref{xhail_mode_declarations} we found out that Xhail has the most advanced system of mode declarations. On the other hand it does not support any of the chosen metaconstraints\cite{ray2007xhail}. The author consulted the Xhail's help and example files provided with Xhail as there was no access to the source code.
 
 \paragraph{Imparo}
 \begin{lstlisting}
