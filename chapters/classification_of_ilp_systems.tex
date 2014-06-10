@@ -342,7 +342,8 @@ ILP systems use bias to refine their search space $\mathcal{H}$, to induce a pre
 The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and metaconstraints.
 
 \subsubsection{Mode declarations}
-The following mode declarations are excerpts and adapations of the examples provided with an implementation of a specific ILP system.
+ILP systems are classified here based on their adaptations of the mode declarations.
+The following mode declarations are excerpts and modifications of the examples provided with an implementation of a specific ILP system.
 
 \paragraph{Progol}
 Progol supports the mode declarations as defined in \fullref{background_mode_declarations}.
@@ -440,8 +441,7 @@ modeb(2,female(+person), [name(fb)]).
 \paragraph{Summary}
 The use of the mode declarations in an ILP system and their defining role is summarised. We say that a system of mode declarations is Prolog compatible iff any hypothesis bias definable with Prolog mode declarations can be defined within that system.
 
-\begin{minipage}{\linewidth}
-\captionof{table}{Classification by mode declaration bias} \label{tab:title} 
+\captionof{table}{Classification by mode declaration bias} \label{tab:classification_by_mode_declaration_bias} 
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
@@ -450,21 +450,72 @@ The use of the mode declarations in an ILP system and their defining role is sum
     Recall modeh support & yes & yes & no & yes & no & no \\ \hline
     Recall lower bound support & no & no & no & yes & no & no \\ \hline
   \end{tabular}
-\end{minipage}
 
 \subsubsection{Determinations}
-Determinations supplement the mode declarations to constraint the hypothesis bias further. Hence an extension by determinations is follows:
-
-\begin{defn}
-An ILP task of \emph{explanatory induction with a mode and determination language bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where
-$I=\langle B, E, M, \mathcal{D}\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}, Cond(H)\}$ for some consequence operator $Cn$ where $M$ is a set of the mode declarations, $\mathcal{D}$ is an ordered list of determinations both definable by their correspondent production field $\mathcal{P}=\langle Lit, Cond \rangle$\ref{md_d_pf_correspondence_proposition}.
-\end{defn}
-
 By reading the manuals of the corresponding ILP systems, one may find that
 Toplog, Xhail, Imparo, Tal do not support the determinations.
 Progol supports the use of the determinations, cf. \ref{progol_multiclausal_learning}, but it does not require it, cf. \ref{progol_specialization_in_arguments}.
 Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
+
+\subsubsection{Metaconstraints}
+Metaconstraints supplement mode declarations and determinations in specifying the the language bias. Several metaconstraints are selected and their supported is evaluated accross the ILP systems classified.
+
+\paragraph{Progol}
+\begin{lstlisting}
+:- op(40,xfx,left_of)?
+:- op(40,xfx,supports)?
+:- op(40,xfx,touches)?
+\end{lstlisting}
+
+\paragraph{Aleph}
+\begin{lstlisting}
+\end{lstlisting}
+
+\paragraph{Toplog}
+\begin{lstlisting}
+:-set(maximum_literals_in_hypothesis)
+:-set(example_inflation, 10).
+\end{lstlisting}
+
+\paragraph{Xhail}
+\begin{lstlisting}
+\end{lstlisting}
+
+\paragraph{Imparo}
+\begin{lstlisting}
+:-set_max_clause_length(5).
+:-set_max_clauses(1).
+:-set_verbose(1).
+:-set_connected(1).
+:-set_max_var_depth(3).
+\end{lstlisting}
+
+\paragraph{Tal}
+\begin{lstlisting}
+%Maximum number of body literals
+option(max_body_literals, 5).
+
+%Maximum number of rules
+option(max_num_rules, 5).
+
+%Maximum depth of the proof
+%option(max_depth, 400).
+option(strategy, breadth).
+option(ic_check, true).
+\end{lstlisting}
+
+\paragraph{Summary}
+The support for the metaconstraints of interest is summarised.
+
+\captionof{table}{Classification by metaconstraints} \label{tab:classification_by_metaconstraints} 
+ \begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    Max. no. of literals in $H$ & & & & & & \\ \hline
+    Max. no. of clauses in $H$ & & & & & & \\ \hline
+    Max. clause length in $H$ & & & & & & \\ \hline
+    Max. variable depth in $H$ & & & & & & \\ \hline
+  \end{tabular}
 
 \subsubsection{Top theory}
 ILP systems Toplog and MC-Toplog use Top theory to constraint their hypothesis space.
