@@ -348,16 +348,21 @@ The use of the mode declarations in an ILP system and their defining role is sum
 \end{minipage}
 
 \subsubsection{Determinations}
+Determinations supplement the mode declarations to constraint the hypothesis bias further. Hence an extension by determinations is follows:
 
-\paragraph{Aleph}
-\begin{lstlisting}
-:- determination(woman/1, female/1).
-:- determination(woman/1, male/1).
-:- determination(english/1, english/1).
-:- determination(english/1, english_couple/2).
-\end{lstlisting}
+\begin{defn}
+An ILP task of \emph{explanatory induction with a mode and determination language bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where
+$I=\langle B, E, M, \mathcal{D}\rangle$, $O=H$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}, Cond(H)\}$ for some consequence operator $Cn$ where $M$ is a set of the mode declarations, $\mathcal{D}$ is an ordered list of determinations both definable by their correspondent production field $\mathcal{P}=\langle Lit, Cond \rangle$\ref{md_d_pf_correspondence_proposition}.
+\end{defn}
+
+By reading the manuals of the corresponding ILP systems, one may find that
+Toplog, Xhail, Imparo, Tal do not support the determinations.
+Progol supports the use of the determinations, cf. \ref{progol_multiclausal_learning}, but it does not require it, cf. \ref{progol_specialization_in_arguments}.
+Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
 
 \subsubsection{Top theory}
+
 
 \subsubsection{Integrity constraints}
 
