@@ -177,7 +177,7 @@ The non-determinism of an ILP task is reduced by an introduction of additional c
 
 \begin{defn}
 An ILP task of \emph{explanatory induction with a hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{H}\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}\}$ for some consequence operator $Cn$. A set $\mathcal{H} \subseteq \powerset{L}$ for a logic language $L$ is called a \emph{hypothesis bias}.
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}\}$ for some consequence operator $Cn$. A set $\mathcal{H} \subseteq \powerset{L}$ for a logic language $L$ is called a \emph{hypothesis bias} on a language $L$.
 \end{defn}
 
 \begin{remark}
@@ -196,6 +196,23 @@ Then $H_1$ and $H_2$ are possible outputs for an input $I=\langle B, E\rangle$ o
 Let $\mathcal{H} \subseteq \powerset{L}$ be a set of definite clauses. Then $\mathcal{H}$ is a hypothesis bias.
 \end{exmp}
 
+\begin{exmp}
+Recall \fullref{subsec:background_language_bias}.
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
+Then $L(M)$, $L(D)$, $L(C)$ are hypothesis biases.
+\end{exmp}
+
+Since the hypothesis bias is a set of the possible hypotheses, we have the obvious proposition.
+\begin{proposition}
+Let $\mathcal{H}_1$, $\mathcal{H}_2$ be hypothesis biases on a language $L$, then the following are hypothesis biases:
+1) $\powerset{L} \setminus \mathcal{H}_1$, 2) $\mathcal{H}_1 \cap \mathcal{H}_2$,
+3) $\mathcal{H}_1 \cup \mathcal{H}_2$.
+\end{proposition}
+
+\begin{proof}
+Clear.
+\end{proof}
+
 \subsubsection{Preferential bias}
 Instead of introducing constrains on a hypothesis, one may introduce constrains as a relation on pairs of hypotheses.
 
@@ -212,6 +229,7 @@ Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of ex
 
 \subsubsection{Mode declarations}
 One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constrains on a hypothesis space with alternative constructions. A mode declaration\fullref{background_mode_declarations} specifies the predicates allowed in a hypothesis. We consider a mode declaration bias to be a special case of a hypothesis bias extending component.
+
 
 The following mode declarations are excerpts and adapations of the examples provided with an implementation of a specific ILP system.
 
@@ -294,6 +312,11 @@ The following mode declarations are excerpts and adapations of the examples prov
 :-modeb(int_division(+int,+int,-int)).
 \end{lstlisting}
 
+\subsubsection{Modet declarations}
+From consulting the source code comments of Toplog, one can find out that Toplog in addition to \tc{modeb}, \tc{modeh} declarations, Toplog uses a third kind of the mode declaration: \tc{modet} declaration.
+
+
+
 \paragraph{Xhail2}
 \begin{lstlisting}
 modeh(1,3,min,fries("+bistro")).
@@ -375,6 +398,16 @@ modeb(female(+person), [name(fb)]).
 modeb(male(+person), [name(mb)]).
 \end{lstlisting}
 
+The use of the mode declarations in an ILP system and their defining role is summarised.
+
+ \begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+     &  &  &  &  &  &  \\ \hline
+    \hline
+  \end{tabular}
+
+
 \subsubsection{Determinations}
 
 \paragraph{Aleph}
@@ -447,7 +480,7 @@ The building blocks and the rules we have not considered are:
 \subsubsection{Summary of ILP task definitions}
 
 \subsection{Classification ILP systems by an ILP task definition}
-The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
+The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
 
 \subsubsection{Definitions of an ILP task for classified ILP systems}
 
@@ -590,47 +623,6 @@ A formula $\phi$ is a Horn formula iff $\phi$ is a clause with at most one posit
 
 \begin{defn}
 A formula $\phi$ is a definite clause iff $\phi$ is a clause with exactly one positive literal. The property of a formula $\phi$ being a definite clause is computable from $\phi$ and therefore it is a \emph{definite clause bias}.
-\end{defn}
-
-The following definitions, an example and a remark of a mode declaration are due to Muggleton, Inverse Entailment and Progol\cite{muggleton1995inverse}.
-\begin{defn}\cite{muggleton1995inverse}
-A \emph{mode declaration} has either the form
-$modeh(n,atom)$ or $modeb(n,atom)$ where $n$, the recall, is either an integer, $n > 1$,
-or `*' and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
-bracketed tuple of terms. A placemarker is either $+type$, $-type$ or $\#type$, where
-type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of $m$
-with placemarkers replaced by distinct variables. The sign of $m$ is positive if $m$ is a modeh and negative if $m$ is a modeb.
-\end{defn}
-
-\begin{exmp}
-\cite{muggleton1995inverse}
-\begin{lstlisting}
-modeh(1,plus(+int,+int,-int))
-modeb(*,append(-list,+list,+list)
-modeb(1,append(+list,[+any],-list))
-modeb(4,(+int > \#int))
-\end{lstlisting}
-\end{exmp}
-
-\begin{remark}
-\cite{muggleton1995inverse}
-The recall is used to bound the number of alternative solutions for instantiating
-the atom. For simplicity, we assume in the following that all the modes have the
-recall `*', meaning all solutions. The following defines when a clause is within
-Progol's definite mode language $L$.
-\end{remark}
-
-\begin{defn}
-\cite{muggleton1995inverse}
-\emph{Definite mode language}. Let $C$ be a definite clause with a
-defined total ordering over the literals and $M$ be a set of mode declarations. $C = b_1, ..., b_n \objectImplies h$ is in the definite mode language $L_{mode}$ (a \emph{mode declaration bias}) if and only if
-1) h is the atom
-of a modeh declaration in $M$ with every placemarker $+type$ and $-type$ replaced by
-variables and every placemarker $\#type$ replaced by a ground term and 2) every
-atom $b_i$ in the body of $C$ is the atom of a modeb declaration in $M$ with every
-placemarker $+type$ and $-type$ replaced by variables and every placemarker $\#type$
-replaced by a ground term and 3) every variable of $+type$ in any atom $b_i$ is either
-of $+type$ in $h$ or of $-type$ in some atom $b_1, ..., b_{i-1}$.
 \end{defn}
 
 \begin{remark}
