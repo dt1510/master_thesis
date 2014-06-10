@@ -80,33 +80,22 @@
 \BOOKMARK [1][-]{section.4.2}{Hypothesis selection}{chapter.4}
 \BOOKMARK [1][-]{section.4.3}{Hypothesis search}{chapter.4}
 \BOOKMARK [1][-]{section.4.4}{Bias}{chapter.4}
-\BOOKMARK [1][-]{section.4.5}{Language bias}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.5.1}{Language bias benefits}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.2}{Language bias problems}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.3}{Language bias in ILP}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.4}{Syntactic biases}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.5}{Semantic biases}{section.4.5}
-\BOOKMARK [1][-]{section.4.6}{Biases in ILP systems}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.6.1}{Toplogmuggleton2008toplog}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.2}{Imparokimber2009induction}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.3}{Metagol}{section.4.6}
-\BOOKMARK [2][-]{subsection.4.6.4}{Comparison of biases in ILP systems}{section.4.6}
-\BOOKMARK [1][-]{section.4.7}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.7.1}{IE algorithmyamamoto2012inverse}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.2}{Imparo is complete in inverse subsumption}{section.4.7}
-\BOOKMARK [1][-]{section.4.8}{Completeness by problem classes}{chapter.4}
-\BOOKMARK [1][-]{section.4.9}{Summary}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.9.1}{Completeness in generalizationyamamoto2012inverse}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.2}{Example learning}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.3}{Hypotheses space}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.4}{Completeness}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.5}{Argument Specialization}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.6}{Non-observational concepts}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.7}{Biases}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.8}{Violations}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.9}{Robustness}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.10}{Completeness of theoretical frameworks}{section.4.9}
-\BOOKMARK [2][-]{subsection.4.9.11}{Other}{section.4.9}
+\BOOKMARK [1][-]{section.4.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{IE algorithmyamamoto2012inverse}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.2}{Imparo is complete in inverse subsumption}{section.4.5}
+\BOOKMARK [1][-]{section.4.6}{Completeness by problem classes}{chapter.4}
+\BOOKMARK [1][-]{section.4.7}{Summary}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.7.1}{Completeness in generalizationyamamoto2012inverse}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.2}{Example learning}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.3}{Hypotheses space}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.4}{Completeness}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.5}{Argument Specialization}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.6}{Non-observational concepts}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.7}{Biases}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.8}{Violations}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.9}{Robustness}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.10}{Completeness of theoretical frameworks}{section.4.7}
+\BOOKMARK [2][-]{subsection.4.7.11}{Other}{section.4.7}
 \BOOKMARK [0][-]{chapter.5}{Advancing solutions to issues in ILP}{}
 \BOOKMARK [1][-]{section.5.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.1.1}{Extension to first-order theories}{section.5.1}
