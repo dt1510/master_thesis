@@ -362,7 +362,7 @@ Progol supports the use of the determinations, cf. \ref{progol_multiclausal_lear
 Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
 
 \subsubsection{Top theory}
-
+ILP systems Toplog and MC-Toplog use Top theory to constraint their hypothesis space.
 
 \subsubsection{Integrity constraints}
 
@@ -463,6 +463,16 @@ find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \lan
 \section{Hypothesis selection}
 
 \section{Hypothesis search}
+
+\section{Bias}
+ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
+
+We divide biases used by the ILP systems into categories:
+\begin{itemize}
+\item Language bias,
+\item Preferential bias: a score function,
+\item Search control bias: a maximum depth of the proof of examples from background knowledge and a hypothesis.
+\end{itemize}
 
 \section{Language bias}
 One of the strategies ILP systems use for solving the problems of the hypothesis selection and hypothesis search is the introduction of a language bias.
