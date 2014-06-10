@@ -456,6 +456,22 @@ Let $B$ be a Horn program, and let $h$ and $e$ be
 Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
+\subsection{Input and output of ILP system}
+An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
+\begin{itemize}
+\item objectlevel statements: background knowledge, examples: positive and negative,
+\item effective metalevel statements,
+\item non-effective metalevel statements.
+\end{itemize}
+
+Objectlevel statements provide the main setting of a learning problem and concern with what is known: the language of enquiry $L$, a set of observations, etc.
+
+Effective metalevel statements provide a refinement of the main setting and concern with how the learning problem may be solved and what form the solution is expected to take. Their specification converts a learning problem into a potentially easier, more directed and concrete \emph{ILP task}.
+\emph{Mode declarations} and \emph{determinations} are effective metalevel statements specifying a constraint on a language $L$ to determine the search space $\mathcal{H}$ of possible hypotheses. The other effective metalevel statements may impose further \emph{metalevel constraints} on $L$. The set of constraints on $L$ determining the search space $\mathcal{H}$ is called a \emph{language bias}.
+Apart from the specification of a language bias, effective metalevel statements contain search control statements that affect the form the computation of a hypothesis takes place and contain decision elements: preferential bias - which hypothesis should be preferred over the other, which parts of the background knowledge should be considered, etc.
+
+Non-effective metalevel statements do not affect the result of the computation of a hypothesis. They are either required syntactic sugar or their primary purpose concerns different aspects of an ILP system, e.g. to provide the statistics about the computation to the user.
+
 \subsection{Language bias}\label{subsec:background_language_bias}
 The search space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
 \begin{itemize}
