@@ -213,6 +213,16 @@ Let $\mathcal{H}_1$, $\mathcal{H}_2$ be hypothesis biases on a language $L$, the
 Clear.
 \end{proof}
 
+\paragraph{Language bias}
+One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constraints on a hypothesis space with alternative constructions\fullref{subsec:background_language_bias}:
+mode declarations, determinations and metaconstraints.
+By \ref{proposition_metaconstraints_production_field}, \ref{md_d_pf_correspondence_proposition} these constraints are expressible with a production field. Therefore we define an ILP task with a production field where the production field can be replaced by a more specific construction.
+
+\begin{defn}
+An ILP task of \emph{explanatory induction with a production field} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{P}\rangle$, $O=H$,
+$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}, Cond(H)\}$ for some consequence operator $Cn$ where a production field $\mathcal{P}=\langle Lit, Cond \rangle$.
+\end{defn}
+
 \subsubsection{Preferential bias}
 Instead of introducing constrains on a hypothesis, one may introduce constrains as a relation on pairs of hypotheses.
 
@@ -228,8 +238,6 @@ Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of ex
 \end{exmp}
 
 \subsubsection{Integrity constraints}
-
-\subsubsection{Metaconstrains}
 
 \paragraph{Progol}
 \begin{lstlisting}
@@ -330,16 +338,10 @@ find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \lan
 \section{Bias}
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
 
+\subsection{Language bias}\label{subsec:classification_language_bias}
+The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and metaconstraints.
+
 \subsubsection{Mode declarations}
-One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constraints on a hypothesis space with alternative constructions. A mode declaration\fullref{background_mode_declarations} specifies the predicates allowed in a hypothesis. We consider a mode declaration bias to be a special case of a hypothesis bias extending component.
-
-Hence we define an ILP task with mode declarations.
-
-\begin{defn}
-An ILP task of \emph{explanatory induction with a mode language bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, M\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}, Cond(H)\}$ for some consequence operator $Cn$ where $M$ is a set of the mode declarations definable by its correspondent production field $\mathcal{P}=\langle Lit, Cond \rangle$\ref{md_d_pf_correspondence_proposition}.
-\end{defn}
-
 The following mode declarations are excerpts and adapations of the examples provided with an implementation of a specific ILP system.
 
 \paragraph{Progol}
