@@ -123,15 +123,9 @@ woman(X1):-female(X1), person(X1).
 \end{lstlisting}.
 One clause would be insufficient to explain both \tc{man} and \tc{woman} examples.
 
-\subsection{Fine search space control}
-Xhail has extended mode declarations to refine its search space. Xhail's help reads:
+\subsection{Fine search space control}\label{xhail_fine_search_space_control}
+Xhail has extended mode declarations.
 
-\emph{Zero or more head declarations} are of the form
-\tc{modeh(1,3,min,p("\#q","+r","-s")).} meaning between 1 and 3 ground atoms
- of the form $p(a,b,c)$ should be assumed such that $q(a), r(b), s(c)$ hold 
- and where $a, b, c$ are constant, input, output terms, respectively;
- the third flag is either min="attempt to minimize" or all="do not minimize".
- 
 \begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
 modeh(0,1,all,woman("+person")).
@@ -155,15 +149,15 @@ returns no hypothesis. However, placing only one positive example in a goal
 \tc{modeh(0,2,all,woman("+person")).} makes Xhail to learn a hypothesis\\
 \tc{woman(X1):-female(X1),person(X1).}.
 
-\emph{Zero or more body declarations} are of the form \tc{modeb(1,3,pos,p("\#q","+r","-s")).} meaning this scheme can be used between 
- depths 1 and 3.  The third flag is either pos="pos. literal" or neg="neg. literal" 
+Apart from the extended mode declarations, additional control in Xhail has been introduced with \tc{goal}, \tc{find}, \tc{task} statements:
 
-Apart from the mode declarations, additional control has been introduced with \tc{goal}, \tc{find}, \tc{task} statements:
+\begin{quote}\cite{ray2007xhail}
 \emph{Zero or more goal statement} of the form \tc{goal(a).} means to only compute models satisfying the ground atom \tc{a}.
 
 \emph{Zero or one find statement} is of the form \tc{find(all)="all solutions"} or \tc{find(min)="minimal solutions"}.
 
 \emph{Zero or one task declarations} are possible, e.g. \tc{task(abduce).} or \tc{task(induce).}.
+\end{quote}
 
 \subsection{Learning by integrity constrains}
 Xhail can learn from the background knowledge in a form of integrity constrains.

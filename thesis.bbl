@@ -120,6 +120,11 @@ Stephen Muggleton.
 \newblock Inverse entailment and progol.
 \newblock {\em New generation computing}, 13(3-4):245--286, 1995.
 
+\bibitem[Mug99]{muggleton1999progolWebsite}
+Stephen Muggleton.
+\newblock {\em Official Progol website: Progol manual and source code}, 1999.
+\newblock Prototype version, accessed June 2014.
+
 \bibitem[NCDW97]{nienhuys1997foundations}
 Shan-Hwei Nienhuys-Cheng and Ronald De~Wolf.
 \newblock {\em Foundations of inductive logic programming}, volume 1228.
@@ -134,6 +139,11 @@ Charles~Sanders Peirce, Charles Hartshorne, and Paul Weiss.
 Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
 \newblock {\em Real analysis}, volume~4.
 \newblock Prentice Hall New York, 1988.
+
+\bibitem[San08]{santos2008toplogWebsite}
+José Carlos~Almeida Santos.
+\newblock {\em Official Toplog website: Toplog manual and source code}, 2008.
+\newblock Prototype version, accessed June 2014.
 
 \bibitem[SBD88]{selby1888treatise}
 Lewis~Amherst Selby-Bigge and Hume David.
@@ -154,7 +164,7 @@ Robin Smith.
 \bibitem[Sri07]{aleph2007}
 Ashwin Srinivasan.
 \newblock {\em The Aleph Manual}, 2007.
-\newblock Version 4 and above.
+\newblock Version 4 and above, accessed June 2014.
 
 \bibitem[SS86]{stove1986rationality}
 David~Charles Stove and Stove.
