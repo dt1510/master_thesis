@@ -467,27 +467,6 @@ find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \lan
 \section{Bias}
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
 
-We divide biases used by the ILP systems into categories:
-\begin{itemize}
-\item Language bias,
-\item Preferential bias: a score function,
-\item Search control bias: a maximum depth of the proof of examples from background knowledge and a hypothesis.
-\end{itemize}
-
-Representational bias
-Language bias
-Preferential bias
-Search control bias
-
-Syntactic bias
-Semantic bias
-
-
-The problem is that metaconstraints do not only specify the hypothesis bias and the hypothesis space, but they also specify how the search is performed. Let me make a natural structure.
-
-Input elements of an ILP program: background knowledge, examples, mode declarations, determinations, meta statements.
-Output elements of an ILP program: hypothesis.
-
 
 \section{Language bias}
 One of the strategies ILP systems use for solving the problems of the hypothesis selection and hypothesis search is the introduction of a language bias.
