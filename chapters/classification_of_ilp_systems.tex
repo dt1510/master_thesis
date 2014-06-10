@@ -285,37 +285,26 @@ The following mode declarations are excerpts and adapations of the examples prov
 :-modeb(*, male(+person)).
 :-modeh(*, english(+person)).
 :-modeb(*, english_couple(+person, -person)).
-:-modeb(*, english(+person)).
+:-modeb(2, english(+person)).
 
 \end{lstlisting}
 
 \paragraph{Toplog}
+Toplog's modeb declarations are compatible with Progol, specification of the recall is optional, however, for modeh declarations recall cannot be specified\cite{santos2008toplogWebsite}.
+\begin{exmp}
 \begin{lstlisting}
 :-modeh(append(+list,+list,-list)).
 :-modet(2, l2ht(+list/[H|T], -any/H, -list/T)).
 :-modeb(append(+list,+list,-list)).
+:-modeb(5,append(+list,+list,-list)).
 :- modeh(class(+animal,#class)).
-:- modeb(has_milk(+animal)).
-:- modeb(has_gills(+animal)).
-:- modeb(has_covering(+animal,#covering)).
-:- modeb(has_legs(+animal,#nat)).
-:- modeb(homeothermic(+animal)).
-:- modeb(has_eggs(+animal)).
-:- modeb(habitat(+animal,#habitat)).
-:-modeh(uncle(+person, -person)).
-:-modeb(1, male(+person)).
-:-modeb(1, parent(-person, +person)).
-:-modeh(nchoosem(+int,+int,-int)).
-:-modeb(3, fact(+int, -int)). 
-:-modeb(minus(+int,+int,-int)).
-:-modeb(mult(+int,+int, -int), commutative).
-:-modeb(int_division(+int,+int,-int)).
+:-modeh(*,uncle(+person, -person)).%invalid
 \end{lstlisting}
+\end{exmp}
 
 \subsubsection{Modet declarations}
-From consulting the source code comments of Toplog, one can find out that Toplog in addition to \tc{modeb}, \tc{modeh} declarations, Toplog uses a third kind of the mode declaration: \tc{modet} declaration.
-
-
+In addition to \tc{modeb}, \tc{modeh} mode declarations, Toplog uses \tc{modet} declarations. Every \tc{modet} declaration can be transformed to a \tc{modeb} declaration. For example \tc{modet(l2ht(+list/[H|T], -any/H, -list/T))} has its correspondent \tc{modeb} declaration \tc{modeb(+list=[-any|-list])}.
+For references and further details, an interested reader should consult the Toplog's source code\cite{santos2008toplogWebsite}.
 
 \paragraph{Xhail2}
 \begin{lstlisting}
@@ -400,13 +389,18 @@ modeb(male(+person), [name(mb)]).
 
 The use of the mode declarations in an ILP system and their defining role is summarised.
 
+\begin{minipage}{\linewidth}
+\captionof{table}{Classification by mode declaration bias} \label{tab:title} 
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-     &  &  &  &  &  &  \\ \hline
+    Mode declaration bias &  yes & yes & yes & yes & yes & yes \\ \hline    
+    Prolog compatible & yes & yes & no &  \\ \hline
+    Recall modeb support & yes & yes & yes & \\
+    Recall modeh support & yes & yes & no & \\ \hline
     \hline
   \end{tabular}
-
+\end{minipage}
 
 \subsubsection{Determinations}
 
