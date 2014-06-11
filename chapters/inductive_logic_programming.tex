@@ -135,8 +135,7 @@ where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
 \begin{defn}\label{definition_determination_language}
 Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff\\
 1) $D \not=\emptyset$,\\
-2) $tn_1=h$,\\
-3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
+2) $\forall b_i (1 \le i \le m) \exists j (1 \le j \le n) tn_j=h \land bn_j=b_i$.
 \end{defn}
 
 \begin{exmp}
