@@ -6,7 +6,7 @@
 \BOOKMARK [1][-]{section.1.2}{Inductive logic programming}{chapter.1}
 \BOOKMARK [1][-]{section.1.3}{Classification of inductive logic programming systems}{chapter.1}
 \BOOKMARK [1][-]{section.1.4}{Motivation and Objectives}{chapter.1}
-\BOOKMARK [0][-]{chapter.2}{Background Theory}{}
+\BOOKMARK [0][-]{chapter.2}{Background}{}
 \BOOKMARK [1][-]{section.2.1}{Prerequisites}{chapter.2}
 \BOOKMARK [1][-]{section.2.2}{A logic language}{chapter.2}
 \BOOKMARK [1][-]{section.2.3}{Model theorymarker2002model}{chapter.2}
@@ -15,22 +15,6 @@
 \BOOKMARK [2][-]{subsection.2.5.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.2.5}
 \BOOKMARK [1][-]{section.2.6}{Machine learning}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.6.1}{Types of problem}{section.2.6}
-\BOOKMARK [1][-]{section.2.7}{Inductive logic programming}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.7.1}{Input and output of ILP system}{section.2.7}
-\BOOKMARK [2][-]{subsection.2.7.2}{Language bias}{section.2.7}
-\BOOKMARK [1][-]{section.2.8}{ILP systems}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.8.1}{Progol}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.2}{Alephaleph2007}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.4}{Hailray2003hybridray2005phdHybrid}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.5}{Xhailray2009nonmonotonic}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.6}{Imparo}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.7}{Talcorapi2010inductivecorapi2011tal}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.8}{Other systems}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.9}{Selecting ILP systems for classification}{section.2.8}
-\BOOKMARK [1][-]{section.2.9}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.9.1}{Preliminaries}{section.2.9}
-\BOOKMARK [2][-]{subsection.2.9.2}{Inverse subsumption with minimal complements}{section.2.9}
 \BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
 \BOOKMARK [1][-]{section.3.1}{Inductive logic programming}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{Input and output of ILP system}{section.3.1}
@@ -48,6 +32,10 @@
 \BOOKMARK [1][-]{section.3.3}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.3.1}{Preliminaries}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.2}{Inverse subsumption with minimal complements}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Extension to first-order theories}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Relaxation of minimal complements to a maximal bridge theory}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Inverse subsumption with minimal complements and connected theory}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.6}{Negative examples}{section.3.3}
 \BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.4.1}{Properties of logical theory}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Properties of predicate and function symbol}{section.4.1}
@@ -107,30 +95,24 @@
 \BOOKMARK [2][-]{subsection.5.7.9}{Robustness}{section.5.7}
 \BOOKMARK [2][-]{subsection.5.7.10}{Completeness of theoretical frameworks}{section.5.7}
 \BOOKMARK [2][-]{subsection.5.7.11}{Other}{section.5.7}
-\BOOKMARK [0][-]{chapter.6}{Advancing solutions to issues in ILP}{}
-\BOOKMARK [1][-]{section.6.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.1.1}{Extension to first-order theories}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.2}{Relaxation of minimal complements to a maximal bridge theory}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.3}{Inverse subsumption with minimal complements and connected theory}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.4}{Negative examples}{section.6.1}
-\BOOKMARK [0][-]{chapter.7}{Rationale ILP system}{}
-\BOOKMARK [1][-]{section.7.1}{ILP task definition}{chapter.7}
-\BOOKMARK [1][-]{section.7.2}{Algorithm}{chapter.7}
-\BOOKMARK [2][-]{subsection.7.2.1}{Maximal hypothesis antisubsumer}{section.7.2}
-\BOOKMARK [2][-]{subsection.7.2.2}{Computing the antisubsumed hypotheses}{section.7.2}
-\BOOKMARK [2][-]{subsection.7.2.3}{Pruning hypotheses by negative examples}{section.7.2}
-\BOOKMARK [1][-]{section.7.3}{Bias}{chapter.7}
-\BOOKMARK [1][-]{section.7.4}{Completeness}{chapter.7}
-\BOOKMARK [1][-]{section.7.5}{Other considerations}{chapter.7}
-\BOOKMARK [2][-]{subsection.7.5.1}{Hypothesis selection}{section.7.5}
-\BOOKMARK [2][-]{subsection.7.5.2}{Hypothesis search}{section.7.5}
-\BOOKMARK [2][-]{subsection.7.5.3}{Implementation details}{section.7.5}
-\BOOKMARK [1][-]{section.7.6}{Comparison of Rationale with other ILP systems}{chapter.7}
-\BOOKMARK [0][-]{chapter.8}{Evaluation}{}
-\BOOKMARK [0][-]{chapter.9}{Conclusion}{}
-\BOOKMARK [1][-]{section.9.1}{Summary of Thesis Achievements}{chapter.9}
-\BOOKMARK [1][-]{section.9.2}{Applications}{chapter.9}
-\BOOKMARK [1][-]{section.9.3}{Future Work}{chapter.9}
+\BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
+\BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.2.1}{Maximal hypothesis antisubsumer}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.2}{Computing the antisubsumed hypotheses}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{Pruning hypotheses by negative examples}{section.6.2}
+\BOOKMARK [1][-]{section.6.3}{Bias}{chapter.6}
+\BOOKMARK [1][-]{section.6.4}{Completeness}{chapter.6}
+\BOOKMARK [1][-]{section.6.5}{Other considerations}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.5.1}{Hypothesis selection}{section.6.5}
+\BOOKMARK [2][-]{subsection.6.5.2}{Hypothesis search}{section.6.5}
+\BOOKMARK [2][-]{subsection.6.5.3}{Implementation details}{section.6.5}
+\BOOKMARK [1][-]{section.6.6}{Comparison of Rationale with other ILP systems}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Evaluation}{}
+\BOOKMARK [0][-]{chapter.8}{Conclusion}{}
+\BOOKMARK [1][-]{section.8.1}{Summary of Thesis Achievements}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Applications}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{Future Work}{chapter.8}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Specialization in arguments}{section.1.1}
