@@ -11,37 +11,26 @@
 \BOOKMARK [1][-]{section.2.2}{A logic language}{chapter.2}
 \BOOKMARK [1][-]{section.2.3}{Model theorymarker2002model}{chapter.2}
 \BOOKMARK [1][-]{section.2.4}{Logicssep-logic-nonmonotonic}{chapter.2}
-\BOOKMARK [1][-]{section.2.5}{Measure theory}{chapter.2}
-\BOOKMARK [1][-]{section.2.6}{Logic Programming}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.6.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.2.6}
-\BOOKMARK [2][-]{subsection.2.6.2}{SLD-resolutionlin2009efficient}{section.2.6}
-\BOOKMARK [1][-]{section.2.7}{Machine learning}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.7.1}{Types of problem}{section.2.7}
-\BOOKMARK [1][-]{section.2.8}{Inductive inference}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.8.1}{Languages in the theory of inductive inference}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.2}{Inductive inference concepts}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.3}{Ultimate problem of scientific discovery}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.4}{Incremental problem of scientific discovery}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.5}{Problem of induction - model theoretic setting}{section.2.8}
-\BOOKMARK [2][-]{subsection.2.8.6}{Scientific method}{section.2.8}
-\BOOKMARK [1][-]{section.2.9}{Inductive logic programming}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.9.1}{ILP problem}{section.2.9}
-\BOOKMARK [2][-]{subsection.2.9.2}{ILP concepts}{section.2.9}
-\BOOKMARK [2][-]{subsection.2.9.3}{Input and output of ILP system}{section.2.9}
-\BOOKMARK [2][-]{subsection.2.9.4}{Language bias}{section.2.9}
-\BOOKMARK [1][-]{section.2.10}{ILP systems}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.10.1}{Progol}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.2}{Alephaleph2007}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.4}{Hailray2003hybridray2005phdHybrid}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.5}{Xhailray2009nonmonotonic}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.6}{Imparo}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.7}{Talcorapi2010inductivecorapi2011tal}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.8}{Other systems}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.9}{Selecting ILP systems for classification}{section.2.10}
-\BOOKMARK [1][-]{section.2.11}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.11.1}{Preliminaries}{section.2.11}
-\BOOKMARK [2][-]{subsection.2.11.2}{Inverse subsumption with minimal complements}{section.2.11}
+\BOOKMARK [1][-]{section.2.5}{Logic Programming}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.5.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.2.5}
+\BOOKMARK [1][-]{section.2.6}{Machine learning}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.6.1}{Types of problem}{section.2.6}
+\BOOKMARK [1][-]{section.2.7}{Inductive logic programming}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.7.1}{Input and output of ILP system}{section.2.7}
+\BOOKMARK [2][-]{subsection.2.7.2}{Language bias}{section.2.7}
+\BOOKMARK [1][-]{section.2.8}{ILP systems}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.8.1}{Progol}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.2}{Alephaleph2007}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.4}{Hailray2003hybridray2005phdHybrid}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.5}{Xhailray2009nonmonotonic}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.6}{Imparo}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.7}{Talcorapi2010inductivecorapi2011tal}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.8}{Other systems}{section.2.8}
+\BOOKMARK [2][-]{subsection.2.8.9}{Selecting ILP systems for classification}{section.2.8}
+\BOOKMARK [1][-]{section.2.9}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.9.1}{Preliminaries}{section.2.9}
+\BOOKMARK [2][-]{subsection.2.9.2}{Inverse subsumption with minimal complements}{section.2.9}
 \BOOKMARK [0][-]{chapter.3}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.3.1}{Properties of logical theory}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{Properties of predicate and function symbol}{section.3.1}
@@ -72,8 +61,6 @@
 \BOOKMARK [2][-]{subsection.3.5.2}{Inductive inference rules}{section.3.5}
 \BOOKMARK [2][-]{subsection.3.5.3}{Control}{section.3.5}
 \BOOKMARK [2][-]{subsection.3.5.4}{Automation}{section.3.5}
-\BOOKMARK [1][-]{section.3.6}{Research in ILP}{chapter.3}
-\BOOKMARK [1][-]{section.3.7}{Classification of ILP systems}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Classification of ILP systems}{}
 \BOOKMARK [1][-]{section.4.1}{ILP task definition}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Importance of complete definitions}{section.4.1}

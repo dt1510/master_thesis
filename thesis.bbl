@@ -23,11 +23,6 @@ Domenico Corapi, Alessandra Russo, and Emil Lupu.
 \newblock Inductive logic programming as abductive search.
 \newblock In {\em ICLP (Technical Communications)}, pages 54--63, 2010.
 
-\bibitem[CW14]{wolframMathworldMeasure}
-Allan Cortzen and Eric~W Weisstein.
-\newblock Measure, 2014.
-\newblock MathWorld--A Wolfram Web Resource, accessed June 2014.
-
 \bibitem[DR97]{de1997logical}
 Luc De~Raedt.
 \newblock Logical settings for concept-learning.
@@ -77,16 +72,6 @@ Dianhuan Lin.
 \newblock Efficient, complete and declarative search in inductive logic
   programming.
 \newblock Master's thesis, Imperial College London, 2009.
-
-\bibitem[Llo87]{lloyd1987foundations}
-J~Lloyd.
-\newblock {\em Foundations of Logic Programming}.
-\newblock Berlin: Springer-Verlag, 1987.
-
-\bibitem[LV09]{li2009introduction}
-Ming Li and Paul~MB Vit{\'a}nyi.
-\newblock {\em An introduction to Kolmogorov complexity and its applications}.
-\newblock Springer, 2009.
 
 \bibitem[Mar02]{marker2002model}
 David Marker.
@@ -161,11 +146,6 @@ Oliver Ray.
 Oliver Ray, Krysia Broda, and Alessandra Russo.
 \newblock Hybrid abductive inductive learning: a generalisation of progol.
 \newblock In {\em Inductive Logic Programming}, pages 311--328. Springer, 2003.
-
-\bibitem[RFH88]{royden1988real}
-Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
-\newblock {\em Real analysis}, volume~4.
-\newblock Prentice Hall New York, 1988.
 
 \bibitem[San08]{santos2008toplogWebsite}
 José Carlos~Almeida Santos.

@@ -349,7 +349,7 @@ An example being a metaconstraint $Cond$ specifying the maximum number of the li
 A \emph{metaconstraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{metaconstraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
 \end{defn}
 
-Each ILP system has its own set of allowed metaconstrains. An interested reader is encouraged to consult their respective manuals.
+Each ILP system has its own set of allowed metaconstrains.
 \begin{exmp}
 In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
 In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
@@ -387,15 +387,15 @@ A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit,
 A special case of the production field when a condition $Cond \equiv true$ is called an induction field.
 
 \begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
-An \emph{induction field}, denoted by $\mathcal{I}_H = \langle Lit \rangle$,
+An \emph{induction field} is denoted by $\mathcal{I}_H = \langle Lit \rangle$,
 where $Lit$ is a finite
 set of literals to appear in ground hypotheses.
 A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
-every literal in $H_g$ is included in $L$.
+every literal in $H_g$ is included in $Lit$.
 \end{defn}
 
 \subsubsection{Correspondence between mode declarations, determinations, meta constraints and production field}
-A production field is clearly a generalization of mode declarations, determinations and metaconstraints.
+A production field is a generalization of mode declarations, determinations and metaconstraints.
 
 \begin{proposition}\label{md_d_pf_correspondence_proposition}
 Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
@@ -457,7 +457,7 @@ The converse depends on the possible metaconstraints. If one allowed a metaconst
 
 \section{ILP systems}
 An ILP system is a program that takes as an input background knowledge $B$ and examples $E$ and produces as an output an explanation called a hypothesis $H$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
-We give an overview of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
+We give a list of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
 
 \subsection{Progol}
 We paraphrase the introduction to Progol from its official website\cite{muggleton1999progolWebsite}:
