@@ -31,95 +31,106 @@
 \BOOKMARK [1][-]{section.2.9}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.9.1}{Preliminaries}{section.2.9}
 \BOOKMARK [2][-]{subsection.2.9.2}{Inverse subsumption with minimal complements}{section.2.9}
-\BOOKMARK [0][-]{chapter.3}{Issues in ILP}{}
-\BOOKMARK [1][-]{section.3.1}{Properties of logical theory}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.1.1}{Properties of predicate and function symbol}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.2}{Properties of a logical formula}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.3}{Properties of a logic theory}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.4}{Expressivity}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.5}{Syntactic properties}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.6}{Conceptual properties}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.7}{Information content of a logical theory}{section.3.1}
-\BOOKMARK [1][-]{section.3.2}{ILP task definition}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.2.1}{Generalization}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.2}{Explanatory inductionyamamoto2012inverse}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.3}{Examples}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.4}{Expressivity}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.5}{Semantics}{section.3.2}
-\BOOKMARK [1][-]{section.3.3}{Completeness by problem classes}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Learning concepts}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Complexity of a learning problem}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{Learning syntactic representations}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.4}{Learning up to logical equivalence}{section.3.3}
-\BOOKMARK [1][-]{section.3.4}{Hypothesis selection}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.4.1}{Hypothesis properties}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.2}{Inducing preferences over hypotheses space}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.3}{Hypothesis sufficiency}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.4}{Hypothesis approximation}{section.3.4}
-\BOOKMARK [1][-]{section.3.5}{Hypothesis search}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.5.1}{Postulates of inductive inference}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.2}{Inductive inference rules}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.3}{Control}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.4}{Automation}{section.3.5}
-\BOOKMARK [0][-]{chapter.4}{Classification of ILP systems}{}
-\BOOKMARK [1][-]{section.4.1}{ILP task definition}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Importance of complete definitions}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Buildings blocks of ILP task definition}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Classification ILP systems by an ILP task definition}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{A unified definition of ILP task}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Hypothesis selection}{chapter.4}
-\BOOKMARK [1][-]{section.4.3}{Hypothesis search}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Search direction}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.2}{Algorithms in ILP systems}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.3}{Summary}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{Bias}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.4.1}{Language bias}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.2}{Search bias}{section.4.4}
-\BOOKMARK [1][-]{section.4.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.5.1}{Imparo is complete in inverse subsumption}{section.4.5}
-\BOOKMARK [1][-]{section.4.6}{Completeness by problem classes}{chapter.4}
-\BOOKMARK [1][-]{section.4.7}{Summary}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.7.1}{Completeness in generalizationyamamoto2012inverse}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.2}{Example learning}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.3}{Hypotheses space}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.4}{Completeness}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.5}{Argument Specialization}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.6}{Non-observational concepts}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.7}{Biases}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.8}{Violations}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.9}{Robustness}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.10}{Completeness of theoretical frameworks}{section.4.7}
-\BOOKMARK [2][-]{subsection.4.7.11}{Other}{section.4.7}
-\BOOKMARK [0][-]{chapter.5}{Advancing solutions to issues in ILP}{}
-\BOOKMARK [1][-]{section.5.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{Extension to first-order theories}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Relaxation of minimal complements to a maximal bridge theory}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Inverse subsumption with minimal complements and connected theory}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.4}{Negative examples}{section.5.1}
-\BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
-\BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Maximal hypothesis antisubsumer}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{Computing the antisubsumed hypotheses}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Pruning hypotheses by negative examples}{section.6.2}
-\BOOKMARK [1][-]{section.6.3}{Bias}{chapter.6}
-\BOOKMARK [1][-]{section.6.4}{Completeness}{chapter.6}
-\BOOKMARK [1][-]{section.6.5}{Other considerations}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.5.1}{Hypothesis selection}{section.6.5}
-\BOOKMARK [2][-]{subsection.6.5.2}{Hypothesis search}{section.6.5}
-\BOOKMARK [2][-]{subsection.6.5.3}{Implementation details}{section.6.5}
-\BOOKMARK [1][-]{section.6.6}{Comparison of Rationale with other ILP systems}{chapter.6}
-\BOOKMARK [0][-]{chapter.7}{Evaluation}{}
-\BOOKMARK [1][-]{section.7.1}{Self-critique}{chapter.7}
-\BOOKMARK [1][-]{section.7.2}{Measuring the success}{chapter.7}
-\BOOKMARK [2][-]{subsection.7.2.1}{Work nature}{section.7.2}
-\BOOKMARK [2][-]{subsection.7.2.2}{Work relevance}{section.7.2}
-\BOOKMARK [2][-]{subsection.7.2.3}{Size of contribution}{section.7.2}
-\BOOKMARK [2][-]{subsection.7.2.4}{Work impact}{section.7.2}
-\BOOKMARK [0][-]{chapter.8}{Conclusion}{}
-\BOOKMARK [1][-]{section.8.1}{Summary of Thesis Achievements}{chapter.8}
-\BOOKMARK [1][-]{section.8.2}{Applications}{chapter.8}
-\BOOKMARK [1][-]{section.8.3}{Future Work}{chapter.8}
+\BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
+\BOOKMARK [1][-]{section.3.1}{Inductive logic programming}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.1.1}{Input and output of ILP system}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Language bias}{section.3.1}
+\BOOKMARK [1][-]{section.3.2}{ILP systems}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Progol}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{Alephaleph2007}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.4}{Hailray2003hybridray2005phdHybrid}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.5}{Xhailray2009nonmonotonic}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.6}{Imparo}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.7}{Talcorapi2010inductivecorapi2011tal}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.8}{Other systems}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.9}{Selecting ILP systems for classification}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Preliminaries}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Inverse subsumption with minimal complements}{section.3.3}
+\BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
+\BOOKMARK [1][-]{section.4.1}{Properties of logical theory}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Properties of predicate and function symbol}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Properties of a logical formula}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Properties of a logic theory}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Expressivity}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{Syntactic properties}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.6}{Conceptual properties}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.7}{Information content of a logical theory}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{ILP task definition}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Generalization}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Explanatory inductionyamamoto2012inverse}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Examples}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Expressivity}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.5}{Semantics}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Completeness by problem classes}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Learning concepts}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Complexity of a learning problem}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.3}{Learning syntactic representations}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.4}{Learning up to logical equivalence}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{Hypothesis selection}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{Hypothesis properties}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{Inducing preferences over hypotheses space}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.3}{Hypothesis sufficiency}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.4}{Hypothesis approximation}{section.4.4}
+\BOOKMARK [1][-]{section.4.5}{Hypothesis search}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{Postulates of inductive inference}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.2}{Inductive inference rules}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.3}{Control}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.4}{Automation}{section.4.5}
+\BOOKMARK [0][-]{chapter.5}{Classification of ILP systems}{}
+\BOOKMARK [1][-]{section.5.1}{ILP task definition}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Importance of complete definitions}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Buildings blocks of ILP task definition}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Classification ILP systems by an ILP task definition}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{A unified definition of ILP task}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Hypothesis selection}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Hypothesis search}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{Search direction}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.2}{Algorithms in ILP systems}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.3}{Summary}{section.5.3}
+\BOOKMARK [1][-]{section.5.4}{Bias}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Language bias}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Search bias}{section.5.4}
+\BOOKMARK [1][-]{section.5.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{Imparo is complete in inverse subsumption}{section.5.5}
+\BOOKMARK [1][-]{section.5.6}{Completeness by problem classes}{chapter.5}
+\BOOKMARK [1][-]{section.5.7}{Summary}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.7.1}{Completeness in generalizationyamamoto2012inverse}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.2}{Example learning}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.3}{Hypotheses space}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.4}{Completeness}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.5}{Argument Specialization}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.6}{Non-observational concepts}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.7}{Biases}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.8}{Violations}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.9}{Robustness}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.10}{Completeness of theoretical frameworks}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.11}{Other}{section.5.7}
+\BOOKMARK [0][-]{chapter.6}{Advancing solutions to issues in ILP}{}
+\BOOKMARK [1][-]{section.6.1}{Inverse Subsumption for Complete Explanatory Induction}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.1.1}{Extension to first-order theories}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.2}{Relaxation of minimal complements to a maximal bridge theory}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.3}{Inverse subsumption with minimal complements and connected theory}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.4}{Negative examples}{section.6.1}
+\BOOKMARK [0][-]{chapter.7}{Rationale ILP system}{}
+\BOOKMARK [1][-]{section.7.1}{ILP task definition}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Algorithm}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Maximal hypothesis antisubsumer}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{Computing the antisubsumed hypotheses}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.3}{Pruning hypotheses by negative examples}{section.7.2}
+\BOOKMARK [1][-]{section.7.3}{Bias}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Completeness}{chapter.7}
+\BOOKMARK [1][-]{section.7.5}{Other considerations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.5.1}{Hypothesis selection}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.2}{Hypothesis search}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.3}{Implementation details}{section.7.5}
+\BOOKMARK [1][-]{section.7.6}{Comparison of Rationale with other ILP systems}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{Evaluation}{}
+\BOOKMARK [0][-]{chapter.9}{Conclusion}{}
+\BOOKMARK [1][-]{section.9.1}{Summary of Thesis Achievements}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Applications}{chapter.9}
+\BOOKMARK [1][-]{section.9.3}{Future Work}{chapter.9}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Specialization in arguments}{section.1.1}

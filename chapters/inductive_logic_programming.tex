@@ -1,0 +1,427 @@
+\chapter{Inductive logic programming}
+The objective of this chapter is to present concepts from Inductive logic programming (ILP) and their extensions that are going to be used for the classification of ILP systems.
+
+\section{Inductive logic programming}
+
+\subsubsection{Inverse Entailment}
+Inverse Entailment is a correspondence between an induction and a deduction:
+\begin{thm}\cite{kimber2012learning}
+Let $B$ be a Horn program, and let $h$ and $e$ be
+Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
+\end{thm}
+
+\paragraph{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
+Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+iff
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+ 
+They compute the hypothesis $H$ in two steps:
+1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
+
+
+\subsection{Input and output of ILP system}
+An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
+\begin{itemize}
+\item objectlevel statements: background knowledge, examples: positive and negative,
+\item effective metalevel statements,
+\item non-effective metalevel statements.
+\end{itemize}
+
+Objectlevel statements provide the main setting of a learning problem and concern with what is known: the language of enquiry $L$, a set of observations, etc.
+
+Effective metalevel statements provide a refinement of the main setting and concern with how the learning problem may be solved and what form the solution is expected to take. Their specification converts a learning problem into a potentially easier, more directed and concrete \emph{ILP task}.
+\emph{Mode declarations} and \emph{determinations} are effective metalevel statements specifying a constraint on a language $L$ to determine the search space $\mathcal{H}$ of possible hypotheses. The other effective metalevel statements may impose further \emph{metalevel constraints} on $L$. The set of constraints on $L$ determining the search space $\mathcal{H}$ is called a \emph{language bias}.
+Apart from the specification of a language bias, effective metalevel statements contain search control statements that affect the form the computation of a hypothesis takes place and contain decision elements: preferential bias - which hypothesis should be preferred over the other, which parts of the background knowledge should be considered, etc.
+
+Non-effective metalevel statements do not affect the result of the computation of a hypothesis. They are either required syntactic sugar or their primary purpose concerns different aspects of an ILP system, e.g. to provide the statistics about the computation to the user.
+
+The primary output of an ILP system is a solution (a hypothesis or their set) to a refined learning problem.
+
+\subsection{Language bias}\label{subsec:background_language_bias}
+The search space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
+\begin{itemize}
+\item mode declarations,
+\item determinations,
+\item metaconstrains,
+\item induction and production field.
+\end{itemize}
+
+\subsubsection{Mode declarations}\label{background_mode_declarations}
+\paragraph{Mode declaration in Progol}
+Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode declarations.
+\begin{defn}\cite{muggleton1995inverse}
+A \emph{mode declaration} has either the form
+\tc{modeh(n,atom)} or \tc{modeb(n,atom)} where $n$, the \emph{recall}, is either an integer, $n \ge 1$,
+or \tc{*} and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A placemarker is either \tc{+type}, \tc{-type} or \tc{\#type}, where
+type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of m
+with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$
+is a \tc{modeh} and negative if $m$ is a \tc{modeb}.
+\end{defn}
+
+\begin{exmp}\cite{muggleton1995inverse}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int ? #int))
+\end{lstlisting}
+\end{exmp}
+
+\begin{remark}\cite{muggleton1995inverse}
+The recall is used to bound the number of alternative solutions for instantiating
+the atom. For simplicity, we assume in the following that all the modes have the
+recall \tc{*}, meaning all solutions. The following defines when a clause is within Progol's definite mode language $L$.
+\end{remark}
+
+\begin{defn}\label{definition_definite_mode_language}\cite{muggleton1995inverse}
+Let $C$ be a definite clause with a
+defined total ordering over the literals and $M$ be a set of mode declarations.
+$C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
+of a \tc{modeh} declaration in $M$ with every place-marker \tc{+type} and \tc{-type} replaced by
+variables and every place-marker \tc{\#type} replaced by a ground term and 2) every
+atom $b_i$ in the body of $C$ is the atom of a \tc{modeb} declaration in $M$ with every
+place-marker \tc{+type} and \tc{-type} replaced by variables and every place-marker \tc{\#type}
+replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
+of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
+\end{defn}
+
+\subsubsection{Determinations}
+Some ILP systems like Aleph in addition to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
+
+\begin{defn}\cite{aleph2007}
+A \emph{determination} is a logic statement of the form\\
+\tc{determination(TargetName/TargetArity, BackgroundName/BackgroundArity).}
+where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
+\tc{TargetArity}, \tc{BackgroundArity} are their arities (non-negative integers) respectively.
+\end{defn}
+
+\begin{defn}\label{definition_determination_language}
+Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff
+1) $D \not=\emptyset$, 2) $tn_1=h$, 3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
+\end{defn}
+
+\begin{exmp}
+Let $D$ be the list of the determinations
+\begin{lstlisting}
+:− determination(man/ 1, male/1).
+:− determination(man/ 1, bridegroom/1).
+:− determination(woman/ 1, female/1).
+\end{lstlisting}
+Let the hypotheses be
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H1=man(X) :- male(X).
+H2=man(X) :- bridegroom(X).
+H3=man(X) :- male(X), bridegroom(X).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H4=woman(X) :- female(X).
+H5=man(X) :- male(X), female(X).
+\end{lstlisting}
+\end{minipage}
+
+Then for the hypothesis bias (determination language) $\mathcal{H}=L(D)$,
+$\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
+\end{exmp}
+
+\subsubsection{Metaconstraints}
+Metaconstraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
+An example being a metaconstraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
+
+\begin{defn}
+A \emph{metaconstraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{metaconstraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
+\end{defn}
+
+Each ILP system has its own set of allowed metaconstrains.
+\begin{exmp}
+In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
+In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
+In Tal \tc{option(max\_body\_literals, 5)} defines definite theories whose clauses have at most 5 positive literals.
+\end{exmp}
+
+\begin{proposition}
+Let $Cond_1, Cond_2$ be metaconstrains on a language $L$.
+Then the following are metaconstrains on the language $L$:
+$\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
+\end{proposition}
+
+\begin{proof}
+Follows trivially from the definition of a metaconstraint.
+\end{proof}
+
+Therefore we will often think of a set of the metaconstraints to be a metaconstraint created from their conjunction.
+
+\begin{defn}
+Let $C=\{Cond_1, ..., Cond_n\}$ be a set of metaconstraints defining subsets of the language $L$.
+A \emph{metaconstraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
+i.e. $L(C)=\{x \in L | Cond_1(x) \land ... \land Cond_n(x) \}$.
+\end{defn}
+
+\subsubsection{Induction and production field}
+Inoue defines a production field as another form of a language bias.
+
+\begin{defn}\cite{inoue2004induction}
+A \emph{production field} $\mathcal{P}$ is a represented by a pair,
+$\langle Lit, Cond\rangle$, where $Lit$
+(\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantiation (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
+A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
+\end{defn}
+
+A special case of the production field when a condition $Cond \equiv true$ is called an induction field.
+
+\begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
+An \emph{induction field} is denoted by $\mathcal{I}_H = \langle Lit \rangle$,
+where $Lit$ is a finite
+set of literals to appear in ground hypotheses.
+A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+every literal in $H_g$ is included in $Lit$.
+\end{defn}
+
+\subsubsection{Correspondence between mode declarations, determinations, meta constraints and production field}
+A production field is a generalization of mode declarations, determinations and metaconstraints.
+
+\begin{proposition}\label{md_d_pf_correspondence_proposition}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
+$\mathcal{P}_M$,
+$\mathcal{P}_D$,
+$\mathcal{P}_{M,D}$
+such that for any clause $H \in L$:
+1) $H \in L(M) \iff H \in \mathcal{P}_M$,
+2) $H \in L(D) \iff H \in \mathcal{P}_D$,
+3) $H \in L(M) \cap L(D) \iff H \in \mathcal{P}_{M,D}$.
+\end{proposition}
+The following proof is non-constructive.
+\begin{proof}
+Let $L$ be a logic language. By the definitios of definite mode language\ref{definition_definite_mode_language} and determination language\ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
+Let $Cond_M$, $Cond_D$ be defining formulas for $L(M)$ and $L(D)$, i.e. $L(M)=\{x \in L | Cond_M(x)\}$, $L(D)=\{x \in L | Cond_D(x)\}$.
+Let $Cond_{M,D}=Cond_M \land Cond_D$. Let $Lit$ be a set of all literals of $L$ and let
+$Lit_M=L(M) \cap Lit$,
+$Lit_D=L(D) \cap Lit$,
+$Lit_{M,D}=Lit_M \cap Lit_D$.
+Then for every clause $H \in L$ the production fields
+$\mathcal{P}_M=\langle Lit_M, Cond_M \rangle$,
+$\mathcal{P}_D=\langle Lit_D, Cond_D \rangle$,
+$\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
+satisfy the conditions 1, 2, 3 respectively trivially.
+\end{proof}
+
+Given production fields defining the bias of mode declarations and determinations, productions fields with the additional metaconstrains can be constructed.
+
+\begin{proposition}\label{proposition_metaconstraints_production_field}
+Let $\mathcal{P}$ be any production field, $C$ a set of metaconstraints.
+Then there exists a production field $\mathcal{P}_C$ such that
+$\mathcal{P}_C=\mathcal{P} \cap L(C)$, i.e.
+$\forall H \in L. H \in \mathcal{P}_C \iff (H \in \mathcal{P}) \land (H \in L(C))$.
+\end{proposition}
+\begin{proof}
+Let $\mathcal{P}=\langle Lit, Cond \rangle$,
+$C=\{Cond_1, ..., Cond_n\}$.
+Define $\mathcal{P}_C=\langle Lit, Cond \land Cond_1 \land ... \land Cond_n \rangle$. Take an arbitrary $H \in L$. Denote $Lit(H)$ to be the set of the literals of the clausal form of $H$.
+Then $H \in \mathcal{P}_C$ iff $Lit(H) \subseteq Lit$ and
+$(Cond \land Cond_1 \land ... \land Cond_n)(H)$ iff
+$Lit(H) \subseteq Lit$ and $Cond(H)$ and $Cond_1(H) \land ... \land Cond_n(H)$
+iff $H \in \langle Lit, Cond \rangle = \mathcal{P}$ and $H \in L(Cond_1 \land ... \land Cond_n) = L(C)$. Thus $\mathcal{P}_C=\mathcal{P} \cap L(C)$.
+\end{proof}
+
+\begin{corollary}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
+Then there exist production fields
+$\mathcal{P}_{M,C}$,
+$\mathcal{P}_{M,D,C}$
+such that for any clause $H \in L$:
+1) $H \in L(M) \cap L(C) \iff H \in \mathcal{P}_{M,C}$,
+2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.
+\end{corollary}
+\begin{proof}
+Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metaconstraints_production_field}.
+\end{proof}
+
+The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
+
+\section{ILP systems}
+An ILP system is a program that takes as an input background knowledge $B$ and examples $E$ and produces as an output an explanation called a hypothesis $H$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
+We give a list of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
+
+\subsection{Progol}
+We paraphrase the introduction to Progol from its official website\cite{muggleton1999progolWebsite}:
+\begin{quote}
+Progol combines Inverse Entailment with general-to-specific search through a refinement graph. Inverse Entailment is used with mode declarations to derive the most-specific clause within the mode language which entails a given example. This clause is used to guide a refinement-graph search. Progol's search has a provable guarantee of returning a solution having the maximum "compression" in the search-space. To do so it performs an admissible A*-like search, guided by compression, over clauses which subsume the most specific clause. Progol deals with noisy data by using the compression measure to trade-off the description of errors against the hypothesis description length. Progol allows arbitrary Prolog programs as background knowledge and arbitrary definite clauses as examples.
+\end{quote}
+
+\subsection{Aleph\cite{aleph2007}}
+Aleph is an ILP system based on Progol developed in order to understand the concepts behind the inverse entailment\cite{muggleton1995inverse} influenced by the ideas from other ILP systems: CProgol, FOIL, FORS, Indlog, MIDOS, SRT, Tilde, and WARMR. 
+
+\subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
+Toplog is an top-down ILP system implementing TDHD framework:
+A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+
+The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}
+
+\subsubsection{MC-Toplog\cite{muggleton2012mc}}
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
+
+\subsection{Hail\cite{ray2003hybrid}\cite{ray2005phdHybrid}}
+A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's incomplete method of bottom generalization to a more complete method of \emph{kernel set generalization} with the methods of abductive logic programming.
+
+\subsection{Xhail\cite{ray2009nonmonotonic}}
+Xhail standing for eXtended Hybrid abductive learning is an ILP system extending Hail's methodology from Horn theories to normal logic programs.
+Xhail version 2 was used for the experiments presented in this thesis.
+
+\subsection{Imparo}\cite{kimber2012learning}
+Imparo is an ILP system based on a general Induction on Failure theoretical framework extending the Hail's incomplete method of kernel set generalization to the complete method of connected theory generalization.
+\subsubsection{Induction on Failure framework\cite{kimber2012learning}}
+Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
+\begin{defn}
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+\end{defn}
+
+\subsubsection{Imparo\cite{kimber2012learning}}
+Imparo uses the following algorithm to compute the hypothesis $H$:
+\begin{itemize}
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\end{itemize}
+
+\subsection{Tal\cite{corapi2010inductive}\cite{corapi2011tal}}
+Tal (Top-directed Abductive Learning) is a non-monotonic top-down ILP system complete for background theories and hypotheses as normal logic programs. 
+Tal relies on mapping an ILP problem into an equivalent ALP one. This enables the
+use of established ALP proof procedures and the specification of richer language bias with integrity constraints. The mapping provides a principled search space for an ILP problem, over which an abductive search is used to compute inductive solutions.
+
+\subsection{Other systems}
+Other ILP systems include Metagol, Golem, Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper,  Tilde, CF-induction.
+
+\subsection{Selecting ILP systems for classification}
+Classification of all ILP systems would be out of the scope of this project and would not provide much more value than a classification of well chosen ILP systems.
+For selection of ILP systems for classification the following criteria were taken into the consideration:
+
+\begin{itemize}
+\item a popularity of an ILP system,
+\item a novelty and contribution of an ILP system,
+\item an access: an availability of a general purpose implementation, documentation, research findings, easiness of communication (in person vs. over distance) with the original authors and respective experts.
+\end{itemize}
+
+In the end the author has decided to classify Progol, Aleph, Toplog, Xhail, Imparo, Tal; Aleph being the best documented working system and others having been developed in the author's department with a general purpose implementation. The author would like to note based on the private communication with the respective experts that MC-Toplog does not have a general purpose implementation, a user needs to write a specific top theory for each learning problem and adapt the current implementation to support it. Metagol\cite{muggleton2014meta}, being a very interesting and novel system, similarly, as of time of classification did not have a general purpose implementation.
+
+\section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
+This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+
+\subsection{Preliminaries}\label{subsec:preliminaries}
+\begin{defn}
+Let $C$, $D$ be clauses, then $C$ \emph{(theta-)subsumes} $D$ iff there is a substitution $\theta$ such that $C \theta \subseteq D$. We denote the relation by $C \subsumes D$.
+\end{defn}
+
+\begin{defn}\label{definition_theory_subsumption}
+Let $S$ and $T$ be two clausal theories. Then, $S$ \emph{(theory-)subsumes} $T$, denoted by $S \subsumes T$, if for any clause $D \in T$, there is a clause $C \in S$ such
+that $C \subsumes D$. We denote by the inverse relation $\subsumed$ of the (theory-) subsumption, called \emph{anti-subsumption}.
+\end{defn}
+
+\begin{defn}
+Let $S$ be a ground clausal theory $\{C_1, C_2,... ,C_n\}$ where each clause $C_i$ $(1 \le i \le n)= l_{i,1} \lor l_{i,2} \lor... \lor l_{i,m_i}$.
+The \emph{complement} of $S$ is defined as
+\\$\bar{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
+1 \le k_1 \le m_1 , 1 \le k_2 \le m_2,..., 1 \le k_n \le m_n\}$.
+In case that $S$ is empty, $\bar{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
+\end{defn}
+
+\begin{remark}
+$S$ is a CNF formula such that $\bar{S} \equiv \neg S$.
+\end{remark}
+
+\begin{defn}
+\emph{$\tau(S)$} denotes the clausal theory obtained by removing all the tautologies from a logic theory $S$.
+\end{defn}
+
+\begin{defn}
+\emph{$\mu(S)$} denotes the clausal theory obtained by removing from $S$ all clauses that are properly subsumed by clauses in a logic theory $S$.
+The \emph{minimal complement} of $S$ is $M(S)=\mu(\bar{S})$.
+\end{defn}
+
+\begin{exmp}
+Let $S=\{a \lor b, b \lor c, \neg c\}$. Then
+$\bar{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, \neg b \lor \neg c \lor c\}$.
+$M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
+$\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
+\end{exmp}
+
+The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to the bridge theory $F$ and the induction field $\mathcal{I}_H$.
+
+\begin{defn}\label{definition_bridge_theory}
+Let $B$ and $E$ be a background theory and examples, respectively.
+Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
+$B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+\end{defn}
+
+The author finds the notion of the maximal bridge theory useful in later chapters.
+\begin{defn}\label{maximal_bridge_theory_definition}
+A \emph{maximal bridge theory} wrt $B$ and $E$ is a theory $F = B \cup \bar{E}$.
+\end{defn}
+\begin{remark}
+Every bridge theory is entailed by a maximal bridge theory.
+\end{remark}
+
+We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$\ref{induction_field_definition}, together with a bridge theory $F$ as follows:
+
+\begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
+Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+$F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
+\end{defn}
+
+\begin{defn}\emph{Tautologies of an induction field.}
+Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
+\end{defn}
+
+\subsection{Inverse subsumption with minimal complements}
+The generalization procedure based on inverse subsumption with minimal complements is as follows:
+
+\begin{defn}\label{inverse_subsumption_with_minimal_complements_algorithm}
+Let $B, E$ and $\mathcal{I}_H = \langle L \rangle$ be a background theory, examples and an induction
+field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. A clausal theory $H$ is derived
+by \emph{inverse subsumption with minimal complements} from $F$ wrt $\mathcal{I}_H$ if $H$ is constructed as follows.
+\begin{itemize}
+\item Step 1. Compute $Taut(\mathcal{I}_H)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(\mathcal{I}_H)))$;
+\item Step 3. Construct a clausal theory $H$ satisfying the condition:
+$H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H)))$.
+\end{itemize}
+\end{defn}
+
+Inverse subsumption with minimal complements ensures the completeness for finding
+hypotheses wrt $\mathcal{I}_H$ and $F$.
+
+\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+
+$H \subsumes \tau(M(F \cup Taut(I_H))$.
+\end{lemma}
+
+\begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,
+$H$ is derived by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$.
+\end{thm}
+\begin{proof}
+Follows from \fullref{yamamoto2012inverseLemma2}.
+\end{proof}

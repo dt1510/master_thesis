@@ -1,0 +1,26 @@
+Aleph
+\item Maximum number of abducibles - the maximum number of ground atoms within any abductive explanation for an observation
+\item (set(depth,+V) V is a positive integer (default 10). Sets an upper bound on the proof depth to which theorem-proving proceeds.
+\item set(language,+V)
+V is an integer >= 1 or inf (default inf). Specifies the number of occurences of a predicate symbol in any clause.
+\item set(max\_abducibles,+V)
+V is a positive integer (default 2). Sets an upper bound on the maximum number of ground atoms within any abductive explanation for an observation. See section Abductive learning.
+
+Toplog
+%:-set(cross_validation_folds, 5).%dsstox.pl
+%:-set(evalfn, laplace).%dsstox.pl
+%:-set(evalfn, coverage).%dsstox.pl
+:-set(example_inflation, 10).
+:-set(maximum_hypothesis_interpretations, 10).%animals.pl
+:-set(maximum_proof_depth, 10).%fib.pl
+:-set(maximum_proof_unifications, 500).%fib.pl
+
+Imparo
+:-set_verbose(1).
+:-set_connected(1).
+
+Tal
+%Maximum depth of the proof
+%option(max_depth, 400).
+option(strategy, breadth).
+option(ic_check, true).
