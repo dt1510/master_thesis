@@ -456,6 +456,19 @@ Let $B$ be a Horn program, and let $h$ and $e$ be
 Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
+\paragraph{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
+Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+iff
+$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
+ $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+ 
+They compute the hypothesis $H$ in two steps:
+1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
+
+
 \subsection{Input and output of ILP system}
 An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
 \begin{itemize}
@@ -680,19 +693,23 @@ Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metac
 The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
 
 \section{ILP systems}
+An ILP system is a program that takes as an input background knowledge $B$ and examples $E$ and produces as an output an explanation called a hypothesis $H$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
+We give an overview of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
 
-\subsection{ILP system definition}
-An ILP system is a function
-$f:\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle \mapsto H$ where the pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H}\rangle$
-is an inductive logic programming problem and a hypothesis $H \in \mathcal{H}$ is a solution to an ILP problem.
+\subsection{Progol}
+We paraphrase the introduction to Progol from its official website\cite{muggleton1999progolWebsite}:
+\begin{quote}
+Progol combines Inverse Entailment with general-to-specific search through a refinement graph. Inverse Entailment is used with mode declarations to derive the most-specific clause within the mode language which entails a given example. This clause is used to guide a refinement-graph search. Progol's search has a provable guarantee of returning a solution having the maximum "compression" in the search-space. To do so it performs an admissible A*-like search, guided by compression, over clauses which subsume the most specific clause. Progol deals with noisy data by using the compression measure to trade-off the description of errors against the hypothesis description length. Progol allows arbitrary Prolog programs as background knowledge and arbitrary definite clauses as examples.
+\end{quote}
 
-We give an overview of ILP systems taking different approaches to an ILP problem. The definition of an ILP system we gave is not sufficient for making meaningful comparisons based on the usefulness of these systems in real applications nor from a theoretical viewpoint. The aim of familiarizing with these systems is to find the intuition on the key properties of ILP systems that should be formalized in order to benefit from the mathematical rigour required for reasoning about ILP systems.
+\subsection{Aleph\cite{aleph2007}}
+Aleph is an ILP system based on Progol developed in order to understand the concepts behind the inverse entailment\cite{muggleton1995inverse} influenced by the ideas from other ILP systems: CProgol, FOIL, FORS, Indlog, MIDOS, SRT, Tilde, and WARMR. 
 
-\subsection{TDHD framework\cite{muggleton2008toplog}}
-A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge by the systems solving the problem of induction with a TDHD framework. Consequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+\subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
+Toplog is an ILP system implementing TDHD framework:
+A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
-\subsubsection{Toplog\cite{muggleton2008toplog}}
-Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
 \item construct the top theory $\top$,
 \item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
@@ -703,7 +720,16 @@ Toplog is an ILP system implementing TDHD framework. The algorithm used to const
 \subsubsection{MC-Toplog\cite{muggleton2012mc}}
 MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
-\subsection{Induction on Failure framework\cite{kimber2012learning}}
+\subsection{Hail\cite{ray2003hybrid}\cite{ray2005phdHybrid}}
+A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's method of bottom generalization to \emph{kernel set generalization} with the methods of abductive logic programming.
+
+\subsection{Xhail}
+
+Xhail version 2 was used for the experiments presented in this thesis.
+
+\subsection{Imparo}
+Imparo is an ILP system based on a general IoF theoretical framework.
+\subsubsection{Induction on Failure framework\cite{kimber2012learning}}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
 \begin{defn}
 A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
@@ -714,7 +740,7 @@ A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a s
 \end{defn}
 
 \subsubsection{Imparo\cite{kimber2012learning}}
-Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
+Imparo uses the following algorithm to compute the hypothesis $H$:
 \begin{itemize}
 \item 1: select an example $E$ from the set of positive examples $E_{pos}$,
 \item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
@@ -724,7 +750,13 @@ Imparo is an ILP system based on a general IoF theoretical framework with the fo
 \item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
 
-\subsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
+\subsection{Tal}
+
+
+\subsubsection{Metagol}
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
+
+\subsubsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
 Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
 
 \begin{defn}
@@ -743,24 +775,12 @@ hypotheses $H$ for the MIL setting of the previous definition. Algorithm $A$ is 
 as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
 \end{defn}
 
-Capability of predicate invention.
-Based on T-directed framework. Unique T element. Unique bottom element.
-
-\subsubsection{Metagol}
-Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
-
-\subsection{Aleph}
-In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
-\begin{enumerate}
-\item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
-\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
-\item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
-\item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
-\end{enumerate}
-
 \subsection{Other systems}
-Some other ILP systems include Aleph, Golem, Progol,
-Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper, Tal, Tilde, Hail, CF-induction method.
+Other ILP systems not classified include Golem, MC-Toplog, Metagol,
+Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper,  Tilde, Hail, CF-induction.
+
+\subsection{Selecting ILP systems for classification}
+
 
 \section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
 This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.

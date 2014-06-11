@@ -339,6 +339,17 @@ The objective of this section is to present the search algorithms for each ILP s
 
 \subsection{Algorithms in ILP systems}
 
+\subsubsection{Progol}
+
+\subsubsection{Aleph}
+
+\subsubsection{Toplog}
+
+\subsubsection{Xhail}
+
+\subsubsection{Imparo}
+
+\subsubsection{Tal}
 
 
 \section{Bias}
@@ -578,19 +589,7 @@ Metalevel statements specify both the language bias and the search bias. ILP sys
 
 \section{Inverse Subsumption for Complete Explanatory Induction}\cite{yamamoto2012inverse}
 
-\subsection{IE algorithm\cite{yamamoto2012inverse}}
-Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
-$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
-$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
- $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
-iff
-$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
- $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
- 
-They compute the hypothesis $H$ in two steps:
-1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
-
-The use of the inverse entailment in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. We classify the ILP systems based on whether the use of their induction technique with the inverse subsumption instead of the inverse entailment preserves the completeness for finding all the correct hypotheses.
+The use of the inverse entailment\ref{inverse_entailment_algorithm} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. We classify the ILP systems based on whether the use of their induction technique with the inverse subsumption instead of the inverse entailment preserves the completeness for finding all the correct hypotheses.
 
 \subsection{Imparo is complete in inverse subsumption}
 We solve an open problem in \cite{yamamoto2012inverse} proving that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.

@@ -30,12 +30,15 @@
 \BOOKMARK [2][-]{subsection.2.9.3}{Input and output of ILP system}{section.2.9}
 \BOOKMARK [2][-]{subsection.2.9.4}{Language bias}{section.2.9}
 \BOOKMARK [1][-]{section.2.10}{ILP systems}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.10.1}{ILP system definition}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.2}{TDHD frameworkmuggleton2008toplog}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.3}{Induction on Failure frameworkkimber2012learning}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.4}{Meta-Interpretive Learning frameworkmuggleton2014meta}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.5}{Aleph}{section.2.10}
-\BOOKMARK [2][-]{subsection.2.10.6}{Other systems}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.1}{Progol}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.2}{Alephaleph2007}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.4}{Hailray2003hybridray2005phdHybrid}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.5}{Xhail}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.6}{Imparo}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.7}{Tal}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.8}{Other systems}{section.2.10}
+\BOOKMARK [2][-]{subsection.2.10.9}{Selecting ILP systems for classification}{section.2.10}
 \BOOKMARK [1][-]{section.2.11}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.11.1}{Preliminaries}{section.2.11}
 \BOOKMARK [2][-]{subsection.2.11.2}{Inverse subsumption with minimal complements}{section.2.11}
@@ -79,12 +82,12 @@
 \BOOKMARK [2][-]{subsection.4.1.4}{A unified definition of ILP task}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{Hypothesis selection}{chapter.4}
 \BOOKMARK [1][-]{section.4.3}{Hypothesis search}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Algorithms in ILP systems}{section.4.3}
 \BOOKMARK [1][-]{section.4.4}{Bias}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.4.1}{Language bias}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.2}{Search bias}{section.4.4}
 \BOOKMARK [1][-]{section.4.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.5.1}{IE algorithmyamamoto2012inverse}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.2}{Imparo is complete in inverse subsumption}{section.4.5}
+\BOOKMARK [2][-]{subsection.4.5.1}{Imparo is complete in inverse subsumption}{section.4.5}
 \BOOKMARK [1][-]{section.4.6}{Completeness by problem classes}{chapter.4}
 \BOOKMARK [1][-]{section.4.7}{Summary}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.7.1}{Completeness in generalizationyamamoto2012inverse}{section.4.7}
