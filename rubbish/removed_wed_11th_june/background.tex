@@ -1,0 +1,269 @@
+\section{Measure theory}
+The following definition of a measure is adapted from Mathworld, Wolfram Web Resource\cite{wolframMathworldMeasure}.
+
+\begin{defn}
+A \emph{measure} is a real-valued function $\mu$ on a powerset $\powerset{S}$ of a set $S$ satisfying the following properties:
+\begin{enumerate}
+\item $\mu(\emptyset)=0$ and $\mu(S)=1$,
+\item if $X \subseteq Y$ then $\mu(X) \le \mu(Y)$,
+\item if $X_n, n=0, 1, 2, ...$ are pairwise disjoint, then
+$\mu(\cup^\infty_{n=0} X_n)=\Sigma^\infty_{n=0}\mu(X_n)$
+\end{enumerate}
+\end{defn}
+
+\begin{exmp}
+Let $S$ be the set of possible throws of a die, $S=\{1, 2, 3, 4, 5, 6\}$. Define a measure $\mu:\powerset{S} \to \mathbb{R}$ over $\powerset{S}$ by $\mu(\{i\})=1/6, i \in S$. Then from the axioms of a measure it follows that $\mu(\emptyset)=0$, $\mu(S)=1$ and $\mu(\{1,2,5\})=1/2 \le \mu(\{1,2,3,4,5\})=5/6$. Such $\mu$ is called a probability measure and a triple $\langle \powerset{S}, S, \mu \rangle$ is called a probability space.
+\end{exmp}
+
+\begin{exmp}
+Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of intervals $J \subseteq \powerset{S}$ on the real line by $\mu|_J: (a, b) \mapsto b-a$, then $\mu|_J$ has a unique extension $\mu:S \to \mathbb{R}$ which is a measure function.
+\end{exmp}
+
+\subsection{SLD-resolution\cite{lin2009efficient}}
+
+\begin{defn}
+A \emph{substitution} $\theta$ is a finite set of the form
+$\{v_1\/t_1 , .., v_n \/t_n \}$,
+where each $v_i$ is a variable, each $t_i$ is a
+term distinct from $v_i$ and the variables $v_1 , .., v_n$ are distinct. Each element $v_i \/t_i$ is called a binding
+for $v_i$. $\theta$ is called a ground substitution if the $t_i$ are all ground terms.
+\end{defn}
+
+\begin{defn}
+An expression is either a term, a literal, or a conjunction or disjunction of literals.
+A simple expression is a term or a literal.
+\end{defn}
+
+\begin{defn}
+\emph{Unification.}
+Let $\Sigma$ be a finite set of expressions. A substitution $\theta$ is called a unifier for $\Sigma$ if $\Sigma \theta$ is a singleton (a
+set containing exactly one element). A unifier $\theta$ for $\Sigma$ is called a most general unifier (mgu) for $\Sigma$
+if, for each unifier $\theta$ of $\Sigma$ , there exists a substitution $\Gamma$ such that $\theta = \Sigma \Gamma$
+\end{defn}
+Details about unification algorithm can be found in \cite{lloyd1987foundations}.
+
+\begin{defn}
+Let $G$ be $\leftObjectImplies A_1 , ..., A_m , ..., A_k$ and
+$C$ be $A \leftObjectImplies B_1 , ..., B_q$.
+Then $G'$ is derived from $G$ and
+$C$ using mgu $\theta$ if the following conditions hold:
+i) $A_m$ is an atom, called the selected atom, in $G$.
+ii) $\theta$ is an mgu of $A_m$ and $A$.
+iii) $G'$ is the goal $\leftObjectImplies (A_1 , ..., A_{m−1} , B_1, ..., B_q , A_{m+1} , ..., A_k )\theta$, $G'$ is
+called a resolvent of $G$ and $C$.
+\end{defn}
+SLD-resolution stands for SL-resolution for Definite clauses. SL stands for Linear resolution with Selected function.
+
+\begin{defn}
+\emph{SLD-derivation}.
+Let $\Sigma$ be a set of clauses and $C$ a clause. A derivation of $C$ from $\Sigma$ is a finite sequence of clauses
+$R_1 , .., R_k = C$, such that each $R_i$ is either in $\Sigma$, or a resolvent of two clauses in $\{R_1 , ..., R_{i−1} \}$. If
+such a derivation exists, $\Sigma \vdash_r C$. Thus $C$ can be derived from $\Sigma$.
+\end{defn}
+
+SLD-refutation is a special case of SLD-derivation which derives empty clause $\emptyclause$.
+
+\section{Inductive inference}
+The main strategy used by the field of inductive logic programming to solve a learning problem is to use the knowledge and techniques of inductive inference.
+The author provides his own exposition of inductive inference not influenced by any specific sources apart from the general knowledge in the field inductive logic programming and other scientific disciplines.
+\subsection{Languages in the theory of inductive inference}
+\begin{defn}
+Fix languages $L$, $L'$ such that $L \subseteq L'$. We say that $L$ is \emph{a sublanguage} of $L'$, $L'$ is \emph{a superlanguage} of $L$.
+\end{defn}
+
+\begin{exmp}
+Let a language $L$ be given by its signature $\mathcal{L}$=$\mathcal{C} \union \mathcal{R} \union \mathcal{F}$ and a language $L'$ by its signature $\mathcal{L}'=\mathcal{C}' \union \mathcal{R}' \union \mathcal{F}'$.
+If $\mathcal{C} \subseteq \mathcal{C}'$, $\mathcal{R} \subseteq \mathcal{R}'$, $\mathcal{F} \subseteq \mathcal{F}'$, then $L \subseteq L'$. $L$ is a sublanguage of $L'$, $L'$ is a superlanguage of $L$.
+\end{exmp}
+
+\begin{defn}
+Given two languages $L_o$ called \emph{an observational language}, $L_h$ called a \emph{hypothesis language}, \emph{a language of enquiry} $L$ is a language that is a superlanguage of a hypothesis language and a superlanguage of an observational language, i.e. $L_h \union L_o \subseteq L$.
+\end{defn}
+
+\begin{remark}
+The language of enquiry is a model-theoretic language by our definition. We will apply model theory with the first-order logic since many ILP systems are based on Prolog - the logic programming language with its roots in first-order logic. Therefore the boolean connectives $\neg$, $\land$, $\lor$, $\implies$ are implicitly added to the language of enquiry $L$ and the formation rules of first-order logic are assumed. In generality one could devise a theory working in any formal language.
+\end{remark}
+
+\begin{exmp}
+\begin{itemize}
+\item The language of enquiry $L$ is given by $\mathcal{C}_o=\{milk, curry, rice\}$,$\mathcal{R}_o=\{TastesHot, IsWhite, ContainsSpice, ContainsSugar\}$, $\mathcal{F}_o=\{\}$.
+\item Let the observational language $L_o$ be $\mathcal{C}_o=\{milk, curry, rice\}$,\\ $\mathcal{R}_o=\{TastesHot, IsWhite\}$, $\mathcal{F}_o=\{\}$
+\item Let the hypothesis language $L_h$ be $\mathcal{C}_h=\{milk, curry, rice\}$,\\ $\mathcal{R}_h=\{TastesHot, IsWhite, ContainsSpice\}$, $\mathcal{F}_h=\{\}$.
+\item $L_h$-sentences are $\forall x. TastesHot(x) \implies ContainsSpice(x)$,\\ $\forall x. IsWhite(x) \lor TastesHot(x)$.
+\end{itemize}
+\end{exmp}
+
+\subsection{Inductive inference concepts}
+
+\begin{defn}
+\emph{An environment} $\mathcal{E}$ is a quadruple $\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ where $L$ is a language of enquiry, $L_o$ its observational language, $\mathtt{O}:L_o \to \{true, false\}$ \emph{an environment oracle}, $\mathcal{M}$ an $\mathcal{L}$-structure called \emph{the reality of $L$} satisfying:
+$\forall \phi \in L_o. \mathcal{M} \models \phi \iff \mathtt{O}(\phi)=true$.
+\end{defn}
+
+\begin{exmp}
+\begin{itemize}
+\item In an environment England, the reality $\mathcal{M}_E$ is a model of the sentences\\ $\Sigma_E=\{TastesHot(curry), \neg TastesHot(milk)\}$.
+\item In India, the reality $\mathcal{M}_I$ is a model of the sentences\\ $\Sigma_I=\{TastesHot(curry), TastesHot(milk)\}$.
+\item Both $\mathcal{M}_E$, $\mathcal{•}l{M}_I$ are models of $L$.
+\item $\mathcal{E}_E=\langle L, L_o, \mathtt{O}_E, \mathcal{M}_E \rangle$ and
+$\mathcal{E}_I=\langle L_, L_o, \mathtt{O}_I, \mathcal{E}_I \rangle$ are two environments distinguished by their reality, consequently by their environment oracle function as well.
+\end{itemize}
+\end{exmp}
+
+\begin{remark}
+In generality one may develop a theory in which an environment may have multiple or no realities and an environment oracle returns a probability of $\phi$ being true in a possible reality or randomly chooses a reality $\mathcal{M}$ between the realities, then acts as an environment oracle with a single reality $\mathcal{M}$. This may be useful when the language of enquiry has a limited expressivity as demonstrated later.
+\end{remark}
+
+\begin{defn}
+The set of \emph{observations} $O$ with respect to an observational language $L_o$ is any set of $L_o$-formulas.
+\end{defn}
+
+\begin{exmp}
+\begin{itemize}
+\item The set $O_E=\{TastesHot(curry), \neg TastesHot(milk), IsWhite(milk)\}$ is the set of observations.
+\item The set $O_I=\{TastesHot(milk)\}$ is the set of observations.
+\item The set $O_{world}=\{TastesHot(curry), \neg TastesHot(milk), TastesHot(milk), \\
+IsWhite(milk)\}$ is the set of observations.
+\end{itemize}
+\end{exmp}
+
+\begin{remark}
+\begin{itemize}
+\item The language of enquiry $L$ is not powerful enough to express $O_{world}=\{\neg TastesHot(milk) \land InEngland(milk), TastesHot(milk) \land InIndia(milk)\}$
+ as it does not have predicate symbols $InEngland$ and $InIndia$ in its signature $\mathcal{L}$.
+\item The inconsistency in the observations implies that there is no $\mathcal{L}$-structure $\mathcal{M}$ of $O_{world}$.
+\item One of the central problems in ILP is the predicate invention - adding symbols $InEngland$ and $InIndia$ to the signature $\mathcal{L}$ of the language of enquiry.
+\end{itemize}
+\end{remark}
+
+\begin{defn}
+The \emph{background knowledge} or a current induced theory is a set $B$ of formulas in the language of enquiry $L$.
+\end{defn}
+
+\begin{remark}
+In the definition \ref{scientific_method} of a scientific method, a special case of the background knowledge is considered where $B$ can consist of only the previously made hypotheses, thus $B \subseteq L_h$.
+\end{remark}
+
+\begin{note}
+Given a set of observations $O$, an $L$-formula $Q$ \emph{divides} the models of $O$ into models of $O \wedge \{Q\}$ denoted $M(O \union \{Q\})$ and the models of $\{\neg Q\} \wedge O$ denoted $M(O \union \{Q\})$. That is $\forall \mathcal{M} \in M(O \union \{Q\}). \mathcal{M} \models O \union \{Q\}$,
+$\forall \mathcal{M} \in M(O \union \{\neg Q\}). \mathcal{M} \models O \union \{\neg Q\}$.
+\end{note}
+
+\begin{defn}
+\emph{A hypotheses space} or a search space is the set $\mathcal{H}$ of all consistent subsets of a hypothesis language $L_h$. A formula $H \in \mathcal{H}$ is called \emph{a hypothesis}.
+\end{defn}
+
+\subsection{Ultimate problem of scientific discovery}
+Statement: Given an environment oracle $\mathtt{O}$ of an environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$ find the reality $\mathcal{M}$.
+
+We do not yet consider the situation in which we may desire to learn approximate models of the reality. In general, depending on an environment, the reality may not exist, however our definition considers only the environments with exactly one reality. Some realities, e.g. (regular expression) are learnable, others may be not. The ultimate problem consists of numerous incremental problems.
+
+\subsection{Incremental problem of scientific discovery}
+We would like to find the reality most efficiently, where the efficiency may be measured by some criteria - e.g. time and resources. The following simplified definition does not take into account that some questions may be found more efficiently than others.
+
+Set a probability measure $\mu:M(\emptyset) \to [0,1] \subset \mathbb{R}$ over models of a language of enquiry $L$. Given a background knowledge $B$, find a question $Q$ that minimizes the following equation: $|M(B \union {Q})-M(B \union {\neg Q})|$, i.e. a question that divides the models of $B$ most evenly.
+
+\subsubsection{Postulates of inductive inference}
+\begin{defn}
+The first postulate of inductive inference (Church-Turing thesis). The reality
+$\mathcal{M}$ of the environment
+$\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$
+is Turing-machine computable.
+\end{defn}
+
+\begin{defn}
+The second postulate of inductive inference (Determinism). The oracle $\mathtt{O}$ of the environment $\mathcal{E}=\langle L, L_o, \mathtt{O}, \mathcal{M} \rangle$
+is deterministic, i.e. $\forall x \in L_o. \#\mathtt{O}(x)=1$.
+\end{defn}
+
+\begin{defn}
+The third postulate of inductive inference (Occam's Razor). The reality with its full axiomatization of less Kolmogorov complexity is more probable than a reality with its full axiomatization of greater Kolmogorov complexity.
+\end{defn}
+
+\subsection{Problem of induction - model theoretic setting}
+A problem of induction is a functional problem whose input is a pentuple $P=\langle L, L_o, L_h, O, B\rangle$ where $L$ is a language of enquiry with its sublanguages $L_o$, $L_h$, observations $O$ and the background knowledge $B$. A solution to a problem of induction (the output) is a theory $A$ meeting the entailment criterion
+$O \subseteq cl(A \union B )$ where the consequence operator $cl$ is specified  in a more specific version of a problem.
+$A$ is called \emph{an induced theory} from the background knowledge $B$ and the observations $O$, or an axiomatization of a theory $O$ given $B$.
+
+\subsection{Scientific method}
+\label{scientific_method}
+A scientific method is an algorithm used to solve the ultimate problem of the scientific discovery:
+
+0. Start with the empty theory $B_i=\emptyset$, set $i=0$.
+
+1. If $B_i$ has the only model, then terminate, $B_i$ is a complete axiomatization of the reality of an environment.
+
+2. Solve an incremental problem of scientific discovery by finding a question $Q$ given the current induced theory $B_i$.
+
+3. Make an observation - ask an environment oracle $\mathtt{O}$ a question $Q$.
+
+4. Induce a more precise theory $B_{i+1}:=B \union \{Q\}$ if the oracle says that $Q$ is true, $B_{i+1}:=B \union \{\neg Q\}$ if the oracle says that $\neg Q$ is true.
+
+5. Increment $i$ and start from step 1 again.
+
+\subsection{ILP problem}
+The following definitions are inspired (but not adapted) from Inductive Logic Programming as Abductive Search paper by Corapi et al.\cite{corapi2010inductive}.
+
+\begin{defn}\cite{corapi2010inductive}
+An \emph{inductive logic programming problem} is a pentuple $\langle O, B, \mathcal{O}, \mathcal{B}, \mathcal{H} \rangle$ where $O$ is a set of sentences called observations, $\mathcal{O} \subseteq L_o$ a subset of an implicit language $L_o$ called an observational language, $B$ is a set of sentences called the background knowledge, $\mathcal{B} \subseteq L$ is a subset of an implicit language $L$ called the language of enquiry, and $\mathcal{H}$ called a bias is a subset of an implicit language $L_h$ called the hypotheses language such that $L_h \subseteq L$, $L_o \subseteq L$, $O \in \mathcal{O}$, $B \in \mathcal{B}$.
+
+A \emph{solution to an ILP problem} is a set of sentences $H \in \mathcal{H}$ called a hypothesis satisflying the conditions
+i) consistency $false \not \in cl(O \union B \union H)$,
+ii) sufficiency $O \subseteq cl(B \union H)$.
+\end{defn}
+
+In ILP often the language of enquiry $L$ is the logic programming language (e.g. Prolog). A constructed $L$-formula in Prolog is a definite clause. The background knowledge and induced theory are finite.
+
+In the context of ILP one divides the observations into positive examples $E^+$ where the reality is a model of instances of $E^+$, and negative examples $E^-$ - where the reality is a model of negated instances of $E^-$. If the logic programming language is non-monotone, then the consequence operator $cl$ does not satisfly the monotone condition and the division of the examples is conceptually important. The clause that is not provable from the axioms is false as opposed to the monotonic logics whose theories can be incomplete.
+
+\subsection{ILP concepts}
+
+\subsubsection{Duce's rules for inductive inference\cite{muggleton1995inverse}}
+Duce had six inductive inference rules. Four of these were concerned with definite clause propositional logic. In the following description of the inference rules
+lower-case letters represent propositional variables and upper-case letters represent conjunctions of propositional variables.
+
+Absorption: $A \wedge B \objectImplies p, A \objectImplies q \models B \wedge q \objectImplies p, A \objectImplies q$,
+
+Identification: $A \wedge B \objectImplies p, q \wedge A \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p$,
+
+Intra-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models B \objectImplies q, A \wedge q \objectImplies p, C \objectImplies q$
+
+Inter-construction: $A \wedge B \objectImplies p, A \wedge C \objectImplies p
+\models r \wedge B \objectImplies p, A \objectImplies r, r \wedge C \objectImplies q$
+
+\subsubsection{Metagol}
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space. A notable feature of Metagol is a coordinated learning of multiple concepts with \emph{episodes}:
+\begin{quote}\cite{muggleton2014meta}
+``Learning definitions from a mixture of examples of two interdependent predicates such as parent and grandparent requires
+more examples and search than learning them sequentially in
+separate episodes. In the latter case the grandparent episode
+is learned once it can use the definition from the parent
+episode. This phenomenon can be explained by considering
+that time taken for searching the hypothesis space for the joint
+definition is a function of the product of the hypothesis spaces
+of the individual predicates. By contrast the total time taken
+for sequential learning of episodes is the sum of the times
+taken for the individual episodes so long as each predicate is
+learned with low error.''
+\end{quote}
+
+\subsubsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
+Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
+
+\begin{defn}
+\emph{(Meta-Interpretive Learning setting)} A Meta-Interpretive Learning (MIL)
+problem consists of $Input = \langle B, E \rangle$ and $Output =H$ where the background knowledge
+$B = B_M \union B_A$ . $B_M$ is a definite logic program representing a meta-interpreter and $B_A$ and
+$H$ are ground definite Higher-Order Datalog programs consisting of positive unit clauses.
+The predicate symbol constants in $B_A$ and $H$ are represented by Skolem constants. The examples are $E = E^+ , E^−$ where $E^+$ is a ground logic program consisting of positive unit
+clauses and $E^−$ is a ground logic program consisting of negative unit clauses. The $Input$ and
+$Output$ are such that $B, H \models E^+$ and for all $e^-$ in $E^-$, $B, H \not\models e^-$.
+\end{defn}
+
+\begin{defn}
+\emph{(Meta-interpretive learner)} Let $\mathcal{H}_{B,E}$ represent the complete set of abductive
+hypotheses $H$ for the MIL setting of the previous definition. Algorithm $A$ is said to be a Meta-interpretive learner iff for all $B$, $E$ such that $H$ is the output of Algorithm $A$ given $B$ and $E$
+as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
+\end{defn}
