@@ -389,8 +389,22 @@ ILP systems use bias to refine their search space $\mathcal{H}$, to induce a pre
 The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and metaconstraints.
 
 \subsubsection{Mode declarations}
-ILP systems are classified here based on their adaptations of the mode declarations.
-The following mode declarations are excerpts and modifications of the examples provided with an implementation of a specific ILP system.
+The use of the mode declarations in an ILP system and their defining role is summarised.
+
+We examine the compatibility of mode declarations with the mode declarations of Progol since mode declarations were first defined for Progol in seminal work by Muggleton\cite{muggleton1995inverse}.
+We say that a system of mode declarations is Progol compatible iff any hypothesis bias definable with Progol mode declarations can be defined within that system.
+
+\captionof{table}{Classification by mode declaration bias} \label{tab:classification_by_mode_declaration_bias} 
+ \begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    Mode declarations/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    Progol compatible & yes & yes & no &  yes & no & no \\ \hline
+    Recall modeb support & yes & yes & yes & yes & no & yes \\ \hline
+    Recall modeh support & yes & yes & no & yes & no & no \\ \hline
+    Recall lower bound support & no & no & no & yes & no & no \\ \hline
+  \end{tabular}
+
+The author further supports the statements in a summary by examining a system of mode declarations for each ILP system.
 
 \paragraph{Progol}
 Progol supports the mode declarations as defined in \fullref{background_mode_declarations}.
@@ -484,19 +498,6 @@ modeb(female(+person), [name(fb)]).
 modeb(2,female(+person), [name(fb)]).
 \end{lstlisting}
 \end{exmp}
-
-\paragraph{Summary}
-The use of the mode declarations in an ILP system and their defining role is summarised. We say that a system of mode declarations is Prolog compatible iff any hypothesis bias definable with Prolog mode declarations can be defined within that system.
-
-\captionof{table}{Classification by mode declaration bias} \label{tab:classification_by_mode_declaration_bias} 
- \begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    Mode declarations/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Prolog compatible & yes & yes & no &  yes & no & no \\ \hline
-    Recall modeb support & yes & yes & yes & yes & no & yes \\ \hline
-    Recall modeh support & yes & yes & no & yes & no & no \\ \hline
-    Recall lower bound support & no & no & no & yes & no & no \\ \hline
-  \end{tabular}
 
 \subsubsection{Determinations}
 By reading the manuals of the corresponding ILP systems, one may find that
