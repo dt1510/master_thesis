@@ -82,7 +82,9 @@
 \BOOKMARK [2][-]{subsection.4.1.4}{A unified definition of ILP task}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{Hypothesis selection}{chapter.4}
 \BOOKMARK [1][-]{section.4.3}{Hypothesis search}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Algorithms in ILP systems}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.1}{Search direction}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Algorithms in ILP systems}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.3}{Summary}{section.4.3}
 \BOOKMARK [1][-]{section.4.4}{Bias}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.4.1}{Language bias}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.2}{Search bias}{section.4.4}

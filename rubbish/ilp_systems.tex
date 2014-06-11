@@ -9,13 +9,6 @@ Capability of predicate invention.
 Based on T-directed framework. Unique T element. Unique bottom element.
 
 \subsection{Aleph}
-In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
-\begin{enumerate}
-\item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
-\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
-\item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
-\item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
-\end{enumerate}
 
 \subsection{Other systems}
 Some other ILP systems include Aleph, Golem, Progol,
