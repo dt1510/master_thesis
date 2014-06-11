@@ -5,11 +5,18 @@ G.~Aldo Antonelli.
 \newblock Non-monotonic logic.
 \newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
   Philosophy}. Winter 2012 edition, 2012.
+\newblock accessed June 2014.
 
 \bibitem[Cla78]{clark1978negation}
 Keith~L Clark.
 \newblock Negation as failure.
 \newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
+
+\bibitem[Cor11]{corapi2011tal}
+Domenico Corapi.
+\newblock Tal manual, example and executable files.
+\newblock Upon the author's request the access to the material restricted to
+  the members of DoC, Imperial College London, 2011.
 
 \bibitem[CRL10]{corapi2010inductive}
 Domenico Corapi, Alessandra Russo, and Emil Lupu.
@@ -19,7 +26,7 @@ Domenico Corapi, Alessandra Russo, and Emil Lupu.
 \bibitem[CW14]{wolframMathworldMeasure}
 Allan Cortzen and Eric~W Weisstein.
 \newblock Measure, 2014.
-\newblock MathWorld--A Wolfram Web Resource.
+\newblock MathWorld--A Wolfram Web Resource, accessed June 2014.
 
 \bibitem[DR97]{de1997logical}
 Luc De~Raedt.
@@ -49,12 +56,6 @@ Katsumi Inoue.
 \newblock Induction as consequence finding.
 \newblock {\em Machine Learning}, 55(2):109--135, 2004.
 
-\bibitem[KBR09]{kimber2009induction}
-Tim Kimber, Krysia Broda, and Alessandra Russo.
-\newblock Induction on failure: learning connected horn theories.
-\newblock In {\em Logic Programming and Nonmonotonic Reasoning}, pages
-  169--181. Springer, 2009.
-
 \bibitem[Keu13]{keuth2013karl}
 Herbert Keuth.
 \newblock {\em Karl Popper: Logik der Forschung}, volume~12.
@@ -65,6 +66,11 @@ Timothy Kimber.
 \newblock {\em Learning definite and normal logic programs by induction on
   failure}.
 \newblock PhD thesis, Imperial College London, 2012.
+
+\bibitem[Kim13]{kimber2013imparo}
+Timothy Kimber.
+\newblock Imparo manual, example and source code files.
+\newblock Available upon the request to the author., 2013.
 
 \bibitem[Lin09]{lin2009efficient}
 Dianhuan Lin.
@@ -135,6 +141,12 @@ Charles~Sanders Peirce, Charles Hartshorne, and Paul Weiss.
 \newblock {\em Collected papers of charles sanders peirce}, volume~2.
 \newblock Harvard University Press, 1935.
 
+\bibitem[Ray07]{ray2007xhail}
+Oliver Ray.
+\newblock Xhail manual, example and executable files.
+\newblock Upon the author's request the access to the material restricted to
+  the members of DoC, Imperial College London, 2007.
+
 \bibitem[RFH88]{royden1988real}
 Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
 \newblock {\em Real analysis}, volume~4.
@@ -154,12 +166,14 @@ Lewis~Amherst Selby-Bigge and Hume David.
 Marek Sergot.
 \newblock Knowledge representation, lecture notes, imperial college london,
   2005.
+\newblock accessed June 2014.
 
 \bibitem[Smi14]{sep-aristotle-logic}
 Robin Smith.
 \newblock Aristotle's logic.
 \newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
   Philosophy}. Spring 2014 edition, 2014.
+\newblock accessed June 2014.
 
 \bibitem[Sri07]{aleph2007}
 Ashwin Srinivasan.

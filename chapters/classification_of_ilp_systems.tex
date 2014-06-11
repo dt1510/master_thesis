@@ -458,14 +458,14 @@ Progol supports the use of the determinations, cf. \ref{progol_multiclausal_lear
 Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
 
 \subsubsection{Metaconstraints}
-Metaconstraints supplement mode declarations and determinations in specifying the the language bias. Several metaconstraints are selected and their supported is evaluated accross the ILP systems classified:
+Metaconstraints supplement mode declarations and determinations in specifying the language bias. Several metaconstraints are selected and their support is evaluated accross the ILP systems classified:
 
 \begin{itemize}
-\item Maximum number of literals in a clause of a hypothesis,
-\item Maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need this metaconstraint,
-\item Maximum clause length in a hypothesis - the number of the literals in a hypothesis,
-\item Maximum variable depth\ref{definition_variable_depth} of a hypothesis,
-\item Maximum number of abducibles - the maximum number of ground atoms within any abductive explanation for an observation
+\item the maximum number of literals in a clause of a hypothesis,
+\item the maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need and cannot support this metaconstraint,
+\item the maximum variable depth\ref{definition_variable_depth} of a hypothesis,
+\item the (minimum and maximum) number of singletons in a hypothesis:
+a singleton is a variable that appears only once in a hypothesis\cite{santos2008toplogWebsite}
 \end{itemize}
 
 \begin{defn}\label{definition_variable_depth}\cite{nienhuys1997foundations}
@@ -478,7 +478,7 @@ Otherwise, the variable depth of $x$ is $1$ plus the variable depth of the varia
 $A \leftObjectImplies B_1,... ,B_{i-1}$.
 The \emph{variable-depth of a clause} in an ordered definite program
 is the largest variable depth of its variables. Note that such a
-clause is constrained iff it has variable-depth $0$.
+clause is constrained iff it has variable depth $0$.
 \end{defn}
 
 \begin{exmp}
@@ -488,6 +488,7 @@ $0,0,1,2$ respectively.
 \end{exmp}
 
 \paragraph{Progol}
+Progol can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a metaconstraint specifying the number of clauses in a hypothesis.
 Prolog manual does not provide information about its metalevel constraints. The metalevel constraints used in the provided files\cite{muggleton1999progolWebsite} were of the following format:
 \begin{lstlisting}
 ./pole.pl::- op(10, xfx, ...)?
@@ -501,62 +502,42 @@ Prolog manual does not provide information about its metalevel constraints. The 
 Their change did not affect the properties examined, hence the author assumes Progol does not support any of the metaconstraints.
 
 \paragraph{Aleph}
-The author consulted the section 18 of the Aleph manual\cite{aleph2007}.
+Aleph supports the first 3 chosen metaconstraints as can be consulted in the section 18 of the Aleph manual\cite{aleph2007}.
 \begin{quote}
 \begin{itemize}
-\item set(clauselength,+V)
-V is a positive integer (default 4). Sets upper bound on number of literals in an acceptable clause.
-\item \emph{set(clauses,+V)}
-V is a positive integer. Sets upper bound on the number of clauses in a theory when performing theory-level search (see section Theory-level search).
-\item set(depth,+V)
-V is a positive integer (default 10). Sets an upper bound on the proof depth to which theorem-proving proceeds.
-\item Variable depth.
-set(i,+V) V is a positive integer (default 2). Set upper bound on layers of new variables.
-\item set(language,+V)
-V is an integer >= 1 or inf (default inf). Specifies the number of occurences of a predicate symbol in any clause.
-\item set(max\_abducibles,+V)
-V is a positive integer (default 2). Sets an upper bound on the maximum number of ground atoms within any abductive explanation for an observation. See section Abductive learning.
+\item (Maximum number of literals in a clause) \tc{set(clauselength,+V)}:
+$V$ is a positive integer (default $4$). Sets upper bound on number of literals in an acceptable clause.
+\item (Maximum number of clauses in a hypothesis) \tc{set(clauses,+V)}:
+$V$ is a positive integer. Sets upper bound on the number of clauses in a theory  when performing theory-level search.
+\item (Variable depth) \tc{set(i,+V)}: $V$ is a positive integer (default $2$). Set upper bound on layers of new variables.
 \end{itemize}
 \end{quote}
 
+The manual does not provide the information on specifying the number of singletons in a clause, hence it is assumed that this feature is not supported.
+
 \paragraph{Toplog}
+Toplog can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a metaconstraint specifying the number of clauses in a hypothesis. It supports the specification of the maximum number $N$ of literals in a hypothesis with a metalevel statement\\
+\tc{:-set(maximum\_literals\_in\_hypothesis,N)} found for example in carcinogenesis.pl file\cite{santos2008toplogWebsite}. The manual does not provide any information on the variable depth, therefore it is assumed that this feature is not supported in Toplog.
+By the manual Toplog supports the specification of a maximum and minimum number of singletons in a hypothesis as can be also found in carcinogenesis.pl file:
 \begin{lstlisting}
-%:-set(cross_validation_folds, 5).%dsstox.pl
-%:-set(evalfn, laplace).%dsstox.pl
-%:-set(evalfn, coverage).%dsstox.pl
 :-set(maximum_singletons_in_hypothesis,3)%carcinogenesis.pl
 :-set(maximum_literals_in_hypothesis,4).%carcinogenesis.pl
-:-set(example_inflation, 10).
-:-set(maximum_hypothesis_interpretations, 10).%animals.pl
-:-set(maximum_proof_depth, 10).%fib.pl
-:-set(maximum_proof_unifications, 500).%fib.pl
 \end{lstlisting}
 
 \paragraph{Xhail}
 In \ref{xhail_mode_declarations} we found out that Xhail has the most advanced system of mode declarations. On the other hand it does not support any of the chosen metaconstraints\cite{ray2007xhail}. The author consulted the Xhail's help and example files provided with Xhail as there was no access to the source code.
 
 \paragraph{Imparo}
+In a grammar learning file available with Imparo\cite{kimber2013imparo} one can find the setting:
 \begin{lstlisting}
-:-set_max_clause_length(5).
+:-set_max_clause_length(6).
 :-set_max_clauses(1).
-:-set_verbose(1).
-:-set_connected(1).
-:-set_max_var_depth(3).
+:-set_max_var_depth(4).
 \end{lstlisting}
+Therefore Imparo supports the specification of the clausal length, the maximum number of clauses in a hypothesis and the maximum variable depth of a clause in a hypothesis. Imparo's manual and source code do not provide any information on bounding the number of singleton variables in a clause, hence it is assumed this feature is not supported.
 
 \paragraph{Tal}
-\begin{lstlisting}
-%Maximum number of body literals
-option(max_body_literals, 5).
-
-%Maximum number of rules
-option(max_num_rules, 5).
-
-%Maximum depth of the proof
-%option(max_depth, 400).
-option(strategy, breadth).
-option(ic_check, true).
-\end{lstlisting}
+Tal enables the specification of the clausal length by specifying the number of the literals in the body of a clause \tc{option(max\_body\_literals, N)}\cite{corapi2010inductive}. Tal specifies the number of clauses in a hypothesis with \tc{option(max\_num\_rules, N)}\cite{corapi2010inductive}, where a rule is understood as a clause. Tal's manual and source files do not mention variable depth and bounding the number of singleton variables in a clause, hence it is assumed that these features are not supported.
 
 \paragraph{Summary}
 The support for the metaconstraints of interest is summarised.
@@ -565,12 +546,13 @@ The support for the metaconstraints of interest is summarised.
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Max. no. of literals in a clause & & & & & & \\ \hline
-    Max. no. of clauses in $H$ & & & & & & \\ \hline
-    Max. clause length in $H$ & & & & & & \\ \hline
-    Max. variable depth in $H$ & & & & & & \\ \hline
-    Max. no of abducibles & & & & & &  \\ \hline
+    Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
+    Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
+    Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
+    Number of singletons in $H$ & no & no & yes & no & no & no\\ \hline
   \end{tabular}
+  
+If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
 
 \subsubsection{Top theory}
 ILP systems Toplog and MC-Toplog use Top theory to constraint their hypothesis space.
