@@ -205,8 +205,11 @@ Then $L(M)$, $L(D)$, $L(C)$ are hypothesis biases.
 Since the hypothesis bias is a set of the possible hypotheses, we have the obvious proposition.
 \begin{proposition}
 Let $\mathcal{H}_1$, $\mathcal{H}_2$ be hypothesis biases on a language $L$, then the following are hypothesis biases:
-1) $\powerset{L} \setminus \mathcal{H}_1$, 2) $\mathcal{H}_1 \cap \mathcal{H}_2$,
-3) $\mathcal{H}_1 \cup \mathcal{H}_2$.
+\begin{tabular}{ c c c }
+1) $\powerset{L} \setminus \mathcal{H}_1$,&
+2) $\mathcal{H}_1 \cap \mathcal{H}_2$,&
+3) $\mathcal{H}_1 \cup \mathcal{H}_2$.\\
+\end{tabular}
 \end{proposition}
 
 \begin{proof}
@@ -436,19 +439,12 @@ Toplog's modeb declarations are compatible with Progol up to specification of th
 \begin{exmp}\cite{santos2008toplogWebsite}
 \begin{lstlisting}
 :-modeh(append(+list,+list,-list)).
-:-modet(2, l2ht(+list/[H|T], -any/H, -list/T)).
 :-modeb(append(+list,+list,-list)).
 :-modeb(5,append(+list,+list,-list)).
 :-modeh(class(+animal,#class)).
 :-modeh(*,uncle(+person, -person)).%invalid
 \end{lstlisting}
 \end{exmp}
-
-\subparagraph{Modet declarations}
-In addition to modeb, modeh mode declarations, Toplog uses modet declarations. Every modet declaration can be transformed to a modeb declaration. For example\\
-\tc{modet(l2ht(+list/[H|T], -any/H, -list/T))} has its correspondent modeb declaration\\
-\tc{modeb(+list=[-any|-list])}.
-For references and further details, an interested reader should consult the Toplog's source code\cite{santos2008toplogWebsite}.
 
 \paragraph{Xhail}\label{xhail_mode_declarations}
 Xhail has extended mode declarations to include metaconstraint statements in order to refine its search space.

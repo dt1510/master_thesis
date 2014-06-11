@@ -16,26 +16,28 @@
 \BOOKMARK [1][-]{section.2.6}{Machine learning}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.6.1}{Types of problem}{section.2.6}
 \BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
-\BOOKMARK [1][-]{section.3.1}{Inductive logic programming}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.1.1}{Input and output of ILP system}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.2}{Language bias}{section.3.1}
-\BOOKMARK [1][-]{section.3.2}{ILP systems}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.2.1}{Progol}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.2}{Alephaleph2007}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.4}{Hailray2003hybridray2005phdHybrid}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.5}{Xhailray2009nonmonotonic}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.6}{Imparo}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.7}{Talcorapi2010inductivecorapi2011tal}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.8}{Other systems}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.9}{Selecting ILP systems for classification}{section.3.2}
-\BOOKMARK [1][-]{section.3.3}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Preliminaries}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Inverse subsumption with minimal complements}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{Extension to first-order theories}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.4}{Relaxation of minimal complements to a maximal bridge theory}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.5}{Inverse subsumption with minimal complements and connected theory}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.6}{Negative examples}{section.3.3}
+\BOOKMARK [1][-]{section.3.1}{Inductive logic programming concepts}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.1.1}{Inverse Entailment}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Input and output of ILP system}{section.3.1}
+\BOOKMARK [1][-]{section.3.2}{Biasnienhuys1997foundations}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Language bias}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{ILP systems}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Progol}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Alephaleph2007}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Hailray2003hybridray2005phdHybrid}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Xhailray2009nonmonotonic}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.6}{Imparo}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.7}{Talcorapi2010inductivecorapi2011tal}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.8}{Other systems}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.9}{Selecting ILP systems for classification}{section.3.3}
+\BOOKMARK [1][-]{section.3.4}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.4.1}{Preliminaries}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.2}{Inverse subsumption with minimal complements}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.3}{Extension to first-order theories}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.4}{Relaxation of minimal complements to a maximal bridge theory}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.5}{Inverse subsumption with minimal complements and connected theory}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.6}{Negative examples}{section.3.4}
 \BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.4.1}{Properties of logical theory}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Properties of predicate and function symbol}{section.4.1}

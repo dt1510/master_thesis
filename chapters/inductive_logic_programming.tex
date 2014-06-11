@@ -1,16 +1,16 @@
 \chapter{Inductive logic programming}
 The objective of this chapter is to present concepts from Inductive logic programming (ILP) and their extensions that are going to be used for the classification of ILP systems.
 
-\section{Inductive logic programming}
+\section{Inductive logic programming concepts}
 
-\subsubsection{Inverse Entailment}
+\subsection{Inverse Entailment}
 Inverse Entailment is a correspondence between an induction and a deduction:
 \begin{thm}\cite{kimber2012learning}
 Let $B$ be a Horn program, and let $h$ and $e$ be
 Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
-\paragraph{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
+\subsubsection{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
 Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
 $B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
 $B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
@@ -21,7 +21,6 @@ $B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
  
 They compute the hypothesis $H$ in two steps:
 1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
-
 
 \subsection{Input and output of ILP system}
 An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
@@ -41,8 +40,20 @@ Non-effective metalevel statements do not affect the result of the computation o
 
 The primary output of an ILP system is a solution (a hypothesis or their set) to a refined learning problem.
 
+\section{Bias\cite{nienhuys1997foundations}}
+Considering all theories $H \subseteq L$ as possible hypotheses is computationally infeasible. When one knows the properties that a hypothesis may take, one may introduce a bias $\mathcal{H} \subseteq \powerset{L}$. For example, $\mathcal{H}$ being a set of all finite Horn theories.
+
+Two main types of a bias are:
+\begin{itemize}
+\item language bias,
+\item search bias.
+\end{itemize}
+
+In the context of a language bias we refer to the bias as a hypothesis space $\mathcal{H}$, in the context of a search bias we refer to it as a search space $\mathcal{H}$.
+These different terminologies refer to the same bias $\mathcal{H}$, however emphasise a different local focus on a bias in the text.
+
 \subsection{Language bias}\label{subsec:background_language_bias}
-The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
+The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the language biases in ILP are:
 \begin{itemize}
 \item mode declarations,
 \item determinations,
@@ -51,6 +62,10 @@ The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a lang
 \end{itemize}
 
 \subsubsection{Mode declarations}\label{background_mode_declarations}
+Mode declarations specify what predicates are allowed in a head and a body of a hypothesis.
+Suppose you would like your ILP system explain observations
+$woman(alice), woman(susan)$, then you know that a hypothesis you are looking for has to explain or define the concept $woman$. Therefore you declare a statement to an ILP system: ``In your search consider only hypotheses that have the predicate $woman$ in their head." A statement specifying what predicates should be in a head is called a modeh declaration. A stament specifying the allowed predicates in a body is a modeb declaration.
+
 \paragraph{Mode declaration in Progol}
 Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode declarations.
 \begin{defn}\cite{muggleton1995inverse}
@@ -72,13 +87,32 @@ Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations.
 $C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
 of a \tc{modeh} declaration in $M$ with every place-marker \tc{+type} and \tc{-type} replaced by
-variables and every place-marker \tc{\#type} replaced by a ground term and 2) every
+variables and every placemarker \tc{\#type} replaced by a ground term and 2) every
 atom $b_i$ in the body of $C$ is the atom of a \tc{modeb} declaration in $M$ with every
 place-marker \tc{+type} and \tc{-type} replaced by variables and every place-marker \tc{\#type}
 replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
 of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \end{defn}
 
+\begin{exmp}
+The mode declarations $M=\{$
+\begin{lstlisting}
+modeh(1,woman(+person)),
+modeb(*,female(+person)),
+modeb(*,male(+person))
+\end{lstlisting}
+$\}$
+specify the possible hypotheses
+$H_1=woman(X)$,
+$H_2=woman(X) \leftObjectImplies female(X)$,
+$H_3=woman(X) \leftObjectImplies male(X)$,
+$H_4=woman(X) \leftObjectImplies female(X), male(X)$.
+Thefore the hypothesis bias created by the mode declarations 
+is $\mathcal{H}=L(M)=\{H_1, H_2, H_3, H_4\}$, but $H_5 \not\in L(M)$ for
+$H_5=woman(X) \leftObjectImplies cook(X)$.
+\end{exmp}
+
+The mode declarations can have a richer syntactic structure where \tc{?} in the last modeb declaration stands for an arithmetical operator:
 \begin{exmp}\cite{muggleton1995inverse}
 \begin{lstlisting}
 modeh(1,plus(+int,+int,-int))
@@ -99,8 +133,10 @@ where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
 \end{defn}
 
 \begin{defn}\label{definition_determination_language}
-Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff
-1) $D \not=\emptyset$, 2) $tn_1=h$, 3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
+Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff\\
+1) $D \not=\emptyset$,\\
+2) $tn_1=h$,\\
+3) $\forall b_i (1 \ge i \ge m) \exists j (1 \ge j \ge n) bn_j=b_i$.
 \end{defn}
 
 \begin{exmp}
@@ -191,10 +227,10 @@ Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Th
 $\mathcal{P}_M$,
 $\mathcal{P}_D$,
 $\mathcal{P}_{M,D}$
-such that for any clause $H \in L$:
-1) $H \in L(M) \iff H \in \mathcal{P}_M$,
-2) $H \in L(D) \iff H \in \mathcal{P}_D$,
-3) $H \in L(M) \cap L(D) \iff H \in \mathcal{P}_{M,D}$.
+such that for any clause $H \in L$:\\
+1) $H \in L(M) \iff H \in \mathcal{P}_M$,\\
+2) $H \in L(D) \iff H \in \mathcal{P}_D$,\\
+3) $H \in L(M) \cap L(D) \iff H \in \mathcal{P}_{M,D}$.\\
 \end{proposition}
 The following proof is non-constructive.
 \begin{proof}
@@ -234,9 +270,9 @@ Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C
 Then there exist production fields
 $\mathcal{P}_{M,C}$,
 $\mathcal{P}_{M,D,C}$
-such that for any clause $H \in L$:
-1) $H \in L(M) \cap L(C) \iff H \in \mathcal{P}_{M,C}$,
-2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.
+such that for any clause $H \in L$:\\
+1) $H \in L(M) \cap L(C) \iff H \in \mathcal{P}_{M,C}$,\\
+2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.\\
 \end{corollary}
 \begin{proof}
 Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metaconstraints_production_field}.
