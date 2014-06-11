@@ -42,7 +42,7 @@ Non-effective metalevel statements do not affect the result of the computation o
 The primary output of an ILP system is a solution (a hypothesis or their set) to a refined learning problem.
 
 \subsection{Language bias}\label{subsec:background_language_bias}
-The search space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
+The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the biases in ILP are:
 \begin{itemize}
 \item mode declarations,
 \item determinations,
@@ -63,20 +63,9 @@ with place-markers replaced by distinct variables. The sign of $m$ is positive i
 is a \tc{modeh} and negative if $m$ is a \tc{modeb}.
 \end{defn}
 
-\begin{exmp}\cite{muggleton1995inverse}
-\begin{lstlisting}
-modeh(1,plus(+int,+int,-int))
-modeb(*,append(-list,+list,+list)
-modeb(1,append(+list,[+any],-list))
-modeb(4,(+int ? #int))
-\end{lstlisting}
-\end{exmp}
-
-\begin{remark}\cite{muggleton1995inverse}
 The recall is used to bound the number of alternative solutions for instantiating
 the atom. For simplicity, we assume in the following that all the modes have the
 recall \tc{*}, meaning all solutions. The following defines when a clause is within Progol's definite mode language $L$.
-\end{remark}
 
 \begin{defn}\label{definition_definite_mode_language}\cite{muggleton1995inverse}
 Let $C$ be a definite clause with a
@@ -89,6 +78,15 @@ place-marker \tc{+type} and \tc{-type} replaced by variables and every place-mar
 replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
 of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \end{defn}
+
+\begin{exmp}\cite{muggleton1995inverse}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int ? #int))
+\end{lstlisting}
+\end{exmp}
 
 \subsubsection{Determinations}
 Some ILP systems like Aleph in addition to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
