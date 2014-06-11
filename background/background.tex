@@ -706,7 +706,7 @@ Progol combines Inverse Entailment with general-to-specific search through a ref
 Aleph is an ILP system based on Progol developed in order to understand the concepts behind the inverse entailment\cite{muggleton1995inverse} influenced by the ideas from other ILP systems: CProgol, FOIL, FORS, Indlog, MIDOS, SRT, Tilde, and WARMR. 
 
 \subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
-Toplog is an ILP system implementing TDHD framework:
+Toplog is an top-down ILP system implementing TDHD framework:
 A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
@@ -721,14 +721,14 @@ The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse
 MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
 
 \subsection{Hail\cite{ray2003hybrid}\cite{ray2005phdHybrid}}
-A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's method of bottom generalization to \emph{kernel set generalization} with the methods of abductive logic programming.
+A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's incomplete method of bottom generalization to a more complete method of \emph{kernel set generalization} with the methods of abductive logic programming.
 
-\subsection{Xhail}
-
+\subsection{Xhail\cite{ray2009nonmonotonic}}
+Xhail standing for eXtended Hybrid abductive learning is an ILP system extending Hail's methodology from Horn theories to normal logic programs.
 Xhail version 2 was used for the experiments presented in this thesis.
 
-\subsection{Imparo}
-Imparo is an ILP system based on a general IoF theoretical framework.
+\subsection{Imparo}\cite{kimber2012learning}
+Imparo is an ILP system based on a general Induction on Failure theoretical framework extending the Hail's incomplete method of kernel set generalization to the complete method of connected theory generalization.
 \subsubsection{Induction on Failure framework\cite{kimber2012learning}}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
 \begin{defn}
@@ -750,11 +750,26 @@ Imparo uses the following algorithm to compute the hypothesis $H$:
 \item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
 \end{itemize}
 
-\subsection{Tal}
-
+\subsection{Tal\cite{corapi2010inductive}\cite{corapi2011tal}}
+Tal (Top-directed Abductive Learning) is a non-monotonic top-down ILP system complete for background theories and hypotheses as normal logic programs. 
+Tal relies on mapping an ILP problem into an equivalent ALP one. This enables the
+use of established ALP proof procedures and the specification of richer language bias with integrity constraints. The mapping provides a principled search space for an ILP problem, over which an abductive search is used to compute inductive solutions.
 
 \subsubsection{Metagol}
-Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space.
+Metagol is an implementation of an MIL framework that finds the hypothesis of a minimal length within its search space. A notable feature of Metagol is a coordinated learning of multiple concepts with \emph{episodes}:
+\begin{quote}\cite{muggleton2014meta}
+``Learning definitions from a mixture of examples of two interdependent predicates such as parent and grandparent requires
+more examples and search than learning them sequentially in
+separate episodes. In the latter case the grandparent episode
+is learned once it can use the definition from the parent
+episode. This phenomenon can be explained by considering
+that time taken for searching the hypothesis space for the joint
+definition is a function of the product of the hypothesis spaces
+of the individual predicates. By contrast the total time taken
+for sequential learning of episodes is the sum of the times
+taken for the individual episodes so long as each predicate is
+learned with low error.''
+\end{quote}
 
 \subsubsection{Meta-Interpretive Learning framework\cite{muggleton2014meta}}
 Meta-Interpretive Learning (MIL) framework solves a problem of induction in a variant of the normal setting for ILP.
@@ -776,11 +791,19 @@ as inputs, it is the case that $H \in \mathcal{H}_{B,E}$.
 \end{defn}
 
 \subsection{Other systems}
-Other ILP systems not classified include Golem, MC-Toplog, Metagol,
-Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper,  Tilde, Hail, CF-induction.
+Other ILP systems include Golem, Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper,  Tilde, CF-induction.
 
 \subsection{Selecting ILP systems for classification}
+Classification of all ILP systems would be out of the scope of this project and would not provide much more value than a classification of well chosen ILP systems.
+For selection of ILP systems for classification the following criteria were taken into the consideration:
 
+\begin{itemize}
+\item a popularity of an ILP system,
+\item a novelty and contribution of an ILP system,
+\item an access: an availability of a general purpose implementation, documentation, research findings, easiness of communication (in person vs. over distance) with the original authors and respective experts.
+\end{itemize}
+
+In the end the author has decided to classify Progol, Aleph, Toplog, Xhail, Imparo, Tal; Aleph being the best documented working system and others having been developed in the author's department with a general purpose implementation. The author would like to note based on the private communication with the respective experts that MC-Toplog does not have a general purpose implementation, a user needs to write a specific top theory for each learning problem and adapt the current implementation to support it. Metagol, being a very interesting and novel system, similarly, as of time of classification did not have a general purpose implementation.
 
 \section{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
 This section paraphrases work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.

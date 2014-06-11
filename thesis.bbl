@@ -141,11 +141,26 @@ Charles~Sanders Peirce, Charles Hartshorne, and Paul Weiss.
 \newblock {\em Collected papers of charles sanders peirce}, volume~2.
 \newblock Harvard University Press, 1935.
 
+\bibitem[Ray05]{ray2005phdHybrid}
+Oliver Ray.
+\newblock {\em Hybrid abductive inductive learning}.
+\newblock PhD thesis, Imperial College London, 2005.
+
 \bibitem[Ray07]{ray2007xhail}
 Oliver Ray.
 \newblock Xhail manual, example and executable files.
 \newblock Upon the author's request the access to the material restricted to
   the members of DoC, Imperial College London, 2007.
+
+\bibitem[Ray09]{ray2009nonmonotonic}
+Oliver Ray.
+\newblock Nonmonotonic abductive inductive learning.
+\newblock {\em Journal of Applied Logic}, 7(3):329--340, 2009.
+
+\bibitem[RBR03]{ray2003hybrid}
+Oliver Ray, Krysia Broda, and Alessandra Russo.
+\newblock Hybrid abductive inductive learning: a generalisation of progol.
+\newblock In {\em Inductive Logic Programming}, pages 311--328. Springer, 2003.
 
 \bibitem[RFH88]{royden1988real}
 Halsey~Lawrence Royden, Patrick Fitzpatrick, and Prentice Hall.
