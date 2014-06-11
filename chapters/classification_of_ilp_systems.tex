@@ -458,14 +458,47 @@ Progol supports the use of the determinations, cf. \ref{progol_multiclausal_lear
 Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
 
 \subsubsection{Metaconstraints}
-Metaconstraints supplement mode declarations and determinations in specifying the the language bias. Several metaconstraints are selected and their supported is evaluated accross the ILP systems classified.
+Metaconstraints supplement mode declarations and determinations in specifying the the language bias. Several metaconstraints are selected and their supported is evaluated accross the ILP systems classified:
+
+\begin{itemize}
+\item Maximum number of literals in a clause of a hypothesis,
+\item Maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need this metaconstraint,
+\item Maximum clause length in a hypothesis,
+\item Maximum variable depth\ref{definition_variable_depth} of a hypothesis,
+\item Maximum number of abducibles - the maximum number of ground atoms within any abductive explanation for an observation
+\end{itemize}
+
+\begin{defn}\label{definition_variable_depth}\cite{nienhuys1997foundations}
+The \emph{variable depth of a variable} $x$ in an ordered definite program clause
+$A \leftObjectImplies  B_1, . . . , B_n$ is defined as follows. If $x$ occurs in $A$, then its variable depth is $0$. Suppose $x$ first occurs in $B_i$.
+If none of the other variables
+in $B_i$ already occurred in $A \leftObjectImplies B_1,... ,B_{i-1}$,
+then $x$ has variable depth $\infty$.
+Otherwise, the variable depth of $x$ is $1$ plus the variable depth of the variable in $B_i$ with greatest variable depth occurring in
+$A \leftObjectImplies B_1,... ,B_{i-1}$.
+The \emph{variable-depth of a clause} in an ordered definite program
+is the largest variable depth of its variables. Note that such a
+clause is constrained iff it has variable-depth $0$.
+\end{defn}
+
+\begin{exmp}
+Let $H=path(X,Y) \leftObjectImplies path(X,X_1), arc(X_1,X_2), path(X_2,Y)$.
+Then the variable depths of the variables $X,Y,X_1,X_2$ in $H$ are
+$0,0,1,2$ respectively.
+\end{exmp}
 
 \paragraph{Progol}
+Prolog manual does not provide information about its metalevel constraints. The metalevel constraints used in the provided files\cite{muggleton1999progolWebsite} were of the following format:
 \begin{lstlisting}
-:- op(40,xfx,left_of)?
-:- op(40,xfx,supports)?
-:- op(40,xfx,touches)?
+./pole.pl::- op(10, xfx, ...)?
+./pole.pl::- op(30,xfy,:)?
+./numbers.pl::- set(h,100)?
+./numbers.pl::- set(r,1000)?
+./numbers.pl::- set(inflate,99)?
+./numbers.pl::- set(nodes,100)?
+./numbers.pl::- set(i,5), set(c,5)?
 \end{lstlisting}
+Their change did not affect the properties examined, hence the author assumes Progol does not support any of the metaconstraints.
 
 \paragraph{Aleph}
 The author consulted the section 18 of the Aleph manual\cite{aleph2007}.
@@ -481,8 +514,9 @@ V is a positive integer (default 10). Sets an upper bound on the proof depth to 
 set(i,+V) V is a positive integer (default 2). Set upper bound on layers of new variables.
 \item set(language,+V)
 V is an integer >= 1 or inf (default inf). Specifies the number of occurences of a predicate symbol in any clause.
-\item set(max_abducibles,+V)
+\item set(max\_abducibles,+V)
 V is a positive integer (default 2). Sets an upper bound on the maximum number of ground atoms within any abductive explanation for an observation. See section Abductive learning.
+\end{itemize}
 \end{quote}
 
 \paragraph{Toplog}
@@ -531,7 +565,7 @@ The support for the metaconstraints of interest is summarised.
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Max. no. of literals in $H$ & & & & & & \\ \hline
+    Max. no. of literals in a clause & & & & & & \\ \hline
     Max. no. of clauses in $H$ & & & & & & \\ \hline
     Max. clause length in $H$ & & & & & & \\ \hline
     Max. variable depth in $H$ & & & & & & \\ \hline
