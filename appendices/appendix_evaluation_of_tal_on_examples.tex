@@ -214,6 +214,34 @@ Tal can impose the bias on the hypotheses space by user-specified integrity cons
 
 \section{Tal's assumed limitations}
 
+\subsection{Inability to learn clausal examples}\label{tal_clausal_examples}
+Tal can learn fact observations, however it cannot explain clausal examples.
+Trying to run
+
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+modeh(woman(+person)).
+modeb(female(+person)).
+
+person(jane).
+person(susan).
+person(mary).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+example(woman(jane) :- female(jane),1).
+example(woman(susan) :- female(susan),1).
+example(woman(mary) :- female(mary),1).
+
+\end{lstlisting}
+\end{minipage}
+
+results in a syntax error, hence learning clausal examples is not possible by specification. However, we may require to learn the hypothesis
+\tc{woman(X) :- female(X)}
+explaining the clausal examples.
+
 \subsection{Correct example bias}
 Tal returns the examples as a hypothesis only if the predicate for the ground instances is specified in the mode declarations.
 

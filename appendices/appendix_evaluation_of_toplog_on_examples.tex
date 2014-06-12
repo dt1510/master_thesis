@@ -4,6 +4,34 @@
 Toplog validates the final hypothesis with the cross-validaton algorithm.
 
 \section{Toplog's assumed limitations}
+
+\subsection{Inability to learn clausal examples}\label{toplog_clausal_examples}
+Toplog can learn to explain only fact observations and cannot explain clauses.
+
+\begin{minipage}[t]{.38\textwidth}
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(female(+person)).
+
+person(jane).
+person(susan).
+person(mary).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+example(woman(jane) :- female(jane),1).
+example(woman(susan) :- female(susan),1).
+example(woman(mary) :- female(mary),1).
+\end{lstlisting}
+\end{minipage}
+
+returns no hypothesis although the clausal examples could be explained with a hypothesis
+\begin{lstlisting}
+woman(X) :- female(X).
+\end{lstlisting}
+
 \subsection{Inability to make deductions from observations}
 Toplog does not learn any hypothesis from the following program:
 

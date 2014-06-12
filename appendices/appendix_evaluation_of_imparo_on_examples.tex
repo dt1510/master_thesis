@@ -169,6 +169,31 @@ To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and t
 \section{Imparo's assumed limitations}
 Observations demonstrating the limits of the concept learnability from the system design assuptions are presented.
 
+\subsection{Unlearnability of clausal examples}\label{imparo_clausal_examples}
+Imparo can learn to explain fact observations, however it cannot learn clausal examples.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+head_modes([woman(+person)]).
+body_modes([female(+person)]).
+
+person(jane).
+person(susan).
+person(mary).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+woman(jane) :- female(jane).
+woman(susan) :- female(susan).
+woman(mary) :- female(mary).
+\end{lstlisting}
+\end{minipage}
+
+does not terminate, although we may require to learn a hypothesis
+\tc{woman(X) :- female(X)} that would explain the examples.
+
 \subsection{Unlearnability of negative examples}
 Note: Imparo uses a completion semantics.
 In cases when a hypothesis could explain the negative examples, Imparo cannot learn such a clause.
