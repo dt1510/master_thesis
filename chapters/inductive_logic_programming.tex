@@ -296,11 +296,11 @@ Progol combines Inverse Entailment with general-to-specific search through a ref
 Aleph is an ILP system based on Progol developed in order to understand the concepts behind the inverse entailment\cite{muggleton1995inverse} influenced by the ideas from other ILP systems: CProgol, FOIL, FORS, Indlog, MIDOS, SRT, Tilde, and WARMR. 
 
 \subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
-Toplog is an top-down ILP system:
-a set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+Toplog is an ILP system extending the use of Inverse Entailment by a top theory $\top$ bias.
+The search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{MC-Toplog\cite{muggleton2012mc}}
-MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. It restricts a hypotheses space to clauses entailing generalization of multiple examples as opposesed to Toplog that could generalizing only a single example.
 
 \subsection{Hail\cite{ray2003hybrid}\cite{ray2005phdHybrid}}
 A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's incomplete method of bottom generalization to a more complete method of \emph{kernel set generalization} with the methods of abductive logic programming.
@@ -311,26 +311,6 @@ Xhail version 2 was used for the experiments presented in this thesis.
 
 \subsection{Imparo}\cite{kimber2012learning}
 Imparo is an ILP system based on a general Induction on Failure theoretical framework extending the Hail's incomplete method of kernel set generalization to the complete method of connected theory generalization.
-\subsubsection{Induction on Failure framework\cite{kimber2012learning}}
-Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
-\begin{defn}
-A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
-(i) $B \union T_1^+ \models e_{head}$,
-(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
-(iii) $B \union e_{body} \models T_n^-$,
-(iv) $B \union T \not\models \square$.
-\end{defn}
-
-\subsubsection{Imparo\cite{kimber2012learning}}
-Imparo uses the following algorithm to compute the hypothesis $H$:
-\begin{itemize}
-\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
-\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
-\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
-\item add $H$ to $B$,
-\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
-\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
-\end{itemize}
 
 \subsection{Tal\cite{corapi2010inductive}\cite{corapi2011tal}}
 Tal (Top-directed Abductive Learning) is a non-monotonic top-down ILP system complete for background theories and hypotheses as normal logic programs. 
