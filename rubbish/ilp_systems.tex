@@ -1,0 +1,8 @@
+\subsection{Toplog algorithm}
+The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}

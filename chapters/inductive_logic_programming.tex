@@ -279,6 +279,9 @@ Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metac
 
 The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
 
+\subsection{Search bias\cite{nienhuys1997foundations}}
+Search bias is defined by the properties of an algorithm that searches a hypothesis: heuritics and direction of a search.
+
 \section{ILP systems}
 An ILP system is a program that takes as an input background knowledge $B$ and examples $E$ and produces as an output an explanation called a hypothesis $H$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
 We give a list of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
@@ -286,23 +289,15 @@ We give a list of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
 \subsection{Progol}
 We paraphrase the introduction to Progol from its official website\cite{muggleton1999progolWebsite}:
 \begin{quote}
-Progol combines Inverse Entailment with general-to-specific search through a refinement graph. Inverse Entailment is used with mode declarations to derive the most-specific clause within the mode language which entails a given example. This clause is used to guide a refinement-graph search. Progol's search has a provable guarantee of returning a solution having the maximum "compression" in the search-space. To do so it performs an admissible A*-like search, guided by compression, over clauses which subsume the most specific clause. Progol deals with noisy data by using the compression measure to trade-off the description of errors against the hypothesis description length. Progol allows arbitrary Prolog programs as background knowledge and arbitrary definite clauses as examples.
+Progol combines Inverse Entailment with general-to-specific search through a refinement graph. Inverse Entailment is used with mode declarations to derive the most-specific clause within the mode language which entails a given example. This clause is used to guide a refinement-graph search by performing an admissible A*-like search, guided by compression, over clauses which subsume the most specific clause. Progol allows arbitrary Prolog programs as background knowledge and arbitrary definite clauses as examples.
 \end{quote}
 
 \subsection{Aleph\cite{aleph2007}}
 Aleph is an ILP system based on Progol developed in order to understand the concepts behind the inverse entailment\cite{muggleton1995inverse} influenced by the ideas from other ILP systems: CProgol, FOIL, FORS, Indlog, MIDOS, SRT, Tilde, and WARMR. 
 
 \subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
-Toplog is an top-down ILP system implementing TDHD framework:
-A set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
-
-The Toplog algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
-\begin{itemize}
-\item construct the top theory $\top$,
-\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
-\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
-\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
-\end{itemize}
+Toplog is an top-down ILP system:
+a set of clauses $\top$ called a top theory is required on the input in addition to observations and the background knowledge, subsequently the search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{MC-Toplog\cite{muggleton2012mc}}
 MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. Its extended framework TDTcD restricts a hypotheses space to clauses entailing generalization of multiple examples (co-generalization) as opposesed to Toplog that could generalizing only a single example.
