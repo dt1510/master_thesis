@@ -11,14 +11,31 @@ For an analysis of an issue to establish the means for a useful comparison of IL
 \section{Properties of logical theory}\label{sec:properties_of_logical_theory}
 The objective of this section is to extract the properties of logical theories that may serve for the classification of ILP systems by completeness by problem classes, by their hypothesis selection and by their hypothesis bias.
 
-For analysing the properties of the logical theory, one has several conceptual divisions by which the properties can be grouped and analysed.
+One may divide the properties of a logic theory into two main categories:
+syntactic and semantic. Syntactic properties concern with a presentation and a denotation of a logic theory, e.g. an alphabetical order of its denotation relative to denotions of other logic theories. Semantic properties concern with the interpretation (meaning) of the logic theory: the consistency of a theory, the number of the models of a theory. Since the syntactic denotation of the theory specifies the theory uniquely, semantic properties arise from the syntactic properties of a logic theory. On the other hand, two denotations may refer to logically equivalent theories. We exploit these facts to make the distinction between the syntactic and semantic properties by introducing the following definitions.
 
+\begin{defn}
+A \emph{property} $P$ on a logic theory $\Sigma$ is a boolean valued function $P:\Sigma \to \{false, true\}$.
+\end{defn}
+
+\begin{defn}
+A property $P$ on a logic theory $\Sigma$ is \emph{semantic} iff
+$\forall \Sigma'. \Sigma \equiv \Sigma' \implies P(\Sigma)=P(\Sigma')$.
+\end{defn}
+
+\begin{defn}
+A property $P$ on a logic theory $\Sigma$ is \emph{syntactic} iff
+$P$ is not semantic.
+\end{defn}
+
+\subsection{Syntactic properties}
 \subsubsection{Property classes by syntactic compositionality}
 The properties of the logical theories can be ordered by the defining hierarchies.
 \begin{itemize}
-\item \emph{properties of a predicate or a function symbol} are atomic properties as these are specifications of a definition of a particular symbol: an arity of a language symbol,
+\item \emph{properties of a predicate or a function symbol} are atomic properties as these are specifications of a definition of a particular symbol: an arity of a logic symbol, syntacic denotation of a language symbol,
+\item \emph{properties of a term}
 \item \emph{properties of a logic formula} are the properties arising from a construction of a formula by the formation rules from the language symbols
-\item \emph{properties of a logic theory}.
+\item \emph{properties of a logic theory} as a set of clauses.
 \end{itemize}
 
 The covered properties of the logical theories:
@@ -31,6 +48,15 @@ The covered properties of the logical theories:
 \end{itemize}
 
 \subsection{Properties of predicate and function symbol}
+
+Fix a language $L$ and some $L$-structure $\mathcal{M}$.
+A predicate symbol is a symbol $P$ representing a function $\mathcal{M}^P:L^{a} \to \{false, true\}$. A function symbol is a symbol $f$ in some language $L$ representing a function $\mathcal{M}^f:L^a \to L$. $a$ is a non-negative integer called an arity of a predicate and a function symbol representing the length of the input vector of a function that a symbol represents.
+
+\subsubsection{Arity of a logic symbol}
+
+
+\subsection{Properties of a term}
+
 
 \subsection{Properties of a logical formula}
 

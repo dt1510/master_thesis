@@ -40,13 +40,15 @@
 \BOOKMARK [2][-]{subsection.3.4.6}{Negative examples}{section.3.4}
 \BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.4.1}{Properties of logical theory}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Properties of predicate and function symbol}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Properties of a logical formula}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Properties of a logic theory}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{Expressivity}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.5}{Syntactic properties}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.6}{Conceptual properties}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.7}{Information content of a logical theory}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.1}{Syntactic properties}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Properties of predicate and function symbol}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Properties of a term}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Properties of a logical formula}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{Properties of a logic theory}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.6}{Expressivity}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.7}{Syntactic properties}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.8}{Conceptual properties}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.9}{Information content of a logical theory}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{ILP task definition}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.2.1}{Generalization}{section.4.2}
 \BOOKMARK [2][-]{subsection.4.2.2}{Explanatory inductionyamamoto2012inverse}{section.4.2}
