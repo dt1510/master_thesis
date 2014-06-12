@@ -240,52 +240,8 @@ Let $<_H=\{(H_1, H_2)\}$ be a preferential hypothesis bias.
 Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of explanatory induction with a preferential hypothesis bias, but $H_1$ is not.
 \end{exmp}
 
-\subsubsection{Integrity constraints}
-
-\paragraph{Progol}
-\begin{lstlisting}
-:- op(40,xfx,left_of)?
-:- op(40,xfx,supports)?
-:- op(40,xfx,touches)?
-\end{lstlisting}
-
-\paragraph{Toplog}
-\begin{lstlisting}
-:-set(maximum_literals_in_hypothesis)
-:-set(example_inflation, 10).
-\end{lstlisting}
-
-\paragraph{Imparo}
-\begin{lstlisting}
-:-set_max_clause_length(5).
-:-set_max_clauses(1).
-:-set_verbose(1).
-:-set_connected(1).
-:-set_max_var_depth(3).
-\end{lstlisting}
-
-\paragraph{Tal}
-\begin{lstlisting}
-%Maximum number of body literals
-option(max_body_literals, 5).
-
-%Maximum number of rules
-option(max_num_rules, 5).
-
-%Maximum depth of the proof
-%option(max_depth, 400).
-option(strategy, breadth).
-option(ic_check, true).
-\end{lstlisting}
-
-\subsubsection{Probabilistic setting}
-
-\subsubsection{Approximating requirements}
-Toplog - hypothesis.
-
-\subsubsection{Score function}
-
 \subsubsection{Semantics}
+Semantics concerns with the derivable consequences from some logic theory $\Sigma$ with the consequence operator $Cn$. Progol, Aleph, Toplog, Xhail, Imparo, Tal have their input a Prolog logic program and their semantics has the negation on failure property as can be observed in the respective appendices.
 
 \subsubsection{Other constructions}
 The building blocks and the rules we have not considered are:
@@ -333,6 +289,16 @@ Then $(B' \union H_P) \backslash B=E'^{+} \land \overline{E'^-} \land H_P = H$ w
 Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
 given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \land E^{+} \land E^{-})$,
 find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \land \overline{E^{-}} \subseteq Cn(B \land H), false \not\in Cn(B \land H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
+\section{Completeness by problem classes}
+A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
+
+For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
+
+\subsection{Multiplicity of clauses in a hypothesis}
+
+
+
 
 \section{Hypothesis selection}
 

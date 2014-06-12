@@ -47,46 +47,33 @@
 \BOOKMARK [2][-]{subsection.4.1.3}{Examples}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.4}{Expressivity}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.5}{Semantics}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Completeness by problem classes}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Learning concepts}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.2}{Complexity of a learning problem}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.3}{Learning syntactic representations}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.4}{Learning up to logical equivalence}{section.4.2}
-\BOOKMARK [1][-]{section.4.3}{Hypothesis selection}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Hypothesis properties}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.2}{Inducing preferences over hypotheses space}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.3}{Hypothesis sufficiency}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.4}{Hypothesis approximation}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{Hypothesis search}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.4.1}{Postulates of inductive inference}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.2}{Inductive inference rules}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.3}{Control}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.4}{Automation}{section.4.4}
 \BOOKMARK [0][-]{chapter.5}{Classification of ILP systems}{}
 \BOOKMARK [1][-]{section.5.1}{ILP task definition}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.1.1}{Importance of complete definitions}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.2}{Buildings blocks of ILP task definition}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.3}{Classification ILP systems by an ILP task definition}{section.5.1}
 \BOOKMARK [2][-]{subsection.5.1.4}{A unified definition of ILP task}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Hypothesis selection}{chapter.5}
-\BOOKMARK [1][-]{section.5.3}{Hypothesis search}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.3.1}{Search direction}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.2}{Algorithms in ILP systems}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.3}{Summary}{section.5.3}
-\BOOKMARK [1][-]{section.5.4}{Bias}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Language bias}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.5.1}{Imparo is complete in inverse subsumption}{section.5.5}
-\BOOKMARK [1][-]{section.5.6}{Completeness by problem classes}{chapter.5}
-\BOOKMARK [1][-]{section.5.7}{Summary}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.7.1}{Completeness in generalizationyamamoto2012inverse}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.2}{Example learning}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.3}{Hypotheses space}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.4}{Completeness}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.5}{Biases}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.6}{Violations}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.7}{Robustness}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.8}{Completeness of theoretical frameworks}{section.5.7}
+\BOOKMARK [1][-]{section.5.2}{Completeness by problem classes}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{Multiplicity of clauses in a hypothesis}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{Hypothesis selection}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{Hypothesis search}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Search direction}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Algorithms in ILP systems}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.3}{Summary}{section.5.4}
+\BOOKMARK [1][-]{section.5.5}{Bias}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{Language bias}{section.5.5}
+\BOOKMARK [1][-]{section.5.6}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.6.1}{Imparo is complete in inverse subsumption}{section.5.6}
+\BOOKMARK [1][-]{section.5.7}{Completeness by problem classes}{chapter.5}
+\BOOKMARK [1][-]{section.5.8}{Summary}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.8.1}{Completeness in generalizationyamamoto2012inverse}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.2}{Example learning}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.3}{Hypotheses space}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.4}{Completeness}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.5}{Biases}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.6}{Violations}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.7}{Robustness}{section.5.8}
+\BOOKMARK [2][-]{subsection.5.8.8}{Completeness of theoretical frameworks}{section.5.8}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}

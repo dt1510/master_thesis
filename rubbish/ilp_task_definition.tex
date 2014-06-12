@@ -1,0 +1,44 @@
+\subsubsection{Integrity constraints}
+
+\paragraph{Progol}
+\begin{lstlisting}
+:- op(40,xfx,left_of)?
+:- op(40,xfx,supports)?
+:- op(40,xfx,touches)?
+\end{lstlisting}
+
+\paragraph{Toplog}
+\begin{lstlisting}
+:-set(maximum_literals_in_hypothesis)
+:-set(example_inflation, 10).
+\end{lstlisting}
+
+\paragraph{Imparo}
+\begin{lstlisting}
+:-set_max_clause_length(5).
+:-set_max_clauses(1).
+:-set_verbose(1).
+:-set_connected(1).
+:-set_max_var_depth(3).
+\end{lstlisting}
+
+\paragraph{Tal}
+\begin{lstlisting}
+%Maximum number of body literals
+option(max_body_literals, 5).
+
+%Maximum number of rules
+option(max_num_rules, 5).
+
+%Maximum depth of the proof
+%option(max_depth, 400).
+option(strategy, breadth).
+option(ic_check, true).
+\end{lstlisting}
+
+\subsubsection{Probabilistic setting}
+
+\subsubsection{Approximating requirements}
+Toplog - hypothesis.
+
+\subsubsection{Score function}
