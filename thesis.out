@@ -55,8 +55,9 @@
 \BOOKMARK [2][-]{subsection.5.1.3}{A unified definition of ILP task}{section.5.1}
 \BOOKMARK [1][-]{section.5.2}{Completeness by problem classes}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.2.1}{Multiplicity of clauses in a hypothesis}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{Term structure of a hypothesis}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{Expressivity of examples}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{Expressivity of examples}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{Generalization downwards}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.4}{Double Kleene star}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Bias}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.3.1}{Language bias}{section.5.3}
 \BOOKMARK [1][-]{section.5.4}{Robustness}{chapter.5}
@@ -80,12 +81,13 @@
 \BOOKMARK [1][-]{section.8.3}{Future Work}{chapter.8}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.1.1}{Specialization in arguments}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.2}{Multi-clausal learning}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.3}{Term structure learnability}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.4}{Learnability of multi-clausal concepts}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.5}{Clausal examples}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.6}{Other capabilities}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.2}{Specialization in arguments}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.3}{Multi-clausal learning}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.4}{Term structure learnability}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.5}{Learnability of multi-clausal concepts}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.6}{Clausal examples}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.7}{Other capabilities}{section.1.1}
 \BOOKMARK [1][-]{section.1.2}{Progol's assumed limitations}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.2.1}{Other limitations}{section.1.2}
 \BOOKMARK [1][-]{section.1.3}{Progol's violations and biases}{chapter.1}
@@ -122,9 +124,10 @@
 \BOOKMARK [2][-]{subsection.3.2.5}{Unlearnability of the term structure}{section.3.2}
 \BOOKMARK [1][-]{section.3.3}{Toplog's violations and biases}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.3.1}{Mode declarations order bias}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Learning inconsistent hypothesis}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{One head predicate bias}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.4}{Clausal bias}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Assumption of consistency}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Learning inconsistent hypothesis}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{One head predicate bias}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Clausal bias}{section.3.3}
 \BOOKMARK [0][-]{chapter.4}{Appendix - evaluation of Xhail on examples}{}
 \BOOKMARK [1][-]{section.4.1}{Xhail's capabilities}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Background knowledge generalization}{section.4.1}
@@ -167,9 +170,10 @@
 \BOOKMARK [2][-]{subsection.6.1.5}{Specialization in arguments}{section.6.1}
 \BOOKMARK [2][-]{subsection.6.1.6}{Other capabilities}{section.6.1}
 \BOOKMARK [1][-]{section.6.2}{Tal's assumed limitations}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Inability to learn clausal examples}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{Correct example bias}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Other assumed limitations}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.1}{Assumption of consistency}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.2}{Inability to learn clausal examples}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{Correct example bias}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.4}{Other assumed limitations}{section.6.2}
 \BOOKMARK [1][-]{section.6.3}{Tal's violations and biases}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.3.1}{Solution redundancy}{section.6.3}
 \BOOKMARK [2][-]{subsection.6.3.2}{No generalization downwards}{section.6.3}

@@ -2,6 +2,35 @@
 
 \section{Progol's capabilities}
 
+\subsection{Consistency check}\label{progol_consistency_check}
+Progol checks if the input theories are consistent. For the inconsistent theory
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+:-modeh(*,woman(+person))?
+:-modeb(*,female(+person))?
+:-determination(woman/1, female/1)?
+
+person(jane).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%background knowledge
+female(jane).
+:-female(jane).
+
+%positive examples
+woman(jane).
+\end{lstlisting}
+\end{minipage}
+
+Progol returns a hypothesis \tc{woman(A) :- female(A)} with a warning 
+\begin{lstlisting}
+[Testing for contradictions]
+[WARNING: contradiction - false is provable]
+\end{lstlisting}
+
 \subsection{Specialization in arguments}\label{progol_specialization_in_arguments}
 Progol can learn hypotheses which require ground terms to be in a head predicate.
 

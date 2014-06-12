@@ -214,6 +214,34 @@ Tal can impose the bias on the hypotheses space by user-specified integrity cons
 
 \section{Tal's assumed limitations}
 
+\subsection{Assumption of consistency}\label{tal_consistency_assumption}
+Tal does not warn a user on input of inconsistent theories.
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+modeh(woman(+person)).
+modeb(female(+person)).
+person(jane).
+%background knowledge
+female(jane).
+:-female(jane).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+example(woman(jane),1).
+example(woman(susan),1).
+example(woman(mary),1).
+\end{lstlisting}
+\end{minipage}
+
+returns without any warning of the inconsistent theory solutions
+\begin{lstlisting}
+1. woman(A):-true
+2. woman(B):-female(B)
+\end{lstlisting}
+
 \subsection{Inability to learn clausal examples}\label{tal_clausal_examples}
 Tal can learn fact observations, however it cannot explain clausal examples.
 Trying to run
@@ -409,7 +437,7 @@ example(even(s(s(s(0)))),-1).
 
 produces a hypothesis \tc{even(\_).} which is inconsistent with the negative examples. The target hypotheses \tc{even(A) :- even(s(s(A))).} was not learnt.
 
-\subsection{Loop on learning regular languages}
+\subsection{Loop on learning regular languages}\label{tal_loop_on_learning_regular_languages}
 Just as the generalization downwards example caused Tal looping, generalization forward, i.e. learning a hypothesis of the form $P(x) \objectImplies P(s(s(x))$ (a regular language \tc{(ss)*}) can cause Tal looping.
 \begin{lstlisting}
 modeh(in_language(s(s(+word))), [name(issh)]).

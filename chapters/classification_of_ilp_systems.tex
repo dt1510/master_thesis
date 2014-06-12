@@ -317,8 +317,6 @@ We classify the ILP systems based on their ability to learn some (not necessaril
 \end{tabular}
 \end{center}
 
-\subsection{Term structure of a hypothesis}
-
 \subsection{Expressivity of examples}
 We classify ILP systems based on whether they can learn explanations for the clausal examples or their observations are limited to atoms.
 
@@ -330,13 +328,35 @@ We classify ILP systems based on whether they can learn explanations for the cla
     Clausal& yes & no & no & 
     no & no & no \\ 
      examples & \ref{progol_clausal_examples} &\cite{aleph2007}&
-     \ref{toplog_clausal_examples}&&
-     \ref{imparo_clausal_examples}&\ref{tal_clausal_examples}\\ 
+     \ref{toplog_clausal_examples}&
+     \ref{imparo_clausal_examples}&\ref{tal_clausal_examples}\\
     \hline
 \end{tabular}
 \end{center}
 
 Xhail cannot learn clausal examples as all examples have to be in a body of a goal to be proved as seen in the appendix, therefore examples need to be literals.
+
+\subsection{Generalization downwards}
+\begin{center}
+\captionof{table}{Classification by generalization downwards} \label{tab:title} 
+\begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    & no & yes & no &  & no & no \\ \hline
+    & & & & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Double Kleene star}
+\begin{center}
+\captionof{table}{Classification by double Kleene star operator} \label{tab:title} 
+\begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    & no & no & no & & yes & yes \\ \hline
+    & & & & & & \\ \hline
+\end{tabular}
+\end{center}
 
 \section{Bias}
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
@@ -559,7 +579,16 @@ We classify ILP systems based on whether they check for the consistency of the i
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Consistency check & yes & no & no & & no & no \\ \hline
-    Always terminated & yes & yes & yes & & no & no \\ \hline
+    Consistency check & yes & no & no & yes & no & no \\
+	& \ref{progol_consistency_check}
+	& \ref{aleph_consistency_assumption}
+	& \ref{toplog_consistency_assumption}
+	 & \ref{xhail_implicit_consistency_check}
+	 & \ref{imparo_consistency_assumption}
+	 & \ref{tal_consistency_assumption} \\ \hline
+    Always terminated & yes & yes & yes & yes & no & no \\ 
+	&  & & & & \ref{imparo_clausal_examples} & \ref{tal_loop_on_learning_regular_languages} \\ \hline
 \end{tabular}
 \end{center} 
+
+The property ``Always terminated'' evaluates whether an ILP system terminated on all the experiments in the appendix. However, it may be possible for a system that withstood our experiments that one could find an input on which a system would not terminate. Therefore this test is only indicative.

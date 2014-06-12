@@ -165,6 +165,36 @@ Then Toplog learns a hypothesis $r(A) :- p1(A).$ however if we change the mode d
 \end{lstlisting}
 then Toplog learns a hypothesis $r(A) :- p2(A).$ instead. This experiment therefore shows that Toplog's bias depends on the order of the mode declaration statements.
 
+\subsection{Assumption of consistency}\label{toplog_consistency_assumption}
+Toplog does not warn the user for inconsistency of the theories.
+
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+:-modeh(woman(+person)).
+:-modeb(female(+person)).
+:-modeb(male(+person)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.35\textwidth}
+\begin{lstlisting}
+example(woman(ann),1).
+example(woman(mary),1).
+example(woman(susan),1).
+example(woman(terry),-1).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.30\textwidth}
+\begin{lstlisting}
+male(terry).
+female(ann).
+female(mary).
+female(susan).
+:-female(susan).
+\end{lstlisting}
+\end{minipage}
+
+returns the hypothesis \tc{woman(A) :- female(A).}, but does not warn of any incosistency.
+
 \subsection{Learning inconsistent hypothesis}
 Toplog can learn inconsistent hypotheses:
 
