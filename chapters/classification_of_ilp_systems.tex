@@ -254,16 +254,9 @@ The building blocks and the rules we have not considered are:
 \item episodes in metalearning framework\cite{muggleton2013meta}.
 \end{itemize}
 
-\subsubsection{Summary of ILP task definitions}
-
-\subsection{Classification ILP systems by an ILP task definition}
+\subsection{A unified definition of ILP task}
 The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
 
-\subsubsection{Definitions of an ILP task for classified ILP systems}
-
-\subsubsection{Comparisons of ILP systems based on their ILP task definition}
-
-\subsection{A unified definition of ILP task}
 We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
 
 Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $e^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
@@ -278,7 +271,6 @@ Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $
     Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
     Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
     Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \overline{E^{-}} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
-    \hline
     \end{tabular}
 \end{center}
 
@@ -299,9 +291,6 @@ A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a lea
 For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
 
 \subsection{Multiplicity of clauses in a hypothesis}
-
-
-
 
 \section{Hypothesis selection}
 

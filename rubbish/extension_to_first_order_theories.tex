@@ -1,0 +1,33 @@
+However, it is not clear whether the completeness is preserved in the first order case.
+
+$\tau'(S)$ denotes the clausal theory obtained by removing every clause from $S$ that has a ground instance that factors to a tautology. $I_H$ is an induction field of not necessarily ground literals.
+
+\begin{conjecture}\label{subsumptionConjectureFirstOrder}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+$H \subsumes \tau'(M(F \cup Taut(I_H)))$.
+\end{conjecture}
+
+\begin{exmp}
+Let $E=\{r(y)\}$,
+$B=\{\neg p(x) \vee r(x)\}$,
+$H=\{s(x), \neg s(x) \vee p(x)\}$,
+$I_H=\{s(x), \neg s(x), p(x)\}$.
+Then $F=B \cup \neg E=\{\neg p(x) \vee r(x), \neg r(y) \}$.
+$Taut(I_H)=\{s(x) \vee \neg s(x)\}$.
+$M(F \cup Taut(I_H))=$
+$\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z),$
+$\neg r(x) \vee r(y) \vee \neg s(z),\neg r(x) \vee r(y) \vee s(z) \}$.
+
+$\tau'(M(F \cup Taut(I_H))=\{p(x) \vee r(y) \vee \neg s(z), p(x) \vee r(y) \vee s(z)\}$ which is subsumed by the hypothesis $H$.
+\end{exmp}
+
+\begin{exmp}
+All theories need not be grounded. Adapting the previous example, if the examples were
+$E_2=\{r(a), r(b)\}$ with the same hypothesis
+$H=\{s(x), \neg s(x) \vee p(x)\}$, then
+$\tau'(M(F_2 \cup Taut(I_H))=\{p(x) \vee r(a) \vee \neg s(z), p(x) \vee r(a) \vee s(z), p(x) \vee r(b) \vee \neg s(z), p(x) \vee r(b) \vee s(z) \}$ which is subsumed by $H$. A careful reader notices that the adapted $\tau'(M(F_2 \cup Taut(I_H))$ is just a partial instantiation of the previous
+$\tau'(M(F \cup Taut(I_H))$ with the same substitution
+$theta=\{a / y, b / y\}$ as used for the examples:
+$\tau'(M(F_2 \cup Taut(I_H)) \theta=\tau'(M(F_2 \cup Taut(I_H))$,
+$E_2 \theta = E$.
+\end{exmp}
