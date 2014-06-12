@@ -1,0 +1,14 @@
+\subsection{Argument Specialization}
+Argument specialization test assesses the ILP system's ability to learn a hypothesis which require ground terms to be in a head predicate.
+\begin{lstlisting}
+modeh(learns(+person, +subject)).modeh(learns(#person, +subject)).
+%background,male(adam).male(bob).female(alice).female(mary).
+%positive examples,learns(polymath, mathematics).learns(polymath, physics).
+learns(polymath, chemistry).learns(jack, mathematics).learns(susan, physics).
+%negative examples,:- learns(jack, physics).:- learns(susan, chemistry).
+\end{lstlisting}
+has its target concept
+\begin{lstlisting}
+learns(polymath,A).
+\end{lstlisting}
+which has a constant \tc{polymath} as a first argument and a variable as a second argument.

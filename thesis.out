@@ -92,12 +92,10 @@
 \BOOKMARK [2][-]{subsection.5.7.2}{Example learning}{section.5.7}
 \BOOKMARK [2][-]{subsection.5.7.3}{Hypotheses space}{section.5.7}
 \BOOKMARK [2][-]{subsection.5.7.4}{Completeness}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.5}{Argument Specialization}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.6}{Biases}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.7}{Violations}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.8}{Robustness}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.9}{Completeness of theoretical frameworks}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.10}{Other}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.5}{Biases}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.6}{Violations}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.7}{Robustness}{section.5.7}
+\BOOKMARK [2][-]{subsection.5.7.8}{Completeness of theoretical frameworks}{section.5.7}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
