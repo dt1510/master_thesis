@@ -1,0 +1,119 @@
+\section{Properties of logical theory}\label{sec:properties_of_logical_theory}
+The objective of this section is to extract the properties of logical theories that may serve for the classification of ILP systems by completeness by problem classes, by their hypothesis selection and by their hypothesis bias.
+
+One may divide the properties of a logic theory into two main categories:
+syntactic and semantic. Syntactic properties concern with a presentation and a denotation of a logic theory, e.g. an alphabetical order of its denotation relative to denotions of other logic theories. Semantic properties concern with the interpretation (meaning) of the logic theory: the consistency of a theory, the number of the models of a theory. Since the syntactic denotation of the theory specifies the theory uniquely, semantic properties arise from the syntactic properties of a logic theory. On the other hand, two denotations may refer to logically equivalent theories. We exploit these facts to make the distinction between the syntactic and semantic properties by introducing the following definitions.
+
+\begin{defn}
+A \emph{property} $P$ on a logic theory $\Sigma$ is a boolean valued function $P:\Sigma \to \{false, true\}$.
+\end{defn}
+
+\begin{defn}
+A property $P$ on a logic theory $\Sigma$ is \emph{semantic} iff
+$\forall \Sigma'. \Sigma \equiv \Sigma' \implies P(\Sigma)=P(\Sigma')$.
+\end{defn}
+
+\begin{defn}
+A property $P$ on a logic theory $\Sigma$ is \emph{syntactic} iff
+$P$ is not semantic.
+\end{defn}
+
+\subsection{Syntactic properties}
+\subsubsection{Property classes by syntactic compositionality}
+The properties of the logical theories can be ordered by the defining hierarchies.
+\begin{itemize}
+\item \emph{properties of a predicate or a function symbol} are atomic properties as these are specifications of a definition of a particular symbol: an arity of a logic symbol, syntacic denotation of a language symbol,
+\item \emph{properties of a term}
+\item \emph{properties of a logic formula} are the properties arising from a construction of a formula by the formation rules from the language symbols
+\item \emph{properties of a logic theory} as a set of clauses.
+\end{itemize}
+
+The covered properties of the logical theories:
+\begin{itemize}
+\item language properties - arity
+\item structural properties - the size of the theory in numbers of the symbols, the number of the formulas in the theory, the number of the distinct predicate/function symbols used, 
+\item syntactic properties,
+\item semantic properties,
+\item expressivity
+\end{itemize}
+
+\subsection{Properties of predicate and function symbol}
+
+Fix a language $L$ and some $L$-structure $\mathcal{M}$.
+A predicate symbol is a symbol $P$ representing a function $\mathcal{M}^P:L^{a} \to \{false, true\}$. A function symbol is a symbol $f$ in some language $L$ representing a function $\mathcal{M}^f:L^a \to L$. $a$ is a non-negative integer called an arity of a predicate and a function symbol representing the length of the input vector of a function that a symbol represents.
+
+\subsubsection{Arity of a logic symbol}
+
+
+\subsection{Properties of a term}
+
+
+\subsection{Properties of a logical formula}
+
+\subsection{Properties of a logic theory}
+
+\subsection{Expressivity}
+One may wish to limit the logical theories $T, B, E, H$ to be of a certain form to specify or relax a learning problem by affecting the expressivity of the respective theories.
+
+\subsubsection{Expressivity by arithmetical hierarchies}
+\paragraph{Ground theories} do not contain sentences with bound variables. A ground theory has a correspondent equivalent propositional theory. Treating unbounded variables as Skolem constants theories whose variables are free can be treated as "template" ground theories.
+\paragraph{First-order theories} allow sentences to have variables bounded by an \emph{existential} and \emph{universal} quantifier. One may limit bounding to be induced by existential quantifiers only or universal quantifiers only; or put additional restrictions on the occurance of quantifiers in the logical sentences.
+
+\subsubsection{Logical representation}
+\emph{Clausal theories} allow sentences to be clauses, but one may restrict the theories to be \emph{extended logic programs}, \emph{normal logic programs}, 
+\emph{Horn theories}, \emph{definite logic programs}, \emph{Datalog programs}, \emph{literals}, \emph{atoms}. For example, Imparo\cite{kimber2012learning} requires background knowledge and a hypothesis to be a definite logic programs and examples $E^{+}$ and $E^{-}$ to be ground atomic whereas Yamamoto et al. reason about the explanatory induction in \cite{yamamoto2012inverse} with any clausal theories $B, E, H$. This has an impact on the complexity of the learning problem as every definite theory can be expressed as a clausal theory, but not vice versa.
+
+\subsubsection{Other properties}
+The expressivity of the learning problem is further affected by
+\begin{itemize}
+\item \emph{concept limitations} on how many predicate and function symbols are allowed in the theories,
+\item \emph{theory size limitations} whether the allowed theories have to be finite or of what maximal size. 
+\end{itemize}
+
+\subsection{Syntactic properties}
+
+\subsubsection{Semantic properties}
+A property $P:\mathcal{H} \to \{true, false\}$ is semantic iff $P$ is invariant under the logical equivalence, i.e.
+$\forall H_1, H_2 \in \mathcal{H}. H_1 \equiv H_2 \implies P(H_1)=P(H_2)$.
+The syntactic properties of a hypothesis to be considered are the number of the literals in a body, definitness of a hypothesis, arities of defining predicates, etc.
+
+
+\subsection{Conceptual properties}
+\begin{defn}
+A \emph{concept} on a domain $M$ is a relation $C \subseteq M^n$ for some $n \ge 0$.
+The number $n$ is called \emph{arity of a concept}.
+$M^n$ and $\emptyset$ are \emph{trivial concepts}.
+\end{defn}
+
+\begin{exmp}
+Let the domain $M$ be a human family $M=\{adam, eva, kain, abel\}$ then define the concepts $male, female, father, mother, parent$ by
+$male=\{adam, kain, abel\}\subseteq{M}$,
+$female=\{eva\}\subseteq{M}$,
+$father=\{(adam,kain), (adam,abel)\}\subseteq{M^2}$,
+$mother=\{(eva,kain), (eva,abel)\}\subseteq{M^2}$,
+$parent=father \cup mother$.
+\end{exmp}
+\begin{defn}
+A concept $C\subseteq M^n$ is definable from the concepts $\mathcal{C}$ iff there is a formula $\phi$ using only the concepts from $\mathcal{C}$ such that
+$\forall (x_1, ..., x_n) \in M^n. C(x_1, ..., x_n) \iff \phi(x_1, ..., x_n)$.
+\end{defn}
+\begin{corollary}
+If $P\subseteq{M^n}$, $Q\subseteq{M^n}$ are concepts, then
+1. $P \setminus Q$, 2. $P \cup Q$, 3. $P \cap Q$ are concepts.
+\end{corollary}
+\begin{proof}
+1. $\forall x_1, ..., x_n. (P \setminus Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land \neg Q(x_1, ..., x_n)$.
+2. $\forall x_1, ..., x_n. (P \cup Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \lor \neg Q(x_1, ..., x_n)$.
+3. $\forall x_1, ..., x_n. (P \cap Q)(x_1, ..., x_n) \iff
+P(x_1, ..., x_n) \land Q(x_1, ..., x_n)$.
+\end{proof}
+
+\begin{exmp}
+The concept $father$ is definable from the concepts $male$ and $parent$ by:
+$\forall x_1, x_2 \in M. father(x_1, x_2) \iff parent(x_1, x_2) \land male(x_1)$. In addition using the trivial concepts one could define
+$father=parent \cap (male \times M)$.
+\end{exmp}
+
+\subsection{Information content of a logical theory}

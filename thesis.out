@@ -13,6 +13,7 @@
 \BOOKMARK [1][-]{section.2.4}{Logicssep-logic-nonmonotonic}{chapter.2}
 \BOOKMARK [1][-]{section.2.5}{Logic Programming}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.5.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.2.5}
+\BOOKMARK [2][-]{subsection.2.5.2}{Representation of logic theories}{section.2.5}
 \BOOKMARK [1][-]{section.2.6}{Machine learning}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.6.1}{Types of problem}{section.2.6}
 \BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
@@ -39,37 +40,27 @@
 \BOOKMARK [2][-]{subsection.3.4.5}{Inverse subsumption with minimal complements and connected theory}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.6}{Negative examples}{section.3.4}
 \BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
-\BOOKMARK [1][-]{section.4.1}{Properties of logical theory}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Syntactic properties}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Properties of predicate and function symbol}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Properties of a term}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{Properties of a logical formula}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.5}{Properties of a logic theory}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.6}{Expressivity}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.7}{Syntactic properties}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.8}{Conceptual properties}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.9}{Information content of a logical theory}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{ILP task definition}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Generalization}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.2}{Explanatory inductionyamamoto2012inverse}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.3}{Examples}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.4}{Expressivity}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.5}{Semantics}{section.4.2}
-\BOOKMARK [1][-]{section.4.3}{Completeness by problem classes}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Learning concepts}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.2}{Complexity of a learning problem}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.3}{Learning syntactic representations}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.4}{Learning up to logical equivalence}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{Hypothesis selection}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.4.1}{Hypothesis properties}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.2}{Inducing preferences over hypotheses space}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.3}{Hypothesis sufficiency}{section.4.4}
-\BOOKMARK [2][-]{subsection.4.4.4}{Hypothesis approximation}{section.4.4}
-\BOOKMARK [1][-]{section.4.5}{Hypothesis search}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.5.1}{Postulates of inductive inference}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.2}{Inductive inference rules}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.3}{Control}{section.4.5}
-\BOOKMARK [2][-]{subsection.4.5.4}{Automation}{section.4.5}
+\BOOKMARK [1][-]{section.4.1}{ILP task definition}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Generalization}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Explanatory inductionyamamoto2012inverse}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Examples}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Expressivity}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{Semantics}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Completeness by problem classes}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Learning concepts}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Complexity of a learning problem}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Learning syntactic representations}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Learning up to logical equivalence}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Hypothesis selection}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Hypothesis properties}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Inducing preferences over hypotheses space}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.3}{Hypothesis sufficiency}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.4}{Hypothesis approximation}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{Hypothesis search}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{Postulates of inductive inference}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{Inductive inference rules}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.3}{Control}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.4}{Automation}{section.4.4}
 \BOOKMARK [0][-]{chapter.5}{Classification of ILP systems}{}
 \BOOKMARK [1][-]{section.5.1}{ILP task definition}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.1.1}{Importance of complete definitions}{section.5.1}
@@ -83,7 +74,6 @@
 \BOOKMARK [2][-]{subsection.5.3.3}{Summary}{section.5.3}
 \BOOKMARK [1][-]{section.5.4}{Bias}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.4.1}{Language bias}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Search bias}{section.5.4}
 \BOOKMARK [1][-]{section.5.5}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.5.1}{Imparo is complete in inverse subsumption}{section.5.5}
 \BOOKMARK [1][-]{section.5.6}{Completeness by problem classes}{chapter.5}
