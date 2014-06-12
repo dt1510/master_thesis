@@ -29,7 +29,7 @@
 \BOOKMARK [2][-]{subsection.3.3.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.4}{Hailray2003hybridray2005phdHybrid}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.5}{Xhailray2009nonmonotonic}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.6}{Imparo}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.6}{Imparokimber2012learning}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.7}{Talcorapi2010inductivecorapi2011tal}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.8}{Other systems}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.9}{Selecting ILP systems for classification}{section.3.3}
@@ -40,6 +40,7 @@
 \BOOKMARK [2][-]{subsection.3.4.4}{Relaxation of minimal complements to a maximal bridge theory}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.5}{Inverse subsumption with minimal complements and connected theory}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.6}{Negative examples}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.7}{Imparo is complete in inverse subsumption}{section.3.4}
 \BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
 \BOOKMARK [1][-]{section.4.1}{ILP task definition}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Generalization}{section.4.1}
@@ -56,18 +57,15 @@
 \BOOKMARK [2][-]{subsection.5.2.1}{Multiplicity of clauses in a hypothesis}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Bias}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.3.1}{Language bias}{section.5.3}
-\BOOKMARK [1][-]{section.5.4}{Inverse Subsumption for Complete Explanatory Induction}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Imparo is complete in inverse subsumption}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Completeness by problem classes}{chapter.5}
-\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.6.1}{Completeness in generalizationyamamoto2012inverse}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.2}{Example learning}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.3}{Hypotheses space}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.4}{Completeness}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.5}{Biases}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.6}{Violations}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.7}{Robustness}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.8}{Completeness of theoretical frameworks}{section.5.6}
+\BOOKMARK [1][-]{section.5.4}{Summary}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Completeness in generalizationyamamoto2012inverse}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Example learning}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.3}{Hypotheses space}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.4}{Completeness}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.5}{Biases}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.6}{Violations}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.7}{Robustness}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.8}{Completeness of theoretical frameworks}{section.5.4}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
