@@ -1,6 +1,9 @@
 \chapter{Rationale ILP system}\label{chap:rationale_ilp_system}
 An ILP system Rationale is designed and implemented based on the inverse subsumption with minimal complements algorithm \fullref{inverse_subsumption_with_minimal_complements_algorithm} by Yamamoto\cite{yamamoto2012inverse} and suggestions in \fullref{chap:advancing_solutions_to_issues_in_ilp}. Rationale solves an extension of an ILP task of explanatory induction for clausal theories $B, E^+, E^-, H$. The objective of this chapter is to reveal the details of the prototype implementation and explain the rationales behind.
 
+The source code of the system and documentation can be accessed from Github at 
+\url{https://github.com/dt1510/rationale}.
+
 \section{ILP task definition}
 Rationale solves an ILP task $f:I \mapsto O$ of \emph{explanatory induction with negative examples with a classical consequence operator} is defined by $\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E^+, E^-, \mathcal{I}_H \rangle$,
 $O=\mathcal{H}$,

@@ -156,7 +156,7 @@ man(A):-male(A).
 
 To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
 
-\subsection{Clausal examples}
+\subsection{Clausal examples}\label{progol_clausal_examples}
 Progol can learn from the observations that are general Horn clauses not limited to literals.
 
 \begin{minipage}[t]{.60\textwidth}

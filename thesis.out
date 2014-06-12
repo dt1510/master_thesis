@@ -55,17 +55,9 @@
 \BOOKMARK [2][-]{subsection.5.1.3}{A unified definition of ILP task}{section.5.1}
 \BOOKMARK [1][-]{section.5.2}{Completeness by problem classes}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.2.1}{Multiplicity of clauses in a hypothesis}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{Expressivity of examples}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Bias}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.3.1}{Language bias}{section.5.3}
-\BOOKMARK [1][-]{section.5.4}{Summary}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Completeness in generalizationyamamoto2012inverse}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Example learning}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.3}{Hypotheses space}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.4}{Completeness}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.5}{Biases}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.6}{Violations}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.7}{Robustness}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.8}{Completeness of theoretical frameworks}{section.5.4}
 \BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}

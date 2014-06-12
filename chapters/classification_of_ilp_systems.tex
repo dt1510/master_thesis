@@ -317,6 +317,23 @@ We classify the ILP systems based on their ability to learn some (not necessaril
 \end{tabular}
 \end{center}
 
+\subsection{Expressivity of examples}
+We classify ILP systems based on whether they can learn explanations for the clausal examples or their observations are limited to atoms.
+
+\begin{center}
+\captionof{table}{Classification by learning clausal examples} \label{tab:title} 
+\begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    Clausal& yes & no & no & 
+    no & no & no \\ 
+     examples & \ref{progol_clausal_examples} &\ref{aleph_multiclausal_learning}&
+     \cite{muggleton2012mc}&\cite{muggleton2012mc}&\cite{muggleton2012mc}&
+     \cite{muggleton2012mc}\\ 
+    \hline
+\end{tabular}
+\end{center}
+
 \section{Bias}
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
 
@@ -529,126 +546,3 @@ The support for the metaconstraints of interest is summarised.
   \end{tabular}
   
 If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
-
-\section{Summary}
-
-\subsection{Completeness in generalization\cite{yamamoto2012inverse}}
-\begin{center}
-    \begin{tabular}{ | l | p{5cm} |}
-    \hline
-    ILP system &  Complete in generalization \\ \hline
-    Aleph & no\\ \hline
-    Progol & no\\ \hline
-    Toplog & no\\ \hline
-    Imparo & no\\ \hline
-    Tal & no*\\ \hline
-    Metagol & yes*\\ \hline
-    Xhail & no\\ \hline
-    Cf-induction & yes\\
-    \hline
-    \end{tabular}
-\end{center}
-
-
-\subsection{Example learning}
-None of the tested ILP systems can explain the negative examples. All the systems can induce hypotheses that aim to explain the positive examples. All the tested ILP systems accept ground instances of literals for examples.
-\begin{center}
-    \begin{tabular}{ | l | p{5cm} |}
-    \hline
-    ILP system &  Clausal examples \\ \hline
-    Aleph & no\\ \hline
-    Progol & yes\\ \hline
-    Toplog & no\\ \hline
-    Imparo & no\\ \hline
-    Tal & no\\ \hline
-    Metagol & \\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Hypotheses space}
-All systems can learn only the Horn clauses.
-\begin{center}
-    \begin{tabular}{ | l | l | l | p{5cm} |}
-    \hline
-    ILP system & Function symbols & Multi-clausal hypotheses & Infinite Herbrand models\\ \hline
-    Aleph & yes & yes & yes\\ \hline
-    Progol & yes & yes & yes*\\ \hline
-    Toplog & no & no & *\\ \hline
-    Imparo & yes & yes & yes\\ \hline
-    Tal & yes & yes & yes\\ \hline
-    Xhail & yes & yes & no\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Completeness}
-Double Kleene star test assesses the ability of an ILP system to learn a regular language \tc{(ss)*}.
-\begin{center}
-    \begin{tabular}{ | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
-    \hline
-    ILP system & Multi-clausal concepts & Generalization downwards &
-    Double Kleene star & Argument Specialization \\ \hline
-    Aleph & no & yes & no & no\\ \hline
-    Progol & yes & no & no & yes\\ \hline
-    Toplog & no & no* & no* & no\\ \hline
-    Imparo & yes & no & yes* & yes\\ \hline
-    Tal & yes & no & no & yes\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Biases}
-\begin{center}
-    \begin{tabular}{ | l | l | l | l | p{5cm} |}
-    \hline
-    ILP system & Mode declarations & Determinations & Declaration order bias & Alphabetical bias \\ \hline
-    Aleph & yes & yes & yes & no\\ \hline
-    Progol & yes & yes & yes & no\\ \hline
-    Toplog & yes & no & yes & no\\ \hline
-    Imparo & yes & no & yes & no\\ \hline
-    Tal & yes & no & no & yes\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Violations}
-All tested systems suffer from weak-head mode declaration bias.
-\begin{center}
-    \begin{tabular}{ | l | l | l | p{5cm} |}
-    \hline
-    ILP system & Correct example bias\\ \hline
-    Aleph & yes\\ \hline
-    Progol & yes\\ \hline
-    Toplog & no\\ \hline
-    Imparo & no\\ \hline
-    Tal & yes\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Robustness}
-\begin{center}
-    \begin{tabular}{ | l | l | l | p{5cm} |}
-    \hline
-    ILP system & Consistency check & Always terminated\\ \hline
-    Aleph & no & yes\\ \hline
-    Progol & yes & yes\\ \hline
-    Toplog & no & yes\\ \hline
-    Imparo & no & no\\ \hline
-    Tal & no & no\\ \hline
-    \hline
-    \end{tabular}
-\end{center}
-
-\subsection{Completeness of theoretical frameworks}
-    \begin{tabular}{ | l | l | l | p{5cm} |}
-    \hline
-    ILP framework & General Clause Hypothesis\\ \hline
-    Bottom Generalization & no\\ \hline
-    Induction on Failure & no\\ \hline
-    CF-induction & yes\\ \hline
-    TDHD & no\\ \hline
-    MIL & \\ \hline
-    \hline
-    \end{tabular}
