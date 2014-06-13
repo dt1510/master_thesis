@@ -3,6 +3,28 @@ The objective of this chapter is to present concepts from Inductive logic progra
 
 \section{Inductive logic programming concepts}
 
+\subsection{Correct hypothesis\cite{nienhuys1997foundations}}
+One of the notions for finding an appropriate explanation for the examples from the background theory defines a correct hypothesis.
+\begin{defn}
+A hypothesis $H$ is \emph{correct} wrt background knowledge $B$, positive examples $E^+$ and negative examples $E^-$ iff\\
+1) $E^+ \subseteq Cn(B \land H)$,\\
+2) $E^- \not\in Cn(B \land H)$.
+\end{defn}
+
+When a hypothesis does not satisfy the two conditions it deviates from correctness.
+
+\begin{defn}
+Let $H$ be a theory, and $E^+$ and $E^-$ be sets of clauses.
+$H$ is \emph{too strong} wrt $B$, $E^-$ iff
+$E^- \in Cn(B \land H)$.
+$H$ is \emph{too weak} wrt
+$E^+$ iff $E^+ \not\subseteq Cn(B \land H)$.
+$H$ is \emph{overly general} wrt $B$, $E^+$, $E^-$ iff
+$E^+ \subseteq Cn(B \land H)$, $E^- \in Cn(B \land H)$.
+$H$ is \emph{overly specific} wrt $B$, $E^+$, $E^-$ iff
+$E^+ \not\subseteq Cn(B \land H)$, $E^- \not\in Cn(B \land H)$.
+\end{defn}
+
 \subsection{Inverse Entailment}
 Inverse Entailment is a correspondence between an induction and a deduction:
 \begin{thm}\cite{kimber2012learning}
