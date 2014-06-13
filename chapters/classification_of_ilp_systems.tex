@@ -572,10 +572,77 @@ The support for the metaconstraints of interest is summarised.
 If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
 
 \section{Hypothesis search}
-We compare how ILP systems search the hypothesis space based on the properties:
+Hypothesis search concerns with the algorithms used for searching a hypothesis, their heuristics, search biases and other search control mechanisms.
+First we list a hypothesis search algorithm for each ILP system and then 
+we compare how ILP systems search the hypothesis space based on the properties:
 \begin{itemize}
-\item search direction
+\item search direction.
 \end{itemize}
+
+\subsection{Algorithms}
+
+\subsubsection{Progol}
+
+
+\subsubsection{Aleph}
+In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
+\begin{enumerate}
+\item \emph{Select example.} Select an example to be generalised. If none exist, stop, otherwise proceed to the next step.
+\item \emph{Build most-specific-clause.} Construct the most specific clause that entails the example selected, and is within language restrictions provided. This is usually a definite clause with many literals, and is called the "bottom clause." This step is sometimes called the "saturation" step. Details of constructing the bottom clause can be found in Stephen Muggleton's 1995 paper: Inverse Entailment and Progol\cite{muggleton1995inverse}.
+\item \emph{Search.} Find a clause more general than the bottom clause. This is done by searching for some subset of the literals in the bottom clause that has the "best" score. Two points should be noted. First, confining the search to subsets of the bottom clause does not produce all the clauses more general than it, but is good enough for this thumbnail sketch. Second, the exact nature of the score of a clause is not really important here. This step is sometimes called the "reduction" step.
+\item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
+\end{enumerate}
+
+\subsubsection{Toplog\cite{muggleton2008toplog}}
+The TopLog learning algorithm consists of three major steps: 1) hypotheses
+derivation for each positive example, 2) coverage computation for all unique
+hypotheses, $H$, derived in previous step, 3) construct the final theory, T , as the
+subset of $H$ that maximizes a given score function (e.g. compression).
+
+The input to an TDHD system is the quadruple $\langle NT, \top, B, E \rangle$ where $NT$ is a set of non-terminal  predicate symbols. Therefore a top theory $\top$ is not constructed from the input but already is a part of an input. $\top$ satisflies the conditions:
+1. $\top$ consists of Horn clauses,
+2. each clause in $\top$
+must contain at least one occurrence of an element of $NT$ while clauses in $B$
+and $E$ must not contain any occurrences of elements of $NT$,
+3. any predicate appearing in the head of some clause in $\top$ must not occur in th	e body of any clause in $B$,
+4. the head of the first clause in $\top$ is the target predicate and
+the head predicates for other clauses in must be in $NT$.
+
+Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
+\begin{itemize}
+\item construct the top theory $\top$,
+\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
+\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
+\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\end{itemize}
+
+
+\subsubsection{Xhail}
+
+\subsubsection{Imparo}
+Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
+\begin{itemize}
+\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
+\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
+\item add $H$ to $B$,
+\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
+\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\end{itemize}
+
+\paragraph{Induction on Failure framework\cite{kimber2012learning}}
+Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
+\begin{defn}
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
+(i) $B \union T_1^+ \models e_{head}$,
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
+(iii) $B \union e_{body} \models T_n^-$,
+(iv) $B \union T \not\models \square$.
+\end{defn}
+
+\subsubsection{Imparo\cite{kimber2012learning}}
+
+\subsubsection{Tal}
 
 \subsection{Search direction\cite{nienhuys1997foundations}}
 When searching for a correct hypothesis \ref{correct_hypothesis}, one may either start with an overly general hypothesis $H$ wrt $B, E^+$, $E^-$ and then try to weaken it to make it consistent with the negative examples $E^-$ while preserving its completeness wrt positive examples $E^+$. This is called a \emph{top-down} search.
@@ -589,11 +656,11 @@ A reader should be careful. In the contemporary literature there are other notio
 We classify ILP systems based on their direction of search.
 
 \begin{center}
-\captionof{table}{Classification by search direction}\label{tab:title} 
+\captionof{table}{Classification by hypothesis search direction}\label{tab:title} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-   	Search direction & top-down & bottom-up& mixed & bottom-up & bottom-up & top-up\\ \hline
+   	Search direction & top-down & bottom-up& mixed & bottom-up & mixed & top-up\\ \hline
 \end{tabular}
 \end{center}
 
@@ -627,9 +694,12 @@ Afterwards a subset $H \in H_c$ maximizing a score function is chosen. Strictly 
 \paragraph{Xhail\cite{ray2003hybrid}}
 Xhail (based on Hail) constructs a kernel set from the background knowledge $B$ and an example $e$ which is subsequently generalized until a correct hypothesis is found. Therefore Xhail searches a hypothesis $H$ bottom-up.
 
-\paragraph{Imparo\cite{kimber2012learning}}
-Imparo constructs a connected theory, subsequently it searches a (more general) hypothesis that entails it. Thefore Imparo searches top-down.
-
+\paragraph{Imparo}
+Imparo is based on the induction on failure (IoF) framework:
+\begin{quote}\cite{kimber2012learning}
+The procedure[IoF] interleaves top-down subsumption-based search with bottom-up generalisation of the ground connected theory T .
+\end{quote}
+Therefore Imparo uses a mixed strategy to search for a hypothesis.
 \paragraph{Tal}
 We conclude that Tal searches a hypothesis top-down from the quote bellow:
 \begin{quote}\cite{corapi2010inductive}

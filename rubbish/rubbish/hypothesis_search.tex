@@ -1,0 +1,47 @@
+\section{Hypothesis search}
+\begin{itemize}
+\item completeness by hypothesis finding: how to find every possible (or possibly good) hypothesis $H$ explaining $E$ from $B$,
+\item efficiency: how to find a good explanation efficiently. 
+\end{itemize}
+\subsection{Postulates of inductive inference}
+\subsection{Inductive inference rules}
+\subsection{Control}
+\subsection{Automation}
+
+\section{Hypothesis search}
+The objective of this section is to present the search algorithms for each ILP system and then classify the ILP systems based on the representative properties of a search algorithm.
+
+\subsection{Search direction}
+Based on a direction of generalization and specializaton, hypothesis search algorithms of ILP systems fall into two categoies: bottom-up, top-down.
+
+\subsubsection{Bottom-up}
+Using the principle of the inverse entailment bottom-up search starts with a construction of the most general hypothesis, called a bottom clause, which is subsequently specialised until a required hypothesis is found.
+%$B \and \neg E \models F_1 \models ... \models F_n \models \neg H$
+\subsubsection{Top-down}
+Top-down algorithms construct a specific top theory $\top$ which is then generalized until a required hypothesis $H$ is found.
+
+$H=\top_n \models ... \models \top_2 \models \top_1=\top$
+
+\subsection{Algorithms in ILP systems}
+
+\subsubsection{Progol}
+
+\subsubsection{Aleph}
+
+\subsubsection{Toplog}
+
+
+\subsubsection{Xhail}
+
+\subsubsection{Imparo}
+
+\subsubsection{Tal}
+
+\subsection{Summary}
+\captionof{table}{Classification by properties of a search algorithm} \label{tab:title} 
+\begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    Search direction & bottom-up& bottom-up&top-down& & &top-down\\ \hline
+\end{tabular}
+

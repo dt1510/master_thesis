@@ -135,15 +135,6 @@ A predicate symbol is \emph{non-terminal} iff TODO
 A predicate symbol is a \emph{target} iff TODO
 \end{defn}
 
-The input to an TDHD system is the quadruple $\langle NT, \top, B, E \rangle$ where $NT$ is a set of non-terminal  predicate symbols. Therefore a top theory $\top$ is not constructed from the input but already is a part of an input. $\top$ satisflies the conditions:
-1. $\top$ consists of Horn clauses,
-2. each clause in $\top$
-must contain at least one occurrence of an element of $NT$ while clauses in $B$
-and $E$ must not contain any occurrences of elements of $NT$,
-3. any predicate appearing in the head of some clause in $\top$ must not occur in th	e body of any clause in $B$,
-4. the head of the first clause in $\top$ is the target predicate and
-the head predicates for other clauses in must be in $NT$.
-
 \subsubsection{Construction of a top theory from the mode declarations\cite{muggleton2008toplog}}
 TODO - explain a construction of a top theory from an arbitrary set of mode declarations.
 A top theory bias is more expressive than a mode declaration bias.
