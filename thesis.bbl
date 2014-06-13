@@ -12,7 +12,12 @@ Keith~L Clark.
 \newblock Negation as failure.
 \newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
 
-\bibitem[Cor11]{corapi2011tal}
+\bibitem[Cor11a]{corapi2011nonmonotonic}
+Domenico Corapi.
+\newblock {\em Nonmonotonic inductive logic programming as abductive search}.
+\newblock PhD thesis, Imperial College London, 2011.
+
+\bibitem[Cor11b]{corapi2011tal}
 Domenico Corapi.
 \newblock Tal manual, example and executable files.
 \newblock Upon the author's request the access to the material restricted to

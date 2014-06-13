@@ -580,6 +580,11 @@ We compare how ILP systems search the hypothesis space based on the properties:
 \subsection{Search direction\cite{nienhuys1997foundations}}
 When searching for a correct hypothesis \ref{correct_hypothesis}, one may either start with an overly general hypothesis $H$ wrt $B, E^+$, $E^-$ and then try to weaken it to make it consistent with the negative examples $E^-$ while preserving its completeness wrt positive examples $E^+$. This is called a \emph{top-down} search.
 On the other hand, in a \emph{bottom-up} search one starts with an overly specific hypothesis $H$ wrt $B$, $E^+$, $E^-$ and then tries to strengthen it to make it complete wrt positive examples $E^+$ while preserving the consistency wrt to the negative examples $E^-$.
+The combination of both search strategies results in a \emph{mixed} search.
+
+\begin{remark}
+A reader should be careful. In the contemporary literature there are other notions and respective classes of bottom-up and top-down systems (c.f.\cite{corapi2010inductive} for Toplog). We follow the classification by Nienhuys-Cheng and Wolf\cite{nienhuys1997foundations}.
+\end{remark}
 
 We classify ILP systems based on their direction of search.
 
@@ -588,7 +593,7 @@ We classify ILP systems based on their direction of search.
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-   	Search direction & top-down & & & & &\\ \hline
+   	Search direction & top-down & bottom-up& mixed & bottom-up & bottom-up & top-up\\ \hline
 \end{tabular}
 \end{center}
 
@@ -613,13 +618,24 @@ We classify ILP systems based on their direction of search.
 \end{center}
 
 \paragraph{Progol}
-Progol searches a hypothesis top-down for hypotheses that subsume some bottom clause.\cite{nienhuys1997foundations}.
-\paragraph{Aleph}
-Aleph being based on Progol, constructs a bottom clause, 
-\paragraph{Toplog}
-\paragraph{Xhail}
-\paragraph{Imparo}
+Progol searches top-down for hypotheses that subsume some bottom clause.\cite{nienhuys1997foundations}.
+\paragraph{Aleph\cite{aleph2007}}
+Although Aleph being based on Progol, it searches a hypothesis bottom-up. It first selects an example to be generalized, finds a bottom clause that entails it, then it generalizes the bottom clause further until a correct hypothesis is found.
+\paragraph{Toplog\cite{muggleton2008toplog}}
+Corapi\cite{corapi2011nonmonotonic} surveys that Toplog derives all the hypotheses $H_e$ that are generalizations of some positive example $e \in E^+$ constructing a set $H_c=\{h_e:e \in E^+\}$.
+Afterwards a subset $H \in H_c$ maximizing a score function is chosen. Strictly in this sense Toplog does not perform a search. The first step of generalization is analogous to a bottom-up search. Based on the score function the second step of selection may eliminate overly general hypotheses and is therefore analogous to a top-down search. We conclude that Toplog uses a mixed hypothesis search strategy.
+\paragraph{Xhail\cite{ray2003hybrid}}
+Xhail (based on Hail) constructs a kernel set from the background knowledge $B$ and an example $e$ which is subsequently generalized until a correct hypothesis is found. Therefore Xhail searches a hypothesis $H$ bottom-up.
+
+\paragraph{Imparo\cite{kimber2012learning}}
+Imparo constructs a connected theory, subsequently it searches a (more general) hypothesis that entails it. Thefore Imparo searches top-down.
+
 \paragraph{Tal}
+We conclude that Tal searches a hypothesis top-down from the quote bellow:
+\begin{quote}\cite{corapi2010inductive}
+Tal explores candidate solutions in a top-down manner,
+backtracking whenever the current solution leads to failure in the abductive derivation.
+\end{quote}
 
 \section{Robustness}
 We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
