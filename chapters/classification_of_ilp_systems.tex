@@ -581,8 +581,16 @@ we compare how ILP systems search the hypothesis space based on the properties:
 
 \subsection{Algorithms}
 
-\subsubsection{Progol}
-
+\subsubsection{Progol\cite{muggleton1995inverse}\cite{kimber2012learning}}
+Progol's algorithm consists of steps:
+\begin{itemize}
+\item initialize $H$ to be an empty theory,
+\item step 2: if $E=\emptyset$ then return $H$,
+\item select an example $e \in E$,
+\item construct a most specific clause within the mode language which entails $e$,
+\item specialise the $\bot$ clause searching down the lattice using the A*-heuristics until a clause $h$ explaining $e$ is found, then add $h$ to $H$,
+\item use the cover loop algorithm to remove all the examples from $E$ that are already explained by $H$ so far and go to step 2.
+\end{itemize}
 
 \subsubsection{Aleph}
 In the Aleph manual\cite{aleph2007} a reader would find the description of the basic algorithm:
