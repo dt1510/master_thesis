@@ -107,12 +107,12 @@ We adapt definitions of consequence operators from \cite{sergot2005knowledgeRepr
 
 \begin{defn}
 A \emph{consequence operator} on a set $L$ is a function $Cn:\powerset{L} \to \powerset{L}$ satisfying the following conditions for all sets $X, Y \subseteq L$:\\
-1) $X \subseteq cl(X)$ inclusion,\\
-2) $cl(cl(X)) \subseteq cl(X)$ closure.\\
+1) $X \subseteq Cn(X)$ inclusion,\\
+2) $Cn(Cn(X)) \subseteq Cn(X)$ closure.\\
 \end{defn}
 
 \begin{defn}
-A consequence operator $Cl:\mathcal{L} \to \mathcal{L}$ is a \emph{classical consequence operator} iff it satisfies \emph{monotony}:
+A consequence operator $Cl:\mathcal{L} \to \mathcal{L}$ is a \emph{classical (or monotone) consequence operator} iff it satisfies \emph{monotony}:
 $X \subseteq Y \implies Cl(X) \subseteq Cl(Y)$.
 \end{defn}
 
@@ -122,8 +122,8 @@ $\exists X, Y \subseteq L, X \subseteq Y \land Cn(X) \not\subseteq Cn(Y)$.
 \end{defn}
 
 \begin{defn}
-A logic satisfies a \emph{monotony} property iff its consequence operator $\models$ is monotone, i.e.
-if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi$. A logic that satisfies a monotony property is called monotonic, otherwise non-monotonic.
+A logic is \emph{monotonic} iff its consequence operator is monotone.
+A logic is \emph{non-monotonic} iff its consequence operator is non-monotone.
 \end{defn}
 
 \begin{exmp}
