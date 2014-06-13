@@ -77,6 +77,37 @@ Let $Cl$ be a classical consequence operator and $Cp$ be a consequence operator 
 Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is not more general wrt $Cp$ than $T$ since $Cp(T) \not\subseteq Cp(T_2)$ as $\neg p \in Cp(T)$ but $p \in Cp(T_2)$.
 \end{exmp}
 
+\subsection{A unified definition of ILP task}
+The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
+
+We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
+
+Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $e^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
+
+\begin{center}
+    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
+    \hline
+    ILP system & \\ \hline
+    Aleph & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, $B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$\\ \hline
+    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \land H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
+    Toplog & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
+    Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
+    Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
+    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \overline{E^{-}} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
+    \end{tabular}
+\end{center}
+
+Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
+given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$
+
+The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
+let $B_P=E^{+} \land \overline{E^{-}} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E'^{+} \land \overline{E'^-} \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of the problem of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+
+Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
+given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \land E^{+} \land E^{-})$,
+find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \land \overline{E^{-}} \subseteq Cn(B \land H), false \not\in Cn(B \land H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
 \section{Completeness by problem classes}
 A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
 
