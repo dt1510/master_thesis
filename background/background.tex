@@ -103,21 +103,23 @@ $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B
 \end{defn}
 
 \section{Logics\cite{sep-logic-nonmonotonic}}
+We adapt definitions of consequence operators from \cite{sergot2005knowledgeRepresentationLectureNotes}.
+
 \begin{defn}
-A (monotone) \emph{consequence operator}\cite{sergot2005knowledgeRepresentationLectureNotes} on a set $S$ is a function $cl:\powerset{S} \to \powerset{S}$ satisfying the following conditions for all sets $X, Y \subseteq S$:
-\begin{enumerate}
-\item $X \subseteq cl(X)$ inclusion,
-\item $cl(cl(X))=cl(X)$ idempotence,
-\item $X \subseteq{Y} \implies cl(X) \subseteq{Y}$ monotony.
-\end{enumerate}
+A \emph{consequence operator} on a set $L$ is a function $Cn:\powerset{L} \to \powerset{L}$ satisfying the following conditions for all sets $X, Y \subseteq L$:\\
+1) $X \subseteq cl(X)$ inclusion,\\
+2) $cl(cl(X)) \subseteq cl(X)$ closure.\\
 \end{defn}
 
 \begin{defn}
-A \emph{non-monotone consequence operator} on a set $S$ is a function
-$cl:\powerset{S} \to \powerset{S}$ satisfying the condition of extensivity, idempotence and not satisfying the condition of monotony.
+A consequence operator $Cl:\mathcal{L} \to \mathcal{L}$ is a \emph{classical consequence operator} iff it satisfies \emph{monotony}:
+$X \subseteq Y \implies Cl(X) \subseteq Cl(Y)$.
 \end{defn}
 
-We will reason about the models in the first-order logic since this is the language of the model theory. However, there are other logics, notably non-monotonic logics that are used in ILP.
+\begin{defn}
+A consequence operator $Cn:\mathcal{L} \to \mathcal{L}$ is a \emph{non-monotone consequence operator} iff it does not satisfy monotony, i.e.
+$\exists X, Y \subseteq L, X \subseteq Y \land Cn(X) \not\subseteq Cn(Y)$.
+\end{defn}
 
 \begin{defn}
 A logic satisfies a \emph{monotony} property iff its consequence operator $\models$ is monotone, i.e.
@@ -127,6 +129,8 @@ if $\Gamma \models \phi$ and $\Gamma \subseteq \Delta$ then $\Delta \models \phi
 \begin{exmp}
 First-order logic is monotonic.
 \end{exmp}
+
+Logics used in ILP are usually non-monotonic.
 
 \section{Logic Programming}
 

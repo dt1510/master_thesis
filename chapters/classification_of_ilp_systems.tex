@@ -571,6 +571,17 @@ The support for the metaconstraints of interest is summarised.
   
 If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
 
+\section{Hypothesis search}
+We compare how ILP systems search the hypothesis space based on the properties:
+\begin{itemize}
+\item search direction
+\end{itemize}
+
+\subsection{Search direction}
+Given background knowledge $B$, positive examples $E^+$, negative examples $E^-$, we impose two conditions on a correct hypothesis $H$:\\
+1) $E^+ \subseteq Cn(B \cup H)$\\
+2) $E^- \not\subseteq Cn(B \cup H)$\\
+
 \section{Robustness}
 We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
 
