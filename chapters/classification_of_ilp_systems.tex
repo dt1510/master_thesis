@@ -601,31 +601,20 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 \item \emph{Remove redundant.} The clause with the best score is added to the current theory, and all examples made redundant are removed. This step is sometimes called the "cover removal" step. Note here that the best clause may make clauses other than the examples redundant. Again, this is ignored here. Return to Step 1.
 \end{enumerate}
 
-\subsubsection{Toplog\cite{muggleton2008toplog}}
-The TopLog learning algorithm consists of three major steps: 1) hypotheses
-derivation for each positive example, 2) coverage computation for all unique
-hypotheses, $H$, derived in previous step, 3) construct the final theory, T , as the
-subset of $H$ that maximizes a given score function (e.g. compression).
+\subsubsection{Toplog\cite{muggleton2008toplog}\cite{corapi2011nonmonotonic}}
+The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse entailment following the steps:
 
-The input to an TDHD system is the quadruple $\langle NT, \top, B, E \rangle$ where $NT$ is a set of non-terminal  predicate symbols. Therefore a top theory $\top$ is not constructed from the input but already is a part of an input. $\top$ satisflies the conditions:
-1. $\top$ consists of Horn clauses,
-2. each clause in $\top$
-must contain at least one occurrence of an element of $NT$ while clauses in $B$
-and $E$ must not contain any occurrences of elements of $NT$,
-3. any predicate appearing in the head of some clause in $\top$ must not occur in th	e body of any clause in $B$,
-4. the head of the first clause in $\top$ is the target predicate and
-the head predicates for other clauses in must be in $NT$.
-
-Toplog is an ILP system implementing TDHD framework. The algorithm used to construct the hypothesis uses Mode Directed Inverse Entailment and follows the steps:
 \begin{itemize}
 \item construct the top theory $\top$,
-\item hypothesis derivation: derive refutations of $\neg e$ from $B$ and $\top$, derive a clause $h$ from the refutations, add $h$ to $H$.
-\item coverage computation: which examples $E^+$ and $E^-$ are entailed by $h \in H$.
-\item hypothesis construction: select $H' \subseteq H$ maximizing the score function - e.g. compression, coverage, accuracy,
+\item for every example $e \in E$:
+\item derive a clause $h_e$ such that $\top \models h_e$, $B \cup \{h_e\} \models e$, add $h_e$ to $H_c$,
+\item end loop,
+\item select $H \in H_c$ such that $s(H)$ is maximized for a score function $s:\mathcal{H} \to \mathbb{R}$.
 \end{itemize}
-
+The score function can be based on compression, coverage, accuracy, etc.
 
 \subsubsection{Xhail}
+
 
 \subsubsection{Imparo}
 Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
@@ -668,7 +657,7 @@ We classify ILP systems based on their direction of search.
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-   	Search direction & top-down & bottom-up& mixed & bottom-up & mixed & top-up\\ \hline
+   	Search direction & top-down & bottom-up& mixed & bottom-up & mixed & top-down\\ \hline
 \end{tabular}
 \end{center}
 
