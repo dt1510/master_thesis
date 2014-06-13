@@ -4,286 +4,78 @@ In the chapter \nameref{chap:issues_in_ilp} we analysed the central issues in IL
 
 We will define an ILP task $I \mapsto O$ by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as an \emph{algorithm} computing the function $I \mapsto O$.
 
-\section{ILP task definition}
-In \nameref{sec:ilp_task_definition} of the chapter \nameref{chap:issues_in_inductive_logic_programming} we presented machine learning problems: generalization and explanatory induction; together with the properties expressivity, positive examples, negative examples, semantics.
+\section{ILP task definition}\label{sec:ilp_task_definition}
+ILP task definition issue arises from ILP systems using the same \emph{incomplete ILP task definition} although each solves a different machine learning problem.
 
-Although on the surface there may seem to be a standard definition of an ILP task, in this section we demonstrate that when specifying an ILP task completely, each ILP system classified solves a different learning problem. This mutual incompatibility has a major impact how we can assess, compare and classify ILP systems.
+The objectives of this section are to present the main machine learning problems sought to be solved by ILP systems: generalization and explanatory induction; and then extract their properties upon which a comparison of ILP systems can be based.
 
-We explain the importance of defining an ILP task completely, present building blocks for a definition of an ILP task, construct an ILP definition for each ILP system, classify the ILP systems based on an ILP task they solve and lastly provide a generalized unifying definition of an ILP task for all assessed ILP systems to lay the ground for their comparisons and classification in the subsequent chapters.
+We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
 
-\subsection{Importance of complete definitions}
-Since an ILP task is a function problem $f:I \mapsto O$ for a specified input $I$ and a corresponding output $O$, its incomplete definition may not specify a \emph{unique deterministic function} $f$. An example of an incomplete definition is explanatory induction: given $I=\langle B, E \rangle$ find a correct $O=H$, i.e. satisfying
-$E \in Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$.
-\begin{exmp}\label{explanatory_induction_definition_incompleteness}
-Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
-$H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
-Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$. Therefore there are at least 2 different functions $\langle B, E \rangle \mapsto H_1$ and
-$\langle B, E \rangle \mapsto H_2$ specifying the output $O=H$.
-\end{exmp}
-
-The importance of an issue of an incomplete definition becomes apparent when defining a non-ILP function problem as our mind is not biased towards the acceptance of the incompleteness of a definition encountered in the ILP literature.
-
-\begin{exmp}
-Define a function problem $f:I \mapsto O$ by given an odd number, find an even number. Then constant functions $f_2:I \mapsto 2$, $f_4:I \mapsto 4$, ..., functons $g_1:I \mapsto I+1$, $g_3:I \mapsto I+3$ and many others are compatible with an incomplete definition of a function $f$. However, when the definition of a function problem is completed to given an odd number $I$ to find smallest even number greater than $I$, then unambiguously $f=g_1$.
-\end{exmp}
-
-Not specifying an ILP task completely may result in designing an ILP system solving a different function problem than the one intended.
-
-\subsection{Buildings blocks of ILP task definition}\label{subsec:building_blocks_of_ilp_task_definition}
-In this subsection we define an ILP task definition, instantiate the definition with an ILP task of generalization, extend the definition of generalization by the notions encountered in ILP tasks of ILP systems we classify. The objective of this subsection is to enumerate the building blocks of an ILP task definition and the rules that make the definition more complete from which we can construct definitions of ILP tasks and classify their respective ILP systems later.
-
-\begin{defn}\label{ilp_task_definition}
-An \emph{ILP task definition} is a tuple $D=\langle f, dom(f), cod(f), R \rangle$ where a (possibly non-deterministic) function $f$ is called an \emph{ILP task}, $dom(f)$ is a set of \emph{inputs} vectors
-$I=\langle \overrightarrow{i} \rangle$, $cod(f)$ is a set of \emph{output} vectors $O=\langle \overrightarrow{o} \rangle$ and $R$ is a set of rules (logical sentences) defining $f$,
-i.e. $O \in f(I) \iff R \cup \{O \in f(I)\} \not\models false$ for a classical consequence operator $\models$. A vector component of an input(output) vector $\overrightarrow{i}$($\overrightarrow{o}$) is called an \emph{input component}(\emph{output component}) of an ILP task $f$. A \emph{structure component} of an ILP task is its input or output component. A \emph{rule} of an ILP task is a formula $\phi \in R$.
-\end{defn}
-
-\begin{remark}
-We will often specify $R$ only by its subset of sentences and the rest will be specified informally or expected from the reader to be deduced from the context in order to avoid unnecessarily long specifications of $R$ and the lost of the focus. We may specify directly a possible input vector $I$ without specifying $dom(f)$ explicitly, it is be understood that $dom(f)$ is a set of all such input vectors $I$. Similarly, $cod(f)$ is a set of all possible output vectors $O$. The notation is abused for vectors with one element, e.g. $H=\langle H \rangle$.
-\end{remark}
-
-\begin{exmp}
-The definition of explanatory induction is $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$, $R=\{E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$. Input components of explanatory inductions are $B, E$. A hypothesis $H$ is an output component of explanatory induction.
-\end{exmp}
-
-\subsubsection{Completeness of definitions of ILP task}
-By the example \fullref{explanatory_induction_definition_incompleteness} the definition of explanatory induction does not specify a unique deterministic ILP task, we say such a definition is incomplete.
+\subsection{Generalization}\label{generalization}
 
 \begin{defn}
-A definition $D=\langle f, dom(f), cod(f), R \rangle$ is a \emph{complete ILP task definition} iff $f:I \mapsto O$ is deterministic. $D$ is \emph{incomplete} iff $D$ is not complete.
+A theory $T_2$ is \emph{more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subseteq Cn(T_2)$.
 \end{defn}
-
-Since an incomplete definition results in an ambiguous ILP task definition it will be in our interest to make the definitions more complete by introducing additional rules defining an ILP task.
+When the consequence operator $Cn$ is clear or general, we say more succintly that $T_2$ is more general than $T$. Every theory $T$ is more general than itself since $Cn(T) \subseteq Cn(T)$.
 
 \begin{defn}
-Let $f:X \mapsto Y$ be a (possibly non-deterministic) function, we say that a (possibly non-deterministic) function $g:X \mapsto Y$ is a \emph{possible function} of $f$ iff
-$\forall x \in X. g(x) \subseteq f(x)$. We denote the set of all possible functions of $f$ by $\Box f$.
+A theory $T_2$ is \emph{strictly more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subset Cn(T_2)$.
 \end{defn}
-
-\begin{remark}
-The only possible function of a deterministic function is the function itself, i.e. $\Box f = \{f\}$.
-\end{remark}
 
 \begin{defn}
-A definition $D_1=\langle f_1, dom(f_2), cod(f_2), R \rangle$ is \emph{more complete} than the definition $D_2=\langle f_1, dom(f_2), cod(f_2), R \rangle$ iff
-$f_2$ is a possible function of $f_1$.
+A learning problem of \emph{generalization} is given a logical theory $T$, find a consistent logical theory $T_2$ more general than the theory $T$ wrt to some consequence operator $Cn$, i.e.
+$Cn(T) \subseteq Cn(T_2)$, $false \not\in Cn(T_2)$.
 \end{defn}
 
-\begin{corollary}\label{corollary_more_complete_1}
-Let $D_1=\langle f_1, \mathcal{I}, \mathcal{O}, R_1 \rangle$, $D_2=\langle f_2, \mathcal{I}, \mathcal{O}, R_2 \rangle$ be definitions of an ILP task.
-If $R_2 \models R_1$, then $D_2$ is more complete than $D_1$.
-\end{corollary}
-
-\begin{proof}
-Follows directly from the definitions.
-\end{proof}
-
-\subsubsection{Extension of ILP task definition}
-To provide a more accurate and complete specification of an ILP task, its definition can be extended.
-
-\begin{defn}\label{definition_ilp_task_definition_extension}
-Let $D_1=\langle f_1, \mathcal{I}_1, \mathcal{O}_1, R_1 \rangle$ be a definition of an ILP task. A definition $D_2=\langle \mathcal{I}_2, \mathcal{O}_2, R_2 \rangle$ is an \emph{input component extension}(\emph{output component extension}) of a definition $D_1$ iff $\langle \overrightarrow{i_1} \rangle \subset \langle \overrightarrow{i_2} \rangle$. $D_2$ is a \emph{component extension} of $D_1$ iff $D_2$ is an input or output component extension of $D_1$. $D_2$ is a \emph{rule extension} $D_1$ iff $R_1 \subset D_2$. $D_2$ is an \emph{extension}(or an \emph{extended definition}) of $D_1$ iff $D_2$ is a component or rule extension of $D_1$.
-A component $i \in \langle \overrightarrow{i_2} \rangle \setminus \langle \overrightarrow{i_1}$ with its set is an \emph{extending input component} of $D_2$ for $D_1$.
-A component $o \in \langle \overrightarrow{o_2} \rangle \setminus \langle \overrightarrow{o_1}$ is an \emph{extending output component} of $D_2$ for $D_1$.
-A component is an \emph{extending component} iff it is an extending input component or an extending output component.
-A rule $r \in R_2 \setminus R_1$ is an \emph{extending rule} of $D_2$ for $D_1$.
-\end{defn}
-
-\begin{remark}
-An extension of an ILP task definition defines a different ILP task.
-\end{remark}
-
-\begin{remark}
-\emph{Extending rules of a component} are the rules which define the component (i.e. rules containing the symbols present in the denotation of the of the component). When a definition is extended by an extending component, the corresponding extending rules of an extending component need to be added as extending rules to the new definition.
-\end{remark}
-
-A correspondence between an ILP task defined by $D$ and an ILP task defined by an extension of $D$ is shown.
-
-\begin{corollary}
-Let $D_2$, $D_1$ be ILP task definitions. If $D_2$ is a rule extension of $D_1$, then $D_2$ is more complete than $D_1$.
-\end{corollary}
-\begin{proof}
-Follows from \fullref{definition_ilp_task_definition_extension} and \fullref{corollary_more_complete_1}.
-\end{proof}
-
-\begin{proposition}
-Let $D_2=\langle f_2, dom(f_2), cod(f_2), R_2 \rangle$,
-$D_1=\langle f_1, dom(f_1), cod(f_1), R_1 \rangle$ be ILP task definitions. Suppose that $D_2$ with an input $I_2$ is an input extension of $D_1$ with an input $I_1$, but not an output extension, not a rule extension. Then $f_2(I_2)=f_1(I_1)$.
-\end{proposition}
-
-\begin{proof}
-$O \in f_1(I_1) \iff R_1 \cup \{O \in f_1(I_1)\} \not\models false \iff  R_2 \cup \{O \in f_2(I_2)\} \not\models false \iff O \in f_2(I_2)$ since $O \in f_2(I_2)$ is defined in terms of $I_1 \subseteq I_2$ and for the defining rules $R_1(f_1 \mapsto f_2) = R_2$, $R_2(f_2 \mapsto f_1)=R_1$ for substitutions $f_1 \mapsto f_2$, $f_2 \mapsto f_1$.
-\end{proof}
-
-\subsubsection{Generalization}
-Recall \fullref{generalization}.
-\begin{defn}
-An ILP task of \emph{generalization} is defined by $D=\langle f, L, L, R \rangle$ where $R=\{\forall I \in L. Cn(I) \subseteq Cn(f(I))\}$ for some logic language $L$ and a consequence operator $Cn:L \to L$.
-\end{defn}
-
-An example of an ILP system that puts background knowledge and examples into one theory which is then generalized is Progol\cite{muggleton1995inverse}. An interested reader should consult Progol implementation referenced in the cited paper.
-
-\subsubsection{Hypothesis}
-The properties arising from an ILP task with a hypothesis provide significant means of comparison. A hypothesis is part of the definition of explanatory induction, but it is not present in the definition of generalisation. To be able to compare ILP systems like Progol whose ILP task is an extension of generalisation with ILP systems like Toplog, Imparo, Tal whose ILP task is an extension of explanatory induction we define a hypothesis for the definition of generalization.
+The objective of generalization is to produce from a theory $T$ a new theory $T_2$ with a greater predictive power to enable logical reasoning about the possible realities with the additional knowledge.
 
 \begin{defn}
-Let $D=\langle f, L, L, R \rangle$ be a definition of generalization.
-Then $H \subseteq L$ is a \emph{hypothesis} for $I \in dom(f)$ iff $\exists O \in f(I). H=O \setminus I$.
+Let $T$ be a logical theory. $\phi$ is \emph{predictable} from $T$ iff there is a consistent theory $T_2$ more general than $T$ with $\phi \in Cn(T_2)$. We say that $T_2$ \emph{predicts} $\phi$ from $T$.
+\end{defn}
+
+\begin{defn}
+A theory $T_2$ is of a \emph{greater predictive power} than $T_1$ iff
+for some $T$ it holds that $\forall \phi \in L.$ if $T_2$ predicts $\phi$ from $T$, then $T_1$ predicts $\phi$ from $T_2$ for the language $L$ of the theories $T, T_1, T_2$.
 \end{defn}
 
 \begin{exmp}
-Let $B, E, H$ be background knowledge, examples, a correct hypothesis wrt $B, E$ such that $E \cap H=\emptyset$.
-Then $Cn(B \cup E) \subseteq Cn(B \cup H)$, hence $O=B \cup H$ is a generalization of $I=B \cup E$.
-$I, O$ define the hypothesis $H'=O \setminus I=(B \cup H) \setminus (B \cup E)=H \setminus E=H$ which is the original hypothesis we started with.
+Let $T$ be a theory $\{mortal(aristotle) \leftObjectImplies man(aristotle), man(adam)\}$. Then the theory $T_2=T \cup \{mortal{adam} \leftObjectImplies man(adam)\}$ is consistent and more general than $T$ assuming a classical consequence operator. $mortal(adam)$ cannot be deduced from the theory $T$ although it can be deduced from its generalized theory $T_2$. Hence $mortal(adam)$ is predictable from $T$.
 \end{exmp}
 
-\subsubsection{Explanatory induction}
-Most of the ILP systems solve an ILP task of an extended form of explanatory induction.\cite{kimber2012learning}\cite{aleph2007}\cite{nienhuys1997foundations}
-
-\begin{defn}\label{defn_explanatory_induction}
-An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
-\end{defn}
-A division of examples $E=E^{+} \cup \neg E^{-}$ into positive examples $E^{+}$ and negative examples $E^{-}$ results in an alternative definition.
-
-\begin{defn}
-An ILP task of \emph{explanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E^{+}, E^{-} \rangle$, $O=H$,
-$R=\{Cn(B \cup E^{+}) \subseteq Cn(B \cup H), E^{-} \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
+\subsection{Explanatory induction\cite{yamamoto2012inverse}}
+\begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
 
-See an example \fullref{explanatory_induction_example}.
+This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E^{+} \cup \neg E^{-}$ where $E, E^{+}, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
 
-\subsubsection{Multiexplanatory induction}
-While the output of explanatory induction is an explanation $H$ for $E$ in terms of $B$, we define multiexplanatory induction as an ILP task allowing multiple explanations for $E$ in terms of $B$ on the output.
-
-\begin{defn}\label{defn_multiexplanatory_induction}
-An ILP task of \emph{multiexplanatory induction} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E \rangle$, $H \in O$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)\}$ for some consequence operator $Cn$.
-\end{defn}
-
-An example of an ILP system solving an extension of an ILP task of multiexplanatory induction is Tal.\fullref{subsec:tal_multiple_solutions} There is an obvious correspondence between explanatory induction and multiexplanatory induction.
-
-\begin{proposition}
-Let $f_1:I_1 \mapsto O_2$ be an ILP task of explanatory induction, $f_2:I_2 \mapsto O_2$ an ILP task of multiexplanatory induction. If $I_1=I_2$, then
-$f_1(I_1) \in f_2(I_2)$.
-\end{proposition}
-
-\begin{proof}
-Follows from the definitions \fullref{defn_explanatory_induction}, \fullref{defn_multiexplanatory_induction}.
-\end{proof}
-
-\subsubsection{Hypothesis bias}
-The non-determinism of an ILP task is reduced by an introduction of additional constrains. A set of the constrains on a hypothesis for an ILP task are a hypothesis bias.
-
-\begin{defn}
-An ILP task of \emph{explanatory induction with a hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{H}\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}\}$ for some consequence operator $Cn$. A set $\mathcal{H} \subseteq \powerset{L}$ for a logic language $L$ is called a \emph{hypothesis bias} on a language $L$.
-\end{defn}
-
-\begin{remark}
-A hypothesis bias $\mathcal{H}$ is an input extension of explanatory induction with its extending rules $R$.
-\end{remark}
-
-\begin{exmp}\label{explanatory_induction_hypothesis_bias}
-Let $B = \{cook(alice), female(alice)\}$, $E=\{woman(alice)\}$,
-$H_1=\{woman(alice) \leftObjectImplies cook(alice)\}$,
-$H_2=\{woman(alice) \leftObjectImplies female(alice)\}$,
-$\mathcal{H}=\{H_1\}$.
-Then $H_1$ and $H_2$ are possible outputs for an input $I=\langle B, E\rangle$ of explanatory induction. However, only $H_2$ is an output for an input $I'=\langle B, E, \mathcal{H}\rangle$ of explanatory induction with a hypothesis bias.
+\begin{exmp}\cite{explanatory_induction_example}
+Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
+$\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
+$E^{-} = man(alice) \lor man(susan)$.
 \end{exmp}
+
+Therefore one can define explanatory induction with the negative examples.
+\begin{defn}\label{explanatory_induction_with_negative_examples_definition}
+A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying
+$E^{+} \subseteq Cn(B \cup H)$ and $E^{-} \not\in Cn(B \cup H)$.
+\end{defn}
+The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
+
+Explanatory induction is a case of generalization where the theory $T_2=B \cup H$ generalizes the theory $T = B \cup E$.
+
+\subsection{Examples}
+Positive examples $E^{+}$ and negative examples $E^{-}$ in explanatory induction put conditions on a possible explanation $H$: $E^{+} \in Cn(B \cup E^{+})$, $E^{-} \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
+
+\subsection{Expressivity}
+Additional restrictions on the properties (e.g. \ref{background_representation_of_logic_theories}) of the logical theories on the input and output can make the definition of an ILP task more complete. For example, we may require a logic theory to be a Horn theory, consist at most of one clause or have only terms without function symbols.
+
+\subsection{Semantics}
+If two ILP tasks use a different consequence operator, then each specifies a different learning problem and a solution to one of them does not necessarily constitute a solution to the other problem.
 
 \begin{exmp}
-Let $\mathcal{H} \subseteq \powerset{L}$ be a set of definite clauses. Then $\mathcal{H}$ is a hypothesis bias.
+Let $Cl$ be a classical consequence operator and $Cp$ be a consequence operator induced by Prolog interpreter. Let $T=\emptyset$, $T_2=\{p\}$.
+Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is not more general wrt $Cp$ than $T$ since $Cp(T) \not\subseteq Cp(T_2)$ as $\neg p \in Cp(T)$ but $p \in Cp(T_2)$.
 \end{exmp}
-
-\begin{exmp}
-Recall \fullref{subsec:background_language_bias}.
-Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
-Then $L(M)$, $L(D)$, $L(C)$ are hypothesis biases.
-\end{exmp}
-
-Since the hypothesis bias is a set of the possible hypotheses, we have the obvious proposition.
-\begin{proposition}
-Let $\mathcal{H}_1$, $\mathcal{H}_2$ be hypothesis biases on a language $L$, then the following are hypothesis biases:
-\begin{tabular}{ c c c }
-1) $\powerset{L} \setminus \mathcal{H}_1$,&
-2) $\mathcal{H}_1 \cap \mathcal{H}_2$,&
-3) $\mathcal{H}_1 \cup \mathcal{H}_2$.\\
-\end{tabular}
-\end{proposition}
-
-\begin{proof}
-Clear.
-\end{proof}
-
-\paragraph{Language bias}
-One may define a hypothesis bias $\mathcal{H}$ by enumerating all the hypotheses $H \in \mathcal{H}$. If $\#\mathcal{H}$ is large, it may be impractical. ILP systems specify constraints on a hypothesis space with alternative constructions\fullref{subsec:background_language_bias}:
-mode declarations, determinations and metaconstraints.
-By \ref{proposition_metaconstraints_production_field}, \ref{md_d_pf_correspondence_proposition} these constraints are expressible with a production field. Therefore we define an ILP task with a production field where the production field can be replaced by a more specific construction.
-
-\begin{defn}
-An ILP task of \emph{explanatory induction with a production field} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, \mathcal{P}\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), H \in \mathcal{H}, Cond(H)\}$ for some consequence operator $Cn$ where a production field $\mathcal{P}=\langle Lit, Cond \rangle$.
-\end{defn}
-
-\subsubsection{Preferential bias}
-Instead of introducing constrains on a hypothesis, one may introduce constrains as a relation on pairs of hypotheses.
-
-\begin{defn}
-An ILP task of \emph{explanatory induction with a preferential hypothesis bias} is defined by $D=\langle f, dom(f), cod(f), R \rangle$ where $I=\langle B, E, <_H\rangle$, $O=H$,
-$R=\{Cn(B \cup E) \subseteq Cn(B \cup H), false \not\in Cn(B \cup H), \forall H_2. (Cn(B \cup E) \subseteq Cn(B \cup H_2), false \not\in Cn(B \cup H_2) \implies H_2 <_H H \lor H_2 =_H H \}$ for some consequence operator $Cn$. A relation $<_H \subseteq \powerset{L} \times \powerset{L}$ is called a \emph{preferential hypothesis bias}.
-\end{defn}
-
-\begin{exmp}
-Let $B, E, H_1, H_2$ be as in an example \fullref{explanatory_induction_hypothesis_bias}.
-Let $<_H=\{(H_1, H_2)\}$ be a preferential hypothesis bias.
-Then $H_2$ is a possible output for an input $I=\langle B, E, <_H \rangle$ of explanatory induction with a preferential hypothesis bias, but $H_1$ is not.
-\end{exmp}
-
-\subsubsection{Semantics}
-Semantics concerns with the derivable consequences from some logic theory $\Sigma$ with the consequence operator $Cn$. Progol, Aleph, Toplog, Xhail, Imparo, Tal have their input a Prolog logic program and their semantics has the negation on failure property as can be observed in the respective appendices.
-
-\subsubsection{Other constructions}
-The building blocks and the rules we have not considered are:
-\begin{itemize}
-\item integrity constraints,
-\item types on the ground instances in a logic program as in the appendix,
-\item heuristics (minimum description length) and a score function,
-\item rules for finding an approximate hypothesis,
-\item induction field\cite{yamamoto2012inverse} and production field\cite{inoue2004induction},
-\item episodes in metalearning framework\cite{muggleton2013meta}.
-\end{itemize}
-
-\subsection{A unified definition of ILP task}
-The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
-
-We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
-
-Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $e^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
-
-\begin{center}
-    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
-    \hline
-    ILP system & \\ \hline
-    Aleph & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, $B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$\\ \hline
-    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \land H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
-    Toplog & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \overline{E^{-}} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
-    \end{tabular}
-\end{center}
-
-Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
-given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$
-
-The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
-let $B_P=E^{+} \land \overline{E^{-}} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E'^{+} \land \overline{E'^-} \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of the problem of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
-
-Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
-given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \land E^{+} \land E^{-})$,
-find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \land \overline{E^{-}} \subseteq Cn(B \land H), false \not\in Cn(B \land H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
 
 \section{Completeness by problem classes}
 A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.

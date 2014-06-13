@@ -42,47 +42,42 @@
 \BOOKMARK [2][-]{subsection.3.4.5}{Inverse subsumption with minimal complements and connected theory}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.6}{Negative examples}{section.3.4}
 \BOOKMARK [2][-]{subsection.3.4.7}{Imparo is complete in inverse subsumption}{section.3.4}
-\BOOKMARK [0][-]{chapter.4}{Issues in ILP}{}
+\BOOKMARK [0][-]{chapter.4}{Classification of ILP systems}{}
 \BOOKMARK [1][-]{section.4.1}{ILP task definition}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{Generalization}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.2}{Explanatory inductionyamamoto2012inverse}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.3}{Examples}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.4}{Expressivity}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.5}{Semantics}{section.4.1}
-\BOOKMARK [0][-]{chapter.5}{Classification of ILP systems}{}
+\BOOKMARK [1][-]{section.4.2}{Completeness by problem classes}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Multiplicity of clauses in a hypothesis}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Expressivity of examples}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Generalization downwards}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Double Kleene star}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Bias}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Language bias}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{Hypothesis search}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{Algorithms}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{Search directionnienhuys1997foundations}{section.4.4}
+\BOOKMARK [1][-]{section.4.5}{Robustness}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.5.1}{ILP task definition}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{Importance of complete definitions}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Buildings blocks of ILP task definition}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{A unified definition of ILP task}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Completeness by problem classes}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.2.1}{Multiplicity of clauses in a hypothesis}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{Expressivity of examples}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{Generalization downwards}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.4}{Double Kleene star}{section.5.2}
+\BOOKMARK [1][-]{section.5.2}{Algorithm}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{Maximal hypothesis antisubsumer}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{Computing the antisubsumed hypotheses}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{Pruning hypotheses by negative examples}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Bias}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.3.1}{Language bias}{section.5.3}
-\BOOKMARK [1][-]{section.5.4}{Hypothesis search}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Algorithms}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Search directionnienhuys1997foundations}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Robustness}{chapter.5}
-\BOOKMARK [0][-]{chapter.6}{Rationale ILP system}{}
-\BOOKMARK [1][-]{section.6.1}{ILP task definition}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{Algorithm}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Maximal hypothesis antisubsumer}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{Computing the antisubsumed hypotheses}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Pruning hypotheses by negative examples}{section.6.2}
-\BOOKMARK [1][-]{section.6.3}{Bias}{chapter.6}
-\BOOKMARK [1][-]{section.6.4}{Completeness}{chapter.6}
-\BOOKMARK [1][-]{section.6.5}{Other considerations}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.5.1}{Hypothesis selection}{section.6.5}
-\BOOKMARK [2][-]{subsection.6.5.2}{Hypothesis search}{section.6.5}
-\BOOKMARK [2][-]{subsection.6.5.3}{Implementation details}{section.6.5}
-\BOOKMARK [1][-]{section.6.6}{Comparison of Rationale with other ILP systems}{chapter.6}
-\BOOKMARK [0][-]{chapter.7}{Evaluation}{}
-\BOOKMARK [0][-]{chapter.8}{Conclusion}{}
-\BOOKMARK [1][-]{section.8.1}{Summary of Thesis Achievements}{chapter.8}
-\BOOKMARK [1][-]{section.8.2}{Applications}{chapter.8}
-\BOOKMARK [1][-]{section.8.3}{Future Work}{chapter.8}
+\BOOKMARK [1][-]{section.5.4}{Completeness}{chapter.5}
+\BOOKMARK [1][-]{section.5.5}{Other considerations}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{Hypothesis selection}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.2}{Hypothesis search}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.3}{Implementation details}{section.5.5}
+\BOOKMARK [1][-]{section.5.6}{Comparison of Rationale with other ILP systems}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Evaluation}{}
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}
+\BOOKMARK [1][-]{section.7.1}{Summary of Thesis Achievements}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Applications}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Future Work}{chapter.7}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}
