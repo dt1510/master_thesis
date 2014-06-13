@@ -577,10 +577,49 @@ We compare how ILP systems search the hypothesis space based on the properties:
 \item search direction
 \end{itemize}
 
-\subsection{Search direction}
-Given background knowledge $B$, positive examples $E^+$, negative examples $E^-$, we impose two conditions on a correct hypothesis $H$:\\
-1) $E^+ \subseteq Cn(B \cup H)$\\
-2) $E^- \not\subseteq Cn(B \cup H)$\\
+\subsection{Search direction\cite{nienhuys1997foundations}}
+When searching for a correct hypothesis \ref{correct_hypothesis}, one may either start with an overly general hypothesis $H$ wrt $B, E^+$, $E^-$ and then try to weaken it to make it consistent with the negative examples $E^-$ while preserving its completeness wrt positive examples $E^+$. This is called a \emph{top-down} search.
+On the other hand, in a \emph{bottom-up} search one starts with an overly specific hypothesis $H$ wrt $B$, $E^+$, $E^-$ and then tries to strengthen it to make it complete wrt positive examples $E^+$ while preserving the consistency wrt to the negative examples $E^-$.
+
+We classify ILP systems based on their direction of search.
+
+\begin{center}
+\captionof{table}{Classification by search direction}\label{tab:title} 
+\begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+   	Search direction & top-down & & & & &\\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\captionof{figure}{Top-down and bottom-up direction of hypothesis search}
+\begin{tikzpicture}
+\draw[color=green, style=dashed, fill=green!10] (7, 1.75) circle (0.75);
+\draw[color=red, style=dashed, fill=red!10] (7, 5) circle (0.75);
+\draw[color=red] (7,3.5) ellipse (4 and 3.5);
+\draw[color=green!80!black] (7,2) ellipse (3 and 2);
+\draw[color=blue] (7,1) ellipse (2 and 1);
+\fill (7,1.5) node[above] {$E^+$};
+\fill (7,5) node[above] {$E^-$};
+\fill[color=red] (7,6) node[above] {overly general};
+\fill[color=green!80!black] (7,3) node[above] {correct};
+\fill[color=blue] (7,0.2) node[above] {overly specific};
+\draw [->] (12,1) -- (12,5);
+\draw [->] (2,5) -- (2,1);
+\fill (2,5) node[above] {top-down};
+\fill (12,0.5) node[above] {bottom-up};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Progol}
+Progol searches a hypothesis top-down for hypotheses that subsume some bottom clause.\cite{nienhuys1997foundations}.
+\paragraph{Aleph}
+Aleph being based on Progol, constructs a bottom clause, 
+\paragraph{Toplog}
+\paragraph{Xhail}
+\paragraph{Imparo}
+\paragraph{Tal}
 
 \section{Robustness}
 We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
