@@ -436,13 +436,13 @@ The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse enta
 \end{itemize}
 The score function can be based on compression, coverage, accuracy, etc.
 
-\subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}}
+\subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}\cite{corapi2011nonmonotonic}}
 Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories following the steps:
 \begin{itemize}
 \item find an abductive explanation $\Delta=\{\alpha_1, ..., \alpha_n\}$ for atoms in $E$ from $B$, i.e. $B \cup \Delta \models E$,
 \item find the set of atoms $\beta=\{\delta | B \models \delta\}$ that can be deduced from $B$ using SLD resolution,
 \item construct a kernel set $K$ of all possible clauses with $\alpha_j \in \Delta$ in their head, and body $\{\delta^j_1, ..., \delta^j_{m_j}\} \subseteq \beta$ where any $\delta^j_i$ has to satisfy $B \cup \Delta \models \delta^j_i$,
-\item find $H$ entailing the kernel set $K$ using an inductive search.
+\item find $H$ subsuming the kernel set $K$ by deleting the body literals of the clauses in $K$.
 \end{itemize}
 
 \subsubsection{Imparo}
@@ -468,7 +468,14 @@ A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a s
 (iv) $B \union T \not\models \square$.
 \end{defn}
 
-\subsubsection{Tal}
+\subsubsection{Tal\cite{corapi2011nonmonotonic}}
+Tal's algorithm is based on the use of a top theory $\top$ as Toplog combining the abductive procedure following the steps:
+\begin{itemize}
+\item given examples $E$, background theory $B$, mode declarations $M$, integrity constrains $I$,
+\item construct a top theory $\top_M$ from $B$, $E$, $M$,
+\item produce a set $\Delta$ of abductive explanations for $E$ from $\top_M \cup B$ subject to $I$,
+\item derive $H$ from $\Delta$ and $M$ such that $H$ is in $L(M)$.
+\end{itemize}
 
 \subsection{Search direction\cite{nienhuys1997foundations}}
 When searching for a correct hypothesis \ref{correct_hypothesis}, one may either start with an overly general hypothesis $H$ wrt $B, E^+$, $E^-$ and then try to weaken it to make it consistent with the negative examples $E^-$ while preserving its completeness wrt positive examples $E^+$. This is called a \emph{top-down} search.
