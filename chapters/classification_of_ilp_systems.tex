@@ -1,5 +1,5 @@
 \chapter{Classification of ILP systems}\label{chap:classification_of_ilp_systems}
-In this chapter we classify ILP systems based on an ILP task they solve, provide a unifying definition of an ILP task, experimentally classify ILP systems based on the problems they can solve, on the direction of their search algorithm and on their robustness as programs.
+In this chapter we derive a unified definition of an ILP task for each ILP system and then experimentally classify ILP systems based on the problems they can solve, on the direction of their search algorithm and on their robustness as programs.
 
 All the results of the experimental classifications are present in the appendix and the prefixes of their references in the text denoted by letters
 \ref{appendix_progol}, \ref{appendix_aleph}, \ref{appendix_toplog}, \ref{appendix_xhail}, \ref{appendix_imparo}, \ref{appendix_tal} standing for
@@ -7,45 +7,6 @@ Progol, Aleph, Toplog, Xhail, Imparo and Tal respectively.
 
 Each ILP system uses a different syntax and writing a learning problem for each ILP system manually can be time consuming. A program \tc{generate.php} was written  for generating input files for ILP systems Progol, Aleph, Toplog, Imparo and Tal and is accessible with example learning files from Github at 
 \url{https://github.com/dt1510/generate_ilp_input}.
-
-\section{ILP task definition}\label{sec:ilp_task_definition}
-We present a definition of an ILP task of explanatory induction with positive examples, negative examples and a bias. Subsequently, ILP systems are classified based on the variant of an ILP task they solve and a unifying definition of an ILP task for systems is derived that is used in the next sections for their classification.
-
-\subsection{Explanatory induction\cite{yamamoto2012inverse}}
-\begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
-\end{defn}
-
-This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E^{+} \cup \neg E^{-}$ where $E, E^{+}, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
-
-\begin{exmp}\cite{explanatory_induction_example}
-Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
-$\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
-$E^{-} = man(alice) \lor man(susan)$.
-\end{exmp}
-
-Therefore one can define explanatory induction with the negative examples.
-\begin{defn}\label{explanatory_induction_with_negative_examples_definition}
-A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying\\
-1)$E^{+} \subseteq Cn(B \cup H)$\\
-2)$E^{-} \not\in Cn(B \cup H)$.
-\end{defn}
-The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
-
-ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
-\begin{defn}\label{definition_explanatory_induction_with_bias}
-A learning problem of \emph{explanatory induction with negative examples and a bias} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$, a bias $\mathcal{H}$ to find a hypothesis $H$ satisfying\\
-1)$E^{+} \subseteq Cn(B \cup H)$\\
-2)$E^{-} \not\in Cn(B \cup H)$\\
-3)$H \in \mathcal{H}$.
-\end{defn}
-
-We refer to any of 3 possible ILP tasks as an ILP task of explanatory induction. Which definition is intended should be clear from the context depending on what input from $B, E^+, E^-, \mathcal{H}$ is given.
-
-\begin{exmp}\label{explanatory_induction_example}
-Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
-$H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
-Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$ for a bias $\mathcal{H}_{1,2}=\{H_1, H_2\}$, but only $H_1$ is a correct hypothesis for a bias $\mathcal{H}_1=\{H_1\}$.
-\end{exmp}
 
 \subsection{Unified definition of ILP task}
 We are interested in comparing the ILP systems. Considering their specifics, each does not try to solve the same ILP task. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we list a definition of an ILP task for each ILP system, subsequently a unifying definition is derived.

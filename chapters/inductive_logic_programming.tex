@@ -3,10 +3,50 @@ The objective of this chapter is to present concepts from Inductive logic progra
 
 \section{Inductive logic programming concepts}
 
-\subsection{Correct hypothesis\cite{nienhuys1997foundations}}\label{correct_hypothesis}
-One of the notions for finding an appropriate explanation for the examples from the background theory defines a correct hypothesis.
+\subsection{ILP task definition}
+\section{ILP task definition}\label{sec:ilp_task_definition}
+We present a definition of an ILP task of explanatory induction with positive examples, negative examples and a bias.
+
+\subsubsection{Explanatory induction\cite{yamamoto2012inverse}}
+\begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
+\end{defn}
+
+This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E^{+} \cup \neg E^{-}$ where $E, E^{+}, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
+
+\begin{exmp}\cite{explanatory_induction_example}
+Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
+$\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
+$E^{-} = man(alice) \lor man(susan)$.
+\end{exmp}
+
+Therefore one can define explanatory induction with the negative examples.
+\begin{defn}\label{explanatory_induction_with_negative_examples_definition}
+A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying\\
+1)$E^{+} \subseteq Cn(B \cup H)$\\
+2)$E^{-} \not\in Cn(B \cup H)$.
+\end{defn}
+The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
+
+ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
+\begin{defn}\label{definition_explanatory_induction_with_bias}
+A learning problem of \emph{explanatory induction with negative examples and a bias} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$, a bias $\mathcal{H}$ to find a hypothesis $H$ satisfying\\
+1)$E^{+} \subseteq Cn(B \cup H)$\\
+2)$E^{-} \not\in Cn(B \cup H)$\\
+3)$H \in \mathcal{H}$.
+\end{defn}
+
+We refer to any of 3 possible ILP tasks as an ILP task of explanatory induction. Which definition is intended should be clear from the context depending on what input from $B, E^+, E^-, \mathcal{H}$ is given.
+
+\begin{exmp}\label{explanatory_induction_example}
+Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
+$H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
+Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$ for a bias $\mathcal{H}_{1,2}=\{H_1, H_2\}$, but only $H_1$ is a correct hypothesis for a bias $\mathcal{H}_1=\{H_1\}$.
+\end{exmp}
+
+\subsubsection{Correct hypothesis and its deviations\cite{nienhuys1997foundations}}\label{correct_hypothesis}
+A hypothesis $H \in \mathcal{H}$ satisfying the conditions in explanatory induction is called a correct hypothesis.
 \begin{defn}
-A hypothesis $H$ is \emph{correct} wrt background knowledge $B$, positive examples $E^+$ and negative examples $E^-$ iff\\
+A hypothesis $H$ is \emph{correct} wrt background knowledge $B$, positive examples $E^+$, negative examples $E^-$ iff\\
 1) $E^+ \subseteq Cn(B \land H)$,\\
 2) $E^- \not\in Cn(B \land H)$.
 \end{defn}
