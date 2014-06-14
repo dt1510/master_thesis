@@ -1,0 +1,31 @@
+\section{Machine learning}
+Machine learning a subdiscipline of AI that studies the construction of algorithms learning from the data.
+
+\begin{defn}\cite{mitchell1997machine}
+A computer program (a function, an algorithm, an ILP system) is said to \emph{learn (a function $f$) from experience} $E$ (input/output pairs of a function $f$)
+with respect to some class of tasks $T$ (computing the output $f(I)$ from the input $I$) and performance measure $P$,
+if its performance at tasks $T$ as measured by $P$ improves with the experience $E$.
+\end{defn}
+
+\begin{remark}
+A function $f$ is a learning problem to be learnt by a computer program.
+\end{remark}
+
+\subsection{Types of problem}
+Let $\mathcal{I}$, $\mathcal{O}$ be any sets of inputs and outputs.
+
+\begin{defn}
+A \emph{function problem} is a function $\mathcal{I} \to \mathcal{O}$.
+\end{defn}
+
+\begin{defn}
+A \emph{decision problem} is a function problem $\mathcal{I} \to \{yes, no\}$.
+\end{defn}
+
+\begin{defn}
+A mathematical object $f':\mathcal{I}' \to \mathcal{O}'$ \emph{solves a problem} $f:\mathcal{I} \to \mathcal{O}$ iff $\mathcal{I} \subseteq \mathcal{I}'$ and
+$\forall I \in \mathcal{I}. f'(I)=f(I)$.
+$f$ is called a \emph{subproblem} of $f'$.
+\end{defn}
+
+In machine learning a function problem $f:\mathcal{I} \to \mathcal{O}$ is called a \emph{learning problem} and a computer program $f'$ \emph{learns} a problem $f$ if $f'$ solves $f$. In ILP a learning problem is called an \emph{ILP task}, an input $I \in \mathcal{I}$ may consist of logical theories $B, E$ and an output of a logical theory $H$ explaining $E$ in terms of $B$, i.e. $E \subseteq Cn(B \cup H), false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
