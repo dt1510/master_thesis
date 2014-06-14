@@ -1,15 +1,15 @@
 \chapter{Classification of ILP systems}\label{chap:classification_of_ilp_systems}
+In this chapter we classify ILP systems based on an ILP task they solve, provide a unifying definition of an ILP task, experimentally classify ILP systems based on the problems they can solve, on the direction of their search algorithm and on their robustness as programs.
 
-In the chapter \nameref{chap:issues_in_ilp} we analysed the central issues in ILP by providing a brief explanation of an importance of an issue and a list of the properties defining an issue. In this chapter we classify ILP systems and theoretical frameworks based on the use of the defining properties to approach solving a particar issue.
+All the results of the experimental classifications are present in the appendix and the prefixes of their references in the text denoted by letters
+\ref{appendix_progol}, \ref{appendix_aleph}, \ref{appendix_toplog}, \ref{appendix_xhail}, \ref{appendix_imparo}, \ref{appendix_tal} standing for
+Progol, Aleph, Toplog, Xhail, Imparo and Tal respectively.
 
-We will define an ILP task $I \mapsto O$ by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as an \emph{algorithm} computing the function $I \mapsto O$.
+Each ILP system uses a different syntax and writing a learning problem for each ILP system manually can be time consuming. A program \tc{generate.php} was written  for generating input files for ILP systems Progol, Aleph, Toplog, Imparo and Tal and is accessible with example learning files from Github at 
+\url{https://github.com/dt1510/generate_ilp_input}.
 
 \section{ILP task definition}\label{sec:ilp_task_definition}
-ILP task definition issue arises from ILP systems using the same \emph{incomplete ILP task definition} although each solves a different machine learning problem.
-
-The objectives of this section are to present the main machine learning problems sought to be solved by ILP systems: generalization and explanatory induction; and then extract their properties upon which a comparison of ILP systems can be based.
-
-We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
+We present a definition of an ILP task of explanatory induction with positive examples, negative examples and a bias. Subsequently, ILP systems are classified based on the variant of an ILP task they solve and a unifying definition of an ILP task for systems is derived that is used in the next sections for their classification.
 
 \subsection{Explanatory induction\cite{yamamoto2012inverse}}
 \begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
@@ -32,12 +32,14 @@ A learning problem of \emph{explanatory induction with negative examples} is giv
 The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
 
 ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
-\begin{defn}
+\begin{defn}\label{definition_explanatory_induction_with_bias}
 A learning problem of \emph{explanatory induction with negative examples and a bias} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$, a bias $\mathcal{H}$ to find a hypothesis $H$ satisfying\\
 1)$E^{+} \subseteq Cn(B \cup H)$\\
 2)$E^{-} \not\in Cn(B \cup H)$\\
 3)$H \in \mathcal{H}$.
 \end{defn}
+
+We refer to any of 3 possible ILP tasks as an ILP task of explanatory induction. Which definition is intended should be clear from the context depending on what input from $B, E^+, E^-, \mathcal{H}$ is given.
 
 \begin{exmp}\label{explanatory_induction_example}
 Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
@@ -46,36 +48,40 @@ Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$ for a bias
 \end{exmp}
 
 \subsection{A unified definition of ILP task}
-The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
+We are interested in comparing the ILP systems. Considering their specifics, each does not try to solve the same ILP task. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we list a definition of an ILP task for each ILP system, subsequently a unifying definition is derived.
 
-We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
-
-Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $e^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
+Let $\mathcal{H} \subseteq \powerset{L}$ be a bias, $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator.
 
 \begin{center}
     \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
     \hline
-    ILP system & \\ \hline
+    ILP system & ILP task\\ \hline
     Aleph & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, $B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$\\ \hline
     Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \land H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
     Toplog & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
     Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
     Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \overline{E^{-}} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
+    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \neg E^{-} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
     \end{tabular}
 \end{center}
 
-Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
+Aleph, Toplog and Imparo aim to solve the same ILP task called explanatory induction \ref{definition_explanatory_induction_with_bias}:
 given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$
 
-The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
-let $B_P=E^{+} \land \overline{E^{-}} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E'^{+} \land \overline{E'^-} \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of the problem of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+The Progol ILP task is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
+let $B_P=E^{+} \land \neg E^{-} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
+Then $(B' \union H_P) \backslash B=E'^{+} \land \neg E'^- \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of an ILP task of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the ILP task to Progol ILP task level, however, as Progol is the only system with so significantly differing ILP task, we rather proceed in the reverse direction, we specialize the Progol ILP task to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
 
-Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
-given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \land E^{+} \land E^{-})$,
-find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \land \overline{E^{-}} \subseteq Cn(B \land H), false \not\in Cn(B \land H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+Generalize the definition of an ILP task for Aleph, Toplog, Imparo, Tal and Xhail:
 
+\begin{defn}A learning problem of \emph{multi-explanatory induction} is
+given $E^{+}, E^{-}, B, \mathcal{H} \subseteq \powerset{L}$ such that $false \not\in Cn(B \land E^{+} \land E^{-})$ for some consequence operator $Cn:\powerset{L} \to \powerset{L}$ and a language $L$,
+find $\mathcal{H}_2$:\\
+1)$\forall H \in \mathcal{H}_2. E^{+} \subseteq Cn(B \land H)$,\\
+2)$\forall H \in \mathcal{H}_2. \neg E^{-} \not\in Cn(B \land H)$,\\
+3)$\mathcal{H}_2 \subseteq \mathcal{H}$.
+\end{defn}
+Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
 \section{Completeness by problem classes}
 A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
 
