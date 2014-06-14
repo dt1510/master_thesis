@@ -47,7 +47,7 @@ $H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
 Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$ for a bias $\mathcal{H}_{1,2}=\{H_1, H_2\}$, but only $H_1$ is a correct hypothesis for a bias $\mathcal{H}_1=\{H_1\}$.
 \end{exmp}
 
-\subsection{A unified definition of ILP task}
+\subsection{Unified definition of ILP task}
 We are interested in comparing the ILP systems. Considering their specifics, each does not try to solve the same ILP task. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we list a definition of an ILP task for each ILP system, subsequently a unifying definition is derived.
 
 Let $\mathcal{H} \subseteq \powerset{L}$ be a bias, $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator.
@@ -76,16 +76,18 @@ Generalize the definition of an ILP task for Aleph, Toplog, Imparo, Tal and Xhai
 
 \begin{defn}A learning problem of \emph{multi-explanatory induction} is
 given $E^{+}, E^{-}, B, \mathcal{H} \subseteq \powerset{L}$ such that $false \not\in Cn(B \land E^{+} \land E^{-})$ for some consequence operator $Cn:\powerset{L} \to \powerset{L}$ and a language $L$,
-find $\mathcal{H}_2$:\\
+find $\mathcal{H}_2$ called \emph{solutions} wrt $B$, $E^+$, $E^-$, $\mathcal{H}$ satisfying:\\
 1)$\forall H \in \mathcal{H}_2. E^{+} \subseteq Cn(B \land H)$,\\
 2)$\forall H \in \mathcal{H}_2. \neg E^{-} \not\in Cn(B \land H)$,\\
 3)$\mathcal{H}_2 \subseteq \mathcal{H}$.
-\end{defn}
-Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
-\section{Completeness by problem classes}
-A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
 
-For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
+\end{defn}
+Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=01$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+
+We refer in the text to multi-explanatory induction simply as explanatory induction having in mind a unified definition unless a need arises to emphasise the multiplicity of possible solutions or a distinction from explanatory induction with one possible solution. Similarly, instead of discussing a set of hypotheses $\mathcal{H}_2$, we reason about its members individually referring to a hypothesis $H \in \mathcal{H}_2$.
+\section{Completeness by problem classes}
+We classify ILP systems based on whether they can find a hypothesis for the same class of inputs and their correct hypothesis where a class is defined by some property on $B, E^+, E^-, \mathcal{H}$ and their correct hypothesis $H$.
+
 
 \subsection{Multiplicity of clauses in a hypothesis}
 A hypothesis as a clausal theory, can consist of one clause or multiple clauses. Therefore we divide a learning problem $f:\mathcal{I} \to \mathcal{O}$ based on the number of clauses in a possible output for every input $I \in \mathcal{I}$.
