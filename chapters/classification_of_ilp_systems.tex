@@ -428,7 +428,7 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse entailment following the steps:
 
 \begin{itemize}
-\item construct the top theory $\top$,
+\item construct the top theory $\top$ (a bias represented as a logic theory specified on the input by the user),
 \item for every example $e \in E$:
 \item derive a clause $h_e$ such that $\top \models h_e$, $B \cup \{h_e\} \models e$, add $h_e$ to $H_c$,
 \item end loop,
@@ -437,27 +437,12 @@ The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse enta
 The score function can be based on compression, coverage, accuracy, etc.
 
 \subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}}
-Hail's algorithm is based on the Progol's algorithm and computes a hypothesis $H$ for $B, E^+, E^-$ where $B, H$ are definite theories. Xhail's extends the algorithm for $H$, $B$ to be normal theories. 
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=120mm]{images/hail_algorithm.png}
-\caption{Hail algorithm\cite{ray2005phdHybrid}}
-\label{overflow}
-\end{figure}
-
-Steps of Hail's algorithm are:
+Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories following the steps:
 \begin{itemize}
-\item initialize $i=1, E_1^+=E^+$,
-\item step 2: if $E_i$ empty, then return  $H_1 \cup ... \cup H_i$,
-\item select an example $e_i \in E_i^+$,
-\item find an abductive explanation $\Delta_i=\{\alpha_1, ..., \alpha_n\}$ for $e_i$ from $B_i$,
-\item find the set of atoms $\beta=\{\delta | B_i \models \delta\}$ that can be deduced from $B_i$ using SLD resolution,
-\item construct a kernel set $K_i$ of all possible clauses with $\alpha_j \in \Delta_i$ in their head, and body $\{\delta^j_1, ..., \delta^j_{m_j}\} \subseteq \beta$,
-\item find $H_i$ entailing the kernel set $K_i$,
-\item let $B_{i+1}=B_i \cup H_i$,
-\item let $E_{i+1}=\{e \in E_i | B_i \cup H_i \not\models e\}$,
-\item let $i=i+1$ and go to step 2.
+\item find an abductive explanation $\Delta=\{\alpha_1, ..., \alpha_n\}$ for atoms in $E$ from $B$, i.e. $B \cup \Delta \models E$,
+\item find the set of atoms $\beta=\{\delta | B \models \delta\}$ that can be deduced from $B$ using SLD resolution,
+\item construct a kernel set $K$ of all possible clauses with $\alpha_j \in \Delta$ in their head, and body $\{\delta^j_1, ..., \delta^j_{m_j}\} \subseteq \beta$ where any $\delta^j_i$ has to satisfy $B \cup \Delta \models \delta^j_i$,
+\item find $H$ entailing the kernel set $K$ using an inductive search.
 \end{itemize}
 
 \subsubsection{Imparo}

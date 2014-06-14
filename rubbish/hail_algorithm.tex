@@ -1,0 +1,13 @@
+Steps of Hail's algorithm are:
+\begin{itemize}
+\item initialize $i=1, E_1^+=E^+$,
+\item step 2: if $E_i$ empty, then return  $H_1 \cup ... \cup H_i$,
+\item select an example $e_i \in E_i^+$,
+\item find an abductive explanation $\Delta_i=\{\alpha_1, ..., \alpha_n\}$ for $e_i$ from $B_i$,
+\item find the set of atoms $\beta=\{\delta | B_i \models \delta\}$ that can be deduced from $B_i$ using SLD resolution,
+\item construct a kernel set $K_i$ of all possible clauses with $\alpha_j \in \Delta_i$ in their head, and body $\{\delta^j_1, ..., \delta^j_{m_j}\} \subseteq \beta$,
+\item find $H_i$ entailing the kernel set $K_i$ using an inductive search\cite{ray2005phdHybrid},
+\item let $B_{i+1}=B_i \cup H_i$,
+\item let $E_{i+1}=\{e \in E_i | B_i \cup H_i \not\models e\}$,
+\item let $i=i+1$ and go to step 2.
+\end{itemize}
