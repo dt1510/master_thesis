@@ -11,37 +11,6 @@ The objectives of this section are to present the main machine learning problems
 
 We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
 
-\subsection{Generalization}\label{generalization}
-
-\begin{defn}
-A theory $T_2$ is \emph{more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subseteq Cn(T_2)$.
-\end{defn}
-When the consequence operator $Cn$ is clear or general, we say more succintly that $T_2$ is more general than $T$. Every theory $T$ is more general than itself since $Cn(T) \subseteq Cn(T)$.
-
-\begin{defn}
-A theory $T_2$ is \emph{strictly more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subset Cn(T_2)$.
-\end{defn}
-
-\begin{defn}
-A learning problem of \emph{generalization} is given a logical theory $T$, find a consistent logical theory $T_2$ more general than the theory $T$ wrt to some consequence operator $Cn$, i.e.
-$Cn(T) \subseteq Cn(T_2)$, $false \not\in Cn(T_2)$.
-\end{defn}
-
-The objective of generalization is to produce from a theory $T$ a new theory $T_2$ with a greater predictive power to enable logical reasoning about the possible realities with the additional knowledge.
-
-\begin{defn}
-Let $T$ be a logical theory. $\phi$ is \emph{predictable} from $T$ iff there is a consistent theory $T_2$ more general than $T$ with $\phi \in Cn(T_2)$. We say that $T_2$ \emph{predicts} $\phi$ from $T$.
-\end{defn}
-
-\begin{defn}
-A theory $T_2$ is of a \emph{greater predictive power} than $T_1$ iff
-for some $T$ it holds that $\forall \phi \in L.$ if $T_2$ predicts $\phi$ from $T$, then $T_1$ predicts $\phi$ from $T_2$ for the language $L$ of the theories $T, T_1, T_2$.
-\end{defn}
-
-\begin{exmp}
-Let $T$ be a theory $\{mortal(aristotle) \leftObjectImplies man(aristotle), man(adam)\}$. Then the theory $T_2=T \cup \{mortal{adam} \leftObjectImplies man(adam)\}$ is consistent and more general than $T$ assuming a classical consequence operator. $mortal(adam)$ cannot be deduced from the theory $T$ although it can be deduced from its generalized theory $T_2$. Hence $mortal(adam)$ is predictable from $T$.
-\end{exmp}
-
 \subsection{Explanatory induction\cite{yamamoto2012inverse}}
 \begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
@@ -56,25 +25,24 @@ $E^{-} = man(alice) \lor man(susan)$.
 
 Therefore one can define explanatory induction with the negative examples.
 \begin{defn}\label{explanatory_induction_with_negative_examples_definition}
-A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying
-$E^{+} \subseteq Cn(B \cup H)$ and $E^{-} \not\in Cn(B \cup H)$.
+A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying\\
+1)$E^{+} \subseteq Cn(B \cup H)$\\
+2)$E^{-} \not\in Cn(B \cup H)$.
 \end{defn}
 The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
 
-Explanatory induction is a case of generalization where the theory $T_2=B \cup H$ generalizes the theory $T = B \cup E$.
+ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
+\begin{defn}
+A learning problem of \emph{explanatory induction with negative examples and a bias} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$, a bias $\mathcal{H}$ to find a hypothesis $H$ satisfying\\
+1)$E^{+} \subseteq Cn(B \cup H)$\\
+2)$E^{-} \not\in Cn(B \cup H)$\\
+3)$H \in \mathcal{H}$.
+\end{defn}
 
-\subsection{Examples}
-Positive examples $E^{+}$ and negative examples $E^{-}$ in explanatory induction put conditions on a possible explanation $H$: $E^{+} \in Cn(B \cup E^{+})$, $E^{-} \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
-
-\subsection{Expressivity}
-Additional restrictions on the properties (e.g. \ref{background_representation_of_logic_theories}) of the logical theories on the input and output can make the definition of an ILP task more complete. For example, we may require a logic theory to be a Horn theory, consist at most of one clause or have only terms without function symbols.
-
-\subsection{Semantics}
-If two ILP tasks use a different consequence operator, then each specifies a different learning problem and a solution to one of them does not necessarily constitute a solution to the other problem.
-
-\begin{exmp}
-Let $Cl$ be a classical consequence operator and $Cp$ be a consequence operator induced by Prolog interpreter. Let $T=\emptyset$, $T_2=\{p\}$.
-Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is not more general wrt $Cp$ than $T$ since $Cp(T) \not\subseteq Cp(T_2)$ as $\neg p \in Cp(T)$ but $p \in Cp(T_2)$.
+\begin{exmp}\label{explanatory_induction_example}
+Let $E=\{mortal(aristotle)\}$, $B=\{man(aristotle)\}$,
+$H_1=E$, $H_2=\{mortal(aristotle) \leftObjectImplies man(aristotle)\}$.
+Then both $H_1$, $H_2$ are correct hypotheses explaining $E$ from $B$ for a bias $\mathcal{H}_{1,2}=\{H_1, H_2\}$, but only $H_1$ is a correct hypothesis for a bias $\mathcal{H}_1=\{H_1\}$.
 \end{exmp}
 
 \subsection{A unified definition of ILP task}
