@@ -1,3 +1,4 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
 \begin{thebibliography}{MLPTN14}
 
 \bibitem[Ant12]{sep-logic-nonmonotonic}
@@ -7,10 +8,41 @@ G.~Aldo Antonelli.
   Philosophy}. Winter 2012 edition, 2012.
 \newblock accessed June 2014.
 
+\bibitem[BG93]{bergadano1993interactive}
+Francesco Bergadano and Daniele Gunetti.
+\newblock An interactive system to learn functional logic programs.
+\newblock In {\em IJCAI}, pages 1044--1049, 1993.
+
+\bibitem[Bun87]{buntine1987induction}
+Wray Buntine.
+\newblock Induction of horn clauses: methods and the plausible generalization
+  algorithm.
+\newblock {\em International Journal of Man-Machine Studies}, 26(4):499--519,
+  1987.
+
 \bibitem[Cla78]{clark1978negation}
 Keith~L Clark.
 \newblock Negation as failure.
 \newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
+
+\bibitem[Coh92]{cohen1992compiling}
+W~Cohen.
+\newblock Compiling prior knowledge into an explicit bias.
+\newblock In {\em Proceedings of the Ninth International Conference on Machine
+  Learning}, volume 102, page 110. Citeseer, 1992.
+
+\bibitem[Coh93]{cohen1993learnability}
+William~W Cohen.
+\newblock Learnability of restricted logic programs.
+\newblock In {\em Proceedings of the 3rd International Workshop on Inductive
+  Logic Programming (Technical report IJS-DP-6707 of the Josef Stefan
+  Institute, Ljubljana, Slovenia)}, pages 41--72. Citeseer, 1993.
+
+\bibitem[Coh94]{cohen1994grammatically}
+William~W Cohen.
+\newblock Grammatically biased learning: learning logic programs using an
+  explicit antecedent description language.
+\newblock {\em Artificial Intelligence}, 68(2):303--366, 1994.
 
 \bibitem[Cor11a]{corapi2011nonmonotonic}
 Domenico Corapi.
@@ -32,6 +64,16 @@ Domenico Corapi, Alessandra Russo, and Emil Lupu.
 Luc De~Raedt.
 \newblock Logical settings for concept-learning.
 \newblock {\em Artificial Intelligence}, 95(1):187--201, 1997.
+
+\bibitem[DRB92]{de1992interactive}
+Luc De~Raedt and Maurice Bruynooghe.
+\newblock Interactive concept-learning and constructive induction by analogy.
+\newblock {\em Machine Learning}, 8(2):107--150, 1992.
+
+\bibitem[EHR{\etalchar{+}}83]{emde1983discovery}
+Werner Emde, Christopher Habel, Claus-Rainer Rollinger, et~al.
+\newblock The discovery of the equator or concept driven learning.
+\newblock In {\em IJCAI}, pages 455--458, 1983.
 
 \bibitem[Fla96]{flach1996rationality}
 Peter~A Flach.
@@ -72,6 +114,12 @@ Timothy Kimber.
 \newblock Imparo manual, example and source code files.
 \newblock Available upon the request to the author., 2013.
 
+\bibitem[KW92]{kietz1992controlling}
+J{\"o}rg-Uwe Kietz and Stefan Wrobel.
+\newblock Controlling the complexity of learning in logic through syntactic and
+  task-oriented models.
+\newblock In {\em Inductive logic programming}. Citeseer, 1992.
+
 \bibitem[Lin09]{lin2009efficient}
 Dianhuan Lin.
 \newblock Efficient, complete and declarative search in inductive logic
@@ -87,6 +135,11 @@ David Marker.
 Stephen Muggleton and Luc De~Raedt.
 \newblock Inductive logic programming: Theory and methods.
 \newblock {\em The Journal of Logic Programming}, 19:629--679, 1994.
+
+\bibitem[MF92]{muggleton1992efficient}
+Stephen Muggleton and Cao Feng.
+\newblock Efficient induction of logic programs.
+\newblock {\em Inductive logic programming}, 38:281--298, 1992.
 
 \bibitem[MLPTN14]{muggleton2014meta}
 Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
@@ -168,6 +221,13 @@ Robin Smith.
   Philosophy}. Spring 2014 edition, 2014.
 \newblock accessed June 2014.
 
+\bibitem[SP91]{silverstein1991relational}
+Glenn Silverstein and Michael~J Pazzani.
+\newblock Relational cliches: Constraining constructive induction during
+  relational learning.
+\newblock In {\em Proceedings of the Eighth International Workshop on Machine
+  Learning}, pages 203--207. Citeseer, 1991.
+
 \bibitem[Sri07]{aleph2007}
 Ashwin Srinivasan.
 \newblock {\em The Aleph Manual}, 2007.
@@ -177,6 +237,11 @@ Ashwin Srinivasan.
 David~Charles Stove and Stove.
 \newblock {\em The rationality of induction}.
 \newblock Cambridge Univ Press, 1986.
+
+\bibitem[Tau94]{tausend1994representing}
+Birgit Tausend.
+\newblock Representing biases for inductive logic programming.
+\newblock In {\em Machine Learning: ECML-94}, pages 427--430. Springer, 1994.
 
 \bibitem[YII12]{yamamoto2012inverse}
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
