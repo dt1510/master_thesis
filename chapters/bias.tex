@@ -1,190 +1,245 @@
-\chapter{Classification of ILP systems}\label{chap:classification_of_ilp_systems}
+\chapter{Bias\cite{nienhuys1997foundations}}
+Considering all theories $H \subseteq L$ as possible hypotheses is computationally infeasible. When one knows the properties that a hypothesis may take, one may introduce a bias $\mathcal{H} \subseteq \powerset{L}$. For example, $\mathcal{H}$ being a set of all finite Horn theories.
 
-In the chapter \nameref{chap:issues_in_ilp} we analysed the central issues in ILP by providing a brief explanation of an importance of an issue and a list of the properties defining an issue. In this chapter we classify ILP systems and theoretical frameworks based on the use of the defining properties to approach solving a particar issue.
+Two main types of a bias are:
+\begin{itemize}
+\item language bias,
+\item search bias.
+\end{itemize}
 
-We will define an ILP task $I \mapsto O$ by its space of possible inputs $I$ and the decription of the desired output $O$. Thus an ILP task is a \emph{function problem} as opposed to a decision problem. We think of an ILP system solving such an ILP task as an \emph{algorithm} computing the function $I \mapsto O$.
+ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type. First we present a theory of the language bias \ref{sec:background_language_bias}, then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
 
-\section{ILP task definition}\label{sec:ilp_task_definition}
-ILP task definition issue arises from ILP systems using the same \emph{incomplete ILP task definition} although each solves a different machine learning problem.
+In the context of a language bias we refer to the bias as a hypothesis space $\mathcal{H}$, in the context of a search bias we refer to it as a search space $\mathcal{H}$.
+These different terminologies refer to the same bias $\mathcal{H}$, however emphasise a different local focus on a bias in the text.
 
-The objectives of this section are to present the main machine learning problems sought to be solved by ILP systems: generalization and explanatory induction; and then extract their properties upon which a comparison of ILP systems can be based.
+\section{Theory of language bias}\label{sec:background_language_bias}
+The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the language biases in ILP are:
+\begin{itemize}
+\item mode declarations,
+\item determinations,
+\item metaconstrains,
+\item induction and production field.
+\end{itemize}
 
-We consider defining properties of a machine learning problem: positive examples, negative examples, semantics; that is whose presence or absence in a learning problem is spefified by a corresponding ILP task definition.
+\subsection{Mode declarations}\label{background_mode_declarations}
+Mode declarations specify what predicates are allowed in a head and a body of a hypothesis.
+Suppose you would like your ILP system explain observations
+$woman(alice), woman(susan)$, then you know that a hypothesis you are looking for has to explain or define the concept $woman$. Therefore you declare a statement to an ILP system: ``In your search consider only hypotheses that have the predicate $woman$ in their head." A statement specifying what predicates should be in a head is called a modeh declaration. A stament specifying the allowed predicates in a body is a modeb declaration.
 
-\subsection{Generalization}\label{generalization}
-
-\begin{defn}
-A theory $T_2$ is \emph{more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subseteq Cn(T_2)$.
+\paragraph{Mode declaration in Progol}
+Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode declarations.
+\begin{defn}\cite{muggleton1995inverse}
+A \emph{mode declaration} has either the form
+\tc{modeh(n,atom)} or \tc{modeb(n,atom)} where $n$, the \emph{recall}, is either an integer, $n \ge 1$,
+or \tc{*} and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A placemarker is either \tc{+type}, \tc{-type} or \tc{\#type}, where
+type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of m
+with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$
+is a \tc{modeh} and negative if $m$ is a \tc{modeb}.
 \end{defn}
-When the consequence operator $Cn$ is clear or general, we say more succintly that $T_2$ is more general than $T$. Every theory $T$ is more general than itself since $Cn(T) \subseteq Cn(T)$.
 
-\begin{defn}
-A theory $T_2$ is \emph{strictly more general} that a theory $T$ wrt the consequence operator $Cn$ iff $Cn(T) \subset Cn(T_2)$.
-\end{defn}
+The recall is used to bound the number of alternative solutions for instantiating
+the atom. For simplicity, we assume in the following that all the modes have the
+recall \tc{*}, meaning all solutions. The following defines when a clause is within Progol's definite mode language $L$.
 
-\begin{defn}
-A learning problem of \emph{generalization} is given a logical theory $T$, find a consistent logical theory $T_2$ more general than the theory $T$ wrt to some consequence operator $Cn$, i.e.
-$Cn(T) \subseteq Cn(T_2)$, $false \not\in Cn(T_2)$.
-\end{defn}
-
-The objective of generalization is to produce from a theory $T$ a new theory $T_2$ with a greater predictive power to enable logical reasoning about the possible realities with the additional knowledge.
-
-\begin{defn}
-Let $T$ be a logical theory. $\phi$ is \emph{predictable} from $T$ iff there is a consistent theory $T_2$ more general than $T$ with $\phi \in Cn(T_2)$. We say that $T_2$ \emph{predicts} $\phi$ from $T$.
-\end{defn}
-
-\begin{defn}
-A theory $T_2$ is of a \emph{greater predictive power} than $T_1$ iff
-for some $T$ it holds that $\forall \phi \in L.$ if $T_2$ predicts $\phi$ from $T$, then $T_1$ predicts $\phi$ from $T_2$ for the language $L$ of the theories $T, T_1, T_2$.
+\begin{defn}\label{definition_definite_mode_language}\cite{muggleton1995inverse}
+Let $C$ be a definite clause with a
+defined total ordering over the literals and $M$ be a set of mode declarations.
+$C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
+of a \tc{modeh} declaration in $M$ with every place-marker \tc{+type} and \tc{-type} replaced by
+variables and every placemarker \tc{\#type} replaced by a ground term and 2) every
+atom $b_i$ in the body of $C$ is the atom of a \tc{modeb} declaration in $M$ with every
+place-marker \tc{+type} and \tc{-type} replaced by variables and every place-marker \tc{\#type}
+replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
+of \tc{+type} in $h$ or of \tc{-type} in some atom $b_j$, $1 \le j < i$.
 \end{defn}
 
 \begin{exmp}
-Let $T$ be a theory $\{mortal(aristotle) \leftObjectImplies man(aristotle), man(adam)\}$. Then the theory $T_2=T \cup \{mortal{adam} \leftObjectImplies man(adam)\}$ is consistent and more general than $T$ assuming a classical consequence operator. $mortal(adam)$ cannot be deduced from the theory $T$ although it can be deduced from its generalized theory $T_2$. Hence $mortal(adam)$ is predictable from $T$.
+The mode declarations $M=\{$
+\begin{lstlisting}
+modeh(1,woman(+person)),
+modeb(*,female(+person)),
+modeb(*,male(+person))
+\end{lstlisting}
+$\}$
+specify the possible hypotheses
+$H_1=woman(X)$,
+$H_2=woman(X) \leftObjectImplies female(X)$,
+$H_3=woman(X) \leftObjectImplies male(X)$,
+$H_4=woman(X) \leftObjectImplies female(X), male(X)$.
+Thefore the hypothesis bias created by the mode declarations 
+is $\mathcal{H}=L(M)=\{H_1, H_2, H_3, H_4\}$, but $H_5 \not\in L(M)$ for
+$H_5=woman(X) \leftObjectImplies cook(X)$.
 \end{exmp}
 
-\subsection{Explanatory induction\cite{yamamoto2012inverse}}
-\begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
-\end{defn}
-
-This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E^{+} \cup \neg E^{-}$ where $E, E^{+}, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
-
-\begin{exmp}\cite{explanatory_induction_example}
-Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
-$\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
-$E^{-} = man(alice) \lor man(susan)$.
+The mode declarations can have a richer syntactic structure where \tc{?} in the last modeb declaration stands for an arithmetical operator:
+\begin{exmp}\cite{muggleton1995inverse}
+\begin{lstlisting}
+modeh(1,plus(+int,+int,-int))
+modeb(*,append(-list,+list,+list)
+modeb(1,append(+list,[+any],-list))
+modeb(4,(+int ? #int))
+\end{lstlisting}
 \end{exmp}
 
-Therefore one can define explanatory induction with the negative examples.
-\begin{defn}\label{explanatory_induction_with_negative_examples_definition}
-A learning problem of \emph{explanatory induction with negative examples} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$ to find a hypothesis $H$ satisfying
-$E^{+} \subseteq Cn(B \cup H)$ and $E^{-} \not\in Cn(B \cup H)$.
+\subsection{Determinations}
+Some ILP systems like Aleph in addition to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
+
+\begin{defn}\cite{aleph2007}
+A \emph{determination} is a logic statement of the form\\
+\tc{determination(TargetName/TargetArity, BackgroundName/BackgroundArity).}
+where \tc{TargetName}, \tc{BackgroundName} are predicate symbols and
+\tc{TargetArity}, \tc{BackgroundArity} are their arities (non-negative integers) respectively.
 \end{defn}
-The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
 
-Explanatory induction is a case of generalization where the theory $T_2=B \cup H$ generalizes the theory $T = B \cup E$.
-
-\subsection{Examples}
-Positive examples $E^{+}$ and negative examples $E^{-}$ in explanatory induction put conditions on a possible explanation $H$: $E^{+} \in Cn(B \cup E^{+})$, $E^{-} \not \in Cn(B \cup H)$. As the objective of explanatory induction is to find a good hypothesis explaining the observations from the data, it is important to analyse how the selection of the positive and negative examples affects the learning of a hypothesis.
-
-\subsection{Expressivity}
-Additional restrictions on the properties (e.g. \ref{background_representation_of_logic_theories}) of the logical theories on the input and output can make the definition of an ILP task more complete. For example, we may require a logic theory to be a Horn theory, consist at most of one clause or have only terms without function symbols.
-
-\subsection{Semantics}
-If two ILP tasks use a different consequence operator, then each specifies a different learning problem and a solution to one of them does not necessarily constitute a solution to the other problem.
+\begin{defn}\label{definition_determination_language}
+Let $D=\langle d_1(tn_1/ta_1, bn_1/ba_1), ..., d_n(tn_n/ta_n, bn_n/ba_n)\ \rangle$ be an ordered list of determinations. A formula $H=h \leftObjectImplies b_1, ..., b_m$ is in \emph{determination language} $L(D)$ iff\\
+1) $D \not=\emptyset$,\\
+2) $\forall b_i (1 \le i \le m) \exists j (1 \le j \le n) tn_j=h \land bn_j=b_i$.
+\end{defn}
 
 \begin{exmp}
-Let $Cl$ be a classical consequence operator and $Cp$ be a consequence operator induced by Prolog interpreter. Let $T=\emptyset$, $T_2=\{p\}$.
-Then $T_2$ is consistent and more general wrt $Cl$ than $T$. However $T_2$ is not more general wrt $Cp$ than $T$ since $Cp(T) \not\subseteq Cp(T_2)$ as $\neg p \in Cp(T)$ but $p \in Cp(T_2)$.
+Let $D$ be the list of the determinations
+\begin{lstlisting}
+:− determination(man/ 1, male/1).
+:− determination(man/ 1, bridegroom/1).
+:− determination(woman/ 1, female/1).
+\end{lstlisting}
+Let the hypotheses be
+
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H1=man(X) :- male(X).
+H2=man(X) :- bridegroom(X).
+H3=man(X) :- male(X), bridegroom(X).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.50\textwidth}
+\begin{lstlisting}
+H4=woman(X) :- female(X).
+H5=man(X) :- male(X), female(X).
+\end{lstlisting}
+\end{minipage}
+
+Then for the hypothesis bias (determination language) $\mathcal{H}=L(D)$,
+$\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
 \end{exmp}
 
-\subsection{A unified definition of ILP task}
-The objective of this subsection is to summarise ILP task definitions for each ILP system classified from the building blocks of an ILP task definition in the preceeding subsection \fullref{subsec:building_blocks_of_ilp_task_definition} and to classify ILP systems by their correspondent ILP task definition.
-
-We are interested in comparing the ILP systems, considering the specifics of ILP systems, each does not try to solve the same ILP problem. We search a way to compare these mutually incompatible systems. One way to establish the possibility of the comparison would be to unify these incopabilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we provide the problem settings for each ILP system.
-
-Let $E$ denote examples, $E^{+}$ positive examples, $E^{-}$ negative examples, $B$ the background knowledge, $\mathcal{H} \subseteq \powerset{L}$ the language bias. Let $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator. Here by the overline on negative examples $\overline{E^{-}}$ we denote the set of the negated sentences of $E^{-}$. When specifying the consistency condition for the negative examples by $B \cup H \not\models E^{-}$ we mean that no example $e^{-} \in E^{-}$ should be implied by $B \cup H$, therefore $E^{-}$ is meant to be a disjunction (rather than a conjunction like $E^{+}$) of examples. Therefore, $\overline{E^{-}} \equiv \neg E^{-}$.
-
-\begin{center}
-    \begin{tabular}{ | l | p{15cm} | l | p{5cm} |}
-    \hline
-    ILP system & \\ \hline
-    Aleph & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, $B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$\\ \hline
-    Progol & Given $B$, $\mathcal{H}$, find the most general $B_2 = B' \land H$ where $B' \subseteq B$, $H \in \mathcal{H}$, $B_2 \models B, B_2 \not\models false$\\ \hline
-    Toplog & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Imparo & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Tal & Given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. B \land H \models E^{+}, B \land E^{-} \not\models false$ \\ \hline
-    Xhail & Given $E^{+}$, $E^{-}$, $B$, $\mathcal{H}$, find $H \in \mathcal{H}$. $E^{+} \land \overline{E^{-}} \subseteq Cl(B \land H), false \not\in Cl(B \land H)$\\ \hline
-    \end{tabular}
-\end{center}
-
-Aleph, Toplog and Imparo aim to solve the same ILP problem called \emph{explanatory induction}:
-given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$, find $H \in \mathcal{H}. B \land H \models E^{+}, B \land E^{-} \not\models false$
-
-The Progol ILP problem is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
-let $B_P=E^{+} \land \overline{E^{-}} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E'^{+} \land \overline{E'^-} \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of the problem of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the problem to Progol ILP problem level, however, as Progol is the only system with so significantly differing problem system, we rather proceed in the reverse direction, we specialize the Progol ILP problem to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
-
-Let $Cn:\powerset{L} \to \powerset{L}$ be a consequence operator, then generalize the definition of an ILP problem for Aleph, Toplog, Imparo, Tal and Xhail:
-given $E^{+}, E^{-}, B, \mathcal{H}, false \not\in Cn(B \land E^{+} \land E^{-})$,
-find $\mathcal{H}_2 \subset \mathcal{H}. \forall H \in \mathcal{H}_2. E^{+} \land \overline{E^{-}} \subseteq Cn(B \land H), false \not\in Cn(B \land H)$. Call this generalization of the explanatory induction, Tal ILP problem, Xhail ILP problem to be \emph{multi-explanatory induction} as it provides possible several epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol problem. For systems other than Tal, $\#\mathcal{H}_2=1$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
-
-\section{Completeness by problem classes}
-A (possibly non-deterministic) ILP task $f:\mathcal{I} \to \mathcal{O}$ as a learning problem can be thought of having deterministic learning subproblems $f':\mathcal{I}' \to \mathcal{O}$ where $\mathcal{I}' \subseteq \mathcal{I}$ and $\forall I \in \mathcal{I}'. f'(I) \in f(I)$. The properties of an input $I \in \mathcal{I}$ and an output $O \in \mathcal{O}$ affect the computation of the output $O$ from an input $I$. Pairs of an input and their unique output with the identical properties create a class of inputs $\mathcal{I}'$ and their unique outputs and therefore solving an ILP task for a class of the inputs $\mathcal{I}'$ and their unique outputs corresponds to the ability to solve a learning subsuproblem $f'$ of an ILP task $f$. The objective of this section is extract the main properties of an input $I$ and its output $O$ to provide the ground for the classification of ILP systems based on their ability to solve a learning subproblem on well-defined class of inputs and their unique outpust in the chapter \fullref{chap:classification_of_ilp_systems}.
-
-For an input $I$ to be compatible with ILP tasks for all ILP systems, an input $I$ of an ILP task of explanatory induction with negative examples \fullref{explanatory_induction_with_negative_examples_definition} is used.
-
-\subsection{Multiplicity of clauses in a hypothesis}
-A hypothesis as a clausal theory, can consist of one clause or multiple clauses. Therefore we divide a learning problem $f:\mathcal{I} \to \mathcal{O}$ based on the number of clauses in a possible output for every input $I \in \mathcal{I}$.
+\subsection{Metaconstraints}
+Metaconstraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
+An example being a metaconstraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
 
 \begin{defn}
-A learning problem $f:\mathcal{I} \to \mathcal{O}$ is a 
-\emph{single clausal} problem iff $\forall I \in \mathcal{I}. \exists O \in f(I). \# O = 1$. That is every input to a problem has a possible output consisting of one clause.
-A learning problem that is not single clausal is called a \emph{multi clausal} problem.
+A \emph{metaconstraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{metaconstraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
 \end{defn}
 
-The reader should consult for an example of an input to a single clausal problem \ref{progol_term_structure_learnability}, for an example of an input to a multi clausal problem \ref{progol_multiclausal_learning}.
+Each ILP system has its own set of allowed metaconstrains.
+\begin{exmp}
+In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
+In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
+In Tal \tc{option(max\_body\_literals, 5)} defines definite theories whose clauses have at most 5 positive literals.
+\end{exmp}
 
-We classify the ILP systems based on their ability to learn some (not necessarily complete) subclass of multiclausal problems.
+\begin{proposition}
+Let $Cond_1, Cond_2$ be metaconstrains on a language $L$.
+Then the following are metaconstrains on the language $L$:
+$\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
+\end{proposition}
 
-\begin{center}
-\captionof{table}{Classification by learning multiclausal hypotheses} \label{tab:title} 
-\begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Multiclausal& no & yes & no & 
-    yes & yes & yes \\ 
-     hypotheses & \cite{muggleton2012mc}&\ref{aleph_multiclausal_learning}&
-     \cite{muggleton2012mc}&\cite{muggleton2012mc}&\cite{muggleton2012mc}&
-     \cite{muggleton2012mc}\\ 
-    \hline
-\end{tabular}
-\end{center}
+\begin{proof}
+Follows trivially from the definition of a metaconstraint.
+\end{proof}
 
-\subsection{Expressivity of examples}
-We classify ILP systems based on whether they can learn explanations for the clausal examples or their observations are limited to atoms.
+Therefore we will often think of a set of the metaconstraints to be a metaconstraint created from their conjunction.
 
-\begin{center}
-\captionof{table}{Classification by learning clausal examples} \label{tab:title} 
-\begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Clausal& yes & no & no & 
-    no & no & no \\ 
-     examples & \ref{progol_clausal_examples} &\cite{aleph2007}&
-     \ref{toplog_clausal_examples}&
-     \ref{imparo_clausal_examples}&\ref{tal_clausal_examples}\\
-    \hline
-\end{tabular}
-\end{center}
+\begin{defn}
+Let $C=\{Cond_1, ..., Cond_n\}$ be a set of metaconstraints defining subsets of the language $L$.
+A \emph{metaconstraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
+i.e. $L(C)=\{x \in L | Cond_1(x) \land ... \land Cond_n(x) \}$.
+\end{defn}
 
-Xhail cannot learn clausal examples as all examples have to be in a body of a goal to be proved as seen in the appendix, therefore examples need to be literals.
+\subsection{Induction and production field}
+Inoue defines a production field as another form of a language bias.
 
-\subsection{Generalization downwards}
-\begin{center}
-\captionof{table}{Classification by generalization downwards} \label{tab:title} 
-\begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    & no & yes & no &  & no & no \\ \hline
-    & & & & & & \\ \hline
-\end{tabular}
-\end{center}
+\begin{defn}\cite{inoue2004induction}
+A \emph{production field} $\mathcal{P}$ is a represented by a pair,
+$\langle Lit, Cond\rangle$, where $Lit$
+(\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantiation (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
+A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
+\end{defn}
 
-\subsection{Double Kleene star}
-\begin{center}
-\captionof{table}{Classification by double Kleene star operator} \label{tab:title} 
-\begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    & no & no & no & & yes & yes \\ \hline
-    & & & & & & \\ \hline
-\end{tabular}
-\end{center}
+A special case of the production field when a condition $Cond \equiv true$ is called an induction field.
 
-\section{Bias}
-ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
+\begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
+An \emph{induction field} is denoted by $\mathcal{I}_H = \langle Lit \rangle$,
+where $Lit$ is a finite
+set of literals to appear in ground hypotheses.
+A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+every literal in $H_g$ is included in $Lit$.
+\end{defn}
 
-\subsection{Language bias}\label{subsec:classification_language_bias}
+\subsection{Correspondence between mode declarations, determinations, meta constraints and production field}
+A production field is a generalization of mode declarations, determinations and metaconstraints.
+
+\begin{proposition}\label{md_d_pf_correspondence_proposition}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
+$\mathcal{P}_M$,
+$\mathcal{P}_D$,
+$\mathcal{P}_{M,D}$
+such that for any clause $H \in L$:\\
+1) $H \in L(M) \iff H \in \mathcal{P}_M$,\\
+2) $H \in L(D) \iff H \in \mathcal{P}_D$,\\
+3) $H \in L(M) \cap L(D) \iff H \in \mathcal{P}_{M,D}$.\\
+\end{proposition}
+The following proof is non-constructive.
+\begin{proof}
+Let $L$ be a logic language. By the definitios of definite mode language\ref{definition_definite_mode_language} and determination language\ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
+Let $Cond_M$, $Cond_D$ be defining formulas for $L(M)$ and $L(D)$, i.e. $L(M)=\{x \in L | Cond_M(x)\}$, $L(D)=\{x \in L | Cond_D(x)\}$.
+Let $Cond_{M,D}=Cond_M \land Cond_D$. Let $Lit$ be a set of all literals of $L$ and let
+$Lit_M=L(M) \cap Lit$,
+$Lit_D=L(D) \cap Lit$,
+$Lit_{M,D}=Lit_M \cap Lit_D$.
+Then for every clause $H \in L$ the production fields
+$\mathcal{P}_M=\langle Lit_M, Cond_M \rangle$,
+$\mathcal{P}_D=\langle Lit_D, Cond_D \rangle$,
+$\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
+satisfy the conditions 1, 2, 3 respectively trivially.
+\end{proof}
+
+Given production fields defining the bias of mode declarations and determinations, productions fields with the additional metaconstrains can be constructed.
+
+\begin{proposition}\label{proposition_metaconstraints_production_field}
+Let $\mathcal{P}$ be any production field, $C$ a set of metaconstraints.
+Then there exists a production field $\mathcal{P}_C$ such that
+$\mathcal{P}_C=\mathcal{P} \cap L(C)$, i.e.
+$\forall H \in L. H \in \mathcal{P}_C \iff (H \in \mathcal{P}) \land (H \in L(C))$.
+\end{proposition}
+\begin{proof}
+Let $\mathcal{P}=\langle Lit, Cond \rangle$,
+$C=\{Cond_1, ..., Cond_n\}$.
+Define $\mathcal{P}_C=\langle Lit, Cond \land Cond_1 \land ... \land Cond_n \rangle$. Take an arbitrary $H \in L$. Denote $Lit(H)$ to be the set of the literals of the clausal form of $H$.
+Then $H \in \mathcal{P}_C$ iff $Lit(H) \subseteq Lit$ and
+$(Cond \land Cond_1 \land ... \land Cond_n)(H)$ iff
+$Lit(H) \subseteq Lit$ and $Cond(H)$ and $Cond_1(H) \land ... \land Cond_n(H)$
+iff $H \in \langle Lit, Cond \rangle = \mathcal{P}$ and $H \in L(Cond_1 \land ... \land Cond_n) = L(C)$. Thus $\mathcal{P}_C=\mathcal{P} \cap L(C)$.
+\end{proof}
+
+\begin{corollary}
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
+Then there exist production fields
+$\mathcal{P}_{M,C}$,
+$\mathcal{P}_{M,D,C}$
+such that for any clause $H \in L$:\\
+1) $H \in L(M) \cap L(C) \iff H \in \mathcal{P}_{M,C}$,\\
+2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.\\
+\end{corollary}
+\begin{proof}
+Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metaconstraints_production_field}.
+\end{proof}
+
+The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
+
+\section{Classification by language bias}\label{sec:classification_language_bias}
 The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and metaconstraints.
 
 \subsubsection{Mode declarations}
@@ -394,14 +449,9 @@ The support for the metaconstraints of interest is summarised.
   
 If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
 
-\section{Hypothesis search}
-Hypothesis search concerns with the algorithms used for searching a hypothesis, their heuristics, search biases and other search control mechanisms.
-First we list a hypothesis search algorithm for each ILP system and then 
-we compare how ILP systems search the hypothesis space based on the properties:
-\begin{itemize}
-\item search direction.
-\end{itemize}
-
+\section{Classification by search bias}\label{classification_by_search_bias}
+Search bias\cite{nienhuys1997foundations} is defined by the properties of an algorithm that searches a hypothesis: heuritics and direction of a search. We present a hypothesis search algorithm for each ILP system and then 
+we compare how ILP systems search the hypothesis space based on the search direction.
 \subsection{Algorithms}
 
 \subsubsection{Progol\cite{muggleton1995inverse}\cite{kimber2012learning}}
@@ -428,7 +478,7 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse entailment following the steps:
 
 \begin{itemize}
-\item construct the top theory $\top$,
+\item construct the top theory $\top$ (a bias represented as a logic theory specified on the input by the user),
 \item for every example $e \in E$:
 \item derive a clause $h_e$ such that $\top \models h_e$, $B \cup \{h_e\} \models e$, add $h_e$ to $H_c$,
 \item end loop,
@@ -436,38 +486,46 @@ The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse enta
 \end{itemize}
 The score function can be based on compression, coverage, accuracy, etc.
 
-\subsubsection{Xhail}
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=120mm]{images/hail_algorithm.png}
-\caption{Hail algorithm\cite{ray2005phdHybrid}}
-\label{overflow}
-\end{figure}
+\subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}\cite{corapi2011nonmonotonic}}
+Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories following the steps:
+\begin{itemize}
+\item find an abductive explanation $\Delta=\{\alpha_1, ..., \alpha_n\}$ for atoms in $E$ from $B$, i.e. $B \cup \Delta \models E$,
+\item find the set of atoms $\beta=\{\delta | B \models \delta\}$ that can be deduced from $B$ using SLD resolution,
+\item construct a kernel set $K$ of all possible clauses with $\alpha_j \in \Delta$ in their head, and body $\{\delta^j_1, ..., \delta^j_{m_j}\} \subseteq \beta$ where any $\delta^j_i$ has to satisfy $B \cup \Delta \models \delta^j_i$,
+\item find $H$ subsuming the kernel set $K$ by deleting the body literals of the clauses in $K$.
+\end{itemize}
 
 \subsubsection{Imparo}
 Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
 \begin{itemize}
-\item 1: select an example $E$ from the set of positive examples $E_{pos}$,
-\item compute the most specific connected theory for an example $E$ and the background knowledge $B$,
-\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $H$ with the highest score according to the score function such that $H \models E$,
-\item add $H$ to $B$,
-\item remove all $E' \in E_{pos}$ implied by new $B$, $B \models E'$.
-\item if $E_{pos} = \emptyset$ finish, otherwise go to 1.
+\item initialize $i=1$, $B_1=B$, $E^+_1=E^+$,
+\item step 2: if $E^+_i = \emptyset$ then return $H=\{h_1, ..., h_{i-1}\}$,
+\item select an example $e$ from the set of positive examples $E^+_i$,
+\item compute the most specific connected theory (a complement of Imparo's bridge formula) for an example $e$ and the background knowledge $B_i$,
+\item search the lattice of sets of clauses subsuming the connected theory and choose the hypothesis $h_i$ with the highest score according to the score function such that $B_i \cup \{h_i\} \models e$,
+\item let $B_{i+1}=B_i \cup \{h_i\}$,
+\item let $E^+_{i+1}=\{e' \in E^+_i | B_{i+1} \not\models e'\}$,
+\item $i=i+1$, go to step 2.
 \end{itemize}
 
 \paragraph{Induction on Failure framework\cite{kimber2012learning}}
 Induction on Failure framework (IoF) is a method for deriving a hypothesis $H$ where a single clause $h \in H$ does not necessarily need to explain an example $e \in E$, but an example can be explained by multiple clauses. Such a search space is called a connected theory.
 \begin{defn}
-A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that
-(i) $B \union T_1^+ \models e_{head}$,
-(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,
-(iii) $B \union e_{body} \models T_n^-$,
+A connected theory $T$ for a ground Horn clause $e$ and a Horn theory $B$ is a set of clauses that can be partitioned into sets $T_1, ..., T_n$ so that\\
+(i) $B \union T_1^+ \models e_{head}$,\\
+(ii) $\forall i \in \{1, ..., n-1\}. B \union e_{body} \union T_{i+1}^+ \models T_i^-$,\\
+(iii) $B \union e_{body} \models T_n^-$,\\
 (iv) $B \union T \not\models \square$.
 \end{defn}
 
-\subsubsection{Imparo\cite{kimber2012learning}}
-
-\subsubsection{Tal}
+\subsubsection{Tal\cite{corapi2011nonmonotonic}}
+Tal's algorithm is based on the use of a top theory $\top$ as Toplog combining the abductive procedure following the steps:
+\begin{itemize}
+\item given examples $E$, background theory $B$, mode declarations $M$, integrity constrains $I$,
+\item construct a top theory $\top_M$ from $B$, $E$, $M$,
+\item produce a set $\Delta$ of abductive explanations for $E$ from $\top_M \cup B$ subject to $I$,
+\item derive $H$ from $\Delta$ and $M$ such that $H$ is in $L(M)$.
+\end{itemize}
 
 \subsection{Search direction\cite{nienhuys1997foundations}}
 When searching for a correct hypothesis \ref{correct_hypothesis}, one may either start with an overly general hypothesis $H$ wrt $B, E^+$, $E^-$ and then try to weaken it to make it consistent with the negative examples $E^-$ while preserving its completeness wrt positive examples $E^+$. This is called a \emph{top-down} search.
@@ -531,25 +589,3 @@ We conclude that Tal searches a hypothesis top-down from the quote bellow:
 Tal explores candidate solutions in a top-down manner,
 backtracking whenever the current solution leads to failure in the abductive derivation.
 \end{quote}
-
-\section{Robustness}
-We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
-
-\begin{center}
-\captionof{table}{Classification by robustness} \label{tab:title} 
-\begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Consistency check & yes & no & no & yes & no & no \\
-	& \ref{progol_consistency_check}
-	& \ref{aleph_consistency_assumption}
-	& \ref{toplog_consistency_assumption}
-	 & \ref{xhail_implicit_consistency_check}
-	 & \ref{imparo_consistency_assumption}
-	 & \ref{tal_consistency_assumption} \\ \hline
-    Always terminated & yes & yes & yes & yes & no & no \\ 
-	&  & & & & \ref{imparo_clausal_examples} & \ref{tal_loop_on_learning_regular_languages} \\ \hline
-\end{tabular}
-\end{center} 
-
-The property ``Always terminated'' evaluates whether an ILP system terminated on all the experiments in the appendix. However, it may be possible for a system that withstood our experiments that one could find an input on which a system would not terminate. Therefore this test is only indicative.

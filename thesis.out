@@ -18,60 +18,63 @@
 \BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
 \BOOKMARK [1][-]{section.3.1}{Inductive logic programming concepts}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{ILP task definition}{section.3.1}
-\BOOKMARK [1][-]{section.3.2}{ILP task definition}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.2.1}{Inverse Entailment}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.2}{Input and output of ILP system}{section.3.2}
-\BOOKMARK [1][-]{section.3.3}{Biasnienhuys1997foundations}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Language bias}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Search biasnienhuys1997foundations}{section.3.3}
-\BOOKMARK [1][-]{section.3.4}{ILP systems}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.4.1}{Progol}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.2}{Alephaleph2007}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.4}{Hailray2003hybridray2005phdHybrid}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.5}{Xhailray2009nonmonotonic}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.6}{Imparokimber2012learning}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.7}{Talcorapi2010inductivecorapi2011tal}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.8}{Other systems}{section.3.4}
-\BOOKMARK [2][-]{subsection.3.4.9}{Selecting ILP systems for classification}{section.3.4}
-\BOOKMARK [1][-]{section.3.5}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.5.1}{Preliminaries}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.2}{Inverse subsumption with minimal complements}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.3}{Extension to first-order theories}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.4}{Relaxation of minimal complements to a maximal bridge theory}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.5}{Inverse subsumption with minimal complements and connected theory}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.6}{Negative examples}{section.3.5}
-\BOOKMARK [2][-]{subsection.3.5.7}{Imparo is complete in inverse subsumption}{section.3.5}
-\BOOKMARK [0][-]{chapter.4}{Classification of ILP systems}{}
-\BOOKMARK [1][-]{subsection.4.0.8}{Unified definition of ILP task}{chapter.4}
-\BOOKMARK [1][-]{section.4.1}{Completeness by problem classes}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Multiplicity of clauses in a hypothesis}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Expressivity of examples}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Generalization downwards}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{Double Kleene star}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Bias}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Language bias}{section.4.2}
-\BOOKMARK [1][-]{section.4.3}{Hypothesis search}{chapter.4}
+\BOOKMARK [2][-]{subsection.3.1.2}{Inverse Entailment}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.3}{Input and output of ILP system}{section.3.1}
+\BOOKMARK [1][-]{section.3.2}{ILP systems}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Progol}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{Alephaleph2007}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.3}{Toplogsantos2008toplogWebsitemuggleton2008toplog}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.4}{Hailray2003hybridray2005phdHybrid}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.5}{Xhailray2009nonmonotonic}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.6}{Imparokimber2012learning}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.7}{Talcorapi2010inductivecorapi2011tal}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.8}{Other systems}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.9}{Selecting ILP systems for classification}{section.3.2}
+\BOOKMARK [0][-]{chapter.4}{Biasnienhuys1997foundations}{}
+\BOOKMARK [1][-]{section.4.1}{Theory of language bias}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Mode declarations}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Determinations}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Metaconstraints}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Induction and production field}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{Correspondence between mode declarations, determinations, meta constraints and production field}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Classification by language bias}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Classification by search bias}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.3.1}{Algorithms}{section.4.3}
 \BOOKMARK [2][-]{subsection.4.3.2}{Search directionnienhuys1997foundations}{section.4.3}
-\BOOKMARK [1][-]{section.4.4}{Robustness}{chapter.4}
-\BOOKMARK [0][-]{chapter.5}{Rationale ILP system}{}
-\BOOKMARK [1][-]{section.5.1}{Algorithm}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{Maximal hypothesis antisubsumer}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Computing the antisubsumed hypotheses}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Pruning hypotheses by negative examples}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Bias}{chapter.5}
-\BOOKMARK [1][-]{section.5.3}{Completeness}{chapter.5}
-\BOOKMARK [1][-]{section.5.4}{Other considerations}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Hypothesis selection}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Hypothesis search}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.3}{Implementation details}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Comparison of Rationale with other ILP systems}{chapter.5}
-\BOOKMARK [0][-]{chapter.6}{Evaluation}{}
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}
-\BOOKMARK [1][-]{section.7.1}{Summary of Thesis Achievements}{chapter.7}
-\BOOKMARK [1][-]{section.7.2}{Applications}{chapter.7}
-\BOOKMARK [1][-]{section.7.3}{Future Work}{chapter.7}
+\BOOKMARK [0][-]{chapter.5}{Experimental classification of ILP systems}{}
+\BOOKMARK [1][-]{subsection.5.0.3}{Unified definition of ILP task}{chapter.5}
+\BOOKMARK [1][-]{section.5.1}{Completeness by problem classes}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Multiplicity of clauses in a hypothesis}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Expressivity of examples}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Generalization downwards}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Double Kleene star}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Robustness}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Inverse subsumption for complete explanatory inductionyamamoto2012inverse}{}
+\BOOKMARK [1][-]{section.6.1}{Preliminaries}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Inverse subsumption with minimal complements}{chapter.6}
+\BOOKMARK [1][-]{section.6.3}{Extensions}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.3.1}{Extension to first-order theories}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.2}{Relaxation of minimal complements to a maximal bridge theory}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.3}{Inverse subsumption with minimal complements and connected theory}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.4}{Negative examples}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.5}{Imparo is complete in inverse subsumption}{section.6.3}
+\BOOKMARK [0][-]{chapter.7}{Rationale ILP system}{}
+\BOOKMARK [1][-]{section.7.1}{Algorithm}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.1}{Maximal hypothesis antisubsumer}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{Computing the antisubsumed hypotheses}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.3}{Pruning hypotheses by negative examples}{section.7.1}
+\BOOKMARK [1][-]{section.7.2}{Bias}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Completeness}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Other considerations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.4.1}{Hypothesis selection}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.2}{Hypothesis search}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.3}{Implementation details}{section.7.4}
+\BOOKMARK [1][-]{section.7.5}{Comparison of Rationale with other ILP systems}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{Evaluation}{}
+\BOOKMARK [0][-]{chapter.9}{Conclusion}{}
+\BOOKMARK [1][-]{section.9.1}{Summary of Thesis Achievements}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Applications}{chapter.9}
+\BOOKMARK [1][-]{section.9.3}{Future Work}{chapter.9}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}

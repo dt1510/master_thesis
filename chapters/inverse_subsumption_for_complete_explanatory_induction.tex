@@ -1,0 +1,282 @@
+\chapter{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}\label{inverse_subsumption_for_complete_explanatory_induction}
+The sections \ref{sec:preliminaries} and \ref{sec:inverse_subsumption_with_minimal_complements} paraphrase work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+
+The remaining section \ref{inverse_subsumption_extensions} concern with the possible extensions of the inverse subsumption to first order theories, to support negative examples, the simplification of the algorithm and prove the completeness of Imparo in inverse subsumption.
+
+\section{Preliminaries}\label{sec:preliminaries}
+\begin{defn}
+Let $C$, $D$ be clauses, then $C$ \emph{(theta-)subsumes} $D$ iff there is a substitution $\theta$ such that $C \theta \subseteq D$. We denote the relation by $C \subsumes D$.
+\end{defn}
+
+\begin{defn}\label{definition_theory_subsumption}
+Let $S$ and $T$ be two clausal theories. Then, $S$ \emph{(theory-)subsumes} $T$, denoted by $S \subsumes T$, if for any clause $D \in T$, there is a clause $C \in S$ such
+that $C \subsumes D$. We denote by the inverse relation $\subsumed$ of the (theory-) subsumption, called \emph{anti-subsumption}.
+\end{defn}
+
+\begin{defn}
+Let $S$ be a ground clausal theory $\{C_1, C_2,... ,C_n\}$ where each clause $C_i$ $(1 \le i \le n)= l_{i,1} \lor l_{i,2} \lor... \lor l_{i,m_i}$.
+The \emph{complement} of $S$ is defined as
+\\$\bar{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
+1 \le k_1 \le m_1 , 1 \le k_2 \le m_2,..., 1 \le k_n \le m_n\}$.
+In case that $S$ is empty, $\bar{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
+\end{defn}
+
+\begin{remark}
+$S$ is a CNF formula such that $\bar{S} \equiv \neg S$.
+\end{remark}
+
+\begin{defn}
+\emph{$\tau(S)$} denotes the clausal theory obtained by removing all the tautologies from a logic theory $S$.
+\end{defn}
+
+\begin{defn}
+\emph{$\mu(S)$} denotes the clausal theory obtained by removing from $S$ all clauses that are properly subsumed by clauses in a logic theory $S$.
+The \emph{minimal complement} of $S$ is $M(S)=\mu(\bar{S})$.
+\end{defn}
+
+\begin{exmp}
+Let $S=\{a \lor b, b \lor c, \neg c\}$. Then
+$\bar{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, \neg b \lor \neg c \lor c\}$.
+$M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
+$\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
+\end{exmp}
+
+The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to the bridge theory $F$ and the induction field $\mathcal{I}_H$.
+
+\begin{defn}\label{definition_bridge_theory}
+Let $B$ and $E$ be a background theory and examples, respectively.
+Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
+$B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+\end{defn}
+
+The author finds the notion of the maximal bridge theory useful in later chapters.
+\begin{defn}\label{maximal_bridge_theory_definition}
+A \emph{maximal bridge theory} wrt $B$ and $E$ is a theory $F = B \cup \bar{E}$.
+\end{defn}
+\begin{remark}
+Every bridge theory is entailed by a maximal bridge theory.
+\end{remark}
+
+We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$\ref{induction_field_definition}, together with a bridge theory $F$ as follows:
+
+\begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
+Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+$F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
+\end{defn}
+
+\begin{defn}\emph{Tautologies of an induction field.}
+Given an induction field $\mathcal{I}_H = \langle Lit \rangle$, $Taut(\mathcal{I}_H)$ is defined
+as the set of tautologies $\{\neg A \land A | A \in Lit, \neg A \in Lit\}$.
+\end{defn}
+
+\section{Inverse subsumption with minimal complements}\label{sec:inverse_subsumption_with_minimal_complements}
+The generalization procedure based on inverse subsumption with minimal complements is as follows:
+
+\begin{defn}\label{inverse_subsumption_with_minimal_complements_algorithm}
+Let $B, E$ and $\mathcal{I}_H = \langle L \rangle$ be a background theory, examples and an induction
+field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. A clausal theory $H$ is derived
+by \emph{inverse subsumption with minimal complements} from $F$ wrt $\mathcal{I}_H$ if $H$ is constructed as follows.
+\begin{itemize}
+\item Step 1. Compute $Taut(\mathcal{I}_H)$;
+\item Step 2. Compute $\tau(M(F \cup Taut(\mathcal{I}_H)))$;
+\item Step 3. Construct a clausal theory $H$ satisfying the condition:
+$H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H)))$.
+\end{itemize}
+\end{defn}
+
+Inverse subsumption with minimal complements ensures the completeness for finding
+hypotheses wrt $\mathcal{I}_H$ and $F$.
+
+\begin{lemma}\label{yamamoto2012inverseLemma2}\cite{yamamoto2012inverse}
+Let $B$, $E$ and $I_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$, $H$ satisfies the following condition:
+
+$H \subsumes \tau(M(F \cup Taut(I_H))$.
+\end{lemma}
+
+\begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
+respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,
+$H$ is derived by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$.
+\end{thm}
+\begin{proof}
+Follows from \fullref{yamamoto2012inverseLemma2}.
+\end{proof}
+\section{Extensions}\label{sec:inverse_subsumption_extensions}
+\subsection{Extension to first-order theories}
+A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of anti-subsumption and of the minimal complement, especially if the number of potential tautologies is large since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground. We prove the soundness of the first-order extension and leave the completeness as an open question.
+
+\begin{proposition}\label{soundness_first_order_extension}(Soundness of the first-order extension)
+Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
+\end{proposition}
+\begin{proof}
+By subsumption $H \models \tau(M(F \cup Taut(I_H))) \equiv \neg F$. By the principle of the inverse entailment $B \cup \neg F \models E$, hence
+$B \cup H \models E$.
+\end{proof}
+
+\subsection{Relaxation of minimal complements to a maximal bridge theory}
+We relax the procedure of the minimal complements by using a maximal bridge theory\fullref{maximal_bridge_theory_definition} while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
+
+\begin{defn}
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H, F$ is a theory
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a bridge theory $F$ wrt $B, E$.
+\end{defn}
+
+\begin{defn}
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{maximal hypothesis antisubsumer} wrt $B, E, \mathcal{I}_H$ is a theory
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ for a maximal bridge theory $F=B \land \bar{E}$ wrt $B, E$.
+\end{defn}
+
+By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a maximal bridge theory.
+
+\begin{defn}
+A hypothesis $H$ is derived by \emph{inverse subsumption with minimal complements with a maximal bridge theory} wrt $B, E, \mathcal{I}_H$ iff
+$H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
+\end{defn}
+
+\begin{lemma}\label{lemma_hypothesis_wrt_bridge_theory_correspondence}
+Suppose $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a bridge theory $F_i$ wrt $B, E$. Then $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \bar{E}$ wrt $B, E$.
+\end{lemma}
+\begin{proof}
+By \fullref{definition_bridge_theory} $F_i$ is a bridge theory wrt $B, E$ iff $B \cup \bar{E} \models F_i$ by \fullref{maximal_bridge_theory_definition} iff $F \models F_i$.
+$H$ is a hypothesis wrt $\mathcal{I_H}$, $F_i$. Hence by \fullref{definition_hypothesis_wrt_induction_field_bridge_theory} there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+$F_i \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$. Hence $F \models F_i \models \neg H_g$ and thus by \fullref{definition_hypothesis_wrt_induction_field_bridge_theory} $H$ is a hypothesis wrt $\mathcal{I}_H$ and a maximal bridge theory $F$.
+\end{proof}
+
+\begin{proposition}
+\label{completeness_of_inverse_subsumption_with_maximal_bridge_theory}
+\emph{Completeness of inverse subsumption with minimal complements with a maximal bridge theory}.
+Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and a bridge theory $F_i$ wrt $B, E$, then $H$ can be derived by inverse subsumption with minimal complements with a maximal bridge theory.
+\end{proposition}
+
+\begin{proof}
+By \fullref{lemma_hypothesis_wrt_bridge_theory_correspondence} $H$ is a hypothesis wrt $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \bar{E}$.
+Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
+\end{proof}
+
+\subsubsection{Comparison with the original algorithm}
+Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \bar{E}$. The requirement for a maximal bridge theory $B \cup \bar{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
+
+\subsection{Inverse subsumption with minimal complements and connected theory}
+There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
+
+\begin{conjecture}
+Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.
+Then $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is a connected theory for $P$ and $E$ and $H \subsumes T$.
+\end{conjecture}
+
+\subsection{Negative examples}
+For a non-monotonic consequence opearator $\models$, there are two possible constrains the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
+\begin{enumerate}
+\item\label{first_negative_examples_constraint} $B \cup H \models \neg E^-$,
+\item\label{second_negative_examples_constraint} $B \cup H \not\models E^-$.
+\end{enumerate}
+\ref{first_negative_examples_constraint} constraint implies \ref{second_negative_examples_constraint} assuming that $B \cup H \not\models false$, but not vice versa. Inverse subsumption with minimal complements algorithm covers the \ref{first_negative_examples_constraint} case since $B \cup H \models E = E^+ \cup \neg E^- = E^+ \land \neg E^-$ and a bridge theory used is a bridge theory wrt $B$ and both positive and negative examples. For the \ref{second_negative_examples_constraint} case, one has to construct a bridge theory wrt $B$, $E^+$ only, then check the constraint imposed by the negative examples $E^-$ separately. However, it is possible to construct a bridge theory $F_i$ wrt $B$ and $\{e\}$ for every ground example $e \in E^-$. Then one can still use the inverse subsumption algorithm to check \ref{second_negative_examples_constraint}.
+
+\begin{proposition}\label{proposition_negative_examples_subsumption}
+Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and any bridge theory wrt $B, E+$. Then $B \cup H \not\models E^-$ iff $\forall e \in E^-. H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$.
+\end{proposition}
+\begin{proof}
+As $E^-$ is a disjunction of negative examples $e$, it is sufficient to prove
+$B \cup H \not\models e$ iff
+$H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$ which is equivalent to proving
+$B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$. But this follows from \ref{yamamoto2012inverseLemma2} and \ref{soundness_first_order_extension}.
+\end{proof}
+
+\subsubsection{Complete inverse subsumption operators}\label{complete_inverse_subsumption_operators}
+Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by antisumbsumption using two generalization operators dropping and antiinstantiation.
+
+\begin{defn}
+A logic theory $S$ is derivable from the logic theory $T$ by \emph{dropping} denoted $T \vdash_d S$ iff
+$\forall D \in T. \exists C \in S. C \subseteq D$.
+\end{defn}
+
+\begin{exmp}
+$\{p \lor q\} \vdash_d \{p, q\}$.
+\end{exmp}
+
+\begin{defn}
+A logic theory $S$ is derivable from the logic theory $T$ by \emph{antiinstantiation} denoted $T \vdash_a S$ iff
+$\forall D \in T. \exists$ a substitution $\theta$, $\exists C \in S. C\theta = D$.
+\end{defn}
+
+\begin{exmp}
+If $T=\{p(X) \lor q(X), r(X)\}$, then $T\vdash_a\{p(a) \lor q(a), r(X)\}$,
+but $T\not\vdash_a\{p(a) \lor q(b), r(X)\}$.
+\end{exmp}
+
+\begin{proposition}(Completeness of dropping and antiinstantiation for antisumption).
+Suppose that a logic theory $S$ theory-subsumes a logic theory $T$, then $S$ is derivable by dropping and antiinstantiation from $T$:
+$S \subsumes T \implies \exists U. T \vdash_d U \vdash_a S$.
+\end{proposition}
+\begin{proof}
+Suppose that $S$ theory-subsumes $T$, then by \ref{definition_theory_subsumption} for any clause $D \in T$, there is a clause $C_D \in S$ such
+that $C_D \subsumes D$, i.e. $\exists \theta_{D}. C_D \theta_D \subseteq D$.
+Then construct a theory $U=\{C_D \theta_D | D \in T \}$.
+Since $\forall D \in T \exists C_D \theta_D \in U. C_D \theta_D \subseteq D$, thus $T \vdash_d U$.
+Since $\forall C_D \theta_D \in U \exists C_D \in S. C_D \theta_D=C_D \theta_D$, thus $U \vdash_d S$. Hence $T \vdash_d U \vdash_a S$.
+\end{proof}
+
+\subsection{Imparo is complete in inverse subsumption}
+The use of the antientailment\cite{yamamoto2012inverse} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. The use of the antientailment instead of the antisubsumption may not preserve the completeness. However, we prove an open problem from \cite{yamamoto2012inverse} that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
+\begin{defn}
+Let $P=\langle B, U, I \rangle$ be an open definite program, $H$ be a correct hypothesis wrt $P$ and a ground example $E$, then $H$ is derivable by
+\emph{connected theory inverse subsumption}
+iff there exists a connected theory $T$ for $P$ and $E$ such that $H \subsumes T$.
+We denote the statement by $P, E \vdash_{CTIS} H$.
+\end{defn}
+
+\begin{thm}\label{yamamoto2012inverseTheorem4}\cite{yamamoto2012inverse}
+Let $S$ be a ground clausal theory. Then, $M^2(S) = \mu(S)$ holds.
+\end{thm}
+
+\begin{proposition}
+Let $H \in I_H$ be an inductive solution for $P$ and $E$ such that $Taut(I_H)=\emptyset$, then $H$ is derivable by connected theory inverse subsumption from $P, E$.
+\end{proposition}
+\begin{proof}
+By completeness of connected theory generalization\ref{completeness_ctg} there exists a connected theory $T$ such that $H \models T$. $M(T)$ is a bridge formula.
+Hence by \ref{yam1amoto2012inverseLemma2}
+$H \subsumes \tau(M(M(T) \cup Taut(I_H))$. From the definition of the connected theory $\tau(T)=T$ and $\mu (T)=T$.
+Therefore $\tau(M(M(T) \cup Taut(I_H))=\tau(M(M(T))=\tau(T)=T$ using
+\ref{yamamoto2012inverseTheorem4}. Therefore $H \subsumes T$ as required.
+\end{proof}
+\begin{remark}
+The previous proposition is stated and proved only to provide an alternative proof of a statement superceded by the stronger result \ref{completeness_ctis}.
+\end{remark}
+
+\begin{thm}\label{implicationByGroundClauses}
+(Implication by Ground Clauses \cite{nienhuys1997foundations}). Let $\Sigma$ be a non-empty set of clauses,
+and $C$ be a ground clause. Then $\Sigma \models C$ if and only if there is a finite set $\Sigma_g$ of ground
+instances of clauses from $\Sigma$, such that $\Sigma_g \models C$.
+\end{thm}
+
+\begin{thm}\label{completeness_ctg}
+\emph{Completeness of connected theory generalization}(Theorem4.6 in \cite{kimber2012learning})
+Let $\langle B, U, I \rangle$ be a definite open program,
+let $H$ be a definite program, and let $e$ be an atom.
+If $H$ is an inductive solution for $P$ and
+$E = \{e\}$, then $H$ is derivable from $P$ and $E$ by connected theory generalisation.
+\end{thm}
+\begin{proof}\cite{kimber2012learning}
+For the full proof, an interested reader is encouraged to read \cite{kimber2012learning}.
+Since $H$ is a correct hypothesis for $P$ and $E$,
+then $B \cup H \models E$ by definition.
+Therefore, by \ref{implicationByGroundClauses}, there is a finite set $S$ of ground instances of clauses in $B \cup H$,
+such that $S \models E$. Let $T = S \cap ground(H)$.
+Since $T \subseteq S$, then $T$ is ground and finite, and
+since $T \subseteq ground(H)$ then $H \models T$. 
+Then Kimber proves that $T$ is a connected theory for $P$ and $E$.
+\end{proof}
+
+\begin{thm}
+\emph{Completeness of connected theory inverse subsumption}.
+\label{completeness_ctis}
+Let $\langle B, U, I \rangle$ be a definite open program,
+let $H$ be a definite program, and let $e$ be an atom.
+If $H$ is an inductive solution for $P$ and
+$E = \{e\}$, then $H$ is derivable from $P$ and $E$ by connected theory inverse subsumption.
+\end{thm}
+\begin{proof}
+Construct a connected theory $T=S \cap ground(H)$ for $P$ and $E$ as in the proof of \ref{completeness_ctg}.
+Then $H \subsumes ground(H) \subsumes S \cap ground(H) = T$,
+hence $H \subsumes T$ by transitivity as required.
+\end{proof}
