@@ -156,14 +156,6 @@ Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \bar{E} 
 \subsubsection{Comparison with the original algorithm}
 Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \bar{E}$. The requirement for a maximal bridge theory $B \cup \bar{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
-\subsection{Inverse subsumption with minimal complements and connected theory}
-There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
-
-\begin{conjecture}
-Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.
-Then $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is a connected theory for $P$ and $E$ and $H \subsumes T$.
-\end{conjecture}
-
 \subsection{Negative examples}
 For a non-monotonic consequence opearator $\models$, there are two possible constrains the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
 \begin{enumerate}
@@ -280,3 +272,11 @@ Construct a connected theory $T=S \cap ground(H)$ for $P$ and $E$ as in the proo
 Then $H \subsumes ground(H) \subsumes S \cap ground(H) = T$,
 hence $H \subsumes T$ by transitivity as required.
 \end{proof}
+
+\subsection{Inverse subsumption with minimal complements and connected theory}
+There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
+
+\begin{conjecture}
+Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.
+Then $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is a connected theory for $P$ and $E$ and $H \subsumes T$.
+\end{conjecture}
