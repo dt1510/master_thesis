@@ -76,3 +76,16 @@ The author's contribution is a proof \ref{completeness_ctis} that Imparo's algor
 However, the proof establishes a completeness of an extension for only one specific (although significant) theoretical framework and may not contribute to the general method of an extension sought by Yamamoto et al. In order to evaluate the result further, the author would need to investigate its extension in a more general setting.
 
 \section{Inverse subsumption for complete explanatory induction extensions}
+The author evaluates his extensions described in \ref{inverse_subsumption_extensions} of the inverse subsumption with minimal complements procedure by Yamamoto et al. \cite{yamamoto2012inverse}.
+
+\paragraph{First-order extension}
+The author has extended the method to the first-order theories and has proved its soundness. An extension to first-order theories is an important step in improvement of the computational efficiency of the procedure as it reduces the number of the tautological clauses $Taut(\mathcal{I}_H)$ arising from the ground literals of an induction field. This results in a potentially exponentially smaller complement $M(Taut(F \cup Taut(\mathcal{I}_H))$. Although the author investigated the completeness of a method, it remains an open problem.
+
+\paragraph{Support for negative examples}
+Yamamoto et al. devise their procedure for explanatory induction with positive examples only. The author extends their procedure to include negative examples, however the extension requires a construction of a theory subsumed by a hypothesis for every negative example and therefore if the number of the negative examples is large it may be inefficient. Indeed, a different method for checking the consistency with the negative examples has been used by an ILP system Rationale constructed by the author. However, the extension gives theoretical hints as to what a more optimal extension for negative examples may look like.
+
+\paragraph{Relaxation of the algorithm while preserving its completeness}
+The relaxation of the algorithm by Yamamoto et al. comes at the price of the potential inefficiency as discussed in \ref{inverse_subsumption_algorithm_comparison}. However, for extensions in a different direction, the simplicity of the relaxed while still complete algorithm may turn out to be valuable.
+
+\paragraph{Defining inverse subsumption operators and proving their completeness}
+The author proved that every formula $H$ subsuming some $T$ can be derived by the sequential application of two defined operators. The first value of the result is in an easier reasoning about the procedure of anti-subsumption in the theoretical context. The second value of the result is a practical one and the two-step procedure of inverse subsumption has been applied in an ILP system Rationale.

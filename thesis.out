@@ -57,10 +57,11 @@
 \BOOKMARK [1][-]{section.6.2}{Inverse subsumption with minimal complements}{chapter.6}
 \BOOKMARK [1][-]{section.6.3}{Extensions}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.3.1}{Extension to first-order theories}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.2}{Relaxation of minimal complements to a maximal bridge theory}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.3}{Negative examples}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.4}{Imparo is complete in inverse subsumption}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.5}{Inverse subsumption with minimal complements and connected theory}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.2}{Negative examples}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.3}{Relaxation of minimal complements to a maximal bridge theory}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.4}{Complete inverse subsumption operators}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.5}{Imparo is complete in inverse subsumption}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.6}{Inverse subsumption with minimal complements and connected theory}{section.6.3}
 \BOOKMARK [0][-]{chapter.7}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.7.1}{Algorithm}{chapter.7}
 \BOOKMARK [2][-]{subsection.7.1.1}{Maximal hypothesis antisubsumer}{section.7.1}
