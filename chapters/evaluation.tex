@@ -32,13 +32,24 @@ The author analyses the turning points and evaluates the contributions towards t
 \subsection{Extended classification of ILP systems}
 
 \section{Formalisation of a language bias}
-To the author's knowledge, the best description of the language bias can be found in
-\cite{muggleton1994inductive} that lists 4 notable frameworks for a language bias specification: the inductive logic programming language of
+A good description of the language bias can be found in ILP theory and methods by Muggleton and De Raedt \cite{muggleton1994inductive} who list 4 notable frameworks for a language bias specification: the inductive logic programming language of
 Bergadano \cite{bergadano1993interactive}, the antecedent description grammars of Cohen \cite{cohen1994grammatically}\cite{cohen1992compiling}, the schemata of
 the BLIP-MOBAL team \cite{emde1983discovery}\cite{kietz1992controlling}, their variants \cite{de1992interactive}\cite{silverstein1991relational}
 \cite{tausend1994representing} and the fourth framework parametric languages as defined by \cite{muggleton1992efficient}\cite{de1992interactive}
 \cite{buntine1987induction}\cite{cohen1993learnability}.
 These theoretical frameworks are designed to support a cetain feature of the language bias and its specification: Bergadano's framework aims at readability, the framework by Cohen targets generality and efficiency in computing power.
+Most of these specification frameworks have been used only by a small number of ILP systems.
+
+Another language bias specification framework has been developed by Inoue \cite{inoue1992linear} who defined a production field restricting the hypothesis space to the set of so called characteristic clauses.
+
+Our work takes existing implementations of Progol, Aleph, Toplog, Xhail, Imparo, Tal; extracts their specifications of the language bias and designes a system of specification of a language bias by mode declarations, determinations and metaconstraints that is compatible with the specifications of ILP systems classified. An existing formalisation of the mode declarations by Muggleton \cite{muggleton1995inverse} is used. However, a bias specification for determinations \ref{bias_determinations} and metaconstraints \ref{bias_metaconstraints} is new to the author's knowledge. Finally, the validity of a good formalisation of these notions is confirmed by establishing a correspondence \ref{bias_correspondence} with the \emph{implementation idependent} language bias specification of a production field by Inoue \cite{inoue1992linear}.
+
+Our specification of a language bias is compatible with specifications of all ILP systems using the mode declarations, determinations and metaconstraints. However, there are two problems.
+
+The first being a strong abstraction of the metaconstraints which may encompass almost any form of a language bias specification, but for this reason it does not provide us with much understanding of the underlying specifics of the language specification. Therefore the correspondent classification of ILP systems by metaconstraints is either too general concerned with a bias $\mathcal{H}$ or is too specific concerned with an individual metaconstraint such as the number of clauses in a hypothesis $H$. The future work therefore may include grouping metaconstraints by properties into classes and comparing ILP systems based on whether they support a certain class of the metaconstraints.
+
+The second problem is that our formalisation of the langauge bias is specific to only 6 ILP systems classified and extends only to ILP systems with a compatible language bias specification such as Golem \cite{muggleton1992efficient}, CF-induction \cite{yamamoto2014cfInductionWebsite}, but do not extend to other systems like Metagol \cite{muggleton2013meta}\cite{muggleton2014meta}.
+
 \section{Experimental classification}
 \section{Proof of Imparo's completeness by inverse subsumption}
 \section{Inverse subsumption for complete explanatory induction extensions}

@@ -141,6 +141,13 @@ Stephen Muggleton and Cao Feng.
 \newblock Efficient induction of logic programs.
 \newblock {\em Inductive logic programming}, 38:281--298, 1992.
 
+\bibitem[ML13]{muggleton2013meta}
+Stephen Muggleton and Dianhuan Lin.
+\newblock Meta-interpretive learning of higher-order dyadic datalog: Predicate
+  invention revisited.
+\newblock In {\em Proceedings of the Twenty-Third international joint
+  conference on Artificial Intelligence}, pages 1551--1557. AAAI Press, 2013.
+
 \bibitem[MLPTN14]{muggleton2014meta}
 Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
 \newblock Meta-interpretive learning: application to grammatical inference.
@@ -247,6 +254,12 @@ Birgit Tausend.
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
 \newblock Inverse subsumption for complete explanatory induction.
 \newblock {\em Machine learning}, 86(1):115--139, 2012.
+
+\bibitem[Yos14]{yamamoto2014cfInductionWebsite}
+Yamamoto Yoshitaka.
+\newblock {\em Official CF-induction ILP system website: manual, source code
+  and examples}, 2014.
+\newblock Version 0.45, accessed June 2014.
 
 \bibitem[YRI08]{yamamoto2008towards}
 Yoshitaka Yamamoto, Oliver Ray, and Katsumi Inoue.
