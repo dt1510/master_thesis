@@ -52,18 +52,21 @@ The first being a strong abstraction of the metaconstraints which may encompass 
 The second problem is that our formalisation of a langauge bias is specific to only 6 ILP systems classified and extends only to ILP systems with a compatible language bias specification such as Golem \cite{muggleton1992efficient}, CF-induction \cite{yamamoto2014cfInductionWebsite}, but does not extend to other systems like Metagol \cite{muggleton2013meta}\cite{muggleton2014meta}.
 
 \section{Experimental classification}
-To the author's knowledge most the experimental evaluations of ILP systems have been performed on the following datasets of examples:
+To the author's knowledge most the experimental evaluations of ILP systems have been performed on the following types of datasets:
 \begin{itemize}
 \item well-known examples from biology such as mutagenesis \cite{srinivasan1994mutagenesis}, carcinogenesis \cite{srinivasan1997carcinogenesis}, alzheimers-amine \cite{king1995relating}, DSSTox \cite{richard2002distributed} as in \cite{muggleton2008toplog}\cite{corapi2011nonmonotonic},
-\item grammar learning problems as in \cite{muggleton2012mc}, \cite{muggleton2013meta}, \cite{kimber2012learning},
-\item examples on learning basic concepts such as family relations, types of animals, parity of integers as in \cite{muggleton1999progolWebsite}, \cite{santos2008toplogWebsite}, \cite{corapi2011tal}, \cite{aleph2007}.
+\item grammar learning problems as in \cite{muggleton1999progolWebsite} \cite{muggleton2012mc}, \cite{muggleton2013meta}, \cite{kimber2012learning},
+\item examples on learning basic concepts such as family relations, types of animals, parity of integers as in \cite{muggleton1999progolWebsite}, \cite{santos2008toplogWebsite}, \cite{corapi2011tal}, \cite{aleph2007},
+\item learning rules of in an environment: playing chess and nim \cite{muggleton1999progolWebsite}, building a stable wall as in Robot Strategy Learning \cite{muggleton2014meta}.
 \end{itemize}
 
-The advantage of these datasets is that they have been studied extensively by the ILP community and therefore are well-understood and provide a de facto standard for the comparison of the new ILP systems with the existing ones.
+The advantage of these datasets is that they have been studied extensively by the ILP community and therefore are well-understood and provide a de facto standard for the comparison of new ILP systems with the existing ones.
 
-However, the availability of these examples during the phase of a design of an ILP system makes the authors of ILP systems to focus on making their systems work with these examples rather than with an arbitrary example from the real world. It is not clear to the author whether a set these well-known examples is representative of the learning problems encountered in real world applications.
+However, the availability of these examples during the phase of a design of an ILP system makes the authors of ILP systems focus on making their systems work with these examples rather than with an arbitrary example from the real world. It is not clear to the author whether a set these well-known examples is representative of the learning problems encountered in real world applications.
 
-Instead, the author has tried a vast number of existing and new datasets on ILP systems until datasets were found for which ILP systems produced unexpected results. The learning problems such as \ref{classification_generalization_downwards}, \ref{classification_double_kleene_star} revealed the incompleteness of algorithms of the ILP systems use alghough their theoretical frameworks were complete with respect to these examples. Other examples manifested the hidden search bias of ILP systems (alphabetical term search bias \ref{tal_alphabetical_term_bias}, search bias arising from the other of mode declarations \ref{imparo_preference_over_later_mode_declarations} and determinations \ref{aleph_preference_over_earlier_determinations}), or their violations with the specification \ref{tal_no_generalization_downwards}.
+Instead, the author has tried a vast number of existing and new datasets on ILP systems until datasets were found for which ILP systems produced unexpected results. The learning problems such as \ref{classification_generalization_downwards}, \ref{classification_double_kleene_star} revealed the incompleteness of algorithms the ILP systems use alghough their theoretical frameworks were complete with respect to these examples. Other examples manifested the hidden search bias of ILP systems (alphabetical term search bias \ref{tal_alphabetical_term_bias}, search bias arising from the order of mode declarations \ref{imparo_preference_over_later_mode_declarations} and determinations \ref{aleph_preference_over_earlier_determinations}), or their violations with the specification \ref{tal_no_generalization_downwards}. The author believes, some of the new examples have a potential to be a valuable contribution to the ILP community aiding in design of algorithms and practical implementations.
+
+However, unlike a well-known Yamamoto's example \cite{yamamoto1997hypotheses} on learning a concept of an odd number from an even one, these datasets have only a limited value in a theory of ILP since they do not demonstrate the weaknesses and characteristics of the theoretical frameworks but rather of their implementations. 
 
 \section{Proof of Imparo's completeness by inverse subsumption}
 \section{Inverse subsumption for complete explanatory induction extensions}

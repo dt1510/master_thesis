@@ -274,6 +274,11 @@ Birgit Tausend.
 \newblock Representing biases for inductive logic programming.
 \newblock In {\em Machine Learning: ECML-94}, pages 427--430. Springer, 1994.
 
+\bibitem[Yam97]{yamamoto1997hypotheses}
+Akihiro Yamamoto.
+\newblock Which hypotheses can be found with inverse entailment?
+\newblock In {\em Inductive Logic Programming}, pages 296--308. Springer, 1997.
+
 \bibitem[YII12]{yamamoto2012inverse}
 Yoshitaka Yamamoto, Katsumi Inoue, and Koji Iwanuma.
 \newblock Inverse subsumption for complete explanatory induction.
