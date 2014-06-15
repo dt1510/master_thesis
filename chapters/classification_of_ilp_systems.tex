@@ -46,7 +46,7 @@ find $\mathcal{H}_2$ called \emph{solutions} wrt $B$, $E^+$, $E^-$, $\mathcal{H}
 Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=01$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
 
 We refer in the text to multi-explanatory induction simply as explanatory induction having in mind a unified definition unless a need arises to emphasise the multiplicity of possible solutions or a distinction from explanatory induction with one possible solution. Similarly, instead of discussing a set of hypotheses $\mathcal{H}_2$, we reason about its members individually referring to a hypothesis $H \in \mathcal{H}_2$.
-\section{Completeness by problem classes}
+\section{Completeness by problem classes}\label{completeness_by_problem_classes}
 We classify ILP systems based on whether they can find a hypothesis for the same class of inputs $B, E^+, E^-, \mathcal{H}$ and their correct hypothesis $H$ where a class is defined by some property on $B, E^+, E^-, \mathcal{H}$, $H$. For that purpose we introduce a definition of a problem and of a class:
 
 \begin{defn}
@@ -75,7 +75,7 @@ The reader should consult for an example of an input to a single clausal problem
 We classify the ILP systems based on their ability to learn some (not necessarily complete) subclass of multiclausal problems.
 
 \begin{center}
-\captionof{table}{Classification by learning multiclausal hypotheses} \label{tab:title} 
+\captionof{table}{Classification by learning multiclausal hypotheses} \label{classification_multiclausal_hypotheses} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
@@ -92,7 +92,7 @@ We classify the ILP systems based on their ability to learn some (not necessaril
 We classify ILP systems based on whether they can learn explanations for the clausal examples or their observations are limited to atoms.
 
 \begin{center}
-\captionof{table}{Classification by learning clausal examples} \label{tab:title} 
+\captionof{table}{Classification by learning clausal examples} \label{classification_clausal_examples} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
@@ -108,8 +108,9 @@ We classify ILP systems based on whether they can learn explanations for the cla
 Xhail cannot learn clausal examples as all examples have to be in a body of a goal to be proved as seen in the appendix, therefore examples need to be literals.
 
 \subsection{Generalization downwards}
+Generalization downwards test assess whether an ILP system can learn a hypothesis of the form $P(x) \leftObjectImplies P(s(x))$.
 \begin{center}
-\captionof{table}{Classification by generalization downwards} \label{tab:title} 
+\captionof{table}{Classification by generalization downwards} \label{classification_generalization_downwards} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
@@ -119,8 +120,11 @@ Xhail cannot learn clausal examples as all examples have to be in a body of a go
 \end{center}
 
 \subsection{Double Kleene star}
+Double Kleene star test assesses the capabilities of an ILP system to learn a regular language expressed in the term structure with the function symbols.
+We classify ILP systems based on their ability to learn a hypothesis of the form
+$P(s(s(X)) \leftObjectImplies P(x)$ representing a regular language \tc{(ss)*}.
 \begin{center}
-\captionof{table}{Classification by double Kleene star operator} \label{tab:title} 
+\captionof{table}{Classification by double Kleene star operator} \label{classification_double_kleene_star} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
@@ -133,7 +137,7 @@ Xhail cannot learn clausal examples as all examples have to be in a body of a go
 We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
 
 \begin{center}
-\captionof{table}{Classification by robustness} \label{tab:title} 
+\captionof{table}{Classification by robustness} \label{classification_robustness} 
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline

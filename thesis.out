@@ -78,106 +78,107 @@
 \BOOKMARK [1][-]{section.9.1}{Summary of Thesis Achievements}{chapter.9}
 \BOOKMARK [1][-]{section.9.2}{Applications}{chapter.9}
 \BOOKMARK [1][-]{section.9.3}{Future Work}{chapter.9}
-\BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
-\BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.2}{Specialization in arguments}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.3}{Multi-clausal learning}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.4}{Term structure learnability}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.5}{Learnability of multi-clausal concepts}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.6}{Clausal examples}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.7}{Other capabilities}{section.1.1}
-\BOOKMARK [1][-]{section.1.2}{Progol's assumed limitations}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.2.1}{Other limitations}{section.1.2}
-\BOOKMARK [1][-]{section.1.3}{Progol's violations and biases}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.3.1}{No generalization downwards}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.2}{Unlearnability of regular languages}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.3}{Preference over earlier mode declarations}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.4}{Background knowledge hypotheses}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.5}{Other violations and biases}{section.1.3}
-\BOOKMARK [0][-]{chapter.2}{Appendix - evaluation of Aleph on examples}{}
-\BOOKMARK [1][-]{section.2.1}{Aleph's capabilities}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.1.1}{Multi-clausal learning}{section.2.1}
-\BOOKMARK [2][-]{subsection.2.1.2}{Learnability of predicates of greater arity}{section.2.1}
-\BOOKMARK [2][-]{subsection.2.1.3}{Term structure learnability}{section.2.1}
-\BOOKMARK [2][-]{subsection.2.1.4}{Generalization downwards}{section.2.1}
-\BOOKMARK [1][-]{section.2.2}{Aleph's assumed limitations}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.2.1}{Unlearnability of negative examples}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.2}{Determination declaration requirement}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.3}{Assumption of consistency}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.4}{Unlearnability of regular languages}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.5}{Unlearnability of multi-clausal concepts}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.6}{Other assumed limitations}{section.2.2}
-\BOOKMARK [1][-]{section.2.3}{Aleph's violations and biases}{chapter.2}
-\BOOKMARK [2][-]{subsection.2.3.1}{Default Example Bias}{section.2.3}
-\BOOKMARK [2][-]{subsection.2.3.2}{Weak head mode declaration}{section.2.3}
-\BOOKMARK [2][-]{subsection.2.3.3}{Literal observation bias}{section.2.3}
-\BOOKMARK [2][-]{subsection.2.3.4}{Preference over earlier determinations}{section.2.3}
-\BOOKMARK [0][-]{chapter.3}{Appendix - evaluation of Toplog on examples}{}
-\BOOKMARK [1][-]{section.3.1}{Toplog's capabilities}{chapter.3}
-\BOOKMARK [1][-]{section.3.2}{Toplog's assumed limitations}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.2.1}{Inability to learn clausal examples}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.2}{Inability to make deductions from observations}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.3}{Predicate generalization impossible}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.4}{Ground atom example}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.5}{Unlearnability of the term structure}{section.3.2}
-\BOOKMARK [1][-]{section.3.3}{Toplog's violations and biases}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Mode declarations order bias}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{Assumption of consistency}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{Learning inconsistent hypothesis}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.4}{One head predicate bias}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.5}{Clausal bias}{section.3.3}
-\BOOKMARK [0][-]{chapter.4}{Appendix - evaluation of Xhail on examples}{}
-\BOOKMARK [1][-]{section.4.1}{Xhail's capabilities}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Background knowledge generalization}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Multiple hypotheses}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Multi-clausal hypotheses}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{Fine search space control}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.5}{Learning by integrity constrains}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.6}{Term structure learnability}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.7}{Other capabilities}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Xhail's assumed limitations}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Partial explanations impossible}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.2}{Learning from clausal examples}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.3}{Inability to learn from unrestricted clauses}{section.4.2}
-\BOOKMARK [1][-]{section.4.3}{Xhail's violations and biases}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.3.1}{Implicit consistency check}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.2}{Redundant hypotheses}{section.4.3}
-\BOOKMARK [2][-]{subsection.4.3.3}{Other violations and biases}{section.4.3}
-\BOOKMARK [0][-]{chapter.5}{Appendix - evaluation of Imparo on examples}{}
-\BOOKMARK [1][-]{section.5.1}{Imparo's capabilities}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{A multiclausal learning}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Learnability of a nested term structure}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Learnability of multi-clausal concepts}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Imparo's assumed limitations}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.2.1}{Unlearnability of clausal examples}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{Unlearnability of negative examples}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{Assumption of consistency}{section.5.2}
-\BOOKMARK [1][-]{section.5.3}{Imparo's violations and biases}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.3.1}{Default examples bias}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.2}{Weak head mode declaration}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.3}{No generalization downwards}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.4}{Literal observational bias}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.5}{Preference over the later mode declarations}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.6}{Other biases}{section.5.3}
-\BOOKMARK [0][-]{chapter.6}{Appendix - evaluation of Tal on examples}{}
-\BOOKMARK [1][-]{section.6.1}{Tal's capabilities}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.1.1}{Multiple solutions}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.2}{Multi-clausal hypothesis}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.3}{Term structure learnability}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.4}{Multi-clausal concepts}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.5}{Specialization in arguments}{section.6.1}
-\BOOKMARK [2][-]{subsection.6.1.6}{Other capabilities}{section.6.1}
-\BOOKMARK [1][-]{section.6.2}{Tal's assumed limitations}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Assumption of consistency}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{Inability to learn clausal examples}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{Correct example bias}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.4}{Other assumed limitations}{section.6.2}
-\BOOKMARK [1][-]{section.6.3}{Tal's violations and biases}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.3.1}{Solution redundancy}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.2}{No generalization downwards}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.3}{Loop on learning regular languages}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.4}{Weak head mode declaration}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.5}{Alphabetical term bias}{section.6.3}
-\BOOKMARK [2][-]{subsection.6.3.6}{Other violations and biases}{section.6.3}
-\BOOKMARK [0][-]{subsection.6.3.6}{Bibliography}{}
+\BOOKMARK [0][-]{chapter.1}{Summary of classification of ILP systems}{}
+\BOOKMARK [0][-]{chapter.2}{Appendix - evaluation of Progol on examples}{}
+\BOOKMARK [1][-]{section.2.1}{Progol's capabilities}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.1.1}{Consistency check}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.2}{Specialization in arguments}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.3}{Multi-clausal learning}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.4}{Term structure learnability}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.5}{Learnability of multi-clausal concepts}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.6}{Clausal examples}{section.2.1}
+\BOOKMARK [2][-]{subsection.2.1.7}{Other capabilities}{section.2.1}
+\BOOKMARK [1][-]{section.2.2}{Progol's assumed limitations}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.2.1}{Other limitations}{section.2.2}
+\BOOKMARK [1][-]{section.2.3}{Progol's violations and biases}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.3.1}{No generalization downwards}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.2}{Unlearnability of regular languages}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.3}{Preference over earlier mode declarations}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.4}{Background knowledge hypotheses}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.5}{Other violations and biases}{section.2.3}
+\BOOKMARK [0][-]{chapter.3}{Appendix - evaluation of Aleph on examples}{}
+\BOOKMARK [1][-]{section.3.1}{Aleph's capabilities}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.1.1}{Multi-clausal learning}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Learnability of predicates of greater arity}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.3}{Term structure learnability}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.4}{Generalization downwards}{section.3.1}
+\BOOKMARK [1][-]{section.3.2}{Aleph's assumed limitations}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Unlearnability of negative examples}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{Determination declaration requirement}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.3}{Assumption of consistency}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.4}{Unlearnability of regular languages}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.5}{Unlearnability of multi-clausal concepts}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.6}{Other assumed limitations}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{Aleph's violations and biases}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Default Example Bias}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Weak head mode declaration}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Literal observation bias}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Preference over earlier determinations}{section.3.3}
+\BOOKMARK [0][-]{chapter.4}{Appendix - evaluation of Toplog on examples}{}
+\BOOKMARK [1][-]{section.4.1}{Toplog's capabilities}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Toplog's assumed limitations}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Inability to learn clausal examples}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Inability to make deductions from observations}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Predicate generalization impossible}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Ground atom example}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.5}{Unlearnability of the term structure}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{Toplog's violations and biases}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Mode declarations order bias}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Assumption of consistency}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.3}{Learning inconsistent hypothesis}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.4}{One head predicate bias}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.5}{Clausal bias}{section.4.3}
+\BOOKMARK [0][-]{chapter.5}{Appendix - evaluation of Xhail on examples}{}
+\BOOKMARK [1][-]{section.5.1}{Xhail's capabilities}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Background knowledge generalization}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Multiple hypotheses}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Multi-clausal hypotheses}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Fine search space control}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.5}{Learning by integrity constrains}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.6}{Term structure learnability}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.7}{Other capabilities}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Xhail's assumed limitations}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{Partial explanations impossible}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{Learning from clausal examples}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{Inability to learn from unrestricted clauses}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{Xhail's violations and biases}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{Implicit consistency check}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.2}{Redundant hypotheses}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.3}{Other violations and biases}{section.5.3}
+\BOOKMARK [0][-]{chapter.6}{Appendix - evaluation of Imparo on examples}{}
+\BOOKMARK [1][-]{section.6.1}{Imparo's capabilities}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.1.1}{A multiclausal learning}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.2}{Learnability of a nested term structure}{section.6.1}
+\BOOKMARK [2][-]{subsection.6.1.3}{Learnability of multi-clausal concepts}{section.6.1}
+\BOOKMARK [1][-]{section.6.2}{Imparo's assumed limitations}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.2.1}{Unlearnability of clausal examples}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.2}{Unlearnability of negative examples}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{Assumption of consistency}{section.6.2}
+\BOOKMARK [1][-]{section.6.3}{Imparo's violations and biases}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.3.1}{Default examples bias}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.2}{Weak head mode declaration}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.3}{No generalization downwards}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.4}{Literal observational bias}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.5}{Preference over the later mode declarations}{section.6.3}
+\BOOKMARK [2][-]{subsection.6.3.6}{Other biases}{section.6.3}
+\BOOKMARK [0][-]{chapter.7}{Appendix - evaluation of Tal on examples}{}
+\BOOKMARK [1][-]{section.7.1}{Tal's capabilities}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.1}{Multiple solutions}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{Multi-clausal hypothesis}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.3}{Term structure learnability}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.4}{Multi-clausal concepts}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.5}{Specialization in arguments}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.6}{Other capabilities}{section.7.1}
+\BOOKMARK [1][-]{section.7.2}{Tal's assumed limitations}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Assumption of consistency}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{Inability to learn clausal examples}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.3}{Correct example bias}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.4}{Other assumed limitations}{section.7.2}
+\BOOKMARK [1][-]{section.7.3}{Tal's violations and biases}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.3.1}{Solution redundancy}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.2}{No generalization downwards}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.3}{Loop on learning regular languages}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.4}{Weak head mode declaration}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.5}{Alphabetical term bias}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.6}{Other violations and biases}{section.7.3}
+\BOOKMARK [0][-]{subsection.7.3.6}{Bibliography}{}

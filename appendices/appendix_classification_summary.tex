@@ -1,0 +1,40 @@
+\chapter{Summary of classification of ILP systems}\label{appendix_classification_summary}
+\captionof{table}{Summary of classification}
+ \begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    \hline
+    \multicolumn{7}{|l|}{Mode declarations \ref{classification_mode_declarations}} \\ \hline
+    Progol compatible & yes & yes & no &  yes & no & no \\ \hline
+    Recall modeb support & yes & yes & yes & yes & no & yes \\ \hline
+    Recall modeh support & yes & yes & no & yes & no & no \\ \hline
+    Recall lower bound support & no & no & no & yes & no & no \\ \hline
+    \hline
+    Determinations \ref{classification_determinations} & optional & required & no & no & no & no \\ \hline
+    \hline
+    \multicolumn{7}{|l|}{Metaconstraints \ref{classification_metaconstraints}} \\ \hline
+    Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
+    Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
+    Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
+    Number of singletons in $H$ & no & no & yes & no & no & no\\ \hline    
+    \hline
+    
+    \multicolumn{7}{|l|}{Problem classes \ref{completeness_by_problem_classes}} \\ \hline
+    Multiclausal hypotheses \ref{classification_multiclausal_hypotheses}& no & yes & no & 
+    yes & yes & yes \\ \hline
+    
+        \hline
+    Clausal examples \ref{classification_clausal_examples}& yes & no & no & 
+    no & no & no \\ \hline        
+  	
+    Double Kleene star \ref{classification_double_kleene_star} & no & no & no & & yes & yes \\ \hline
+        
+    \hline
+	\multicolumn{7}{|l|}{Robustness \ref{classification_robustness}} \\ \hline
+    Consistency check & yes & no & no & yes & no & no \\ \hline
+    Always terminated & yes & yes & yes & yes & no & no \\ \hline  
+    
+  \end{tabular}
+  
+  
+
