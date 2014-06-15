@@ -83,6 +83,11 @@ David Marker.
 \newblock {\em Model theory}.
 \newblock Springer, 2002.
 
+\bibitem[MDR94]{muggleton1994inductive}
+Stephen Muggleton and Luc De~Raedt.
+\newblock Inductive logic programming: Theory and methods.
+\newblock {\em The Journal of Logic Programming}, 19:629--679, 1994.
+
 \bibitem[MLPTN14]{muggleton2014meta}
 Stephen~H Muggleton, Dianhuan Lin, Niels Pahlavi, and Alireza Tamaddoni-Nezhad.
 \newblock Meta-interpretive learning: application to grammatical inference.

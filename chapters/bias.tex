@@ -9,19 +9,21 @@ Two main types of a bias are:
 
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
 
-First we present a theory of the language bias \ref{sec:background_language_bias}, then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
+First we formalise a theory of the language bias \ref{sec:background_language_bias}. Then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
 
 In the context of a language bias we refer to the bias as a hypothesis space $\mathcal{H}$, in the context of a search bias we refer to it as a search space $\mathcal{H}$.
 These different terminologies refer to the same bias $\mathcal{H}$, however emphasise a different local focus on a bias in the text.
 
 \section{Theory of language bias}\label{sec:background_language_bias}
-The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$. The main types of the language biases in ILP are:
+The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a language bias $\mathcal{H}$ (called a syntactic bias in \cite{muggleton1994inductive}). The author presents the main types of the language biases in ILP:
 \begin{itemize}
 \item mode declarations,
 \item determinations,
 \item metaconstrains,
 \item induction and production field.
 \end{itemize}
+
+The author concludes the section by establishing the correspondence between these known and newly formalised types of a language bias.
 
 \subsection{Mode declarations}\label{background_mode_declarations}
 Mode declarations specify what predicates are allowed in a head and a body of a hypothesis.
