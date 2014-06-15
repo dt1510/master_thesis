@@ -23,24 +23,24 @@ the BLIP-MOBAL team \cite{emde1983discovery}\cite{kietz1992controlling}, their v
 These theoretical frameworks are designed to support a cetain feature of the language bias and its specification: Bergadano's framework aims at readability, the framework by Cohen targets generality and efficiency in computing power.
 But most of these specification frameworks have been used only by a small number of ILP systems.
 
-Another language bias specification framework has been developed by Inoue \cite{inoue1992linear} who defined a production field restricting the hypothesis space to the set of relevant clauses called characteristic clauses. However, this specification is implemetation independent and capture speficics of an ILP system.
+Another language bias specification framework has been developed by Inoue \cite{inoue1992linear} who defined a production field restricting the hypothesis space to the set of relevant clauses called characteristic clauses. However, this specification is implemetation independent and thus cannot capture speficics of an ILP system.
 
 We provide a specification carrying the information about the specifics of an ILP system while being general enough to be compatible with the language bias specifications of the classified systems.
-Our work takes existing implementations of Progol, Aleph, Toplog, Xhail, Imparo, Tal; extracts their specifications of the language bias and designes a system of specification of a language bias by mode declarations, determinations and metaconstraints that is compatible with the specifications of ILP systems classified. An existing formalisation of the mode declarations by Muggleton \cite{muggleton1995inverse} is used. However, a bias specification for determinations \ref{bias_determinations} and metaconstraints \ref{bias_metaconstraints} is new to the author's knowledge. Finally, the validity of a good formalisation of these notions is confirmed by establishing a correspondence \ref{bias_correspondence} with the \emph{implementation idependent} language bias specification of a production field by Inoue \cite{inoue1992linear}. This correspondence can used to reason about a language bias of ILP systems as a production field in a more theoretical way.
+Our work takes existing implementations of Progol, Aleph, Toplog, Xhail, Imparo, Tal; extracts their specifications of the language bias and designes a system of specification of a language bias by mode declarations, determinations and metaconstraints that is compatible with the specifications of ILP systems classified. An existing formalisation of the mode declarations by Muggleton \cite{muggleton1995inverse} is used. However, a bias specification for determinations \ref{bias_determinations} and metaconstraints \ref{bias_metaconstraints} is new to the author's knowledge. Finally, the validity of a good formalisation of these notions is confirmed by establishing a correspondence \ref{bias_correspondence} with the \emph{implementation idependent} language bias specification of a production field by Inoue \cite{inoue1992linear} mentioned above. This correspondence can be used to reason about a language bias of ILP systems as a production field in a more theoretical way.
 
 Our specification of a language bias is compatible with specifications of all ILP systems using the mode declarations, determinations and metaconstraints. However, there are two problems.
 
 The first being a strong abstraction of the metaconstraints which may encompass almost any form of a language bias specification, but for this reason it does not provide us with much understanding of the underlying specifics of the language specification. Therefore the correspondent classification of ILP systems by metaconstraints is either too general concerned with a bias $\mathcal{H}$ or is too specific concerned with an individual metaconstraint such as the number of clauses in a hypothesis $H$. The future work therefore may include grouping metaconstraints by properties into classes and comparing ILP systems based on whether they support a certain class of metaconstraints.
 
-The second problem is that our formalisation of a langauge bias is specific to only 6 ILP systems classified and extends only to ILP systems with a compatible language bias specification such as Golem \cite{muggleton1992efficient}, CF-induction \cite{yamamoto2014cfInductionWebsite}, but does not extend to other systems like Metagol \cite{muggleton2013meta}\cite{muggleton2014meta}.
+The second problem is that our formalisation of a language bias is specific to only 6 ILP systems classified and extends only to ILP systems with a compatible language bias specification such as Golem \cite{muggleton1992efficient}, CF-induction \cite{yamamoto2014cfInductionWebsite}, but does not extend to other systems like Metagol \cite{muggleton2013meta}\cite{muggleton2014meta}.
 
 \section{Experimental classification}\label{evaluation_experimental_classification}
-To the author's knowledge most the experimental evaluations of ILP systems have been performed on the following types of datasets:
+To the author's knowledge most of the experimental evaluations of ILP systems have been performed on the following types of datasets:
 \begin{itemize}
 \item well-known examples from chemistry and biology such as mutagenesis \cite{srinivasan1994mutagenesis}, carcinogenesis \cite{srinivasan1997carcinogenesis}, alzheimers-amine \cite{king1995relating}, DSSTox \cite{richard2002distributed} as in \cite{muggleton2008toplog}\cite{corapi2011nonmonotonic},
 \item grammar learning problems as in \cite{muggleton1999progolWebsite} \cite{muggleton2012mc}, \cite{muggleton2013meta}, \cite{kimber2012learning},
 \item examples on learning basic concepts such as family relations, types of animals, parity of integers as in \cite{muggleton1999progolWebsite}, \cite{santos2008toplogWebsite}, \cite{corapi2011tal}, \cite{aleph2007},
-\item learning rules of in an environment: playing chess and nim \cite{muggleton1999progolWebsite}, building a stable wall as in Robot Strategy Learning \cite{muggleton2014meta}.
+\item learning rules in an environment: playing chess and nim \cite{muggleton1999progolWebsite}, building a stable wall as in Robot Strategy Learning \cite{muggleton2014meta}.
 \end{itemize}
 
 The advantage of these datasets is that they have been studied extensively by the ILP community and therefore are well-understood and provide a de facto standard for the comparison of new ILP systems with the existing ones.
@@ -56,12 +56,12 @@ Yamamoto et al. investigate in \cite{yamamoto2012inverse} whether an inverse sub
 
 The author's contribution is a proof \ref{completeness_ctis} that Imparo's algorithm can be extended to use anti-subsumption instead of anti-entailment while preserving a completeness for finding a correct hypothesis. In this regard, the author has solved an open problem.
 
-However, the proof establishes a completeness of an extension for only one specific (although significant) theoretical framework and may not contribute to the general method of an extension sought by Yamamoto et al. In order to evaluate the result further, the author would need to investigate its extension in a more general setting.
+However, the proof establishes a completeness of an extension for only one specific (although significant) theoretical framework and may not contribute to the general method of an extension sought by Yamamoto et al. In order to evaluate the result further, the author would need to investigate the extension in a more general setting.
 
 \section{Inverse subsumption for complete explanatory induction extensions}
 The author evaluates his extensions described in \ref{inverse_subsumption_extensions} of the inverse subsumption with minimal complements procedure by Yamamoto et al. \cite{yamamoto2012inverse}.
 
-\paragraph{First-order extension}
+\paragraph{First-order extension}\label{evaluation_first_order_extension}
 The author has extended the method to the first-order theories and has proved its soundness. An extension to first-order theories is an important step in improvement of the computational efficiency of the procedure as it reduces the number of the tautological clauses $Taut(\mathcal{I}_H)$ arising from the ground literals of an induction field. This results in a potentially exponentially smaller complement $M(Taut(F \cup Taut(\mathcal{I}_H))$. Although the author investigated the completeness of a method, it remains an open problem.
 
 \paragraph{Support for negative examples}
@@ -71,7 +71,9 @@ Yamamoto et al. devise their procedure for explanatory induction with positive e
 The relaxation of the algorithm by Yamamoto et al. comes at the price of the potential inefficiency as discussed in \ref{inverse_subsumption_algorithm_comparison}. However, for extensions in a different direction, the simplicity of the relaxed while still complete algorithm may turn out to be valuable.
 
 \paragraph{Defining inverse subsumption operators and proving their completeness}
-The author proved that every formula $H$ subsuming some $T$ can be derived by the sequential application of two defined operators. The first value of the result is in an easier reasoning about the procedure of anti-subsumption in the theoretical context. The second value of the result is a practical one and the two-step procedure of inverse subsumption has been applied in an ILP system Rationale.
+The author proved that every logic theory $H$ subsuming some logic theory $T$ can be derived by the sequential application of two defined operators. The first value of the result is in an easier reasoning about the procedure of anti-subsumption in the theoretical context. The second value of the result is a practical one and the two-step procedure of inverse subsumption has been applied in an ILP system Rationale.
+
+\paragraph{Rationale} Finally, a prototype ILP system Rationale has been created. It works on small learning problems specified by the clausal theories. Rationale is an important step in an evaluation of the feasibility of the applicatioin of theoretical ideas. The implementation has identified an importance of further work on the first-order extension \ref{evaluation_first_order_extension} of the procedure as the computational time in terms of the complementary number of the pairs of literals in an induction field grew exponentially.
 
 \section{Summary}
 Although the author did not manage to devise a comprehensive theoretical classification of ILP systems, he classified ILP systems experimentally by running them on newly created datasets. The author also extended the theoretical work in a field in several ways that enabled him to expand the experimental classification towards the theoretical side as well.
