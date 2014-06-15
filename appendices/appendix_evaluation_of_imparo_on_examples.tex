@@ -55,7 +55,7 @@ man(A):-male(A)
 
 Learning multiple hypotheses is not possible in all systems, e.g. Toplog. Nevertheless the clauses have to be Horn, the ones with at most one positive literal and therefore hypotheses of the form $s \vee p \leftObjectImplies r$ cannot be learnt.
 
-\subsection{Learnability of a nested term structure}
+\subsection{Learnability of a nested term structure}\label{imparo_learnability_of_nested_term_structure}
 Imparo is capable of learning a language constructed from the alphabetical symbols and a Kleene star operation. Observations below correspond to the language defined by the regular expression \tc{(sr)*}.
 
 \begin{minipage}[t]{.50\textwidth}
@@ -450,7 +450,7 @@ woman(sister(X)) :- woman_sister(X).
 \end{lstlisting}
 The advantage of a support of a term structure is a matter of convenience rather than an added expressivity of the problem description and produced hypotheses.
 
-\subsection{No generalization downwards}
+\subsection{No generalization downwards}\label{imparo_no_generalization_downwards}
 Imparo cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$ for all classes of applicable observations.
 
 \begin{minipage}[t]{.25\textwidth}
@@ -621,7 +621,7 @@ man(X) :- male(X).
 
 To the author's knowledge, other ILP systems do not deal with the case of non-literal observations, however the works by Plotkin dealt with the generalization of a general set of clauses.
 
-\subsection{Preference over the later mode declarations}
+\subsection{Preference over the later mode declarations}\label{imparo_preference_over_later_mode_declarations}
 The search bias of the Imparo prefers the predicates that have been defined by the mode declarations later.
 
 \begin{minipage}[t]{.25\textwidth}

@@ -114,6 +114,12 @@ Timothy Kimber.
 \newblock Imparo manual, example and source code files.
 \newblock Available upon the request to the author., 2013.
 
+\bibitem[KSS95]{king1995relating}
+Ross~D King, Michael~JE Sternberg, and Ashwin Srinivasan.
+\newblock Relating chemical activity to structure: an examination of ilp
+  successes.
+\newblock {\em New Generation Computing}, 13(3-4):411--433, 1995.
+
 \bibitem[KW92]{kietz1992controlling}
 J{\"o}rg-Uwe Kietz and Stefan Wrobel.
 \newblock Controlling the complexity of learning in logic through syntactic and
@@ -205,6 +211,13 @@ Oliver Ray, Krysia Broda, and Alessandra Russo.
 \newblock Hybrid abductive inductive learning: a generalisation of progol.
 \newblock In {\em Inductive Logic Programming}, pages 311--328. Springer, 2003.
 
+\bibitem[RW02]{richard2002distributed}
+Ann~M Richard and ClarLynda~R Williams.
+\newblock Distributed structure-searchable toxicity (dsstox) public database
+  network: a proposal.
+\newblock {\em Mutation Research/Fundamental and Molecular Mechanisms of
+  Mutagenesis}, 499(1):27--52, 2002.
+
 \bibitem[San08]{santos2008toplogWebsite}
 José Carlos~Almeida Santos.
 \newblock {\em Official Toplog website: Toplog manual and source code}, 2008.
@@ -221,12 +234,23 @@ Marek Sergot.
   2005.
 \newblock accessed June 2014.
 
+\bibitem[SKMS97]{srinivasan1997carcinogenesis}
+Ashwin Srinivasan, Ross~D King, SH~Muggleton, and Michael~JE Sternberg.
+\newblock Carcinogenesis predictions using ilp.
+\newblock In {\em Inductive Logic Programming}, pages 273--287. Springer, 1997.
+
 \bibitem[Smi14]{sep-aristotle-logic}
 Robin Smith.
 \newblock Aristotle's logic.
 \newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
   Philosophy}. Spring 2014 edition, 2014.
 \newblock accessed June 2014.
+
+\bibitem[SMKS94]{srinivasan1994mutagenesis}
+Ashwin Srinivasan, Stephen Muggleton, Ross~D King, and Micheal~JE Sternberg.
+\newblock Mutagenesis: Ilp experiments in a non-determinate biological domain.
+\newblock In {\em Proceedings of the 4th international workshop on inductive
+  logic programming}, volume 237, pages 217--232. Citeseer, 1994.
 
 \bibitem[SP91]{silverstein1991relational}
 Glenn Silverstein and Michael~J Pazzani.

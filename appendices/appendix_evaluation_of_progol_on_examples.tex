@@ -230,7 +230,7 @@ Progol can induce hypotheses that contain predicates of arity greater than 1. Pr
 Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations. Progol has a weak-head mode declaration, we have to explicitly specify the function symbol in the mode declarations, a specification of a general function symbol pattern is not possible. Progol has a correct example bias - it can learn examples only if these are specified in the mode declarations. Progol can learn only the Horn theories.
 
 \section{Progol's violations and biases}
-\subsection{No generalization downwards}
+\subsection{No generalization downwards}\label{progol_no_generalization_downwards}
 Progol cannot learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
 \begin{minipage}[t]{.60\textwidth}
@@ -265,7 +265,7 @@ even(A).
 \end{lstlisting}
 which is inconsistent with the negative examples.
 
-\subsection{Unlearnability of regular languages}
+\subsection{Unlearnability of regular languages}\label{progol_unlearnability_of_regular_languages}
 Although Progol can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
 
 \begin{lstlisting}

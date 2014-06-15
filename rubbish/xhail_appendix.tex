@@ -1,0 +1,23 @@
+\subsection{Learning from clausal examples}
+Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+modeh(0,10,all,woman("+person")).
+modeb(0,10,pos,female("+person")).
+goal(g).
+person(susan; ruth; adam).
+g:- woman(susan), woman(ruth), not woman(adam).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+woman(susan):-female(susan).
+woman(ruth):-female(ruth).
+male(adam).
+\end{lstlisting}
+\end{minipage}
+
+does not produce any hypothesis, however a general hypothesis\\
+\tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
+

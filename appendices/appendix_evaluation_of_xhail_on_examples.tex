@@ -237,30 +237,7 @@ In comparison, Aleph can learn partial hypotheses: from the background knowledge
 \tc{female(alice).female(mary).}, positive examples \tc{woman(alice).woman(mary).woman(susan).}, negative examples \tc{woman(adam).} Aleph includes in its hypothesis a partial explanation
 \tc{woman(A) :- female(A).}.
 
-\subsection{Learning from clausal examples}
-Since Xhail learns from the background knowledge like Progol does, we would expect it would be able to generalize from the clausal examples too. However, this is not the case (TODO verify Progol can learn from clauses without the female instances):
-
-\begin{minipage}[t]{.60\textwidth}
-\begin{lstlisting}
-modeh(0,10,all,woman("+person")).
-modeb(0,10,pos,female("+person")).
-goal(g).
-person(susan; ruth; adam).
-g:- woman(susan), woman(ruth), not woman(adam).
-\end{lstlisting}
-\end{minipage}
-\begin{minipage}[t]{.20\textwidth}
-\begin{lstlisting}
-woman(susan):-female(susan).
-woman(ruth):-female(ruth).
-male(adam).
-\end{lstlisting}
-\end{minipage}
-
-does not produce any hypothesis, however a general hypothesis\\
-\tc{woman(X1) :- female(X1), person(X1).} could have been induced to generalise its two ground instances present in the background knowledge.
-
-\subsection{Inability to learn from unrestricted clauses}
+\subsection{Inability to learn from unrestricted clauses}\label{xhail_inability_to_learn_from_unrestricted_clauses}
 Xhail requires that all its clauses are restricted by ground instances - a quantification over all possible ground instances in a domain is not possible.
 
 An attempt to define that everybody in a domain is of type person fails. \tc{person(X1).} returns an error "a non-ground fact person(X1). All terms within a fact must be ground terms." For a clause \tc{person(X1) :- true.} an error message "Unrestricted variable X1." is produced. Therefore we always have to ground the clauses (containing variables) in Xhail, for example

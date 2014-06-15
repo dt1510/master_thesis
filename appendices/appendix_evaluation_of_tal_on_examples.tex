@@ -369,7 +369,7 @@ returns solutions
 Notice that the 3rd and the 4th solutions are equivalent, the only difference is the order of the hypotheses returned in the solution. Moreover, \tc{woman(sister(\_))} subsumes the clause\\
 \tc{woman(sister(A)):-anybody(A).}. Hence the 3rd solution is equivalent to the 1st one.
 
-\subsection{No generalization downwards}
+\subsection{No generalization downwards}\label{tal_no_generalization_downwards}
 Tal cannot learn the hypotheses of the form $P(s(x)) \metaImplies P (x)$.
 \begin{lstlisting}
 
@@ -492,7 +492,7 @@ example(woman(sister(cat)),-1).
 
 returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
 
-\subsection{Alphabetical term bias}
+\subsection{Alphabetical term bias}\label{tal_alphabetical_term_bias}
 Tal search is biased on the alphabetical order of the terms present in the predicates.
 
 \begin{minipage}[t]{.50\textwidth}

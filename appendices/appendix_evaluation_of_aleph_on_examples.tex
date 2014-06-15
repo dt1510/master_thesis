@@ -170,7 +170,7 @@ woman(sister(A)) :- anybody(A).
 \end{lstlisting}
 In comparison, Imparo can learn the term structure but Toplog cannot.
 
-\subsection{Generalization downwards}
+\subsection{Generalization downwards}\label{aleph_generalization_downwards}
 Aleph can learn the hypotheses of the form $P(s(x)) \objectImplies P(x)$.
 
 \begin{minipage}[t]{.50\textwidth}
@@ -286,7 +286,7 @@ woman(ann).
 
 returns a hypothesis \tc{woman(ann).} which is inconsistent with the negative examples. Aleph assumes that the set of background knowledge union with examples is a consistent.
 
-\subsection{Unlearnability of regular languages}
+\subsection{Unlearnability of regular languages}\label{aleph_unlearnability_of_regular_languages}
 Although Aleph can learn a simple term structure, it cannot learn more complex concepts like a regular language represented by regular expression \tc{(ss)*}.
 
 \begin{lstlisting}
@@ -493,7 +493,7 @@ man(A) :- male(A).
 \end{lstlisting}
 In comparison systems like Imparo and Toplog do not accept examples of non-literal form either.
 
-\subsection{Preference over earlier determinations}
+\subsection{Preference over earlier determinations}\label{aleph_preference_over_earlier_determinations}
 Aleph prefers learning a hypothesis whose determination declaration has been defined earlier.
 
 \begin{minipage}[t]{.60\textwidth}

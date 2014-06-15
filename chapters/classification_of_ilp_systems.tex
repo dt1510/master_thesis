@@ -114,8 +114,13 @@ Generalization downwards test assess whether an ILP system can learn a hypothesi
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    & no & yes & no &  & no & no \\ \hline
-    & & & & & & \\ \hline
+    Generalization downwards & no & yes & no & no & no & no \\ 
+    & \ref{progol_no_generalization_downwards}
+    & \ref{aleph_generalization_downwards}
+    & \ref{toplog_unlearnability_of_term_structure}
+    & \ref{xhail_inability_to_learn_from_unrestricted_clauses}
+    & \ref{imparo_no_generalization_downwards}
+    & \ref{tal_no_generalization_downwards}\\ \hline
 \end{tabular}
 \end{center}
 
@@ -128,8 +133,13 @@ $P(s(s(X)) \leftObjectImplies P(x)$ representing a regular language \tc{(ss)*}.
 \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    & no & no & no & & yes & yes \\ \hline
-    & & & & & & \\ \hline
+    Double Kleene star& no & no & no & no & yes & no \\
+    & \ref{progol_unlearnability_of_regular_languages}
+    & \ref{aleph_unlearnability_of_regular_languages}
+    &  \ref{toplog_unlearnability_of_term_structure}
+    & \ref{xhail_inability_to_learn_from_unrestricted_clauses}
+    & \ref{imparo_learnability_of_nested_term_structure}
+    & \ref{tal_loop_on_learning_regular_languages}\\ \hline
 \end{tabular}
 \end{center}
 
