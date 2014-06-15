@@ -46,6 +46,11 @@ David Hume.
   Principles of Morals}.
 \newblock Clarendon Press, 1902.
 
+\bibitem[Ino92]{inoue1992linear}
+Katsumi Inoue.
+\newblock Linear resolution for consequence finding.
+\newblock {\em Artificial Intelligence}, 56(2):301--353, 1992.
+
 \bibitem[Ino04]{inoue2004induction}
 Katsumi Inoue.
 \newblock Induction as consequence finding.

@@ -74,13 +74,14 @@
 \BOOKMARK [2][-]{subsection.7.4.3}{Implementation details}{section.7.4}
 \BOOKMARK [1][-]{section.7.5}{Comparison of Rationale with other ILP systems}{chapter.7}
 \BOOKMARK [0][-]{chapter.8}{Evaluation}{}
-\BOOKMARK [1][-]{section.8.1}{Project timeline}{chapter.8}
-\BOOKMARK [1][-]{section.8.2}{Achievements wrt to initial goal}{chapter.8}
-\BOOKMARK [1][-]{section.8.3}{Achievements}{chapter.8}
+\BOOKMARK [1][-]{subsection.8.0.1}{Project timeline}{chapter.8}
+\BOOKMARK [1][-]{section.8.1}{Evaluation relative to initial goals}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Experimental classification}{chapter.8}
 \BOOKMARK [0][-]{chapter.9}{Conclusions}{}
 \BOOKMARK [1][-]{section.9.1}{Summary of the thesis achievements}{chapter.9}
 \BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}
 \BOOKMARK [2][-]{subsection.9.2.1}{Postulates of inductive inference}{section.9.2}
+\BOOKMARK [0][-]{subsection.9.2.1}{Bibliography}{}
 \BOOKMARK [0][-]{chapter.1}{Summary of classification of ILP systems}{}
 \BOOKMARK [0][-]{chapter.2}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.2.1}{Progol's capabilities}{chapter.2}
@@ -184,4 +185,3 @@
 \BOOKMARK [2][-]{subsection.7.3.4}{Weak head mode declaration}{section.7.3}
 \BOOKMARK [2][-]{subsection.7.3.5}{Alphabetical term bias}{section.7.3}
 \BOOKMARK [2][-]{subsection.7.3.6}{Other violations and biases}{section.7.3}
-\BOOKMARK [0][-]{subsection.7.3.6}{Bibliography}{}

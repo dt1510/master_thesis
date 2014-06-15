@@ -6,15 +6,10 @@ Inductive logic programming (ILP) is a subdiscipline of machine learning and log
 
 An ILP system is a program that takes as an input a set of \emph{known} logical statements $B$ called background knowledge, a set of \emph{observed} logical statements $E$ called examples. The output of an ILP system is a set of logical statements $H$ called a \emph{hypothesis} explaining the observations from the background knowledge. Meaning $E$ can be deduced from $B$ and $H$, i.e. $B \cup H \models E$.
 
-6 ILP systems are classified: Progol, Aleph, Toplog, Xhail, Imparo and Tal. We assess systems experimentally on their abilitiy to find a hypothesis for datasets of carefully-constructed background knowledge and examples. Incompatibilities between ILP systems and their theoretical frameworks are reported resulting in incompleteness of ILP systems for finding a hypothesis with their complete theoretical frameworks.
+6 ILP systems are classified: Progol, Aleph, Toplog, Xhail, Imparo and Tal. We assess systems experimentally on their ability to find a hypothesis for datasets of carefully constructed background knowledge and examples. Incompatibilities between ILP systems and their theoretical frameworks are reported resulting in incompleteness of ILP systems for finding a hypothesis with their complete theoretical frameworks.
 
 As the search space of possible hypotheses for given background knowledge and examples can be large, ILP systems impose heuristics and systematic restrictions such as mode declarations and determinations to search its subset called a bias.
-We formalise these notions encountered in implementations and establish a correspondence with a well-known theoretical formalism of a bias called a production field.
+We formalise these notions encountered in implementations and for the first time establish a correspondence with a well-known theoretical formalism of a bias called a production field \cite{inoue1992linear}.
 
-formalisation of a language bias and theoretical correspondence between mode declarations, determinations, metaconstraints and production field
-experimental classification of ILP systems
-proof of completeness of Imparo by inverse subsumption
-extension of the results Inverse subsumption for complete explanatory induction and their implementation Rationale ILP system
-
-
+Yamamoto et al.\cite{yamamoto2012inverse} devise a complete method for finding a hypothesis with more efficient inverse subsumption as opposed to the standard method of antientailment. We extend the method to include negative examples and relax it while preserving its completeness. We encompass the theoretical results in an implementation of a new ILP system Rationale. Finally, we solve an open problem that \emph{Imparo is complete by inverse subsumption} proving that every correct hypothesis subsumes some connected theory (a set of logical statements constructed in Imparo's theoretical framework).
 \end{abstract}
