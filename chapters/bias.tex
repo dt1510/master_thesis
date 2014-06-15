@@ -1,5 +1,5 @@
 \chapter{Bias\cite{nienhuys1997foundations}}
-Considering all theories $H \subseteq L$ as possible hypotheses is computationally infeasible. When one knows the properties that a hypothesis may take, one may introduce a bias $\mathcal{H} \subseteq \powerset{L}$. For example, $\mathcal{H}$ being a set of all finite Horn theories.
+Considering all theories $H \subseteq L$ as possible hypotheses is computationally infeasible. When one knows the properties that a hypothesis may take, one may introduce a bias $\mathcal{H} \subseteq \powerset{L}$ and then restrict a search for hypotheses $H \in \mathcal{H}$. For example, $\mathcal{H}$ being a set of all finite Horn theories.
 
 Two main types of a bias are:
 \begin{itemize}
@@ -7,7 +7,9 @@ Two main types of a bias are:
 \item search bias.
 \end{itemize}
 
-ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type. First we present a theory of the language bias \ref{sec:background_language_bias}, then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
+ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
+
+First we present a theory of the language bias \ref{sec:background_language_bias}, then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
 
 In the context of a language bias we refer to the bias as a hypothesis space $\mathcal{H}$, in the context of a search bias we refer to it as a search space $\mathcal{H}$.
 These different terminologies refer to the same bias $\mathcal{H}$, however emphasise a different local focus on a bias in the text.
