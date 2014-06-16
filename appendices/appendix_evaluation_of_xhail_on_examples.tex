@@ -4,42 +4,48 @@
 \subsection{Learnability of regular languages}\label{xhail_learnability_regular_languages}
 Xhail can learn regular languages of the form \tc{(ss)*} where \tc{*} represents a Kleene star operator.
 
+\begin{minipage}[t]{.70\textwidth}
 \begin{lstlisting}
 modeh(0,10,max,in_language(s(s("+word")))).
 modeb(0,10,pos,in_language("+word")).
-
 goal(g).
-
+in_language(e).
+g:- in_language(s(s(e))), not in_language(s(e)).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 word(e).
 word(s(e)).
 word(s(s(e))).
 word(s(s(s(e)))).
 word(s(s(s(s(e))))).
-in_language(e).
-
-g:- in_language(s(s(e))), not in_language(s(e)).
 \end{lstlisting}
+\end{minipage}
 
-produces an expected hypothesis \tc{in\_language(s(s(X1)):-in\_language(X1)} where \tc{e} is an empty word in a language.
+produces the expected hypothesis \tc{in\_language(s(s(X1)):-in\_language(X1)} where \tc{e} is an empty word in a language.
 
 \subsection{Generalization downwards}\label{xhail_generalization_downwards}
 Xhail can learn a hypothesis of the form $P(x) \leftObjectImplies P(s(x))$.
 
+\begin{minipage}[t]{.60\textwidth}
 \begin{lstlisting}
 modeh(0,10,max,negative("+int")).
 modeb(0,10,pos,negative(s("+int"))).
-
 goal(g).
-
+negative(s(-2)).
+g:- negative(-2), not negative(s(s(-2))).
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
 int(-2).
 int(s(-2)).
 int(s(s(-2))).
 int(s(s(s(-2)))).
 int(s(s(s(s(-2))))).
-negative(s(-2)).
-
-g:- negative(-2), not negative(s(s(-2))).
 \end{lstlisting}
+\end{minipage}
 
 returns the expected hypothesis \tc{negative(X1):-negative(s(X1)),int(X1)}.
 
@@ -251,9 +257,6 @@ Xhail requires that all its clauses are restricted by ground instances - a quant
 
 An attempt to define that everybody in a domain is of type person fails. \tc{person(X1).} returns an error "a non-ground fact person(X1). All terms within a fact must be ground terms." For a clause \tc{person(X1) :- true.} an error message "Unrestricted variable X1." is produced. Therefore we always have to ground the clauses (containing variables) in Xhail, for example
 \tc{grounded(susan; adam).person(X1) :- grounded(X1).} does not produce any complaints.
-
-This has an impact that the learning space is finite - every possible inducible model is a finite set of ground instances. Therefore, multiple learning problems cannot be learnt: generalization downwards, generalization upwards, Kleene star learning, learning a concept of a natural number, etc. because for these the Hebrand models are infinite subsets of the Herbrand base of the Hebrand universe with the function symbols.
-
 \section{Xhail's violations and biases}
 
 \subsection{Implicit consistency check}\label{xhail_implicit_consistency_check}
