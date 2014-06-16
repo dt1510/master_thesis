@@ -221,7 +221,7 @@ example(woman(tom),-1).
 gives an output hypothesis $woman(A) :- student(A)$ although $tom$ is not a woman as indicated by a negative example $example(woman(tom),-1)$.
 But this is intentional, furthermore Toplog provides the information that the default accuracy of its hypothesis is 90\% as $example(woman(ann,9)$ corresponds to 9 positive examples correctly classified out of 10.
 
-\subsection{One head predicate bias}\ref{toplog_one_head_predicate_bias}
+\subsection{One head predicate bias}\label{toplog_one_head_predicate_bias}
 All the clauses in the hypotheses space of Toplog have to have the same predicate symbol in its head.
 
 \begin{minipage}[t]{.40\textwidth}

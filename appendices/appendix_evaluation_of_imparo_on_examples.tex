@@ -325,7 +325,7 @@ Systems like Progol check for inconsistencies before learning is started. Howeve
 \section{Imparo's violations and biases}
 Limits of the learnability violating the system specification and not stated as assumptions are presented as observations.
 
-\subsection{Default examples bias}
+\subsection{Default examples bias}\label{imparo_default_example_bias}
 Imparo has examples in its default bias even if these are not declared in the mode declarations.
 
 \begin{minipage}[t]{.25\textwidth}
@@ -387,7 +387,7 @@ woman(A):-female(A)
 
 This demonstrates that in some cases mode declaration bias does not correspond to the actual bias of Imparo.
 
-\subsection{Weak head mode declaration}
+\subsection{Weak head mode declaration}\label{imparo_weak_head_mode_declaration}
 A head mode declaration in Imparo allows only definitions with specific term structure as opposed to the ability to substitute a variable for any term.
 
 \begin{minipage}[t]{.30\textwidth}

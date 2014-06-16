@@ -3,18 +3,27 @@
 \section{Conclusions}
 We classified 6 ILP systems experimentally on the newly created datasets as well as in a theoretical way while extendeding the theory on a bias and inverse subsumption methods for finding a hypothesis.
 
-From an experimental classification we learnt that ILP systems may not preserve the completeness of their theoretical frameworks, e.g for finding a hypothesis representing a regular language or of the form $P(X) \leftObjectImplies P(s(X))$.
+From an experimental classification we learnt that ILP systems may not preserve the completeness of their theoretical frameworks, e.g for finding a hypothesis representing a regular language \ref{classification_double_kleene_star} or of the form $P(X) \leftObjectImplies P(s(X))$ \ref{classification_generalization_downwards}.
 ILP systems violate their specifications by inducing hypotheses outside of their specified bias (as for examples
 \ref{progol_background_knowledge_hypotheses}
 \ref{aleph_default_example_bias}
-) or exclude the hypotheses that are in a specified bias (as in weak specification of head mode declarations \ref{aleph_weak_head_mode_declarations}
+\ref{imparo_default_example_bias}
+) or exclude the hypotheses that are in a specified bias (as in weak specification of head mode declarations
+\ref{aleph_weak_head_mode_declarations}
+\ref{imparo_weak_head_mode_declarations}
+\ref{tal_weak_head_mode_declaration}
+).
 ILP systems Aleph, Toplog, Xhail, Imparo, Tal require that their examples are in the form of literals and do not allow clausal observations \ref{classification_clausal_examples}.
 ILP systems introduce a search bias resulting from the order of the mode declarations and determinations 
 \ref{aleph_preference_over_earlier_determinations}
-\ref{toplog_mode_declarations_order_bias} or
+\ref{toplog_mode_declarations_order_bias}
+\ref{imparo_preference_over_later_mode_declarations}
+ or
 even use the order to overwrite the specification of the mode language as Toplog in \ref{toplog_one_head_predicate_bias}.
+Tal introduces a search bias arising from the alphabetical order of the terms \ref{tal_alphabetical_term_bias}.
 Progol and Xhail check for consistency of the input theories, but other systems do not \ref{classification_robustness}, moreover Toplog can learn even an inconsistent hypothesis \ref{toplog_inconsistent_hypothesis}.
-ILP systems produce redundant hypotheses 
+ILP systems Xhail and Tal produce redundant hypotheses \ref{classification_robustness}.
+
 \section{Future Work}
 
 \subsection{Classification by problem classes}
