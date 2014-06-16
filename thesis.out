@@ -104,11 +104,11 @@
 \BOOKMARK [2][-]{subsection.1.1.2}{Specialization in arguments}{section.1.1}
 \BOOKMARK [2][-]{subsection.1.1.3}{Multi-clausal learning}{section.1.1}
 \BOOKMARK [2][-]{subsection.1.1.4}{Term structure learnability}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.5}{Learnability of multi-clausal concepts}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.6}{Clausal examples}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.7}{Other capabilities}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.5}{Clausal examples}{section.1.1}
+\BOOKMARK [2][-]{subsection.1.1.6}{Other capabilities}{section.1.1}
 \BOOKMARK [1][-]{section.1.2}{Progol's assumed limitations}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.2.1}{Other limitations}{section.1.2}
+\BOOKMARK [2][-]{subsection.1.2.1}{Unlearnability of multi-clausal concepts}{section.1.2}
+\BOOKMARK [2][-]{subsection.1.2.2}{Other limitations}{section.1.2}
 \BOOKMARK [1][-]{section.1.3}{Progol's violations and biases}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.3.1}{No generalization downwards}{section.1.3}
 \BOOKMARK [2][-]{subsection.1.3.2}{Unlearnability of regular languages}{section.1.3}

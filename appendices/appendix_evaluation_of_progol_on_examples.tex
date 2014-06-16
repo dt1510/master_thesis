@@ -143,48 +143,6 @@ woman(sister(A)) :- anybody(A).
 \end{lstlisting}
 In comparison, Imparo and Aleph can learn the term structure but Toplog cannot.
 
-\subsection{Learnability of multi-clausal concepts}
-Progol can explain observations for which there does not exist a one-clausal explanation by inducing a multi-clausal hypothesis.
-
-\begin{minipage}[t]{.60\textwidth}
-\begin{lstlisting}
-:-modeh(*, woman(+person))?
-:-modeh(*, man(+person))?
-:-modeb(*, male(+person))?
-:-modeb(*, female(+person))?
-:- determination(woman/1, female/1)?
-:- determination(man/1, male/1)?
-
-female(jane).
-female(susan).
-female(eugenia).
-couple(jack, jane).
-couple(sam, susan).
-couple(martin, eugenia).
-male(X) :- couple(X,Y), woman(Y).\end{lstlisting}
-\end{minipage}
-\begin{minipage}[t]{.20\textwidth}
-\begin{lstlisting}
-%positive examples
-man(jack).
-man(martin).
-woman(jane).
-woman(susan).
-
-%negative examples
-:-man(jane).
-:-woman(sam).
-\end{lstlisting}
-\end{minipage}
-
-produces the hypotheses
-\begin{lstlisting}
-woman(A):-female(A).
-man(A):-male(A).
-\end{lstlisting}.
-
-To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the concept learnt by Progol requires at least two clauses.
-
 \subsection{Clausal examples}\label{progol_clausal_examples}
 Progol can learn from the observations that are general Horn clauses not limited to literals.
 
@@ -225,6 +183,49 @@ Other systems like Aleph, Imparo, Tal, Toplog accept only examples in a literal 
 Progol can induce hypotheses that contain predicates of arity greater than 1. Progol checks for inconsistency of the observations with the background knowledge and provides an appropriate warning about the contradiction that false is provable.
 
 \section{Progol's assumed limitations}
+\subsection{Unlearnability of multi-clausal concepts}
+In general, Progol cannot explain observations for which there does not exist a one-clausal explanation.
+
+\begin{minipage}[t]{.60\textwidth}
+\begin{lstlisting}
+:-modeh(*, woman(+person))?
+:-modeh(*, man(+person))?
+:-modeb(*, male(+person))?
+:-modeb(*, female(+person))?
+:- determination(woman/1, female/1)?
+:- determination(man/1, male/1)?
+
+female(jane).
+female(susan).
+female(eugenia).
+couple(jack, jane).
+couple(sam, susan).
+couple(martin, eugenia).
+male(X) :- couple(X,Y), woman(Y).\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.20\textwidth}
+\begin{lstlisting}
+%positive examples
+man(jack).
+man(martin).
+%woman(jane).
+%woman(susan).
+
+%negative examples
+:-man(jane).
+:-woman(sam).
+\end{lstlisting}
+\end{minipage}
+
+produces no hypothesis. Although the following hypotheses can explain the concept $\tc{man}$.
+\begin{lstlisting}
+woman(A):-female(A).
+man(A):-male(A).
+\end{lstlisting}.
+
+To learn the hypothesis \tc{man(A):-male(A)} from the background knowledge and the observations we have to use the predicate \tc{male(X) :- couple(X,Y), woman(Y).}, but this requires the knowledge of who is a woman, which can be only acquired by inducing a second hypothesis \tc{woman(A):-female(A)}. Therefore, the learnt concept \tc{man} requires at least two clauses and Progol \emph{cannot} learn in general multi-clausal concepts.
+
+But note if we add positive examples \tc{woman(jane)}, \tc{woman(susan)} then Progol returns the expected hypotheses. Progol first learns a hypothesis \tc{woman(X) :- female(X)} from the background knowledge and examples. Then by the cover loop algorithm adds this hypothesis to the background knowledge from which \tc{male(jack)} and a new fact \tc{male(martin)} can be deduced. Consequently, these facts and \tc{man(jack)}, \tc{man(martin)} examples are used to learn a second hypothesis \tc{man(X) :- male(X)}. Therefore with the help of the additional examples Progol can learn multi-clausal concepts.
 
 \subsection{Other limitations}
 Progol can learn positive examples, but cannot learn the negative ones. Like Aleph, Progol requires determinations to specify its hypotheses space in addition to the specification by mode declarations. Progol has a weak-head mode declaration, we have to explicitly specify the function symbol in the mode declarations, a specification of a general function symbol pattern is not possible. Progol has a correct example bias - it can learn examples only if these are specified in the mode declarations. Progol can learn only the Horn theories.
