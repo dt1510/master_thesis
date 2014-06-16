@@ -160,8 +160,6 @@ male(X) :- couple(X,Y), woman(Y).
 %Examples
 example(man(jack),1).
 example(man(martin),1).
-example(woman(jane),1).
-example(woman(susan),1).
 example(man(jane),-1).
 example(woman(sam),-1).
 \end{lstlisting}
@@ -172,7 +170,7 @@ has amongst its solutions a hypothesis
 woman(A) :- female(A).
 man(A) :- male(A).
 \end{lstlisting}
-To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
+To explain the \tc{man} predicate examples we needed to learn a two clausal hypothesis. In comparison, Progol, Toplog and Aleph cannot learn multi-clausal concepts, but Imparo can.
 
 \subsection{Specialization in arguments}
 Tal can learn hypothesis which require ground terms to be in a head predicate.
@@ -490,7 +488,8 @@ example(woman(sister(cat)),-1).
 \end{lstlisting}
 \end{minipage}
 
-returns a solution \tc{woman(\_).}, however one would require the solution \tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
+returns a solution \tc{woman(\_).}, however one would require the solution\\
+\tc{woman(sister(A)) :- anybody(A).} with the predicate symbol \tc{sister} included to be returned since the later solution correctly explains the positive examples and is consistent with the negative ones, the earlier one is not. But this hypothesis can be only learnt by adding the function symbol \tc{sister} explicitly in the head mode declaration \tc{modeh(woman(sister(+person)), [name(wsh)]).}.
 
 \subsection{Alphabetical term bias}\label{tal_alphabetical_term_bias}
 Tal search is biased on the alphabetical order of the terms present in the predicates.
