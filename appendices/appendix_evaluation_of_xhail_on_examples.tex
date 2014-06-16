@@ -1,41 +1,8 @@
 \chapter{Appendix - evaluation of Xhail on examples}\label{appendix_xhail}
 \section{Xhail's capabilities}
 
-\subsection{Background knowledge generalization}
-Like Progol, Xhail does not distinguish between the examples and the background knowledge. It tries to generalize the background knowledge to learn a hypothesis specified by the mode declarations criteria.
-
-\begin{minipage}[t]{.50\textwidth}
-\begin{lstlisting}
-modeh(0,1,min,block("+a")).
-modeb(1,1,neg,c("+a")).
-modeb(1,1,pos,c("+a")).
-modeb(1,1,pos,d("+a")).
-modeb(1,1,neg,d("+a")).
-modeb(1,1,pos,eql("+a","#a")).
-modeb(1,1,neg,eql("+a","#a")).
-\end{lstlisting}
-\end{minipage}
-\begin{minipage}[t]{.20\textwidth}
-\begin{lstlisting}
-a(0 ; 1).
-c(0).
-d(1).
-p(X) :- a(X), not block(X).
-g :- p(0), not p(1).
-goal(g).
-eql(X,Y) :- X==Y,a(X),a(Y).
-\end{lstlisting}
-\end{minipage}
-
-produces hypotheses
-\begin{lstlisting}
-1. block(X1) :- not c(X1),d(X1),eql(X1,1),not eql(X1,0),a(X1). ([X1/1])
-2. block(X1) :- not eql(X1,0),a(X1).
-3. block(X1) :- not c(X1),a(X1).
-4. block(X1) :- eql(X1,1),a(X1).
-5. block(X1) :- d(X1),a(X1).
-\end{lstlisting}
-where the head of the hypotheses is \tc{block}, however, we can notice that there are no examples in the background knowledge with \tc{block} predicate. Moreover, the only occurance of \tc{block} is in the body as a negation as failure literal \tc{not block(X)}.
+\subsection{Goal examples}
+Xhail specifies examples in a goal to be learnt.
 
 If one wanted to translate learning from examples problem into the Xhail's learning problem, positive and negative examples could be placed in a goal:
 
