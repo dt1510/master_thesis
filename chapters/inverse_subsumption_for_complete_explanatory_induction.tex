@@ -1,6 +1,6 @@
 \chapter{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
 \label{inverse_subsumption_for_complete_explanatory_induction}
-The sections \ref{sec:preliminaries} and \ref{sec:inverse_subsumption_with_minimal_complements} paraphrase work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constrains the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+The sections \ref{sec:preliminaries} and \ref{sec:inverse_subsumption_with_minimal_complements} paraphrase work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constraints the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
 
 The remaining section \ref{inverse_subsumption_extensions} concern with the possible extensions of the inverse subsumption to first order theories, to support negative examples, the simplification of the algorithm and prove the completeness of Imparo in inverse subsumption.
 
@@ -42,7 +42,7 @@ $M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
 $\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
 \end{exmp}
 
-The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to the bridge theory $F$ and the induction field $\mathcal{I}_H$.
+The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to a bridge theory $F$ and an induction field $\mathcal{I}_H$.
 
 \begin{defn}\label{definition_bridge_theory}
 Let $B$ and $E$ be a background theory and examples, respectively.
@@ -52,7 +52,7 @@ $B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $
 
 The author finds the notion of the maximal bridge theory useful in later chapters.
 \begin{defn}\label{maximal_bridge_theory_definition}
-A \emph{maximal bridge theory} wrt $B$ and $E$ is a theory $F = B \cup \bar{E}$.
+A \emph{maximal bridge theory} wrt $B$ and $E$ is the theory $F = B \cup \bar{E}$.
 \end{defn}
 \begin{remark}
 Every bridge theory is entailed by a maximal bridge theory.
@@ -61,7 +61,7 @@ Every bridge theory is entailed by a maximal bridge theory.
 We next define the target hypotheses using the notion of an induction field $\mathcal{I}_H$\ref{induction_field_definition}, together with a bridge theory $F$ as follows:
 
 \begin{defn}\label{definition_hypothesis_wrt_induction_field_bridge_theory}
-Let $H$ be a hypothesis. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
+Let $H$ be a logic theory. $H$ is a \emph{hypothesis wrt $\mathcal{I}_H$ and $F$} if there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
 $F \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$.
 \end{defn}
 
@@ -94,13 +94,14 @@ respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $
 
 $H \subsumes \tau(M(F \cup Taut(I_H))$.
 \end{lemma}
+The lemma is proved in \cite{yamamoto2012inverse}.
 
 \begin{thm}\emph{Completeness of inverse subsumption with minimal complements} Let $B$, $E$ and $\mathcal{I}_H$ be a background theory, examples and an induction field,
 respectively. Let $F$ be a bridge theory wrt $B$ and $E$. For every hypothesis $H$ wrt $I_H$ and $F$,
 $H$ is derived by inverse subsumption with minimal complements from $F$ wrt $\mathcal{I}_H$.
 \end{thm}
 \begin{proof}
-Follows from \fullref{yamamoto2012inverseLemma2}.
+Follows from the lemma \ref{yamamoto2012inverseLemma2}.
 \end{proof}
 \section{Extensions}\label{inverse_subsumption_extensions}
 \subsection{Extension to first-order theories}
@@ -115,7 +116,7 @@ $B \cup H \models E$.
 \end{proof}
 
 \subsection{Negative examples}
-For a non-monotonic consequence opearator $\models$, there are two possible constrains the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
+For a non-monotonic consequence opearator $\models$, there are two possible constraints the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
 \begin{enumerate}
 \item\label{first_negative_examples_constraint} $B \cup H \models \neg E^-$,
 \item\label{second_negative_examples_constraint} $B \cup H \not\models E^-$.
@@ -276,6 +277,12 @@ hence $H \subsumes T$ by transitivity as required.
 
 \subsection{Inverse subsumption with minimal complements and connected theory}
 There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
+
+\begin{defn}\cite{kimber2012learning}
+An \emph{open program} is a triple $\langle B, U, I \rangle$ where $B$ is a program, $U$ is a set of predicates called \emph{undefined} or \emph{abducible}, and $I$ is a set of first-order
+axioms. If $B$ is a definite program and $I$ is a set of definite goals, then $P$ is a 
+\emph{definite open program}.
+\end{defn}
 
 \begin{conjecture}
 Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.

@@ -28,7 +28,7 @@ The author concludes the section by establishing the correspondence between thes
 \subsection{Mode declarations}\label{background_mode_declarations}
 Mode declarations specify what predicates are allowed in a head and a body of a hypothesis.
 Suppose you would like your ILP system explain observations
-$woman(alice), woman(susan)$, then you know that a hypothesis you are looking for has to explain or define the concept $woman$. Therefore you declare a statement to an ILP system: ``In your search consider only hypotheses that have the predicate $woman$ in their head." A statement specifying what predicates should be in a head is called a modeh declaration. A stament specifying the allowed predicates in a body is a modeb declaration.
+$woman(alice), woman(susan)$, then you know that a hypothesis you are looking for has to explain or define the concept $woman$. Therefore you declare a statement to an ILP system: ``In your search consider only hypotheses that have the predicate $woman$ in their head." A statement specifying what predicates should be in a head is called a modeh declaration. A statement specifying the allowed predicates in a body is a modeb declaration.
 
 \paragraph{Mode declaration in Progol}
 Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode declarations.
@@ -87,7 +87,7 @@ modeb(4,(+int ? #int))
 \end{exmp}
 
 \subsection{Determinations}\label{bias_determinations}
-Some ILP systems like Aleph in addition to mode declarations use determination statements\cite{aleph2007} to impose a finer control on a search space.
+Some ILP systems like Aleph \cite{aleph2007} in addition to mode declarations use determination statements to impose a finer control on a search space.
 
 \begin{defn}\cite{aleph2007}
 A \emph{determination} is a logic statement of the form\\
@@ -137,7 +137,7 @@ An example being a metaconstraint $Cond$ specifying the maximum number of the li
 A \emph{metaconstraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{metaconstraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
 \end{defn}
 
-Each ILP system has its own set of allowed metaconstrains.
+Each ILP system has its own set of allowed metaconstraints.
 \begin{exmp}
 In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
 In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
@@ -153,6 +153,10 @@ $\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
 \begin{proof}
 Follows trivially from the definition of a metaconstraint.
 \end{proof}
+
+\begin{remark}
+ILP systems we classify allow only a specification of a conjunction of metaconstraints. However, from the theoretical point of view, their negations and disjunctions make sense and it is possible to design an ILP system with an extended metaconstraint specification.
+\end{remark}
 
 Therefore we will often think of a set of the metaconstraints to be a metaconstraint created from their conjunction.
 
@@ -197,7 +201,7 @@ such that for any clause $H \in L$:\\
 \end{proposition}
 The following proof is non-constructive.
 \begin{proof}
-Let $L$ be a logic language. By the definitios of definite mode language\ref{definition_definite_mode_language} and determination language\ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
+Let $L$ be a logic language. By the definitios of definite mode language \ref{definition_definite_mode_language} and determination language \ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
 Let $Cond_M$, $Cond_D$ be defining formulas for $L(M)$ and $L(D)$, i.e. $L(M)=\{x \in L | Cond_M(x)\}$, $L(D)=\{x \in L | Cond_D(x)\}$.
 Let $Cond_{M,D}=Cond_M \land Cond_D$. Let $Lit$ be a set of all literals of $L$ and let
 $Lit_M=L(M) \cap Lit$,
@@ -210,7 +214,7 @@ $\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
 satisfy the conditions 1, 2, 3 respectively trivially.
 \end{proof}
 
-Given production fields defining the bias of mode declarations and determinations, productions fields with the additional metaconstrains can be constructed.
+Given production fields defining the bias of mode declarations and determinations, productions fields with additional metaconstraints can be constructed.
 
 \begin{proposition}\label{proposition_metaconstraints_production_field}
 Let $\mathcal{P}$ be any production field, $C$ a set of metaconstraints.

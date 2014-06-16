@@ -73,12 +73,7 @@ Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 
 \subsubsection{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
 Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
-$B \cup \neg E \models \neg H$. A hypothesis $H \in \mathcal{H}_2$ is a solution to the problem of the explanatory induction $(B,E^{+},E^{-},\mathcal{H})$ iff
-$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
- $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
-iff
-$B \cup H \subseteq Cn(E^{+} \union \overline{E^{-}})$,
- $false \not\in Cn(E^{+} \cup E^{-})$, $\mathcal{H}_2 \subseteq \mathcal{H}$
+$B \cup \neg E \models \neg H$.
  
 They compute the hypothesis $H$ in two steps:
 1. constructing an intermediate theory, 2. generalizing its negation into the hypothesis with the inverse of the entailment relation.
@@ -92,7 +87,7 @@ An input to an ILP system is a logic program that can be conceptually divided in
 \item non-effective metalevel statements.
 \end{itemize}
 
-Objectlevel statements provide the main setting of a learning problem and concern with what is known: the language of enquiry $L$, a set of observations, etc.
+Objectlevel statements provide the main setting of a learning problem and concern with what is known: the language $L$, a set of observations, etc.
 
 Effective metalevel statements provide a refinement of the main setting and concern with how the learning problem may be solved and what form the solution is expected to take. Their specification converts a learning problem into a potentially easier, more directed and concrete \emph{ILP task}.
 \emph{Mode declarations} and \emph{determinations} are effective metalevel statements specifying a constraint on a language $L$ to determine the search space $\mathcal{H}$ of possible hypotheses. The other effective metalevel statements may impose further \emph{metalevel constraints} on $L$. The set of constraints on $L$ determining the search space $\mathcal{H}$ is called a \emph{language bias}.
