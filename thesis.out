@@ -88,12 +88,10 @@
 \BOOKMARK [2][-]{subsection.9.1.2}{Language bias specification and classification}{section.9.1}
 \BOOKMARK [2][-]{subsection.9.1.3}{Inverse subsumption for complete explanatory induction}{section.9.1}
 \BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}
-\BOOKMARK [2][-]{subsection.9.2.1}{Classification by problem classes}{section.9.2}
-\BOOKMARK [2][-]{subsection.9.2.2}{ILP task definition}{section.9.2}
-\BOOKMARK [2][-]{subsection.9.2.3}{Hypothesis selection}{section.9.2}
-\BOOKMARK [2][-]{subsection.9.2.4}{Hypothesis search}{section.9.2}
-\BOOKMARK [2][-]{subsection.9.2.5}{Foundations of inductive inference}{section.9.2}
-\BOOKMARK [0][-]{section*.46}{Bibliography}{}
+\BOOKMARK [2][-]{subsection.9.2.1}{Hypothesis selection}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.2}{Classification by problem classes}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.3}{Other directions}{section.9.2}
+\BOOKMARK [0][-]{section*.47}{Bibliography}{}
 \BOOKMARK [0][-]{chapter.1}{Summary of classification of ILP systems}{}
 \BOOKMARK [0][-]{chapter.2}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.2.1}{Progol's capabilities}{chapter.2}

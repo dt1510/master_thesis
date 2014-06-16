@@ -60,6 +60,12 @@ Domenico Corapi, Alessandra Russo, and Emil Lupu.
 \newblock Inductive logic programming as abductive search.
 \newblock In {\em ICLP (Technical Communications)}, pages 54--63, 2010.
 
+\bibitem[DKT09]{dung2009assumption}
+Phan~Minh Dung, Robert~A Kowalski, and Francesca Toni.
+\newblock Assumption-based argumentation.
+\newblock In {\em Argumentation in Artificial Intelligence}, pages 199--218.
+  Springer, 2009.
+
 \bibitem[DR97]{de1997logical}
 Luc De~Raedt.
 \newblock Logical settings for concept-learning.
@@ -69,6 +75,12 @@ Luc De~Raedt.
 Luc De~Raedt and Maurice Bruynooghe.
 \newblock Interactive concept-learning and constructive induction by analogy.
 \newblock {\em Machine Learning}, 8(2):107--150, 1992.
+
+\bibitem[Dun95]{dung1995acceptability}
+Phan~Minh Dung.
+\newblock On the acceptability of arguments and its fundamental role in
+  nonmonotonic reasoning, logic programming and< i> n</i>-person games.
+\newblock {\em Artificial intelligence}, 77(2):321--357, 1995.
 
 \bibitem[EHR{\etalchar{+}}83]{emde1983discovery}
 Werner Emde, Christopher Habel, Claus-Rainer Rollinger, et~al.
@@ -81,6 +93,11 @@ Peter~A Flach.
 \newblock In {\em Proceedings of the 6th conference on Theoretical aspects of
   rationality and knowledge}, pages 267--281. Morgan Kaufmann Publishers Inc.,
   1996.
+
+\bibitem[Goo65]{goodman1965new}
+Nelson Goodman.
+\newblock The new riddle of induction.
+\newblock 1965.
 
 \bibitem[Hum02]{hume1902enquiries}
 David Hume.
@@ -137,16 +154,16 @@ Shane Legg.
 \newblock Technical report, Department of Computer Science, The University of
   Auckland, New Zealand, 1997.
 
-\bibitem[Leg08]{legg2008machine}
-Shane Legg.
-\newblock Machine super intelligence.
-\newblock {\em Department of Informatics, University of Lugano}, 3(6):43, 2008.
-
 \bibitem[Lin09]{lin2009efficient}
 Dianhuan Lin.
 \newblock Efficient, complete and declarative search in inductive logic
   programming.
 \newblock Master's thesis, Imperial College London, 2009.
+
+\bibitem[Lon00]{longley2000notions}
+JOHN~R Longley.
+\newblock Notions of computability at higher types i.
+\newblock In {\em Logic Colloquium}, volume~19, pages 32--142. Citeseer, 2000.
 
 \bibitem[Mar02]{marker2002model}
 David Marker.

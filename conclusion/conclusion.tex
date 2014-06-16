@@ -35,17 +35,53 @@ is complete by inverse subsumption proving that every correct hypothesis subsume
 theory (a set of logical statements constructed in Imparo's theoretical framework).
 
 \section{Future Work}
-
-\subsection{Classification by problem classes}
-
-\subsection{ILP task definition}
+To the author's opinion and interests the main future directions in the continued classification of ILP systems are on the problem of a hypothesis selection and classification by a more comprehensive system of problem classes.
 
 \subsection{Hypothesis selection}
+Given background knowledge $B$ there may be several hypotheses $H$ explaining some observations $E$. We could consider all these hypotheses as correct solutions or alternatives, however, in other situations, as when we need to make a decision based on one hypothesis, we have to make a choice from a set of possibly mutually incompatible hypotheses.
 
-\subsection{Hypothesis search}
+Moreover, $B$ and $E$ are not the only criteria for inducing a hypothesis that represents the true knowledge in the environment.
+An induction of hypotheses of certain forms tends to be statistically more successful than an induction of hypotheses of other forms.
+Although one may hide the problem by introducing the Occam's razor to prefer the hypotheses of the simpler form, Goodman cautions in \cite{goodman1965new} that the form of the hypothesis depends on the description language as paraphrased:
 
-\subsection{Foundations of inductive inference}
+\begin{cite}{goodman1965new}
+``Let H1 be a hypothesis that all emeralds are green. Let H2 be a hypothesis that all emeralds are grue - that is green until some time T in the future and blue afterwards. Then both H1 and H2 are (correct in ILP sense) explanations of our observations of green emeralds. However, we prefer inducing that all emeralds are green, not grue. The preference cannot be directly attributed to the complexity of the hypothesis. For suppose that the initial concepts are grue and brue - blue until the time T and green afterwards. Then H1 has a complex definition in terms of grue and brue whereas H2 is defined trivially by the initial concept grue.''
+\end{cite}
 
-\subsubsection{Postulates of inductive inference}
-\subsubsection{Algorithm for computing unique model of the environment}
+The future work in this area includes an analysis of both syntactic and semantic properties of a hypothesis possibly wrt to some specific domain of application and then establishing the connection between the properties of such a hypothesis and its likelyhood of being true (or preferred over) in some environment of the observations $E$. This could be achieved by a further investigation of application of Solomonoff's theory of optimal inductive inference\cite{solomonoff1964formal} to the field of ILP.
 
+\subsection{Classification by problem classes}
+In section \ref{completeness_by_problem_classes} we classified ILP systems on classes of problems based on a few properties of a learning problem. The future work includes to define more properties and establish a connection between these new problem classes, the learninability of a problem and an ability of an ILP system to solve some class of problems. For a learning problem given by background knowledge $B$, examples $E$ and their explanation $H$ from $B$, the futher properties of interest on the theories $E, H, B$ are:
+
+\begin{itemize}
+\item the expressivity of theories in terms of arities of its predicate symbols and the number of the literals,
+\item the variable depth of a hypothesis and input theories, 
+\item information content of the input theories,
+\item arithmetical hierarchies of the concepts defined by the theories,
+\item a computational complexity for finding a hypothesis from $B, E$.
+\end{itemize}
+
+\subsection{Other directions}
+There are far many directions and ideas we would like to explore that are out of the scope of this thesis. We therefore enumerate the most important ones:
+\begin{itemize}
+\item \subsubsection{Classification}
+\begin{itemize}
+\item classification of ILP systems by their capability of non-observational learning \cite{kimber2012learning},
+\item classification of ILP system wrt to the optimality of Solomonoff induction \cite{solomonoff1964formal},
+\item classification of a bias by its expressivity and inducing computational efficiency of hypothesis search,
+\item classification of ILP systems based on their capability of predicate invention.
+\item formalisation of the search and order bias and respective classification of ILP systems,
+\end{itemize}
+\item \subsubsection{Foundations of ILP}
+\begin{itemize}
+\item an induction of hypotheses in a higher order logic \ref{toplog_predicate_generalization_impossible},
+\item connection between inductive inference, higher-order computation \cite{longley2000notions} and their application to ILP.
+\item hypothesis sufficiency and learning a hypothesis for approximated models of the environment,
+\item an analysis of the importance of negative examples in learning a hypothesis,
+\end{itemize}
+\item \subsubsection{Methods in ILP}
+\begin{itemize}
+\item automatic specification of the language bias as opposed to the manual one by mode declarations, determination and metaconstraints,
+\item a hypothesis justification in a selection process (analogous to argumentation frameworks of abstract argumentation by Dung\cite{dung1995acceptability}, and Assumption Based Argumentation by Dung et al.\cite{dung2009assumption} for justifying a true statements),
+\end{itemize}
+\end{itemize}
