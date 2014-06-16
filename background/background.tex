@@ -72,6 +72,24 @@ An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the
 We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$.
 \end{defn}
 
+\begin{defn}
+Let $\phi$ be a formula with free variables from
+$\overline{v}=(v_{i_1},...,v_{i_m})$,
+and let
+$\overline{a}=(a_{i_1}, ..., a_{i_m})) \in M^m$.
+We inductively define $\mathcal{M} \models \phi(\overline{a})$
+as follows.\\
+i) If $\phi$ is $t_1=t_2$, then $\mathcal{M} \models \phi(\overline{a})$ if $t_1^\mathcal{M}(\overline{a})=t_2^\mathcal{M}(\overline{a})$.\\
+ii) If $\phi$ is $R(t_1, ..., t_{n_R})$, then $\mathcal{M} \models \phi(\overline{a})$ if $(t_1^\mathcal{M}(\overline{a}), ..., t_{n_R}^\mathcal{M}(\overline{a})) \in R^\mathcal{M}$.\\
+iii) If $\phi$ is $\neg \psi$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \not\models \psi(\overline{a})$.\\
+iv) If $\phi$ is $(\psi \land \theta)$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \models \psi(\overline{a})$ and
+$\mathcal{M} \models \theta(\overline{a})$.\\
+v) If $\phi$ is $(\psi \lor \theta)$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \models \psi(\overline{a})$ or $\mathcal{M} \models \theta(\overline{a})$.\\
+vi) If $\phi$ is $\exists v_j \psi(\overline{v},v_j)$, then $\mathcal{M} \models \phi(\overline{a})$ if there is $b \in M$ such that $\mathcal{M} \models \psi(\overline{a},b)$.\\
+vii) If $\phi$ is $\forall v_j \phi(\overline{v}, v_j)$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \models \phi(\overline{a}, b)$ for all $b \in M$.\\
+If $\mathcal{M} \models \phi(\overline{a})$ we say that $\mathcal{M}$ \emph{satisfies} $\phi(\overline{a})$ or $\phi(\overline{a})$ is \emph{true} in $\mathcal{M}$.
+\end{defn}
+
 \begin{exmp}
 $\mathcal{M}_{India}$ is a model given by
 $M=\{milk^\mathcal{M}, curry^\mathcal{M}\}$,
