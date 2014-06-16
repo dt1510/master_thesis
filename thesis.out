@@ -5,13 +5,10 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}
 \BOOKMARK [1][-]{section.1.1}{Inductive inference}{chapter.1}
 \BOOKMARK [1][-]{section.1.2}{Inductive logic programming}{chapter.1}
-\BOOKMARK [1][-]{section.1.3}{Classification of inductive logic programming systems}{chapter.1}
-\BOOKMARK [1][-]{section.1.4}{Motivation and Objectives}{chapter.1}
-\BOOKMARK [2][-]{subsection.1.4.1}{Motivation}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.2}{Objectives}{section.1.4}
-\BOOKMARK [1][-]{section.1.5}{Summary of thesis achievements}{chapter.1}
-\BOOKMARK [1][-]{section.1.6}{Project development}{chapter.1}
-\BOOKMARK [1][-]{section.1.7}{Overview}{chapter.1}
+\BOOKMARK [1][-]{section.1.3}{Motivation and Objectives}{chapter.1}
+\BOOKMARK [1][-]{section.1.4}{Summary of thesis achievements}{chapter.1}
+\BOOKMARK [1][-]{section.1.5}{Project development}{chapter.1}
+\BOOKMARK [1][-]{section.1.6}{Overview}{chapter.1}
 \BOOKMARK [0][-]{chapter.2}{Background}{}
 \BOOKMARK [1][-]{section.2.1}{Prerequisites}{chapter.2}
 \BOOKMARK [1][-]{section.2.2}{A logic language}{chapter.2}

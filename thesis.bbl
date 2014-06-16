@@ -13,6 +13,11 @@ Francesco Bergadano and Daniele Gunetti.
 \newblock An interactive system to learn functional logic programs.
 \newblock In {\em IJCAI}, pages 1044--1049, 1993.
 
+\bibitem[BM95]{bratko1995applications}
+Ivan Bratko and Stephen Muggleton.
+\newblock Applications of inductive logic programming.
+\newblock {\em Communications of the ACM}, 38(11):65--70, 1995.
+
 \bibitem[Bun87]{buntine1987induction}
 Wray Buntine.
 \newblock Induction of horn clauses: methods and the plausible generalization
