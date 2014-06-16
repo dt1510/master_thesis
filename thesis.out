@@ -149,13 +149,15 @@
 \BOOKMARK [2][-]{subsection.3.3.5}{Clausal bias}{section.3.3}
 \BOOKMARK [0][-]{chapter.4}{Appendix - evaluation of Xhail on examples}{}
 \BOOKMARK [1][-]{section.4.1}{Xhail's capabilities}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{Goal examples}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{Multiple hypotheses}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{Multi-clausal hypotheses}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.4}{Fine search space control}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.5}{Learning by integrity constrains}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.6}{Term structure learnability}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.7}{Other capabilities}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.1}{Learnability of regular languages}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Generalization downwards}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Goal examples}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Multiple hypotheses}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{Multi-clausal hypotheses}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.6}{Fine search space control}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.7}{Learning by integrity constrains}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.8}{Term structure learnability}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.9}{Other capabilities}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{Xhail's assumed limitations}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.2.1}{Partial explanations impossible}{section.4.2}
 \BOOKMARK [2][-]{subsection.4.2.2}{Inability to learn from unrestricted clauses}{section.4.2}

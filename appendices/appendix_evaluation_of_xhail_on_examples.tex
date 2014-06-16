@@ -1,6 +1,48 @@
 \chapter{Appendix - evaluation of Xhail on examples}\label{appendix_xhail}
 \section{Xhail's capabilities}
 
+\subsection{Learnability of regular languages}\label{xhail_learnability_regular_languages}
+Xhail can learn regular languages of the form \tc{(ss)*} where \tc{*} represents a Kleene star operator.
+
+\begin{lstlisting}
+modeh(0,10,max,in_language(s(s("+word")))).
+modeb(0,10,pos,in_language("+word")).
+
+goal(g).
+
+word(e).
+word(s(e)).
+word(s(s(e))).
+word(s(s(s(e)))).
+word(s(s(s(s(e))))).
+in_language(e).
+
+g:- in_language(s(s(e))), not in_language(s(e)).
+\end{lstlisting}
+
+produces an expected hypothesis \tc{in\_language(s(s(X1)):-in\_language(X1)} where \tc{e} is an empty word in a language.
+
+\subsection{Generalization downwards}\label{xhail_generalization_downwards}
+Xhail can learn a hypothesis of the form $P(x) \leftObjectImplies P(s(x))$.
+
+\begin{lstlisting}
+modeh(0,10,max,negative("+int")).
+modeb(0,10,pos,negative(s("+int"))).
+
+goal(g).
+
+int(-2).
+int(s(-2)).
+int(s(s(-2))).
+int(s(s(s(-2)))).
+int(s(s(s(s(-2))))).
+negative(s(-2)).
+
+g:- negative(-2), not negative(s(s(-2))).
+\end{lstlisting}
+
+returns the expected hypothesis \tc{negative(X1):-negative(s(X1)),int(X1)}.
+
 \subsection{Goal examples}
 Xhail specifies examples in a goal to be learnt.
 
