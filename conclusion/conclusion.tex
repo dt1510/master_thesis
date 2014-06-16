@@ -3,6 +3,7 @@
 \section{Conclusions}
 We classified 6 ILP systems experimentally on the newly created datasets as well as in a theoretical way while extendeding the theory on a bias and inverse subsumption methods for finding a hypothesis.
 
+\subsection{Experimental classification}
 From an experimental classification we learnt that ILP systems may not preserve the completeness of their theoretical frameworks, e.g for finding a hypothesis representing a regular language \ref{classification_double_kleene_star} or of the form $P(X) \leftObjectImplies P(s(X))$ \ref{classification_generalization_downwards}.
 ILP systems violate their specifications by inducing hypotheses outside of their specified bias (as for examples
 \ref{progol_background_knowledge_hypotheses}
@@ -10,7 +11,7 @@ ILP systems violate their specifications by inducing hypotheses outside of their
 \ref{imparo_default_example_bias}
 ) or exclude the hypotheses that are in a specified bias (as in weak specification of head mode declarations
 \ref{aleph_weak_head_mode_declarations}
-\ref{imparo_weak_head_mode_declarations}
+\ref{imparo_weak_head_mode_declaration}
 \ref{tal_weak_head_mode_declaration}
 ).
 ILP systems Aleph, Toplog, Xhail, Imparo, Tal require that their examples are in the form of literals and do not allow clausal observations \ref{classification_clausal_examples}.
@@ -22,7 +23,16 @@ ILP systems introduce a search bias resulting from the order of the mode declara
 even use the order to overwrite the specification of the mode language as Toplog in \ref{toplog_one_head_predicate_bias}.
 Tal introduces a search bias arising from the alphabetical order of the terms \ref{tal_alphabetical_term_bias}.
 Progol and Xhail check for consistency of the input theories, but other systems do not \ref{classification_robustness}, moreover Toplog can learn even an inconsistent hypothesis \ref{toplog_inconsistent_hypothesis}.
-ILP systems Xhail and Tal produce redundant hypotheses \ref{classification_robustness}.
+ILP systems Xhail and Tal produce redundant hypotheses \ref{classification_robustness}. Therefore the experimental classification of ILP systems provides the information about specific properties of ILP systems that cannot be captured by their theoretical frameworks.
+
+\subsection{Language bias specification and classification}
+We learnt that a language bias of 6 ILP systems classified can be expressed with mode declarations, determinations and other introduced language bias constraints called metaconstraints and this new language bias specification as we proved is compatible with a theoretical and implementation independent language bias specification by Inoue called a production field. We classified 6 ILP systems based on their support of mode declarations \ref{classification_mode_declarations},
+determinations \ref{classification_determinations} and metaconstraints \ref{tab:classification_by_metaconstraints}: a maximum number of literals in a clause of a hypothesis, a maximum number of clauses in a hypothesis, maximum variable depth and number of singletons in a hypothesis. We learnt that Xhail has the most advanced specification of the mode language, while Aleph and Imparo supported the recorded maximum of 3 metaconstraints on which we analysed the systems.
+
+\subsection{Inverse subsumption for complete explanatory induction}
+Finally, we extended the inverse subsumption methods for finding a hypothesis to include negative examples and first-order extension of a bias specification of an induction field. We relaxed the inverse subsumption with minimal complements algorithm by Yamamoto et al. while preserving its completeness. We defined two new  operators for inverse subsumption and proved their completeness. We implemented an ILP prototype system Rationale that realises these theoretical results. Finally, we solved an open problem that Imparo
+is complete by inverse subsumption proving that every correct hypothesis subsumes some connected
+theory (a set of logical statements constructed in Imparo's theoretical framework).
 
 \section{Future Work}
 
