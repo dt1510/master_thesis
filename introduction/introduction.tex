@@ -20,16 +20,14 @@ An ILP system is a program that takes as an input a set logical statements $B$ c
 ILP systems have been successfully applied in solving scientific problems with their applications in the areas of mesh design, mutagenicity, river water quality 
 \cite{bratko1995applications}. However, the general setting of ILP does not limit their application to these domains, but leaves the space for solving even the hardest problems in the field of machine learning and AI.
 \section{Motivation and Objectives}
-We explain the value of the classification of ILP systems, summarise the classification conducted in the field of ILP so far and conclude with the objectives of our classication of ILP systems.
+We explain the value of a classification of ILP systems, summarise the classification conducted in the field of ILP so far and conclude with the objectives of our classication of ILP systems.
 
 \subsection{Value of classification of ILP systems}
-Many systems and theoretical frameworks have been designed that use the theory of inductive inference to find a hypothesis $H$ for observations $E$ from the background knowledge $B$. It is important to compare these systems and evaluate their level of contribution to solving the issues in ILP in order to identify and understand the most successful aproaches in order to create new methods by their combination and to direct the research in ILP accordingly. 
-
-The most important benefits of the classification of ILP systems are:
+The main benefits of the classification of ILP systems are:
 \begin{itemize}
 \item Identification of the successful methods,
 \item Understanding of the differences between various approaches,
-\item Formalisation and standarization of common concepts,
+\item Formalisation and standarization of common concepts.
 \end{itemize}
 
 \subsection{Identification of successful methods}
@@ -39,13 +37,19 @@ A comprehensive classification of ILP systems creates the correlation between th
 \paragraph{Identification of the points for improvement}
 Classification of ILP systems not only reveals the strengths of particular techniques, but identifies their weaknesses (and therefore the points of the improvement) evident from the comparison of the systems designed with different objectives.
 \subsection{Understanding of differences between various approaches}
-As the strengths and weaknesses of ILP systems are correlated with the defining properties induced by their approaches, one gains an understanding of the benefits of a particular approach. This often results in removing a black-white understanding of the value of ILP systems and aids in making an informed decision in selection an ILP system for a specific application.
+As the strengths and weaknesses of ILP systems are correlated with the defining properties induced by their approaches, one gains understanding of the benefits of a particular approach. This often results in removing black-white understanding of the value of ILP systems and aids in making an informed decision in selection of an ILP system for a specific application.
 
 \subsection{Formalisation and standarization of common concepts}
 ILP systems are often incompatible as they are developed by numerous researchers with different objectives, but many of their successful techniques are built on the same intuition which makes them in some sense similar. The classification of ILP systems requires that the properties of similar techniques are formalised so that a comparison between these systems could be made. This process of formalisation of the common concepts is natural and arises from what has been proved in practice to be successful as opposed to designing a theoretical framework and then to require ILP systems to be complaint. Because of its naturality, the formalism extending the theory of ILP is appropriate. The newly formalised concepts can be studied theoretically further from which knowledge for designing new ILP systems may arise.
 
 \subsection{Current classification of ILP systems}
-To the author's knowledge no extensive experimental or theoretical comparisons have been made (cf. \fullref{ch:evaluation}). ILP researchers typically evaluate their new designed system empirically based on the success of finding a hypothesis for a carefully chosen datasets that may not be representative of dataset in the real world.
+There have been numerous comparisons of ILP systems. But mutual comparisons of several systems are very brief as for example a comparison of ILP systems Mis, Cigol, Foil, Golem, Linus, Clint, Mobal, Claudient, Spectre, Progol based on their application \cite{nienhuys1997foundations}.
+On the other hand deeper comparisons tend to concern fewer systems: 
+a comparison of two ILP systems Progol and Foil on induction of a hypothesis from the large background knowledge \cite{srinivasan1995comparing},
+a comparison of Progol, Tilde and C4.5 on road traffic data \cite{roberts1998comparison}. The third kinds of comparisons are between newly created systems with the existing systems \cite{muggleton2012mc} \cite{corapi2011nonmonotonic}.
+ILP researchers typically evaluate their new designed system empirically based on the success of finding a hypothesis for a carefully chosen datasets that may not be representative of dataset in the real world.
+
+But to the author's knowledge there has not been an extensive experimental or theoretical comparison of multiple ILP systems (cf. \fullref{ch:evaluation}). 
 
 \subsection{Objectives}
 

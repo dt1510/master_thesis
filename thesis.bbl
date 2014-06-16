@@ -249,6 +249,12 @@ Oliver Ray, Krysia Broda, and Alessandra Russo.
 \newblock Hybrid abductive inductive learning: a generalisation of progol.
 \newblock In {\em Inductive Logic Programming}, pages 311--328. Springer, 2003.
 
+\bibitem[RJM{\etalchar{+}}98]{roberts1998comparison}
+Sam Roberts, Nico Jacobs, Stephen Muggleton, Jeremy Broughton, et~al.
+\newblock A comparison of ilp and propositional systems on propositional
+  traffic data.
+\newblock In {\em Inductive Logic Programming}, pages 291--299. Springer, 1998.
+
 \bibitem[RW02]{richard2002distributed}
 Ann~M Richard and ClarLynda~R Williams.
 \newblock Distributed structure-searchable toxicity (dsstox) public database
@@ -283,6 +289,14 @@ Robin Smith.
 \newblock In Edward~N. Zalta, editor, {\em The Stanford Encyclopedia of
   Philosophy}. Spring 2014 edition, 2014.
 \newblock accessed June 2014.
+
+\bibitem[SMK95]{srinivasan1995comparing}
+Ashwin Srinivasan, S~Muggleton, and RD~King.
+\newblock Comparing the use of background knowledge by inductive logic
+  programming systems.
+\newblock In {\em Proceedings of the 5th International Workshop on Inductive
+  Logic Programming}, pages 199--230. Department of Computer Science,
+  Katholieke Universiteit Leuven, 1995.
 
 \bibitem[SMKS94]{srinivasan1994mutagenesis}
 Ashwin Srinivasan, Stephen Muggleton, Ross~D King, and Micheal~JE Sternberg.
