@@ -10,11 +10,15 @@ We evaluate the achievements of the thesis relative to the initial goals and the
 \section{Evaluation relative to initial goals}
 Being interested in artificial intelligence, the initial goal of the author was to conduct a classification of ILP systems as mathematical structures from which an insight could be born into how to design an ILP system that would be able to solve learning problems at a level of human intelligence and greater.
 
-The initial goal has remained anachieved. The reason was an inappropriate understanding of the ILP field by the author. The author constructed his plan of highly theoretical work in the classification of ILP systems based on the assumptions of the existence of the rigorous theoretical foundations in ILP. Instead, the author has discovered that the goal of ILP is to design and build an ILP system that can return an expected solution for a set of well-understood problems (cf. \ref{evaluation_experimental_classification}) and then use such a system in a specific domain (such as molecular biology \cite{srinivasan1994mutagenesis}) as opposed to searching a method for finding a solution to a general problem.
+The initial goal has remained unachieved. The reason was an inappropriate understanding of the ILP field by the author. The author constructed his plan of highly theoretical work in the classification of ILP systems based on the assumptions of the existence of the rigorous theoretical foundations in ILP. But the goal of ILP does not concern with searching a method for finding a solution to a general problem in the field of general artificial intelligence. This contrasts with the approach taken by Hutter by introducing a provably most intelligent (in a defined sense) agent in his work on Universal Artificial Intelligence \cite{hutter2005universal}
+that uses the optimality of the Solomonoff's inductive inference 
+\cite{solomonoff1964formal}\cite{legg1997solomonoff} which initially inspired the author into the classification of ILP systems as systems using inductive inference to learn from the environment.
+
+Instead, the author has discovered that the goal of ILP like a goal of machine learning is to design and build an ILP system that can return an expected solution for a set of well-understood problems (cf. \ref{evaluation_experimental_classification}) and then use such a system in a specific domain (such as molecular biology \cite{srinivasan1994mutagenesis}\cite{srinivasan1997carcinogenesis}) to bring a mainly practical value.
 
 Consequently, the author retreated from his initial goals to an experimental classification of ILP systems and an analysis of ILP systems at the level of the existing work \cite{nienhuys1997foundations}\cite{muggleton1995inverse}\cite{yamamoto2012inverse} in the field.
 
-\section{Formalisation of a language bias}
+\section{Formalisation of language bias}
 A good description of the language bias can be found in ILP theory and methods by Muggleton and De Raedt \cite{muggleton1994inductive} who list 4 notable frameworks for a language bias specification: the inductive logic programming language of
 Bergadano \cite{bergadano1993interactive}, the antecedent description grammars of Cohen \cite{cohen1994grammatically}\cite{cohen1992compiling}, the schemata of
 the BLIP-MOBAL team \cite{emde1983discovery}\cite{kietz1992controlling}, their variants \cite{de1992interactive}\cite{silverstein1991relational}

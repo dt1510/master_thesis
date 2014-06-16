@@ -88,6 +88,11 @@ David Hume.
   Principles of Morals}.
 \newblock Clarendon Press, 1902.
 
+\bibitem[Hut05]{hutter2005universal}
+Marcus Hutter.
+\newblock {\em Universal artificial intelligence}.
+\newblock Springer, 2005.
+
 \bibitem[Ino92]{inoue1992linear}
 Katsumi Inoue.
 \newblock Linear resolution for consequence finding.
@@ -125,6 +130,17 @@ J{\"o}rg-Uwe Kietz and Stefan Wrobel.
 \newblock Controlling the complexity of learning in logic through syntactic and
   task-oriented models.
 \newblock In {\em Inductive logic programming}. Citeseer, 1992.
+
+\bibitem[Leg97]{legg1997solomonoff}
+Shane Legg.
+\newblock Solomonoff induction.
+\newblock Technical report, Department of Computer Science, The University of
+  Auckland, New Zealand, 1997.
+
+\bibitem[Leg08]{legg2008machine}
+Shane Legg.
+\newblock Machine super intelligence.
+\newblock {\em Department of Informatics, University of Lugano}, 3(6):43, 2008.
 
 \bibitem[Lin09]{lin2009efficient}
 Dianhuan Lin.
@@ -251,6 +267,11 @@ Ashwin Srinivasan, Stephen Muggleton, Ross~D King, and Micheal~JE Sternberg.
 \newblock Mutagenesis: Ilp experiments in a non-determinate biological domain.
 \newblock In {\em Proceedings of the 4th international workshop on inductive
   logic programming}, volume 237, pages 217--232. Citeseer, 1994.
+
+\bibitem[Sol64]{solomonoff1964formal}
+Ray~J Solomonoff.
+\newblock A formal theory of inductive inference. part i.
+\newblock {\em Information and control}, 7(1):1--22, 1964.
 
 \bibitem[SP91]{silverstein1991relational}
 Glenn Silverstein and Michael~J Pazzani.
