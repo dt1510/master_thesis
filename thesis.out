@@ -6,7 +6,8 @@
 \BOOKMARK [1][-]{section.1.2}{Inductive logic programming}{chapter.1}
 \BOOKMARK [1][-]{section.1.3}{Classification of inductive logic programming systems}{chapter.1}
 \BOOKMARK [1][-]{section.1.4}{Motivation and Objectives}{chapter.1}
-\BOOKMARK [1][-]{section.1.5}{Project development}{chapter.1}
+\BOOKMARK [1][-]{section.1.5}{Summary of thesis achievements}{chapter.1}
+\BOOKMARK [1][-]{section.1.6}{Project development}{chapter.1}
 \BOOKMARK [0][-]{chapter.2}{Background}{}
 \BOOKMARK [1][-]{section.2.1}{Prerequisites}{chapter.2}
 \BOOKMARK [1][-]{section.2.2}{A logic language}{chapter.2}
@@ -81,11 +82,15 @@
 \BOOKMARK [1][-]{section.8.4}{Proof of Imparo's completeness by inverse subsumption}{chapter.8}
 \BOOKMARK [1][-]{section.8.5}{Inverse subsumption for complete explanatory induction extensions}{chapter.8}
 \BOOKMARK [1][-]{section.8.6}{Summary}{chapter.8}
-\BOOKMARK [0][-]{chapter.9}{Conclusions}{}
-\BOOKMARK [1][-]{section.9.1}{Summary of the thesis achievements}{chapter.9}
+\BOOKMARK [0][-]{chapter.9}{Conclusions and Future Work}{}
+\BOOKMARK [1][-]{section.9.1}{Conclusions}{chapter.9}
 \BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}
-\BOOKMARK [2][-]{subsection.9.2.1}{Postulates of inductive inference}{section.9.2}
-\BOOKMARK [0][-]{subsection.9.2.1}{Bibliography}{}
+\BOOKMARK [2][-]{subsection.9.2.1}{Classification by problem classes}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.2}{ILP task definition}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.3}{Hypothesis selection}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.4}{Hypothesis search}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.5}{Foundations of inductive inference}{section.9.2}
+\BOOKMARK [0][-]{section*.46}{Bibliography}{}
 \BOOKMARK [0][-]{chapter.1}{Summary of classification of ILP systems}{}
 \BOOKMARK [0][-]{chapter.2}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.2.1}{Progol's capabilities}{chapter.2}

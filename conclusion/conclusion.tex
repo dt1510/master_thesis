@@ -1,12 +1,32 @@
-\chapter{Conclusions}
+\chapter{Conclusions and Future Work}\label{ch:conclusions}
 
-\label{ch:conclusions}
+\section{Conclusions}
+We classified 6 ILP systems experimentally on the newly created datasets as well as in a theoretical way while extendeding the theory on a bias and inverse subsumption methods for finding a hypothesis.
 
-\section{Summary of the thesis achievements}
-
-
+From an experimental classification we learnt that ILP systems may not preserve the completeness of their theoretical frameworks, e.g for finding a hypothesis representing a regular language or of the form $P(X) \leftObjectImplies P(s(X))$.
+ILP systems violate their specifications by inducing hypotheses outside of their specified bias (as for examples
+\ref{progol_background_knowledge_hypotheses}
+\ref{aleph_default_example_bias}
+) or exclude the hypotheses that are in a specified bias (as in weak specification of head mode declarations \ref{aleph_weak_head_mode_declarations}
+ILP systems Aleph, Toplog, Xhail, Imparo, Tal require that their examples are in the form of literals and do not allow clausal observations \ref{classification_clausal_examples}.
+ILP systems introduce a search bias resulting from the order of the mode declarations and determinations 
+\ref{aleph_preference_over_earlier_determinations}
+\ref{toplog_mode_declarations_order_bias} or
+even use the order to overwrite the specification of the mode language as Toplog in \ref{toplog_one_head_predicate_bias}.
+Progol and Xhail check for consistency of the input theories, but other systems do not \ref{classification_robustness}, moreover Toplog can learn even an inconsistent hypothesis \ref{toplog_inconsistent_hypothesis}.
+ILP systems produce redundant hypotheses 
 \section{Future Work}
 
-\subsection{Postulates of inductive inference}
+\subsection{Classification by problem classes}
 
-Future Work.
+\subsection{ILP task definition}
+
+\subsection{Hypothesis selection}
+
+\subsection{Hypothesis search}
+
+\subsection{Foundations of inductive inference}
+
+\subsubsection{Postulates of inductive inference}
+\subsubsection{Algorithm for computing unique model of the environment}
+

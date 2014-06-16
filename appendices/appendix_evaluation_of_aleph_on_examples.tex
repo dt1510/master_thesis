@@ -391,7 +391,7 @@ Any hypothesis learnt in Aleph has to be a Horn theory. Aleph cannot learn secon
 
 \section{Aleph's violations and biases}
 
-\subsection{Default Example Bias}
+\subsection{Default Example Bias}\label{aleph_default_example_bias}
 Aleph includes examples in its bias even if these are not specified by mode declarations.
 
 \begin{minipage}[t]{.50\textwidth}
@@ -414,7 +414,7 @@ woman(ann).
 
 Therefore the hypotheses space is not entirely defined by mode declarations and determination declarations.
 
-\subsection{Weak head mode declaration}
+\subsection{Weak head mode declaration}\label{aleph_weak_head_mode_declarations}
 A head mode declaration in Aleph allows only definitions with specific term structure as opposed to
 the ability to substitute a variable or a type (e.g. \tc{+person}) for any term.
 

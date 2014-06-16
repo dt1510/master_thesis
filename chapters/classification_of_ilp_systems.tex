@@ -144,7 +144,7 @@ $P(s(s(X)) \leftObjectImplies P(x)$ representing a regular language \tc{(ss)*}.
 \end{center}
 
 \section{Robustness}
-We classify ILP systems based on whether they check for the consistency of the input theories and whether they always terminated.
+We classify ILP systems based on whether they check for the consistency of the input theories, whether they always terminated and did not return duplicate hypotheses.
 
 \begin{center}
 \captionof{table}{Classification by robustness} \label{classification_robustness} 
@@ -160,7 +160,24 @@ We classify ILP systems based on whether they check for the consistency of the i
 	 & \ref{tal_consistency_assumption} \\ \hline
     Always terminated & yes & yes & yes & yes & no & no \\ 
 	&  & & & & \ref{imparo_clausal_examples} & \ref{tal_loop_on_learning_regular_languages} \\ \hline
+	
+	    Duplication detected & no & no & no & yes & no & yes \\ 
+	&  & & 
+	&\ref{xhail_redundant_hypotheses}
+	& 
+	&\ref{tal_solution_redundancy}\\ \hline
+
 \end{tabular}
 \end{center} 
 
 The property ``Always terminated'' evaluates whether an ILP system terminated on all the experiments in the appendix. However, it may be possible for a system that withstood our experiments that one could find an input on which a system would not terminate. Therefore this test is only indicative.
+
+The property ``Duplication detected'' assesses whether a duplication of the solutions
+(an output with multiple equivalent hypotheses)
+during the experiments for an ILP system was detected.
+A case of the duplication is an an ILP system returning two equivalent solutions as in
+\begin{lstlisting}
+1. woman_cook(X) :- female(X), cook(X).
+2. woman_cook(X) :- cook(X), female(X).
+\end{lstlisting}
+Although this property does not strictly violate the specification of ILP systems, we would argue, that in the real applications it is desirable to return only one hypothesis up to its logical equivalence. The violation of returning a unique solution up to a logical equivalence exposes limitations of an ILP system on checking and adapting its output of solutions.

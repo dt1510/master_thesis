@@ -123,7 +123,7 @@ However, this is not learnable since Toplog's mode declarations do not allow to 
 
 
 \section{Toplog's violations and biases}
-\subsection{Mode declarations order bias}
+\subsection{Mode declarations order bias}\label{toplog_mode_declarations_order_bias}
 Consider the Toplog program:
 
 \begin{minipage}[t]{.35\textwidth}
@@ -195,7 +195,7 @@ female(susan).
 
 returns the hypothesis \tc{woman(A) :- female(A).}, but does not warn of any incosistency.
 
-\subsection{Learning inconsistent hypothesis}
+\subsection{Learning inconsistent hypothesis}\label{toplog_inconsistent_hypothesis}
 Toplog can learn inconsistent hypotheses:
 
 \begin{minipage}[t]{.40\textwidth}
@@ -221,7 +221,7 @@ example(woman(tom),-1).
 gives an output hypothesis $woman(A) :- student(A)$ although $tom$ is not a woman as indicated by a negative example $example(woman(tom),-1)$.
 But this is intentional, furthermore Toplog provides the information that the default accuracy of its hypothesis is 90\% as $example(woman(ann,9)$ corresponds to 9 positive examples correctly classified out of 10.
 
-\subsection{One head predicate bias}
+\subsection{One head predicate bias}\ref{toplog_one_head_predicate_bias}
 All the clauses in the hypotheses space of Toplog have to have the same predicate symbol in its head.
 
 \begin{minipage}[t]{.40\textwidth}
