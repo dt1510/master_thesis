@@ -7,13 +7,13 @@ The objective of this chapter is to present concepts from Inductive logic progra
 We present a definition of an ILP task of explanatory induction with positive examples, negative examples and a bias.
 
 \subsubsection{Explanatory induction\cite{yamamoto2012inverse}}
-\begin{defn}\cite{flach1996rationality} A learning problem of \emph{explanatory induction} is given logical theories background knowledge $B$, examples $E$ to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
+\begin{defn}\cite{flach1996rationality} Given logical theories background knowledge $B$, examples $E$ a learning problem of \emph{explanatory induction} is  to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
 \end{defn}
 
 This learning problem is alternatively called \emph{learning from entailment}\cite{muggleton1995inverse}\cite{de1997logical}. The examples $E$ can be conceptually divided into positive examples and negative examples $E=E^{+} \cup \neg E^{-}$ where $E, E^{+}, \neg E^{-}$ are conjunctions of logical statements, hence $E^{-}$ being a disjunction of logical statements.
 
 \begin{exmp}\cite{explanatory_induction_example}
-Let $E=\{man(adam), \neg man(alice), \neg man(susam)\}$. Then $E^{+}=\{man(adam)\}$,
+Let $E=\{man(adam), \neg man(alice), \neg man(susan)\}$. Then $E^{+}=\{man(adam)\}$,
 $\neg E^{-} = \{\neg man(alice), \neg man(susam)\}=\neg man(alice) \land \neg man(susan)$, hence
 $E^{-} = man(alice) \lor man(susan)$.
 \end{exmp}
@@ -24,7 +24,7 @@ A learning problem of \emph{explanatory induction with negative examples} is giv
 1)$E^{+} \subseteq Cn(B \cup H)$\\
 2)$E^{-} \not\in Cn(B \cup H)$.
 \end{defn}
-The consistency condition has become redundant since $false \in Cn(B \cup H$ implies $E^{-} \in Cn(B \cup H)$.
+The consistency condition has become redundant since $false \in Cn(B \cup H)$ implies $E^{-} \in Cn(B \cup H)$.
 
 ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
 \begin{defn}\label{definition_explanatory_induction_with_bias}
