@@ -13,12 +13,20 @@ Given the observations q, r one may \emph{induce} the proposition q as a possibl
 The problem of finding a sound explanation for the observations known as a problem of induction has been investigated by Hume\cite{hume1902enquiries}\cite{selby1888treatise}, Popper\cite{keuth2013karl}, Stove\cite{stove1986rationality} and many others.
 
 \section{Inductive logic programming}\cite{muggleton1995inverse}\cite{nienhuys1997foundations}
-Inductive logic programming is a subdiscipline of machine learning and logic programming. The goal of inductive logic programming is to study how the theory of inductive inference and logic programming can be used to design theoretical frameworks and programs solving the machine learning problems.
+Inductive logic programming is a subdiscipline of machine learning and logic programming. The goal of inductive logic programming is to study how the theory of inductive inference and logic programming can be used to design theoretical frameworks and programs solving the machine learning problems. We outline the notions of an ILP system, bias and inverse subsumption.
 
+\paragraph{ILP system}
 An ILP system is a program that takes as an input a set logical statements $B$ called background knowledge, a set of logical statements $E$ called examples or observations. The output of an ILP system is a set of logical statements $H$ called a hypothesis explaining the observations from the background knowledge. Meaning $E$ can be deduced from $B$ and $H$.
 
 ILP systems have been successfully applied in solving scientific problems with their applications in the areas of mesh design, mutagenicity, river water quality 
-\cite{bratko1995applications}. However, the general setting of ILP does not limit their application to these domains, but leaves the space for solving even the hardest problems in the field of machine learning and AI.
+\cite{bratko1995applications}.
+
+\paragraph{Bias}
+Searching for all hypotheses $H$ that explain the observations $E$ from the background knowledge $B$ may be computationally inefficient or even infeasible. A bias is usually a much small subset $\mathcal{H}$ of the possible hypotheses. A bias is specified at the input to an ILP system, an ILP system can search more efficiently. We concern we two types of biases: a language bias and a search bias. An example of a \emph{language bias} is ``All hypotheses whose logical formala consists of at most 10 characters.'' An example of a \emph{search bias} is ``All the hypotheses that can be found by the algorithm within 100 steps.''
+
+\paragraph{Hypothesis search}
+A hypothesis search concerns with designing an algorithm that can derive a hypothesis $H$ from the observations $E$ and background knowledge $B$, that is we require $B \cup H \models E$. ILP systems usually construct a theory $F$ called a \emph{bridge formula} from $B$ and $E$ for which the following holds $H \models \neg F$. This reduces the problem to finding a theory $H$ that entails $\neg F$, this process is called \emph{anti-entailment}. Anti-entailment in general is an expensive operation. But provided that $F, H$ meet certain conditions ($H$ subsumes $\neg F$, denoted $H \subsumes \neg F$), a more efficient operator of \emph{anti-subsumption} can be used to derive $H$ from $\neg F$. Therefore searching algorithms that can construct a bridge theory $F$ such that $H \subsumes \neg F$ can consequently find a hypothesis $H$ by using a more efficient operation of anti-subsumption instead of the anti-entailment.
+
 \section{Motivation and Objectives}
 We explain the value of a classification of ILP systems, summarise the classification conducted in the field of ILP so far and conclude with the objectives of our classication of ILP systems.
 
@@ -66,7 +74,7 @@ unexpected results, for which specifics of ILP systems not extractable from thei
 \paragraph{Formalisation and classification by bias}
 We would like to formalise the notions of a language bias used in implementations of ILP systems and establish a correspondence with a theoretical specification of a language bias. Consequently we would like to classify ILP systems by the properties of their bias.
 \paragraph{Theoretical classification of ILP systems}
-We would like to extend the newest theory in ILP that could serve in the future for the theoretical classification of ILP systems. We would like to realize theoretical extensions in an implementation to test the soundness of our ideas.
+We would like to extend the newest theory of inverse subsumption method for finding a hypothesis efficiently that could serve in the future for the theoretical classification of a search bias of ILP systems. We would like to realize theoretical extensions in an implementation to test the soundness of our ideas.
 
 \section{Summary of thesis achievements}
 The main contributions of the thesis are
