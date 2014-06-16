@@ -25,11 +25,6 @@ Wray Buntine.
 \newblock {\em International Journal of Man-Machine Studies}, 26(4):499--519,
   1987.
 
-\bibitem[Cla78]{clark1978negation}
-Keith~L Clark.
-\newblock Negation as failure.
-\newblock In {\em Logic and data bases}, pages 293--322. Springer, 1978.
-
 \bibitem[Coh92]{cohen1992compiling}
 W~Cohen.
 \newblock Compiling prior knowledge into an explicit bias.
@@ -110,11 +105,6 @@ David Hume.
   Principles of Morals}.
 \newblock Clarendon Press, 1902.
 
-\bibitem[Hut05]{hutter2005universal}
-Marcus Hutter.
-\newblock {\em Universal artificial intelligence}.
-\newblock Springer, 2005.
-
 \bibitem[Ino92]{inoue1992linear}
 Katsumi Inoue.
 \newblock Linear resolution for consequence finding.
@@ -164,6 +154,11 @@ Dianhuan Lin.
 \newblock Efficient, complete and declarative search in inductive logic
   programming.
 \newblock Master's thesis, Imperial College London, 2009.
+
+\bibitem[Llo87]{lloyd1987foundations}
+J~Lloyd.
+\newblock {\em Foundations of Logic Programming}.
+\newblock Berlin: Springer-Verlag, 1987.
 
 \bibitem[Lon00]{longley2000notions}
 JOHN~R Longley.

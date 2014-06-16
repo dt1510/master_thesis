@@ -32,3 +32,16 @@ the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Pr
 \end{exmp}
 
 Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.
+
+\begin{defn}
+Let $\phi$ be a formula with free variables from
+$\overline{v}=(v_{i_1},...,v_{i_m})$,
+and let
+$\overline{a}=(a_{i_1}, ..., a_{i_m})) \in M^m$.
+We inductively define $\mathcal{M} \models \phi(\overline{a})$
+as follows.\\
+i) If $\phi$ is $t_1=t_2$, then $\mathcal{M} \models \phi(\overline{a})$ if $t_1^\mathcal{M}(\overline({a})=t_2^\mathcal{M}(\overline({a})$.\\
+ii) If $\phi$ is $R(t_1, ..., t_{n_R})$, then $\mathcal{M} \models \phi(\overline{a})$ if $(t_1^\mathcal{M}(\overline{a}), ..., t_{n_R}^\mathcal{M}(\overline{a})) \in R^\mathcal{M}$.
+iii) If $\phi$ is $\neg \psi$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \not\models \psi(\overline{a})$.
+iv) If $\phi$ is $(\psi \land \theta)$, then $\mathcal{M} \models \phi(\overline{a})$ if $\mathcal{M} \models \psi(\overline{a})$ and 
+\end{defn}
