@@ -691,7 +691,8 @@ or its converse
 male(X) :- policeman(X).
 \end{lstlisting}
 the hypothesis learnt remains the same.
-Note that \tc{male(X) :- policeman(X).} says that every model of \tc{policeman(X)} has to be a model of \tc{male(X)} and with such background knowledge \tc{man(A):-policeman(A)} is true in fewer models than \tc{man(A):-male(A)} is.
+Note that \tc{male(X) :- policeman(X).} says that every model of \tc{policeman(X)} has to be a model of \tc{male(X)} and with such background knowledge\\
+\tc{man(A):-policeman(A)} is true in fewer models than \tc{man(A):-male(A)} is.
 
 \subsection{Other biases}
 Imparo can learn only a conjunction of clauses as a hypothesis.

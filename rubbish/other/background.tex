@@ -19,49 +19,6 @@ Let $S$ be the set of possible throws of a die, $S=\{1, 2, 3, 4, 5, 6\}$. Define
 Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of intervals $J \subseteq \powerset{S}$ on the real line by $\mu|_J: (a, b) \mapsto b-a$, then $\mu|_J$ has a unique extension $\mu:S \to \mathbb{R}$ which is a measure function.
 \end{exmp}
 
-\subsection{SLD-resolution\cite{lin2009efficient}}
-
-\begin{defn}
-A \emph{substitution} $\theta$ is a finite set of the form
-$\{v_1\/t_1 , .., v_n \/t_n \}$,
-where each $v_i$ is a variable, each $t_i$ is a
-term distinct from $v_i$ and the variables $v_1 , .., v_n$ are distinct. Each element $v_i \/t_i$ is called a binding
-for $v_i$. $\theta$ is called a ground substitution if the $t_i$ are all ground terms.
-\end{defn}
-
-\begin{defn}
-An expression is either a term, a literal, or a conjunction or disjunction of literals.
-A simple expression is a term or a literal.
-\end{defn}
-
-\begin{defn}
-\emph{Unification.}
-Let $\Sigma$ be a finite set of expressions. A substitution $\theta$ is called a unifier for $\Sigma$ if $\Sigma \theta$ is a singleton (a
-set containing exactly one element). A unifier $\theta$ for $\Sigma$ is called a most general unifier (mgu) for $\Sigma$
-if, for each unifier $\theta$ of $\Sigma$ , there exists a substitution $\Gamma$ such that $\theta = \Sigma \Gamma$
-\end{defn}
-Details about unification algorithm can be found in \cite{lloyd1987foundations}.
-
-\begin{defn}
-Let $G$ be $\leftObjectImplies A_1 , ..., A_m , ..., A_k$ and
-$C$ be $A \leftObjectImplies B_1 , ..., B_q$.
-Then $G'$ is derived from $G$ and
-$C$ using mgu $\theta$ if the following conditions hold:
-i) $A_m$ is an atom, called the selected atom, in $G$.
-ii) $\theta$ is an mgu of $A_m$ and $A$.
-iii) $G'$ is the goal $\leftObjectImplies (A_1 , ..., A_{m−1} , B_1, ..., B_q , A_{m+1} , ..., A_k )\theta$, $G'$ is
-called a resolvent of $G$ and $C$.
-\end{defn}
-SLD-resolution stands for SL-resolution for Definite clauses. SL stands for Linear resolution with Selected function.
-
-\begin{defn}
-\emph{SLD-derivation}.
-Let $\Sigma$ be a set of clauses and $C$ a clause. A derivation of $C$ from $\Sigma$ is a finite sequence of clauses
-$R_1 , .., R_k = C$, such that each $R_i$ is either in $\Sigma$, or a resolvent of two clauses in $\{R_1 , ..., R_{i−1} \}$. If
-such a derivation exists, $\Sigma \vdash_r C$. Thus $C$ can be derived from $\Sigma$.
-\end{defn}
-
-SLD-refutation is a special case of SLD-derivation which derives empty clause $\emptyclause$.
 
 \section{Inductive inference}
 The main strategy used by the field of inductive logic programming to solve a learning problem is to use the knowledge and techniques of inductive inference.

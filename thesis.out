@@ -21,7 +21,8 @@
 \BOOKMARK [1][-]{section.2.4}{Logicssep-logic-nonmonotonic}{chapter.2}
 \BOOKMARK [1][-]{section.2.5}{Logic Programming}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.5.1}{Basic concepts and notation of Logic Programminglin2009efficient}{section.2.5}
-\BOOKMARK [2][-]{subsection.2.5.2}{Representation of logic theories}{section.2.5}
+\BOOKMARK [2][-]{subsection.2.5.2}{SLD-resolutionlin2009efficient}{section.2.5}
+\BOOKMARK [2][-]{subsection.2.5.3}{Representation of logic theories}{section.2.5}
 \BOOKMARK [0][-]{chapter.3}{Inductive logic programming}{}
 \BOOKMARK [1][-]{section.3.1}{Inductive logic programming concepts}{chapter.3}
 \BOOKMARK [2][-]{subsection.3.1.1}{ILP task definition}{section.3.1}
@@ -97,7 +98,7 @@
 \BOOKMARK [2][-]{subsection.9.2.1}{Hypothesis selection}{section.9.2}
 \BOOKMARK [2][-]{subsection.9.2.2}{Classification by problem classes}{section.9.2}
 \BOOKMARK [2][-]{subsection.9.2.3}{Other directions}{section.9.2}
-\BOOKMARK [0][-]{section*.64}{Bibliography}{}
+\BOOKMARK [0][-]{section*.65}{Bibliography}{}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}

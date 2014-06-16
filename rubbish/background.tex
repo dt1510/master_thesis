@@ -19,3 +19,16 @@ Let $S$ be the set of possible throws of a die, $S=\{1, 2, 3, 4, 5, 6\}$. Define
 Let $S$ be a real line $S=\mathbb{R}$, define function $\mu|_J$ on the set of intervals $J \subseteq \powerset{S}$ on the real line by $\mu|_J: (a, b) \mapsto b-a$, then $\mu|_J$ has a unique extension $\mu:S \to \mathbb{R}$ which is a measure function.
 \end{exmp}
 
+\begin{defn}
+A logic programming language has a \emph{negation on failure}\cite{clark1978negation} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
+\end{defn}
+
+\begin{exmp}
+In a logic programming language Prolog in a program $P$ with a single sentence:
+
+$spicy(X) :- curry(X).$
+
+the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Prolog has a NoF property.
+\end{exmp}
+
+Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.

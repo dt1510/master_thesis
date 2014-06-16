@@ -59,7 +59,7 @@ If $\Sigma \subseteq L$, $\phi \in L$, $\Sigma=\phi$, then under the defined equ
 \end{remark}
 
 \section{Model theory\cite{marker2002model}}
-Since the author to best of his knowledge considers the first-order model theory more developed as well as having better learning resources than model theory  of other logics, he will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
+We will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
 
 \begin{defn}
 An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
@@ -79,7 +79,7 @@ $TastesHot=\{milk^\mathcal{M}, curry^\mathcal{M}\}$,
 $IsWhite=\{milk^\mathcal{M}\}$ with a canonical mapping of constants from
  $C=\{milk, curry\}$ to $M$. Therefore $\mathcal{M}$ is a model of a formula
 $\phi=TastesHot(milk) \wedge \neg IsWhite(curry)$ denoting by
-$\mathcal{M} \models \phi$ reading "a model $\mathcal{M}$ entails a formula $\phi$".
+$\mathcal{M} \models \phi$ reading ``a model $\mathcal{M}$ entails a formula $\phi$".
 \end{exmp}
 
 \begin{remark}
@@ -134,20 +134,6 @@ Logics used in ILP are usually non-monotonic.
 
 \section{Logic Programming}
 
-\begin{defn}
-A logic programming language has a \emph{negation on failure}\cite{clark1978negation} NoF property iff $\forall \phi, \forall \psi. \phi \not\vdash \psi \implies \phi \vdash \neg\psi$ where the $\vdash$ is a consequence operator.
-\end{defn}
-
-\begin{exmp}
-In a logic programming language Prolog in a program $P$ with a single sentence:
-
-$spicy(X) :- curry(X).$
-
-the atom $spicy(X)$ is not provable, therefore $P \vdash \neg spicy(X)$ since Prolog has a NoF property.
-\end{exmp}
-
-Notice that NoF property on the consequence operator directly implies its monotony. Unless indicated the logic programming language we will reason will will have a NoF property.
-
 The following definitions and concepts are adaptations from Dianhuan Lin's Master thesis\cite{lin2009efficient}.
 
 \subsection{Basic concepts and notation of Logic Programming\cite{lin2009efficient}}
@@ -170,16 +156,60 @@ $A \leftObjectImplies B_1 , ..., B_n$
 which contains precisely one positive literal $A$.
 $A$ is called the head and $B_1$ , ..., $B_n$ is called the body of the clause.
 A Horn clause is either a definite clause or a definite goal.
-A unit clause consists of a single literal.
+A unit clause consists of a single atom.
 \end{defn}
 
 \begin{defn}
-A logic program is a finite set of clauses representing their conjunction.
+A logic program is a set of clauses representing their conjunction.
 \end{defn}
+We will reason about finite logic programs only.
+
+\subsection{SLD-resolution\cite{lin2009efficient}}
+\begin{defn}
+A \emph{substitution} $\theta$ is a finite set of the form
+$\{v_1\/t_1 , .., v_n \/t_n \}$,
+where each $v_i$ is a variable, each $t_i$ is a
+term distinct from $v_i$ and the variables $v_1 , .., v_n$ are distinct. Each element $v_i \/t_i$ is called a binding
+for $v_i$. $\theta$ is called a ground substitution if the $t_i$ are all ground terms.
+\end{defn}
+
+\begin{defn}
+An expression is either a term, a literal, or a conjunction or disjunction of literals.
+A simple expression is a term or a literal.
+\end{defn}
+
+\begin{defn}
+\emph{Unification.}
+Let $\Sigma$ be a finite set of expressions. A substitution $\theta$ is called a unifier for $\Sigma$ if $\Sigma \theta$ is a singleton (a
+set containing exactly one element). A unifier $\theta$ for $\Sigma$ is called a most general unifier (mgu) for $\Sigma$
+if, for each unifier $\theta$ of $\Sigma$ , there exists a substitution $\Gamma$ such that $\theta = \Sigma \Gamma$
+\end{defn}
+Details about unification algorithm can be found in \cite{lloyd1987foundations}.
+
+\begin{defn}
+Let $G$ be $\leftObjectImplies A_1 , ..., A_m , ..., A_k$ and
+$C$ be $A \leftObjectImplies B_1 , ..., B_q$.
+Then $G'$ is derived from $G$ and
+$C$ using mgu $\theta$ if the following conditions hold:
+i) $A_m$ is an atom, called the selected atom, in $G$.
+ii) $\theta$ is an mgu of $A_m$ and $A$.
+iii) $G'$ is the goal $\leftObjectImplies (A_1 , ..., A_{m−1} , B_1, ..., B_q , A_{m+1} , ..., A_k )\theta$, $G'$ is
+called a resolvent of $G$ and $C$.
+\end{defn}
+SLD-resolution stands for SL-resolution for Definite clauses. SL stands for Linear resolution with Selected function.
+
+\begin{defn}
+\emph{SLD-derivation}.
+Let $\Sigma$ be a set of clauses and $C$ a clause. A derivation of $C$ from $\Sigma$ is a finite sequence of clauses
+$R_1 , .., R_k = C$, such that each $R_i$ is either in $\Sigma$, or a resolvent of two clauses in $\{R_1 , ..., R_{i−1} \}$. If
+such a derivation exists, $\Sigma \vdash_r C$. Thus $C$ can be derived from $\Sigma$.
+\end{defn}
+
+SLD-refutation is a special case of SLD-derivation which derives empty clause $\emptyclause$.
 
 \subsubsection{Resolution\cite{kimber2012learning}}
 The resolution inference rule for a literal $\phi$ and clauses $\psi, \chi$ is
-$(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \models \phi \vee \chi$.
+$(\phi \vee \psi) \wedge (\neg \phi \wedge \chi) \vdash \phi \vee \chi$.
 
 \subsection{Representation of logic theories}\label{background_representation_of_logic_theories}
 A \emph{logic theory} is a subset of a logic language $L$.
