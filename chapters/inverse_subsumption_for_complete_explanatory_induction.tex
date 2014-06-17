@@ -111,7 +111,9 @@ A generalization of the antisubsumption results to the first-order clausal theor
 Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
 \end{proposition}
 \begin{proof}
-By subsumption $H \models \tau(M(F \cup Taut(I_H))) \equiv \neg F$. By the principle of the inverse entailment $B \cup \neg F \models E$, hence
+$F \cup Taut(\mathcal{I}_H \equiv F$ since $Taut(\mathcal{I}_H)$ is a conjunction of tautologies by definition, so $M(F \cup Taut(\mathcal{I}_H))=M(F)$.
+$M(F) \equiv \mu(\overline{F}) \equiv \neg F$ by the definition of the complement and an invariance of the $\mu$ operator under the logical equivalence. As $\tau$ preserves the logical equivalence as well, we have $\tau(M(F)) \equiv M(F) \equiv \neg F$. Hence $Taut(\mathcal{I}_H))) \equiv \neg F$.
+By subsumption $H \models \tau(M(F \cup Taut(\mathcal{I}_H))) \equiv \neg F$. By the principle of the inverse entailment $B \cup \neg F \models E$, hence
 $B \cup H \models E$.
 \end{proof}
 
