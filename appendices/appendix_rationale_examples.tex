@@ -1,0 +1,194 @@
+\chapter{Rationale examples}
+The chapter presents of the outputs of the prototype ILP system Rationale on the examples from the paper by Yamamoto et al. \cite{yamamoto2012inverse}.
+
+The output theories are of the format \tc{[[L11...L1n]...[Lm1...L1k]]}
+where \tc{L11, L1n, Lm1, L1k} are literals and \tc{[L11...L1n]} is a clause and the theory is a conjunction of such clauses.
+
+\section{Example 1}
+Input:
+\begin{lstlisting}
+%Expected hypothesis:
+%[risk_life(hamlet)][-risk_life(hamlet) defeat(claudius)]
+%Induction field
+defeat(claudius).
+-defeat(claudius).
+risk_life(hamlet).
+-risk_life(hamlet).
+
+%Background knowledge
+
+%Examples
+defeat(claudius).
+\end{lstlisting}
+
+Output:
+\begin{lstlisting}
+Tautologies
+[[defeat(claudius) -defeat(claudius) ]
+[risk_life(hamlet) -risk_life(hamlet) ]]
+Most general bridge theory [[-defeat(claudius) ]]
+Most specific hypothesis
+[[defeat(claudius) -risk_life(hamlet) ]
+[defeat(claudius) risk_life(hamlet) ]]
+Generalized by induction field
+[[defeat(claudius) -risk_life(hamlet) ]
+[defeat(claudius) risk_life(hamlet) ]]
+
+30 hypotheses:
+[[defeat(claudius) -risk_life(hamlet) ]
+[defeat(claudius) risk_life(hamlet) ]]
+[[defeat(X_0) -risk_life(hamlet) ][defeat(X_0) risk_life(hamlet) ]]
+[[defeat(claudius) -risk_life(X_0) ]
+[defeat(claudius) risk_life(X_0) ]]
+[[defeat(X_1) -risk_life(X_0) ][defeat(X_1) risk_life(X_0) ]]
+[[-risk_life(hamlet) ][defeat(claudius) risk_life(hamlet) ]]
+[[-risk_life(X_0) ][defeat(claudius) risk_life(X_0) ]]
+[[-risk_life(hamlet) ][defeat(X_0) risk_life(hamlet) ]]
+[[-risk_life(X_1) ][defeat(X_0) risk_life(X_1) ]]
+[[-risk_life(hamlet) ][defeat(claudius) ]]
+[[-risk_life(X_0) ][defeat(claudius) ]]
+[[-risk_life(hamlet) ][defeat(X_0) ]]
+[[-risk_life(X_1) ][defeat(X_0) ]]
+[[defeat(claudius) ][defeat(claudius) risk_life(hamlet) ]]
+[[defeat(X_0) ][defeat(X_0) risk_life(hamlet) ]]
+[[defeat(claudius) ][defeat(claudius) risk_life(X_0) ]]
+[[defeat(X_1) ][defeat(X_1) risk_life(X_0) ]]
+[[defeat(claudius) ][risk_life(hamlet) ]]
+[[defeat(X_0) ][risk_life(hamlet) ]]
+[[defeat(claudius) ][risk_life(X_0) ]]
+[[defeat(X_1) ][risk_life(X_0) ]]
+[[defeat(claudius) ]]
+[[defeat(X_0) ]]
+[[defeat(claudius) -risk_life(hamlet) ][risk_life(hamlet) ]]
+[[defeat(X_0) -risk_life(hamlet) ][risk_life(hamlet) ]]
+[[defeat(claudius) -risk_life(X_0) ][risk_life(X_0) ]]
+[[defeat(X_1) -risk_life(X_0) ][risk_life(X_0) ]]
+[[defeat(claudius) -risk_life(hamlet) ][defeat(claudius) ]]
+[[defeat(X_0) -risk_life(hamlet) ][defeat(X_0) ]]
+[[defeat(claudius) -risk_life(X_0) ][defeat(claudius) ]]
+[[defeat(X_1) -risk_life(X_0) ][defeat(X_1) ]]
+\end{lstlisting}
+
+\section{Example 5}
+Input:
+\begin{lstlisting}
+%Problem adapted to be ground.
+%Expected hypothesis: [[-q r]]
+%Induction field
+r.
+-q.
+%Background knowledge
+q:-p.
+%Examples
+r:-q.
+\end{lstlisting}
+
+Output:
+\begin{lstlisting}
+Tautologies []
+Most general bridge theory [[q -p ][-r ][q ]]
+Most specific hypothesis [[-q r ]]
+Generalized by induction field [[-q r ]]
+
+3 hypotheses:
+[[-q r ]]
+[[r ]]
+[[-q ]]
+\end{lstlisting}
+
+\section{Example 13}
+Input:
+\begin{lstlisting}
+%Expected hypothesis
+%[[induced(hxt) -active(snf3)][glycolysis_on -induced(hxt)]]
+%Induction field
+-active(snf3).
+induced(hxt).
+-induced(hxt).
+glycolysis_on.
+
+%Background knowledge
+induced(hxt):- glucose_ext, -active(snf3).
+
+%Examples
+glycolysis_on:-glucose_ext.
+\end{lstlisting}
+
+Output:
+\begin{lstlisting}
+Tautologies [[induced(hxt) -induced(hxt) ]]
+Most general bridge theory
+[[induced(hxt) -glucose_ext active(snf3) ]
+[-glycolysis_on ][glucose_ext ]]
+Most specific hypothesis
+[[-induced(hxt) glycolysis_on -glucose_ext ]
+[-active(snf3) glycolysis_on -glucose_ext induced(hxt) ]]
+Generalized by induction field
+[[-induced(hxt) glycolysis_on ]
+[-active(snf3) glycolysis_on induced(hxt) ]]
+
+59 hypotheses:
+[[-induced(hxt) glycolysis_on ]
+[-active(snf3) glycolysis_on induced(hxt) ]]
+[[-induced(X_0) glycolysis_on ]
+[-active(snf3) glycolysis_on induced(X_0) ]]
+[[-induced(hxt) glycolysis_on ]
+[-active(X_0) glycolysis_on induced(hxt) ]]
+[[-induced(X_1) glycolysis_on ]
+[-active(X_0) glycolysis_on induced(X_1) ]]
+[[glycolysis_on ][-active(snf3) glycolysis_on induced(hxt) ]]
+[[glycolysis_on ][-active(X_0) glycolysis_on induced(hxt) ]]
+[[glycolysis_on ][-active(snf3) glycolysis_on induced(X_0) ]]
+[[glycolysis_on ][-active(X_1) glycolysis_on induced(X_0) ]]
+[[glycolysis_on ][glycolysis_on induced(hxt) ]]
+[[glycolysis_on ][glycolysis_on induced(X_0) ]]
+[[glycolysis_on ][induced(hxt) ]]
+[[glycolysis_on ][induced(X_0) ]]
+[[glycolysis_on ]]
+[[glycolysis_on ][-active(snf3) induced(hxt) ]]
+[[glycolysis_on ][-active(X_0) induced(hxt) ]]
+[[glycolysis_on ][-active(snf3) induced(X_0) ]]
+[[glycolysis_on ][-active(X_1) induced(X_0) ]]
+[[glycolysis_on ][-active(snf3) ]]
+[[glycolysis_on ][-active(X_0) ]]
+[[glycolysis_on ][-active(snf3) glycolysis_on ]]
+[[glycolysis_on ][-active(X_0) glycolysis_on ]]
+[[-induced(hxt) ][-active(snf3) glycolysis_on induced(hxt) ]]
+[[-induced(X_0) ][-active(snf3) glycolysis_on induced(X_0) ]]
+[[-induced(hxt) ][-active(X_0) glycolysis_on induced(hxt) ]]
+[[-induced(X_1) ][-active(X_0) glycolysis_on induced(X_1) ]]
+[[-induced(hxt) ][glycolysis_on induced(hxt) ]]
+[[-induced(X_0) ][glycolysis_on induced(X_0) ]]
+[[-induced(hxt) ][glycolysis_on ]]
+[[-induced(X_0) ][glycolysis_on ]]
+[[-induced(hxt) ][-active(snf3) induced(hxt) ]]
+[[-induced(X_0) ][-active(snf3) induced(X_0) ]]
+[[-induced(hxt) ][-active(X_0) induced(hxt) ]]
+[[-induced(X_1) ][-active(X_0) induced(X_1) ]]
+[[-induced(hxt) ][-active(snf3) ]]
+[[-induced(X_0) ][-active(snf3) ]]
+[[-induced(hxt) ][-active(X_0) ]]
+[[-induced(X_1) ][-active(X_0) ]]
+[[-induced(hxt) ][-active(snf3) glycolysis_on ]]
+[[-induced(X_0) ][-active(snf3) glycolysis_on ]]
+[[-induced(hxt) ][-active(X_0) glycolysis_on ]]
+[[-induced(X_1) ][-active(X_0) glycolysis_on ]]
+[[-induced(hxt) glycolysis_on ][glycolysis_on induced(hxt) ]]
+[[-induced(X_0) glycolysis_on ][glycolysis_on induced(X_0) ]]
+[[-induced(hxt) glycolysis_on ][induced(hxt) ]]
+[[-induced(X_0) glycolysis_on ][induced(X_0) ]]
+[[-induced(hxt) glycolysis_on ][glycolysis_on ]]
+[[-induced(X_0) glycolysis_on ][glycolysis_on ]]
+[[-induced(hxt) glycolysis_on ][-active(snf3) induced(hxt) ]]
+[[-induced(X_0) glycolysis_on ][-active(snf3) induced(X_0) ]]
+[[-induced(hxt) glycolysis_on ][-active(X_0) induced(hxt) ]]
+[[-induced(X_1) glycolysis_on ][-active(X_0) induced(X_1) ]]
+[[-induced(hxt) glycolysis_on ][-active(snf3) ]]
+[[-induced(X_0) glycolysis_on ][-active(snf3) ]]
+[[-induced(hxt) glycolysis_on ][-active(X_0) ]]
+[[-induced(X_1) glycolysis_on ][-active(X_0) ]]
+[[-induced(hxt) glycolysis_on ][-active(snf3) glycolysis_on ]]
+[[-induced(X_0) glycolysis_on ][-active(snf3) glycolysis_on ]]
+[[-induced(hxt) glycolysis_on ][-active(X_0) glycolysis_on ]]
+[[-induced(X_1) glycolysis_on ][-active(X_0) glycolysis_on ]]
+\end{lstlisting}
