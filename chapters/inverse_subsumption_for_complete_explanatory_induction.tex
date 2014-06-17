@@ -52,7 +52,7 @@ $B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $
 
 The author finds the notion of the maximal bridge theory useful in later chapters.
 \begin{defn}\label{maximal_bridge_theory_definition}
-A \emph{maximal bridge theory} wrt $B$ and $E$ is the theory $F = B \cup \bar{E}$.
+A \emph{maximal bridge theory} wrt $B$ and $E$ is the theory $F = B \cup \overline{E}$.
 \end{defn}
 \begin{remark}
 Every bridge theory is entailed by a maximal bridge theory.
@@ -138,12 +138,12 @@ We relax the procedure of the minimal complements by using a maximal bridge theo
 
 \begin{defn}
 Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H, F$ is a theory
-$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\bar{S})$) for a bridge theory $F$ wrt $B, E$.
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\overline{S})$) for a bridge theory $F$ wrt $B, E$.
 \end{defn}
 
 \begin{defn}
 Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{maximal hypothesis antisubsumer} wrt $B, E, \mathcal{I}_H$ is a theory
-$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ for a maximal bridge theory $F=B \land \bar{E}$ wrt $B, E$.
+$T=\tau(M(F \cup Taut(\mathcal{I}_H))$ for a maximal bridge theory $F=B \land \overline{E}$ wrt $B, E$.
 \end{defn}
 
 By the completeness of inverse subsumption with minimal complements, for every hypothesis $H$ wrt $F$ and $\mathcal{I}_H$ it holds $H \subsumes \tau(M(F \cup Taut(\mathcal{I}_H))$. Since a maximal bridge theory $F$ is used, if a hypothesis $H$ wrt $\mathcal{I}_H$ is correct wrt $B, E$, then it can be derived by inverse subsumption with minimal complements with a maximal bridge theory.
@@ -154,10 +154,10 @@ $H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
 \end{defn}
 
 \begin{lemma}\label{lemma_hypothesis_wrt_bridge_theory_correspondence}
-Suppose $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a bridge theory $F_i$ wrt $B, E$. Then $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \bar{E}$ wrt $B, E$.
+Suppose $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a bridge theory $F_i$ wrt $B, E$. Then $H$ is a hypothesis wrt an induction field $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \overline{E}$ wrt $B, E$.
 \end{lemma}
 \begin{proof}
-By \fullref{definition_bridge_theory} $F_i$ is a bridge theory wrt $B, E$ iff $B \cup \bar{E} \models F_i$ by \fullref{maximal_bridge_theory_definition} iff $F \models F_i$.
+By \fullref{definition_bridge_theory} $F_i$ is a bridge theory wrt $B, E$ iff $B \cup \overline{E} \models F_i$ by \fullref{maximal_bridge_theory_definition} iff $F \models F_i$.
 $H$ is a hypothesis wrt $\mathcal{I_H}$, $F_i$. Hence by \fullref{definition_hypothesis_wrt_induction_field_bridge_theory} there is a ground hypothesis $H_g$ such that $H_g$ consists of instances from $H$,
 $F_i \models \neg H_g$ and $H_g$ belongs to $\mathcal{I}_H$. Hence $F \models F_i \models \neg H_g$ and thus by \fullref{definition_hypothesis_wrt_induction_field_bridge_theory} $H$ is a hypothesis wrt $\mathcal{I}_H$ and a maximal bridge theory $F$.
 \end{proof}
@@ -169,12 +169,12 @@ Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and a bridge theo
 \end{proposition}
 
 \begin{proof}
-By \fullref{lemma_hypothesis_wrt_bridge_theory_correspondence} $H$ is a hypothesis wrt $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \bar{E}$.
-Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
+By \fullref{lemma_hypothesis_wrt_bridge_theory_correspondence} $H$ is a hypothesis wrt $\mathcal{I}_H$ and a maximal bridge theory $F=B \cup \overline{E}$.
+Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \overline{E} \cup Taut(\mathcal{I}_H))$.
 \end{proof}
 
 \subsubsection{Comparison with the original algorithm}\label{inverse_subsumption_algorithm_comparison}
-Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \bar{E}$. The requirement for a maximal bridge theory $B \cup \bar{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
+Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \overline{E}$. The requirement for a maximal bridge theory $B \cup \overline{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
 \subsection{Complete inverse subsumption operators}\label{complete_inverse_subsumption_operators}
 Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by antisumbsumption using two generalization operators dropping and antiinstantiation.
