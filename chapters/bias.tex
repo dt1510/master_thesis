@@ -500,7 +500,7 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse entailment following the steps:
 
 \begin{itemize}
-\item construct the \emph{top theory} $\top$ (a bias represented as a logic theory specified on the input by the user),
+\item construct the \emph{top theory} $\top$ (a bias, definition \ref{definition_top_theory_bias}),
 \item for every example $e \in E$:
 \item derive a clause $h_e$ such that $\top \models h_e$, $B \cup \{h_e\} \models e$, add $h_e$ to $H_c$,
 \item end loop,
@@ -508,26 +508,29 @@ The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse enta
 \end{itemize}
 The score function can be based on compression, coverage, accuracy, etc.
 
-\paragraph{Top theory\cite{muggleton2008toplog}}
-In general, a \emph{top theory} is any logic theory, it makes sense to reason about such a logic theory wrt some hypothesis.
-\begin{defn}
+\paragraph{Top theory\cite{muggleton2008toplog}}\label{top_theory}
+In general, a \emph{top theory} is any logic theory specified on the input to an ILP system by the user, it makes sense to reason about such a logic theory wrt some hypothesis.
+\begin{defn}\label{definition_top_theory_bias}
 A hypothesis $H$ is in a \emph{top theory bias} wrt a top theory $\top$ iff $H \models \top$.
 \end{defn}
 A top theory $\top$ is a generalization of mode declarations:
-\begin{exmp}\cite{muggleton2008toplog}
-From the mode declarations
+\begin{exmp}(Adapted from \cite{muggleton2008toplog}.)
+From the mode declarations $M$
 \begin{lstlisting}
 modeh(mammal(+animal)).
-modeb(has milk(+animal)).
-modeb(has eggs(+animal)).
+modeb(has_milk(+animal)).
+modeb(has_eggs(+animal)).
 \end{lstlisting}
-a correspondent constructed top theory is a set of clauses
+a correspondent constructed top theory $\top$ is a set of clauses
 \begin{lstlisting}
 mammal(X) :- $body(X).
 : $body(X) :- .%emptybody
-: $body(X) :- has milk(X),$body(X).
-: $body(X) :- has eggs(X),$body(X).
+: $body(X) :- has_milk(X),$body(X).
+: $body(X) :- has_eggs(X),$body(X).
 \end{lstlisting}
+where \tc{mammal, \$body, has\_milk, had\_eggs} are their predicate symbols.
+The first three clauses imply a clause $H=mammal(X) \leftObjectImplies has\_milk(X)$ (i.e. $\top \models H$)
+which is indeed in mode language $L(M)$ specified by the 3 mode declarations.
 \end{exmp}
 
 \subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}\cite{corapi2011nonmonotonic}}
