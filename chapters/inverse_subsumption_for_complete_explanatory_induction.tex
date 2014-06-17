@@ -135,9 +135,10 @@ $H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arb
 $B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$. As $B \cup \{\neg e\}$ is a bridge formula, this follows from lemma \ref{yamamoto2012inverseLemma2} and proposition \ref{soundness_first_order_extension}.
 \end{proof}
 
-\paragraph{Checking consistency of hypothesis with negative examples}
 Consequently, we define an algorithm for checking the consistency of a hypothesis with negative examples (with one loop induced by the universal quantifier on the literals of negative examples in the previous proposition).
 
+\begin{algorithm}
+\emph{Checking consistency of hypothesis with negative examples by inverse subsumption}
 \begin{itemize}
 \item Given $B$, $H$, $E^-$,
 \item Construct $T=B \cup Taut(\mathcal{I}_H)$,
@@ -147,6 +148,7 @@ Consequently, we define an algorithm for checking the consistency of a hypothesi
 \item if $H$ can be derived by anti-subsumption from $S$,
 then return \tc{inconsistent} otherwise go to step 3.
 \end{itemize}
+\end{algorithm}
 
 \subsection{Relaxation of minimal complements to a maximal bridge theory}
 We relax the procedure of the minimal complements by using a maximal bridge theory (definition \ref{maximal_bridge_theory_definition}) while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
@@ -192,7 +194,7 @@ Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \overlin
 Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \overline{E}$. The requirement for a maximal bridge theory $B \cup \overline{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
 \subsection{Complete inverse subsumption operators}\label{complete_inverse_subsumption_operators}
-Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by anti-subsumption using two generalization operators dropping and anti-instantiation.
+Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} we prove that every theory $S$ subsuming a theory $T$ can be derived by anti-subsumption using two generalization operators dropping and anti-instantiation.
 
 \begin{defn}
 A logic theory $S$ is derivable from the logic theory $T$ by \emph{dropping} denoted $T \vdash_d S$ iff
@@ -226,7 +228,7 @@ Since $\forall C_D \theta_D \in U \exists C_D \in S. C_D \theta_D=C_D \theta_D$,
 \end{proof}
 
 \subsection{Imparo is complete in inverse subsumption}
-The use of the anti-entailment\cite{yamamoto2012inverse} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. The use of the anti-entailment instead of the anti-subsumption may not preserve the completeness. However, we prove an open problem from \cite{yamamoto2012inverse} that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
+The use of the anti-entailment\cite{yamamoto2012inverse} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. The use of the anti-entailment instead of the anti-subsumption may not preserve the completeness. However, we solve an open problem from \cite{yamamoto2012inverse} that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
 
 \begin{defn}\cite{kimber2012learning}
 An \emph{open program} is a triple $\langle B, U, I \rangle$ where $B$ is a program, $U$ is a set of predicates called \emph{undefined} or \emph{abducible}, and $I$ is a set of first-order
@@ -244,6 +246,7 @@ We denote the statement by $P, E \vdash_{CTIS} H$.
 \begin{thm}\label{yamamoto2012inverseTheorem4}\cite{yamamoto2012inverse}
 Let $S$ be a ground clausal theory. Then, $M^2(S) = \mu(S)$ holds.
 \end{thm}
+The theorem \ref{yamamoto2012inverseTheorem4} is proved in \cite{yamamoto2012inverse}. We prove:
 
 \begin{proposition}
 Let $H \in I_H$ be an inductive solution for $P$ and $E$ such that $Taut(I_H)=\emptyset$, then $H$ is derivable by connected theory inverse subsumption from $P, E$.
@@ -264,6 +267,7 @@ The previous proposition is stated and proved only to provide an alternative pro
 and $C$ be a ground clause. Then $\Sigma \models C$ if and only if there is a finite set $\Sigma_g$ of ground
 instances of clauses from $\Sigma$, such that $\Sigma_g \models C$.
 \end{thm}
+The theorem \ref{implicationByGroundClauses} is proved in \cite{nienhuys1997foundations}.
 
 \begin{thm}\label{completeness_ctg}
 \emph{Completeness of connected theory generalization}(Theorem4.6 in \cite{kimber2012learning})
@@ -283,6 +287,8 @@ since $T \subseteq ground(H)$ then $H \models T$.
 Then Kimber proves that $T$ is a connected theory for $P$ and $E$.
 \end{proof}
 
+The most important result of this thesis is:
+
 \begin{thm}
 \emph{Completeness of connected theory inverse subsumption}.
 \label{completeness_ctis}
@@ -298,7 +304,7 @@ hence $H \subsumes T$ by transitivity as required.
 \end{proof}
 
 \subsection{Inverse subsumption with minimal complements and connected theory}
-There may be a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
+We conjecture a direct correspondence between the theory subsuming a target hypothesis constructed by minimal complements and the connected theory.
 
 \begin{conjecture}
 Let $P=\langle B, U, I \rangle$ be a definite open program, let $H$ be a definite, and $e$ an atom with $E^+=\{e\}$. Suppose that $H$ is an inductive solution for $P$ and $E^+$ wrt an induction field $\mathcal{I}_H$ and a bridge theory $F$.
