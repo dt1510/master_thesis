@@ -76,13 +76,9 @@
 \BOOKMARK [2][-]{subsection.7.1.1}{Maximal hypothesis antisubsumer}{section.7.1}
 \BOOKMARK [2][-]{subsection.7.1.2}{Computing the anti-subsumed hypotheses}{section.7.1}
 \BOOKMARK [2][-]{subsection.7.1.3}{Pruning hypotheses by negative examples}{section.7.1}
-\BOOKMARK [1][-]{section.7.2}{Bias}{chapter.7}
-\BOOKMARK [1][-]{section.7.3}{Completeness}{chapter.7}
-\BOOKMARK [1][-]{section.7.4}{Other considerations}{chapter.7}
-\BOOKMARK [2][-]{subsection.7.4.1}{Hypothesis selection}{section.7.4}
-\BOOKMARK [2][-]{subsection.7.4.2}{Hypothesis search}{section.7.4}
-\BOOKMARK [2][-]{subsection.7.4.3}{Implementation details}{section.7.4}
-\BOOKMARK [1][-]{section.7.5}{Comparison of Rationale with other ILP systems}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.4}{Completeness}{section.7.1}
+\BOOKMARK [1][-]{section.7.2}{Other considerations}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Comparison of Rationale with other ILP systems}{chapter.7}
 \BOOKMARK [0][-]{chapter.8}{Evaluation}{}
 \BOOKMARK [1][-]{section.8.1}{Formalisation of language bias}{chapter.8}
 \BOOKMARK [1][-]{section.8.2}{Experimental classification}{chapter.8}
@@ -98,7 +94,7 @@
 \BOOKMARK [2][-]{subsection.9.2.1}{Hypothesis selection}{section.9.2}
 \BOOKMARK [2][-]{subsection.9.2.2}{Classification by problem classes}{section.9.2}
 \BOOKMARK [2][-]{subsection.9.2.3}{Other directions}{section.9.2}
-\BOOKMARK [0][-]{section*.67}{Bibliography}{}
+\BOOKMARK [0][-]{section*.71}{Bibliography}{}
 \BOOKMARK [0][-]{chapter.1}{Appendix - evaluation of Progol on examples}{}
 \BOOKMARK [1][-]{section.1.1}{Progol's capabilities}{chapter.1}
 \BOOKMARK [2][-]{subsection.1.1.1}{Consistency check}{section.1.1}
