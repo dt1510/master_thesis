@@ -8,17 +8,20 @@ The source code of the system and documentation can be accessed from Github at
 Rationale finds all the hypotheses wrt to the maximal bridge theory $F=B \land \neg E$ and the induction $\mathcal{I}_H$ by using an antisubsumption on the hypothesis antisubsumer.
 
 Therefore the main steps of the Rationale algorithm are:
+\begin{algorithm}\emph{Rationale algorithm}
 \begin{itemize}
 \item Step 1. compute the maximal hypothesis antisubsumer
 $T=\tau(M(B \cup \overline{E} \cup Taut(\mathcal{I}_H)))$,
-\item Step 2. compute the antisubsumed hypotheses $H \subsumes T$,
+\item Step 2. compute the anti-subsumed hypotheses $H \subsumes T$,
 \item Step 3. prune the hypotheses entailing the negative examples,
 \item Step 4. prune the inconsistent hypotheses.
 \end{itemize}
+\end{algorithm}
 
 \subsection{Maximal hypothesis antisubsumer}
-The maximal hypothesis antisubsumer is computed based on the definitons in \fullref{subsec:preliminaries} as follows:
+The maximal hypothesis antisubsumer is computed based on the definitons in section \ref{sec:preliminaries} as follows:
 
+\begin{algorithm}\emph{Maximal hypothesis subsumer computation}
 \begin{itemize}
 \item Step 1. compute the (maximal) bridge theory $F=B \land \neg E$,
 \item Step 2. compute the tautologies $Taut(\mathcal{I}_H)$,
@@ -26,14 +29,17 @@ The maximal hypothesis antisubsumer is computed based on the definitons in \full
 \item Step 4. compute the minimal complement $M(F \cup Taut(\mathcal{I}_H))$,
 \item Step 5. remove the tautological clauses to get the maximal antisubsumer $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$.
 \end{itemize}
+\end{algorithm}
 
-\subsection{Computing the antisubsumed hypotheses}
-The computation of the hypotheses $\mathcal{H}$ subsuming the maximal hypothesis  antisubsumer $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is performed using the generalization operators\cite{yamamoto2008towards} antiinstantiation, dropping on the hypothesis antisubsumer $T$, hence preserving the completeness \ref{complete_inverse_subsumption_operators} for finding a hypothesis wrt an induction field and a bridge formula:
+\subsection{Computing the anti-subsumed hypotheses}
+The computation of the hypotheses $\mathcal{H}$ subsuming the maximal hypothesis  antisubsumer $T=\tau(M(F \cup Taut(\mathcal{I}_H)))$ is performed using the generalization operators\cite{yamamoto2008towards} anti-instantiation, dropping on the hypothesis antisubsumer $T$, hence preserving the completeness \ref{complete_inverse_subsumption_operators} for finding a hypothesis wrt an induction field and a bridge formula:
 
+\begin{algorithm}\emph{Computation of anti-subsumed hypotheses}
 \begin{itemize}
 \item Step 1. compute $\mathcal{H}$ derivable by dropping from the antisubsumer $T$,
-\item Step 2. given formulas $\mathcal{H}$, for every $H \in \mathcal{H}$ add theories derivable by antiinstantiation from $H$ to $\mathcal{H}$.
+\item Step 2. given formulas $\mathcal{H}$, for every $H \in \mathcal{H}$ add theories derivable by anti-instantiation from $H$ to $\mathcal{H}$.
 \end{itemize}
+\end{algorithm}
 
 Then the resulting $\mathcal{H}$ contains all the hypothesis wrt $\mathcal{I_H}$ and some bridge formula.
 
@@ -41,11 +47,13 @@ Then the resulting $\mathcal{H}$ contains all the hypothesis wrt $\mathcal{I_H}$
 Rationale could prune the hypotheses $\mathcal{H}$ entailing negative examples using antisubsumption \ref{proposition_negative_examples_subsumption}.
 Although finding a hypothesis using the antisubsumption instead of the antientailment is argued to be more efficient\cite{yamamoto2012inverse}, once a hypothesis $H$ has been found, checking for an entailment $B \cup H \models e$ may be more efficient than checking if $e$ is derivable by antisubsumption from $B \cup H$ with the its additional constructions of hypothesis subsumers required. Given the minor importance of the question, the author has decided to use the binary resolution to check the condition $E^- \cap Cl(B \cup H)=\emptyset$:
 
+\begin{algorithm}\emph{Pruning hypotheses by negative examples}
 \begin{itemize}
 \item Step 1. for every hypothesis $H \in \mathcal{H}$ go to Step2:
 \item Step 2. for every negative example $e \in E^-$ go to Step 3:
 \item Step 3. if $false$ derivable from $B \land H \land \neg e$ by binary resolution, then remove the hypothesis $H$, $\mathcal{H}:=\mathcal{H} \setminus \{H\}$.
 \end{itemize}
+\end{algorithm}
 
 \section{Bias}
 While the systems we have classified use the mode declarations and determinations as a form of a bias, Rationale uses the induction field\ref{induction_field_definition} to constraint the hypothesis space $\mathcal{H}$.

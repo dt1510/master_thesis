@@ -74,7 +74,7 @@
 \BOOKMARK [0][-]{chapter.7}{Rationale ILP system}{}
 \BOOKMARK [1][-]{section.7.1}{Algorithm}{chapter.7}
 \BOOKMARK [2][-]{subsection.7.1.1}{Maximal hypothesis antisubsumer}{section.7.1}
-\BOOKMARK [2][-]{subsection.7.1.2}{Computing the antisubsumed hypotheses}{section.7.1}
+\BOOKMARK [2][-]{subsection.7.1.2}{Computing the anti-subsumed hypotheses}{section.7.1}
 \BOOKMARK [2][-]{subsection.7.1.3}{Pruning hypotheses by negative examples}{section.7.1}
 \BOOKMARK [1][-]{section.7.2}{Bias}{chapter.7}
 \BOOKMARK [1][-]{section.7.3}{Completeness}{chapter.7}
