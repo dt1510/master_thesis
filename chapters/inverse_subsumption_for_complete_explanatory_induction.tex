@@ -135,7 +135,18 @@ $H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arb
 $B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$. As $B \cup \{\neg e\}$ is a bridge formula, this follows from lemma \ref{yamamoto2012inverseLemma2} and proposition \ref{soundness_first_order_extension}.
 \end{proof}
 
+\paragraph{Checking consistency of hypothesis with negative examples}
+Consequently, we define an algorithm for checking the consistency of a hypothesis with negative examples (with one loop induced by the universal quantifier on the literals of negative examples in the previous proposition).
 
+\begin{itemize}
+\item Given $B$, $H$, $E^-$,
+\item Construct $T=B \cup Taut(\mathcal{I}_H)$,
+\item Step 3: If $E^-$ does not have any negative examples left, then return \tc{consistent},
+\item Take a negative example $e$ from $E^-$:
+\item Construct $S=\tau(M(\{\neg e\} \cup T))$,
+\item if $H$ can be derived by anti-subsumption from $S$,
+then return \tc{inconsistent} otherwise go to step 3.
+\end{itemize}
 
 \subsection{Relaxation of minimal complements to a maximal bridge theory}
 We relax the procedure of the minimal complements by using a maximal bridge theory (definition \ref{maximal_bridge_theory_definition}) while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
