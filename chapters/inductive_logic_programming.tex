@@ -4,7 +4,7 @@ The objective of this chapter is to present concepts from Inductive logic progra
 \section{Inductive logic programming concepts}
 
 \subsection{ILP task definition}
-We present a definition of an ILP task of explanatory induction with positive examples, negative examples and a bias.
+We present a definition of an ILP task of explanatory induction with positive examples and extend it to the case of negative examples with a bias.
 
 \subsubsection{Explanatory induction\cite{yamamoto2012inverse}}
 \begin{defn}\cite{flach1996rationality} Given logical theories background knowledge $B$, examples $E$ a learning problem of \emph{explanatory induction} is  to find a hypothesis $H$ satisfying $E \subseteq Cn(B \cup H)$ and $false \not\in Cn(B \cup H)$ for some consequence operator $Cn$.
@@ -26,7 +26,7 @@ A learning problem of \emph{explanatory induction with negative examples} is giv
 \end{defn}
 The consistency condition has become redundant since $false \in Cn(B \cup H)$ implies $E^{-} \in Cn(B \cup H)$.
 
-ILP systems we aim to classify restrict their hypothesis space by a bias. Consequently, we extend the definition of an ILP task further:
+ILP systems we aim to classify restrict their space of possible hypotheses to its subset $\mathcal{H} \subseteq \powerset{L}$ called a bias. Consequently, we extend the definition of an ILP task further:
 \begin{defn}\label{definition_explanatory_induction_with_bias}
 A learning problem of \emph{explanatory induction with negative examples and a bias} is given logical theories background knowledge $B$, positive examples $E^{+}$, negative examples $E^{-}$, a bias $\mathcal{H}$ to find a hypothesis $H$ satisfying\\
 1)$E^{+} \subseteq Cn(B \cup H)$\\
@@ -72,7 +72,7 @@ Horn clauses. Then $B \wedge h \models e \iff B \wedge \neg e \models \neg h$.
 \end{thm}
 
 \subsubsection{IE algorithm\cite{yamamoto2012inverse}}\label{inverse_entailement_algorithm}
-Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
+ILP systems Progol, Xhail, Imparo are based on the principle of the inverse entailment. By the principle of the inverse entailment $B \cup H \models E$ iff
 $B \cup \neg E \models \neg H$.
  
 They compute the hypothesis $H$ in two steps:
@@ -80,7 +80,7 @@ They compute the hypothesis $H$ in two steps:
 
 \subsection{Input and output of ILP system}
 An ILP system is a program that solves an ILP task.
-An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
+An input to an ILP system is a logic program that we conceptually divide into 3 parts:
 \begin{itemize}
 \item object-level statements: background knowledge, examples: positive and negative,
 \item effective meta-level statements,
@@ -98,7 +98,7 @@ Non-effective meta-level statements do not affect the result of the computation 
 The primary output of an ILP system is a solution (a hypothesis or their set) to a refined learning problem.
 
 \section{ILP systems}
-An ILP system is a program that takes as an input background knowledge $B$ and examples $E$ and produces as an output an explanation called a hypothesis $H$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
+An ILP system is a program that takes as an input background knowledge $B$, examples $E$, a bias $\mathcal{H} \subseteq \powerset{L}$ and produces as an output an explanation called a hypothesis $H \in \mathcal{H}$ explaining the examples in terms of the background knowledge $B$, i.e. $E \subseteq Cn(B \cup H)$.
 We give a list of ILP systems Progol, Aleph, Toplog, Xhail, Imparo, Tal.
 
 \subsection{Progol}
@@ -136,7 +136,7 @@ use of established ALP proof procedures and the specification of richer language
 Other ILP systems include Metagol, Golem, Spectre, EBG, Alecto, FOIL, Linus, Marvin, Mis, Confucius, Quinlan, ASPAL, Hyper,  Tilde, CF-induction.
 
 \subsection{Selecting ILP systems for classification}
-Classification of all ILP systems would be out of the scope of this project and would not provide much more value than a classification of well chosen ILP systems.
+Classification of all ILP systems would be out of the scope of this project and would not provide much more value than a classification of well-chosen ILP systems.
 For selection of ILP systems for classification the following criteria were taken into the consideration:
 
 \begin{itemize}
@@ -145,4 +145,4 @@ For selection of ILP systems for classification the following criteria were take
 \item an access: an availability of a general purpose implementation, documentation, research findings, easiness of communication (in person vs. over distance) with the original authors and respective experts.
 \end{itemize}
 
-In the end the author has decided to classify Progol, Aleph, Toplog, Xhail, Imparo, Tal; Aleph being the best documented working system and others having been developed in the author's department with a general purpose implementation. The author would like to note based on the private communication with the respective experts that MC-Toplog does not have a general purpose implementation, a user needs to write a specific top theory for each learning problem and adapt the current implementation to support it. Metagol\cite{muggleton2014meta}, being a very interesting and novel system, similarly, as of time of classification did not have a general purpose implementation.
+In the end we decided to classify Progol, Aleph, Toplog, Xhail, Imparo, Tal; Aleph being the best documented working system and others having been developed in our department with a general purpose implementation. We would like to note based on the private communication with the respective experts that MC-Toplog does not have a general purpose implementation, a user needs to write a specific top theory for each learning problem and adapt the current implementation to support it. Metagol\cite{muggleton2014meta}, being a very interesting and novel system, similarly, as of time of classification, did not have a general purpose implementation.

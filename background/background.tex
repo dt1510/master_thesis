@@ -7,7 +7,11 @@ We assume the reader is familiar with basic concepts in several areas and consid
 \item Model theory: An introduction by David Marker \cite{marker2002model}
 \end{enumerate}
 However, the usage of the concepts does not exceed its rudimentary application and the reader is encouraged to proceed further even if one may not be familiar with all the areas outlined, we suggest to use the literature when the need arises.
-\section{A logic language}
+
+We provide a brief summary of concepts from a logic language, model theory, logics and logic programming.
+\section{Logic language}
+A logic language is a specification for representing logical statements in a logic program (an input to an ILP system) and in mathematical proofs.
+
 \begin{defn}
 An \emph{alphabet} is a set $\mathcal{A}$ of elements called \emph{letters} of an alphabet.
 \end{defn}
@@ -59,7 +63,7 @@ If $\Sigma \subseteq L$, $\phi \in L$, $\Sigma=\phi$, then under the defined equ
 \end{remark}
 
 \section{Model theory\cite{marker2002model}}
-We will reason in first-order model-theory and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
+We will reason in first-order model theory using the logic language we defined and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
 
 \begin{defn}
 An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the following data:
@@ -72,7 +76,7 @@ An \emph{$\mathcal{L}$-structure} (\emph{a model}) $\mathcal{M}$ is given by the
 We refer to $f^\mathcal{M}, R^\mathcal{M}, c^\mathcal{M}$ as the interpretations of the symbols $f ,R, c$.
 \end{defn}
 
-\begin{defn}
+\begin{defn}(\emph{Interpretation}).
 Let $\phi$ be a formula with free variables from
 $\overline{v}=(v_{i_1},...,v_{i_m})$,
 and let
@@ -122,6 +126,7 @@ $A$ is an axiomatization of the theory $O$ from the theory $B$ iff $M(A \union B
 \end{defn}
 
 \section{Logics\cite{sep-logic-nonmonotonic}}
+ILP systems may use different types of logics, their semantics is induced by a consequence operator.
 We adapt definitions of consequence operators from \cite{sergot2005knowledgeRepresentationLectureNotes}.
 
 \begin{defn}
@@ -152,7 +157,7 @@ First-order logic is monotonic.
 Logics used in ILP are usually non-monotonic.
 
 \section{Logic Programming}
-
+Inductive logic programming (ILP) uses the theory of logic programming for the representation of its input and output theories and for its proof procedures.
 The following definitions and concepts are adaptations from Dianhuan Lin's Master thesis\cite{lin2009efficient}.
 
 \subsection{Basic concepts and notation of Logic Programming\cite{lin2009efficient}}

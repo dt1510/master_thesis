@@ -9,7 +9,9 @@ Two main types of a bias are:
 
 ILP systems use bias to refine their search space $\mathcal{H}$, to induce a preference relation on the space of hypotheses and to control their search. The objective of this section is to classify the ILP systems based on the biases they use and the capabilities of their biases of a certain type.
 
-First we formalise a theory of the language bias \ref{sec:background_language_bias}. Then ILP systems are classified by their language bias \ref{sec:classification_language_bias} and by their search bias \ref{classification_by_search_bias}.
+First we formalise a theory of the language bias \ref{sec:background_language_bias} by using Muggleton's mode language and defining the concepts of determination language and meta-constraint language present in the implementations of ILP systems.
+We establish a correspondence between this new formalism of a language bias specification and a theoretical specification of Inoue \cite{inoue1992linear} of a language bias by a production field. Then we classify ILP systems by their language bias \ref{sec:classification_language_bias} using the new formalism.
+We provide a summary of algorithms for finding a hypothesis for each classified ILP system and classify ILP systems by a search bias \ref{classification_by_search_bias} arising from this search algorithm.
 
 In the context of a language bias we refer to the bias as a hypothesis space $\mathcal{H}$, in the context of a search bias we refer to it as a search space $\mathcal{H}$.
 These different terminologies refer to the same bias $\mathcal{H}$, however emphasise a different local focus on a bias in the text.
@@ -129,7 +131,7 @@ Then for the hypothesis bias (determination language) $\mathcal{H}=L(D)$,
 $\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
 \end{exmp}
 
-\subsection{meta-constraints}\label{bias_meta-constraints}
+\subsection{Meta-constraints}\label{bias_meta-constraints}
 meta-constraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
 An example being a meta-constraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
 
@@ -145,18 +147,13 @@ In Tal \tc{option(max\_body\_literals, 5)} defines definite theories whose claus
 \end{exmp}
 
 \begin{proposition}
-Let $Cond_1, Cond_2$ be meta-constraint on a language $L$.
-Then the following are meta-constraints on the language $L$:
-$\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
+Let $Cond_1, Cond_2$ be meta-constraints on a language $L$.
+Then $Cond_1 \land Cond_2$ is a meta-constraint on the language $L$.
 \end{proposition}
 
 \begin{proof}
 Follows trivially from the definition of a meta-constraint.
 \end{proof}
-
-\begin{remark}
-ILP systems we classify allow only a specification of a conjunction of meta-constraints. However, from the theoretical point of view, their negations and disjunctions make sense and it is possible to design an ILP system with an extended meta-constraint specification.
-\end{remark}
 
 Therefore we will often think of a set of the meta-constraints to be a meta-constraint created from their conjunction.
 
@@ -165,6 +162,10 @@ Let $C=\{Cond_1, ..., Cond_n\}$ be a set of meta-constraints defining subsets of
 A \emph{meta-constraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
 i.e. $L(C)=\{x \in L | Cond_1(x) \land ... \land Cond_n(x) \}$.
 \end{defn}
+
+\begin{exmp}
+Let $Cond_1$ be a meta-constraint representing all clausal theories with at most one clause. Let $Cond_2$ be a meta-constraint representing all clausal theories whose members are definite clauses. Then $L(Cond_1 \land Cond_2)$ is a language of all theories containing exactly one definite clause.
+\end{exmp}
 
 \subsection{Induction and production field}
 Inoue defines a production field as another form of a language bias.
@@ -176,13 +177,13 @@ $\langle Lit, Cond\rangle$, where $Lit$
 A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
 \end{defn}
 
-A special case of the production field when a condition $Cond \equiv true$ is called an induction field.
 
-\begin{defn}\cite{yamamoto2012inverse}\label{induction_field_definition}
-An \emph{induction field} is denoted by $\mathcal{I}_H = \langle Lit \rangle$,
-where $Lit$ is a finite
-set of literals to appear in ground hypotheses.
-A ground hypothesis $H_g$ \emph{belongs to} $\mathcal{I}_H$ if
+\begin{defn}\label{induction_field_definition}\cite{yamamoto2012inverse}
+An \emph{induction field} denoted $\mathcal{I}_H=\langle Lit \rangle$ is a production field $\langle Lit, true\rangle$.
+\end{defn}
+
+\begin{defn}\cite{yamamoto2012inverse}
+A ground hypothesis $H_g$ \emph{belongs to} an induction field $\mathcal{I}_H=\langle Lit \rangle$ iff
 every literal in $H_g$ is included in $Lit$.
 \end{defn}
 
