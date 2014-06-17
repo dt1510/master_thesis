@@ -142,7 +142,8 @@ A \emph{meta-constraint} on a language $L$ is any formula $Cond$ defining some s
 Each ILP system has its own set of allowed meta-constraints.
 \begin{exmp}
 In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
-In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
+In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses,  \tc{set\_max\_clause\_length(6)} defines clausal theories with the maximum length of their clauses to be at most 6 literals and
+\tc{set\_max\_var\_depth(4)} defines clausal theories with clauses of maximum variable depth 4 (definition \ref{definition_variable_depth}).
 In Tal \tc{option(max\_body\_literals, 5)} defines definite theories whose clauses have at most 5 positive literals.
 \end{exmp}
 
@@ -162,6 +163,17 @@ Let $C=\{Cond_1, ..., Cond_n\}$ be a set of meta-constraints defining subsets of
 A \emph{meta-constraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
 i.e. $L(C)=\{x \in L | Cond_1(x) \land ... \land Cond_n(x) \}$.
 \end{defn}
+
+\begin{exmp}
+In Imparo including 3 meta-constraints
+\begin{lstlisting}
+:- set_max_clauses(2).
+:- set_max_clause_length(6).
+:- set_max_var_depth(4).
+\end{lstlisting}
+in a file specifies a language bias as a set of all clausal theories
+with at most 2 clauses of maximum variable depth 4, each cosisting of at most 6 literals.
+\end{exmp}
 
 \begin{exmp}
 Let $Cond_1$ be a meta-constraint representing all clausal theories with at most one clause. Let $Cond_2$ be a meta-constraint representing all clausal theories whose members are definite clauses. Then $L(Cond_1 \land Cond_2)$ is a language of all theories containing exactly one definite clause.
