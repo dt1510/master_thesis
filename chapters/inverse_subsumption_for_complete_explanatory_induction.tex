@@ -1,6 +1,6 @@
 \chapter{Inverse subsumption for complete explanatory induction\cite{yamamoto2012inverse}}
 \label{inverse_subsumption_for_complete_explanatory_induction}
-The sections \ref{sec:preliminaries} and \ref{sec:inverse_subsumption_with_minimal_complements} paraphrase work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constraints the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the antientailment.
+The sections \ref{sec:preliminaries} and \ref{sec:inverse_subsumption_with_minimal_complements} paraphrase work by Yamamoto et al. \cite{yamamoto2012inverse} unless stated otherwise. For more examples, explanations and results, due to space constraints the reader is encouraged to consult the original source shall the need arise. The main result is a complete algorithm \emph{inverse subsumption with minimal complements} for deriving a hypothesis wrt $B, E$ by the method of the inverse subsumption in lieu of the anti-entailment.
 
 The remaining section \ref{inverse_subsumption_extensions} concern with the possible extensions of the inverse subsumption to first order theories, to support negative examples, the simplification of the algorithm and prove the completeness of Imparo in inverse subsumption.
 
@@ -105,7 +105,7 @@ Follows from the lemma \ref{yamamoto2012inverseLemma2}.
 \end{proof}
 \section{Extensions}\label{inverse_subsumption_extensions}
 \subsection{Extension to first-order theories}
-A generalization of the antisubsumption results to the first-order clausal theories enables a more efficient computation of anti-subsumption and of the minimal complement, especially if the number of potential tautologies is large since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground. We prove the soundness of the first-order extension and leave the completeness as an open question.
+A generalization of the anti-subsumption results to the first-order clausal theories enables a more efficient computation of anti-subsumption and of the minimal complement, especially if the number of potential tautologies is large since there is less need to search for a subsumed hypothesis as the hypothesis is already not ground. We prove the soundness of the first-order extension and leave the completeness as an open question.
 
 \begin{proposition}\label{soundness_first_order_extension}(Soundness of the first-order extension)
 Let $B$, $E$ and $I_H$ be a first-order background theory, examples and an induction field, respectively. Let $F$ be a bridge theory wrt $B$ and $E$. Suppose that $H \subsumes \tau(M(F \cup Taut(I_H)))$, then $B \cup H \models E$.
@@ -118,7 +118,7 @@ $B \cup H \models E$.
 \end{proof}
 
 \subsection{Negative examples}
-If $\models$ is a nonmonotonic consequence opearator, there are two possible constraints the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
+If $\models$ is a nonmonotonic consequence operator, there are two possible constraints the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
 \begin{enumerate}
 \item\label{first_negative_examples_constraint} $B \cup H \models \neg E^-$,
 \item\label{second_negative_examples_constraint} $B \cup H \not\models E^-$.
@@ -144,7 +144,7 @@ $T=\tau(M(F \cup Taut(\mathcal{I}_H))$ (recall $M(S)=\mu(\overline{S})$) for a b
 \end{defn}
 
 \begin{defn}
-Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{maximal hypothesis antisubsumer} wrt $B, E, \mathcal{I}_H$ is a theory
+Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{maximal hypothesis anti-subsumer} wrt $B, E, \mathcal{I}_H$ is a theory
 $T=\tau(M(F \cup Taut(\mathcal{I}_H))$ for a maximal bridge theory $F=B \land \overline{E}$ wrt $B, E$.
 \end{defn}
 
@@ -179,7 +179,7 @@ Hence by \fullref{yamamoto2012inverseLemma2} $H \subsumes \tau(M(B \cup \overlin
 Minimal complements with a maximal bridge theory is a special case of the original minimal complements algorithm where the bridge theory $F$ is required to be maximal, i.e. $F=B \cup \overline{E}$. The requirement for a maximal bridge theory $B \cup \overline{E}$ results in an in efficiency if the background knowledge $B$ is large. The advantage of the restricted algorithm is its simplicity and the preservation of completeness for finding a hypothesis $H$ wrt $\mathcal{I}_H, F_i$ wrt $B,E$, therefore providing an opportunity to improve the efficiency in a different direction.
 
 \subsection{Complete inverse subsumption operators}\label{complete_inverse_subsumption_operators}
-Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by antisumbsumption using two generalization operators dropping and antiinstantiation.
+Based on the work by Yamamoto et al. on the generalization operators\cite{yamamoto2008towards} it is proved that every theory $S$ subsuming a theory $T$ can be derived by anti-subsumption using two generalization operators dropping and anti-instantiation.
 
 \begin{defn}
 A logic theory $S$ is derivable from the logic theory $T$ by \emph{dropping} denoted $T \vdash_d S$ iff
@@ -191,7 +191,7 @@ $\{p \lor q\} \vdash_d \{p, q\}$.
 \end{exmp}
 
 \begin{defn}
-A logic theory $S$ is derivable from the logic theory $T$ by \emph{antiinstantiation} denoted $T \vdash_a S$ iff
+A logic theory $S$ is derivable from the logic theory $T$ by \emph{anti-instantiation} denoted $T \vdash_a S$ iff
 $\forall D \in T. \exists$ a substitution $\theta$, $\exists C \in S. C\theta = D$.
 \end{defn}
 
@@ -200,8 +200,8 @@ If $T=\{p(X) \lor q(X), r(X)\}$, then $T\vdash_a\{p(a) \lor q(a), r(X)\}$,
 but $T\not\vdash_a\{p(a) \lor q(b), r(X)\}$.
 \end{exmp}
 
-\begin{proposition}(Completeness of dropping and antiinstantiation for antisumption).
-Suppose that a logic theory $S$ theory-subsumes a logic theory $T$, then $S$ is derivable by dropping and antiinstantiation from $T$:
+\begin{proposition}(Completeness of dropping and anti-instantiation for anti-subsumption).
+Suppose that a logic theory $S$ theory-subsumes a logic theory $T$, then $S$ is derivable by dropping and anti-instantiation from $T$:
 $S \subsumes T \implies \exists U. T \vdash_d U \vdash_a S$.
 \end{proposition}
 \begin{proof}
@@ -213,7 +213,7 @@ Since $\forall C_D \theta_D \in U \exists C_D \in S. C_D \theta_D=C_D \theta_D$,
 \end{proof}
 
 \subsection{Imparo is complete in inverse subsumption}
-The use of the antientailment\cite{yamamoto2012inverse} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. The use of the antientailment instead of the antisubsumption may not preserve the completeness. However, we prove an open problem from \cite{yamamoto2012inverse} that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
+The use of the anti-entailment\cite{yamamoto2012inverse} in the computation of a hypothesis is an expensive operation as compared to the inverse subsumption. The use of the anti-entailment instead of the anti-subsumption may not preserve the completeness. However, we prove an open problem from \cite{yamamoto2012inverse} that for every correct hypothesis $H$ wrt $B, E^{+}, E^{-}$ there is a connected theory $T$ wrt $B, E^{+}, E^{-}$ subsumed by it.
 
 \begin{defn}\cite{kimber2012learning}
 An \emph{open program} is a triple $\langle B, U, I \rangle$ where $B$ is a program, $U$ is a set of predicates called \emph{undefined} or \emph{abducible}, and $I$ is a set of first-order
@@ -243,7 +243,7 @@ Therefore $\tau(M(M(T) \cup Taut(I_H))=\tau(M(M(T))=\tau(T)=T$ using
 \ref{yamamoto2012inverseTheorem4}. Therefore $H \subsumes T$ as required.
 \end{proof}
 \begin{remark}
-The previous proposition is stated and proved only to provide an alternative proof of a statement superceded by the stronger result \ref{completeness_ctis}.
+The previous proposition is stated and proved only to provide an alternative proof of a statement superseded by the stronger result \ref{completeness_ctis}.
 \end{remark}
 
 \begin{thm}\label{implicationByGroundClauses}
