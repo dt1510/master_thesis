@@ -500,13 +500,35 @@ In the Aleph manual\cite{aleph2007} a reader would find the description of the b
 The Toplog algorithm used to find a hypothesis $H$ uses an extended inverse entailment following the steps:
 
 \begin{itemize}
-\item construct the top theory $\top$ (a bias represented as a logic theory specified on the input by the user),
+\item construct the \emph{top theory} $\top$ (a bias represented as a logic theory specified on the input by the user),
 \item for every example $e \in E$:
 \item derive a clause $h_e$ such that $\top \models h_e$, $B \cup \{h_e\} \models e$, add $h_e$ to $H_c$,
 \item end loop,
 \item select $H \in H_c$ such that $s(H)$ is maximized for a score function $s:\mathcal{H} \to \mathbb{R}$.
 \end{itemize}
 The score function can be based on compression, coverage, accuracy, etc.
+
+\paragraph{Top theory\cite{muggleton2008toplog}}
+In general, a \emph{top theory} is any logic theory, it makes sense to reason about such a logic theory wrt some hypothesis.
+\begin{defn}
+A hypothesis $H$ is in a \emph{top theory bias} wrt a top theory $\top$ iff $H \models \top$.
+\end{defn}
+A top theory $\top$ is a generalization of mode declarations:
+\begin{exmp}\cite{muggleton2008toplog}
+From the mode declarations
+\begin{lstlisting}
+modeh(mammal(+animal)).
+modeb(has milk(+animal)).
+modeb(has eggs(+animal)).
+\end{lstlisting}
+a correspondent constructed top theory is a set of clauses
+\begin{lstlisting}
+mammal(X) :- $body(X).
+: $body(X) :- .%emptybody
+: $body(X) :- has milk(X),$body(X).
+: $body(X) :- has eggs(X),$body(X).
+\end{lstlisting}
+\end{exmp}
 
 \subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}\cite{corapi2011nonmonotonic}}
 Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories following the steps:
