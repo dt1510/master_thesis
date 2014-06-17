@@ -26,8 +26,8 @@ Progol and Xhail check for consistency of the input theories, but other systems 
 ILP systems Xhail and Tal produce redundant hypotheses \ref{classification_robustness}. Therefore the experimental classification of ILP systems provides the information about specific properties of ILP systems that cannot be captured by their theoretical frameworks.
 
 \subsection{Language bias specification and classification}
-We learnt that a language bias of 6 ILP systems classified can be expressed with mode declarations, determinations and other introduced language bias constraints called metaconstraints and this new language bias specification as we proved is compatible with a theoretical and implementation independent language bias specification by Inoue called a production field. We classified 6 ILP systems based on their support of mode declarations \ref{classification_mode_declarations},
-determinations \ref{classification_determinations} and metaconstraints \ref{tab:classification_by_metaconstraints}: a maximum number of literals in a clause of a hypothesis, a maximum number of clauses in a hypothesis, maximum variable depth and number of singletons in a hypothesis. We learnt that Xhail has the most advanced specification of the mode language, while Aleph and Imparo supported the recorded maximum of 3 metaconstraints on which we analysed the systems.
+We learnt that a language bias of 6 ILP systems classified can be expressed with mode declarations, determinations and other introduced language bias constraints called meta-constraints and this new language bias specification as we proved is compatible with a theoretical and implementation independent language bias specification by Inoue called a production field. We classified 6 ILP systems based on their support of mode declarations \ref{classification_mode_declarations},
+determinations \ref{classification_determinations} and meta-constraints \ref{tab:classification_by_meta-constraints}: a maximum number of literals in a clause of a hypothesis, a maximum number of clauses in a hypothesis, maximum variable depth and number of singletons in a hypothesis. We learnt that Xhail has the most advanced specification of the mode language, while Aleph and Imparo supported the recorded maximum of 3 meta-constraints on which we analysed the systems.
 
 \subsection{Inverse subsumption for complete explanatory induction}
 Finally, we extended the inverse subsumption methods for finding a hypothesis to include negative examples and first-order extension of a bias specification of an induction field. We relaxed the inverse subsumption with minimal complements algorithm by Yamamoto et al. while preserving its completeness. We defined two new  operators for inverse subsumption and proved their completeness. We implemented an ILP prototype system Rationale that realises these theoretical results. Finally, we solved an open problem that Imparo
@@ -82,7 +82,7 @@ There are far many directions and ideas we would like to explore that are out of
 \end{itemize}
 \item \subsubsection{Methods in ILP}
 \begin{itemize}
-\item automatic specification of the language bias (as opposed to the manual one by mode declarations, determination and metaconstraints),
+\item automatic specification of the language bias (as opposed to the manual one by mode declarations, determination and meta-constraints),
 \item a hypothesis justification in a selection process (analogous to argumentation frameworks of abstract argumentation by Dung\cite{dung1995acceptability}, and Assumption Based Argumentation by Dung et al.\cite{dung2009assumption} for justifying a logical statement (an argument)),
 \end{itemize}
 \end{itemize}

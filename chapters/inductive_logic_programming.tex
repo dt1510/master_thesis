@@ -82,18 +82,18 @@ They compute the hypothesis $H$ in two steps:
 An ILP system is a program that solves an ILP task.
 An input to an ILP system is a logic program that can be conceptually divided into 3 parts:
 \begin{itemize}
-\item objectlevel statements: background knowledge, examples: positive and negative,
-\item effective metalevel statements,
-\item non-effective metalevel statements.
+\item object-level statements: background knowledge, examples: positive and negative,
+\item effective meta-level statements,
+\item non-effective meta-level statements.
 \end{itemize}
 
-Objectlevel statements provide the main setting of a learning problem and concern with what is known: the language $L$, a set of observations, etc.
+Object-level statements provide the main setting of a learning problem and concern with what is known: the language $L$, a set of observations, etc.
 
-Effective metalevel statements provide a refinement of the main setting and concern with how the learning problem may be solved and what form the solution is expected to take. Their specification converts a learning problem into a potentially easier, more directed and concrete \emph{ILP task}.
-\emph{Mode declarations} and \emph{determinations} are effective metalevel statements specifying a constraint on a language $L$ to determine the search space $\mathcal{H}$ of possible hypotheses. The other effective metalevel statements may impose further \emph{metalevel constraints} on $L$. The set of constraints on $L$ determining the search space $\mathcal{H}$ is called a \emph{language bias}.
-Apart from the specification of a language bias, effective metalevel statements contain search control statements that affect the form the computation of a hypothesis takes place and contain decision elements: preferential bias - which hypothesis should be preferred over the other, which parts of the background knowledge should be considered, etc.
+Effective meta-level statements provide a refinement of the main setting and concern with how the learning problem may be solved and what form the solution is expected to take. Their specification converts a learning problem into a potentially easier, more directed and concrete \emph{ILP task}.
+\emph{Mode declarations} and \emph{determinations} are effective meta-level statements specifying a constraint on a language $L$ to determine the search space $\mathcal{H}$ of possible hypotheses. The other effective meta-level statements may impose further \emph{meta-level constraints} on $L$. The set of constraints on $L$ determining the search space $\mathcal{H}$ is called a \emph{language bias}.
+Apart from the specification of a language bias, effective meta-level statements contain search control statements that affect the form the computation of a hypothesis takes place and contain decision elements: preferential bias - which hypothesis should be preferred over the other, which parts of the background knowledge should be considered, etc.
 
-Non-effective metalevel statements do not affect the result of the computation of a hypothesis. They are either required syntactic sugar or their primary purpose concerns different aspects of an ILP system, e.g. to provide the statistics about the computation to the user.
+Non-effective meta-level statements do not affect the result of the computation of a hypothesis. They are either required syntactic sugar or their primary purpose concerns different aspects of an ILP system, e.g. to provide the statistics about the computation to the user.
 
 The primary output of an ILP system is a solution (a hypothesis or their set) to a refined learning problem.
 
@@ -112,10 +112,10 @@ Aleph is an ILP system based on Progol developed in order to understand the conc
 
 \subsection{Toplog\cite{santos2008toplogWebsite}\cite{muggleton2008toplog}}
 Toplog is an ILP system extending the use of Inverse Entailment by a top theory $\top$ bias.
-The search space is restricted by requiring that each hypothetised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
+The search space is restricted by requiring that each hypothesised clause of a hypothesis $H$ must be entailed by the top theory $\top$.
 
 \subsubsection{MC-Toplog\cite{muggleton2012mc}}
-MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. It restricts a hypotheses space to clauses entailing generalization of multiple examples as opposesed to Toplog that could generalizing only a single example.
+MC-Toplog is a sequel of Toplog, derives hypotheses like Toplog, in addition allows multiple clauses in a hypothesis. It restricts a hypotheses space to clauses entailing generalization of multiple examples as opposed to Toplog that could generalizing only a single example.
 
 \subsection{Hail\cite{ray2003hybrid}\cite{ray2005phdHybrid}}
 A Hail (Hybrid abductive inductive learning) ILP system extending the Progol's incomplete method of bottom generalization to a more complete method of \emph{kernel set generalization} with the methods of abductive logic programming.

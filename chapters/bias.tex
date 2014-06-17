@@ -19,7 +19,7 @@ The space of all possible hypotheses $H \in \mathcal{H}$ is restricted by a lang
 \begin{itemize}
 \item mode declarations,
 \item determinations,
-\item metaconstrains,
+\item meta-constraints,
 \item induction and production field.
 \end{itemize}
 
@@ -35,8 +35,8 @@ Muggleton defines the hypothesis bias $\mathcal{H}$ with mode language and mode 
 \begin{defn}\cite{muggleton1995inverse}
 A \emph{mode declaration} has either the form
 \tc{modeh(n,atom)} or \tc{modeb(n,atom)} where $n$, the \emph{recall}, is either an integer, $n \ge 1$,
-or \tc{*} and atom is a ground atom. Terms in the atom are either normal or placemarker. A normal term is either a constant or a function symbol followed by a
-bracketed tuple of terms. A placemarker is either \tc{+type}, \tc{-type} or \tc{\#type}, where
+or \tc{*} and atom is a ground atom. Terms in the atom are either normal or place-marker. A normal term is either a constant or a function symbol followed by a
+bracketed tuple of terms. A place-marker is either \tc{+type}, \tc{-type} or \tc{\#type}, where
 type is a constant. If $m$ is a mode declaration then $a(m)$ denotes the atom of m
 with place-markers replaced by distinct variables. The sign of $m$ is positive if $m$
 is a \tc{modeh} and negative if $m$ is a \tc{modeb}.
@@ -51,7 +51,7 @@ Let $C$ be a definite clause with a
 defined total ordering over the literals and $M$ be a set of mode declarations.
 $C = h \leftObjectImplies b1, ..., bn$ is in the \emph{definite mode language} $L(M)$ iff 1) $h$ is the atom
 of a \tc{modeh} declaration in $M$ with every place-marker \tc{+type} and \tc{-type} replaced by
-variables and every placemarker \tc{\#type} replaced by a ground term and 2) every
+variables and every place-marker \tc{\#type} replaced by a ground term and 2) every
 atom $b_i$ in the body of $C$ is the atom of a \tc{modeb} declaration in $M$ with every
 place-marker \tc{+type} and \tc{-type} replaced by variables and every place-marker \tc{\#type}
 replaced by a ground term and 3) every variable of \tc{+type} in any atom $b_i$ is either
@@ -71,7 +71,7 @@ $H_1=woman(X)$,
 $H_2=woman(X) \leftObjectImplies female(X)$,
 $H_3=woman(X) \leftObjectImplies male(X)$,
 $H_4=woman(X) \leftObjectImplies female(X), male(X)$.
-Thefore the hypothesis bias created by the mode declarations 
+Therefore the hypothesis bias created by the mode declarations 
 is $\mathcal{H}=L(M)=\{H_1, H_2, H_3, H_4\}$, but $H_5 \not\in L(M)$ for
 $H_5=woman(X) \leftObjectImplies cook(X)$.
 \end{exmp}
@@ -129,15 +129,15 @@ Then for the hypothesis bias (determination language) $\mathcal{H}=L(D)$,
 $\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
 \end{exmp}
 
-\subsection{Metaconstraints}\label{bias_metaconstraints}
-Metaconstraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
-An example being a metaconstraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
+\subsection{meta-constraints}\label{bias_meta-constraints}
+meta-constraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
+An example being a meta-constraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
 
 \begin{defn}
-A \emph{metaconstraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{metaconstraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
+A \emph{meta-constraint} on a language $L$ is any formula $Cond$ defining some subset $L(Cond)$ (\emph{meta-constraint language}) of the language $L$, i.e. $L(Cond)=\{x \in L | Cond(x)\}\subseteq L$.
 \end{defn}
 
-Each ILP system has its own set of allowed metaconstraints.
+Each ILP system has its own set of allowed meta-constraints.
 \begin{exmp}
 In Toplog \tc{set(maximum\_literals\_in\_hypothesis, 5)} defines clausal theories whose clauses consist of at most 5 literals.
 In Imparo \tc{set\_max\_clauses(2)} defines clausal theories with at most 2 clauses.
@@ -145,24 +145,24 @@ In Tal \tc{option(max\_body\_literals, 5)} defines definite theories whose claus
 \end{exmp}
 
 \begin{proposition}
-Let $Cond_1, Cond_2$ be metaconstrains on a language $L$.
-Then the following are metaconstrains on the language $L$:
+Let $Cond_1, Cond_2$ be meta-constraint on a language $L$.
+Then the following are meta-constraints on the language $L$:
 $\neg Cond_1$, $Cond_1 \land Cond_2$, $Cond_1 \lor Cond_2$.
 \end{proposition}
 
 \begin{proof}
-Follows trivially from the definition of a metaconstraint.
+Follows trivially from the definition of a meta-constraint.
 \end{proof}
 
 \begin{remark}
-ILP systems we classify allow only a specification of a conjunction of metaconstraints. However, from the theoretical point of view, their negations and disjunctions make sense and it is possible to design an ILP system with an extended metaconstraint specification.
+ILP systems we classify allow only a specification of a conjunction of meta-constraints. However, from the theoretical point of view, their negations and disjunctions make sense and it is possible to design an ILP system with an extended meta-constraint specification.
 \end{remark}
 
-Therefore we will often think of a set of the metaconstraints to be a metaconstraint created from their conjunction.
+Therefore we will often think of a set of the meta-constraints to be a meta-constraint created from their conjunction.
 
 \begin{defn}
-Let $C=\{Cond_1, ..., Cond_n\}$ be a set of metaconstraints defining subsets of the language $L$.
-A \emph{metaconstraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
+Let $C=\{Cond_1, ..., Cond_n\}$ be a set of meta-constraints defining subsets of the language $L$.
+A \emph{meta-constraint language} $L(C)$ is the intersection of the subsets defined by $Cond_1, ..., Cond_n$,
 i.e. $L(C)=\{x \in L | Cond_1(x) \land ... \land Cond_n(x) \}$.
 \end{defn}
 
@@ -187,7 +187,7 @@ every literal in $H_g$ is included in $Lit$.
 \end{defn}
 
 \subsection{Correspondence between mode declarations, determinations, meta constraints and production field}\label{bias_correspondence}
-A production field is a generalization of mode declarations, determinations and metaconstraints.
+A production field is a generalization of mode declarations, determinations and meta-constraints.
 
 \begin{proposition}\label{md_d_pf_correspondence_proposition}
 Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
@@ -201,7 +201,7 @@ such that for any clause $H \in L$:\\
 \end{proposition}
 The following proof is non-constructive.
 \begin{proof}
-Let $L$ be a logic language. By the definitios of definite mode language \ref{definition_definite_mode_language} and determination language \ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
+Let $L$ be a logic language. By the definitions of definite mode language \ref{definition_definite_mode_language} and determination language \ref{definition_determination_language}, $L(M)$ and $L(D)$ are definable.
 Let $Cond_M$, $Cond_D$ be defining formulas for $L(M)$ and $L(D)$, i.e. $L(M)=\{x \in L | Cond_M(x)\}$, $L(D)=\{x \in L | Cond_D(x)\}$.
 Let $Cond_{M,D}=Cond_M \land Cond_D$. Let $Lit$ be a set of all literals of $L$ and let
 $Lit_M=L(M) \cap Lit$,
@@ -214,10 +214,10 @@ $\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
 satisfy the conditions 1, 2, 3 respectively trivially.
 \end{proof}
 
-Given production fields defining the bias of mode declarations and determinations, productions fields with additional metaconstraints can be constructed.
+Given production fields defining the bias of mode declarations and determinations, productions fields with additional meta-constraints can be constructed.
 
-\begin{proposition}\label{proposition_metaconstraints_production_field}
-Let $\mathcal{P}$ be any production field, $C$ a set of metaconstraints.
+\begin{proposition}\label{proposition_meta-constraints_production_field}
+Let $\mathcal{P}$ be any production field, $C$ a set of meta-constraints.
 Then there exists a production field $\mathcal{P}_C$ such that
 $\mathcal{P}_C=\mathcal{P} \cap L(C)$, i.e.
 $\forall H \in L. H \in \mathcal{P}_C \iff (H \in \mathcal{P}) \land (H \in L(C))$.
@@ -233,7 +233,7 @@ iff $H \in \langle Lit, Cond \rangle = \mathcal{P}$ and $H \in L(Cond_1 \land ..
 \end{proof}
 
 \begin{corollary}
-Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the metaconstraints.
+Let $M$ be a set of mode declarations, $D$ an ordered list of determinations, $C$ a set of the meta-constraints.
 Then there exist production fields
 $\mathcal{P}_{M,C}$,
 $\mathcal{P}_{M,D,C}$
@@ -242,13 +242,13 @@ such that for any clause $H \in L$:\\
 2) $H \in L(M) \cap L(D) \cap L(C) \iff H \in \mathcal{P}_{M,D,C}$.\\
 \end{corollary}
 \begin{proof}
-Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_metaconstraints_production_field}.
+Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_meta-constraints_production_field}.
 \end{proof}
 
-The converse depends on the possible metaconstraints. If one allowed a metaconstraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and metaconstraints.
+The converse depends on the possible meta-constraints. If one allowed a meta-constraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and meta-constraints.
 
 \section{Classification by language bias}\label{sec:classification_language_bias}
-The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and metaconstraints.
+The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and meta-constraints.
 
 \subsection{Mode declarations}\label{classification_mode_declarations}
 The use of the mode declarations in an ILP system and their defining role is summarised.
@@ -306,7 +306,7 @@ Toplog's modeb declarations are compatible with Progol up to specification of th
 \end{exmp}
 
 \paragraph{Xhail}\label{xhail_mode_declarations}
-Xhail has extended mode declarations to include metaconstraint statements in order to refine its search space.
+Xhail has extended mode declarations to include meta-constraint statements in order to refine its search space.
 
 Xhail executable's help\cite{ray2007xhail} reads:
 \begin{quote}
@@ -327,7 +327,7 @@ modeb(0,1,pos,female("+person")).
 \end{lstlisting}
 \end{exmp}
 
-Whereas Progol specifies the recall by its upper bound, Xhail enables its specification for both its \emph{lower bound} and upper bound. Metaconstraint statements
+Whereas Progol specifies the recall by its upper bound, Xhail enables its specification for both its \emph{lower bound} and upper bound. meta-constraint statements
 \tc{min}, \tc{all}, \tc{pos}, \tc{neg} constraint the hypothesis bias further.
 
 \paragraph{Imparo}\cite{kimber2013imparo}
@@ -360,12 +360,12 @@ Toplog, Xhail, Imparo, Tal do not support the determinations.
 Progol supports the use of the determinations, cf. \ref{progol_multiclausal_learning}, but it does not require it, cf. \ref{progol_specialization_in_arguments}.
 Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
 
-\subsection{Metaconstraints}\label{classification_metaconstraints}
-Metaconstraints supplement mode declarations and determinations in specifying the language bias. Several metaconstraints are selected and their support is evaluated accross the ILP systems classified:
+\subsection{meta-constraints}\label{classification_meta-constraints}
+meta-constraints supplement mode declarations and determinations in specifying the language bias. Several meta-constraints are selected and their support is evaluated across the ILP systems classified:
 
 \begin{itemize}
 \item the maximum number of literals in a clause of a hypothesis,
-\item the maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need and cannot support this metaconstraint,
+\item the maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need and cannot support this meta-constraint,
 \item the maximum variable depth\ref{definition_variable_depth} of a hypothesis,
 \item the (minimum and maximum) number of singletons in a hypothesis:
 a singleton is a variable that appears only once in a hypothesis\cite{santos2008toplogWebsite}
@@ -391,8 +391,8 @@ $0,0,1,2$ respectively.
 \end{exmp}
 
 \paragraph{Progol}
-Progol can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a metaconstraint specifying the number of clauses in a hypothesis.
-Progol manual does not provide information about its metalevel constraints. The metalevel constraints used in the provided files\cite{muggleton1999progolWebsite} were of the following format:
+Progol can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a meta-constraint specifying the number of clauses in a hypothesis.
+Progol manual does not provide information about its meta-level constraints. The meta-level constraints used in the provided files\cite{muggleton1999progolWebsite} were of the following format:
 \begin{lstlisting}
 ./pole.pl::- op(10, xfx, ...)?
 ./pole.pl::- op(30,xfy,:)?
@@ -402,10 +402,10 @@ Progol manual does not provide information about its metalevel constraints. The 
 ./numbers.pl::- set(nodes,100)?
 ./numbers.pl::- set(i,5), set(c,5)?
 \end{lstlisting}
-Their change did not affect the properties examined, hence the author assumes Progol does not support any of the metaconstraints.
+Their change did not affect the properties examined, hence the author assumes Progol does not support any of the meta-constraints.
 
 \paragraph{Aleph}
-Aleph supports the first 3 chosen metaconstraints as can be consulted in the section 18 of the Aleph manual\cite{aleph2007}.
+Aleph supports the first 3 chosen meta-constraints as can be consulted in the section 18 of the Aleph manual\cite{aleph2007}.
 \begin{quote}
 \begin{itemize}
 \item (Maximum number of literals in a clause) \tc{set(clauselength,+V)}:
@@ -419,7 +419,7 @@ $V$ is a positive integer. Sets upper bound on the number of clauses in a theory
 The manual does not provide the information on specifying the number of singletons in a clause, hence it is assumed that this feature is not supported.
 
 \paragraph{Toplog}
-Toplog can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a metaconstraint specifying the number of clauses in a hypothesis. It supports the specification of the maximum number $N$ of literals in a hypothesis with a metalevel statement\\
+Toplog can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a meta-constraint specifying the number of clauses in a hypothesis. It supports the specification of the maximum number $N$ of literals in a hypothesis with a meta-level statement\\
 \tc{:-set(maximum\_literals\_in\_hypothesis,N)} found for example in carcinogenesis.pl file\cite{santos2008toplogWebsite}. The manual does not provide any information on the variable depth, therefore it is assumed that this feature is not supported in Toplog.
 By the manual Toplog supports the specification of a maximum and minimum number of singletons in a hypothesis as can be also found in carcinogenesis.pl file:
 \begin{lstlisting}
@@ -428,7 +428,7 @@ By the manual Toplog supports the specification of a maximum and minimum number 
 \end{lstlisting}
 
 \paragraph{Xhail}
-In \ref{xhail_mode_declarations} we found out that Xhail has the most advanced system of mode declarations. On the other hand it does not support any of the chosen metaconstraints\cite{ray2007xhail}. The author consulted the Xhail's help and example files provided with Xhail as there was no access to the source code.
+In \ref{xhail_mode_declarations} we found out that Xhail has the most advanced system of mode declarations. On the other hand it does not support any of the chosen meta-constraints\cite{ray2007xhail}. The author consulted the Xhail's help and example files provided with Xhail as there was no access to the source code.
 
 \paragraph{Imparo}
 In a grammar learning file available with Imparo\cite{kimber2013imparo} one can find the setting:
@@ -443,22 +443,22 @@ Therefore Imparo supports the specification of the clausal length, the maximum n
 Tal enables the specification of the clausal length by specifying the number of the literals in the body of a clause \tc{option(max\_body\_literals, N)}\cite{corapi2010inductive}. Tal specifies the number of clauses in a hypothesis with \tc{option(max\_num\_rules, N)}\cite{corapi2010inductive}, where a rule is understood as a clause. Tal's manual and source files do not mention variable depth and bounding the number of singleton variables in a clause, hence it is assumed that these features are not supported.
 
 \paragraph{Summary}
-The support for the metaconstraints of interest is summarised.
+The support for the meta-constraints of interest is summarised.
 
-\captionof{table}{Classification by metaconstraints} \label{tab:classification_by_metaconstraints} 
+\captionof{table}{Classification by meta-constraints} \label{tab:classification_by_meta-constraints} 
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
-    Metaconstraint/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    meta-constraint/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
     Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
     Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
     Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
     Number of singletons in $H$ & no & no & yes & no & no & no\\ \hline
   \end{tabular}
   
-If one considered the chosen metaconstraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with metaconstraints whereas Aleph and Imparo have the most poweful system.
+If one considered the chosen meta-constraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with meta-constraints whereas Aleph and Imparo have the most powerful system.
 
 \section{Classification by search bias}\label{classification_by_search_bias}
-Search bias\cite{nienhuys1997foundations} is defined by the properties of an algorithm that searches a hypothesis: heuritics and direction of a search. We present a hypothesis search algorithm for each ILP system and then 
+Search bias\cite{nienhuys1997foundations} is defined by the properties of an algorithm that searches a hypothesis: heuristics and direction of a search. We present a hypothesis search algorithm for each ILP system and then 
 we compare how ILP systems search the hypothesis space based on the search direction.
 \subsection{Algorithms}
 
