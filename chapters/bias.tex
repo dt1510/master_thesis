@@ -533,8 +533,8 @@ The first three clauses imply a clause $H=mammal(X) \leftObjectImplies has\_milk
 which is indeed in mode language $L(M)$ specified by the 3 mode declarations.
 \end{exmp}
 
-\subsubsection{Xhail\cite{kimber2012learning}\cite{ray2005phdHybrid}\cite{corapi2011nonmonotonic}}
-Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories following the steps:
+\subsubsection{Xhail\cite{ray2009nonmonotonic}}
+Xhail (also described in \cite{kimber2012learning}\cite{corapi2011nonmonotonic}) extends the Hail's(\cite{ray2005phdHybrid}) algorithm for $H$, $B$ to be normal theories following the steps:
 \begin{itemize}
 \item find an abductive explanation $\Delta=\{\alpha_1, ..., \alpha_n\}$ for atoms in $E$ from $B$, i.e. $B \cup \Delta \models E$,
 \item find the set of atoms $\beta=\{\delta | B \models \delta\}$ that can be deduced from $B$ using SLD resolution,
@@ -542,7 +542,7 @@ Xhail's extends the Hail's algorithm for $H$, $B$ to be normal theories followin
 \item find $H$ subsuming the kernel set $K$ by deleting the body literals of the clauses in $K$.
 \end{itemize}
 
-\subsubsection{Imparo}
+\subsubsection{Imparo\cite{kimber2012learning}}
 Imparo is an ILP system based on a general IoF theoretical framework with the following algorithm:
 \begin{itemize}
 \item initialize $i=1$, $B_1=B$, $E^+_1=E^+$,
