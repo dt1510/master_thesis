@@ -62,6 +62,14 @@ Let $\Sigma \subseteq L$, $\phi \in L$, then we say that $\Sigma$ \emph{equals} 
 If $\Sigma \subseteq L$, $\phi \in L$, $\Sigma=\phi$, then under the defined equality relation it is allowed to write both, $\Sigma \subseteq L$ and $\Sigma \in L$, for the later meaning $\Sigma = \phi \in L$.
 \end{remark}
 
+\paragraph{Infix notation convention}
+Let $\alpha$ and $\beta$ be two infix operators (predicate symbols) for binary relations, let $A,B,C$ be terms (definition \ref{definition_term}), $\phi$, $\psi$ be the formulas
+$\phi=A \alpha B$,
+$\psi=B \beta C$. Then we abbreviate the formula $\phi \land \psi = (A \alpha B) \land (B \beta C)$ to a word $A \alpha B \beta C$.
+\begin{exmp}
+For terms $A,B,C$ denoting sets we abbreviate the statement $(A=B) \land (B \subseteq C)$ to a word $A=B\subseteq C$.
+\end{exmp}
+
 \section{Model theory\cite{marker2002model}}
 We will reason in first-order model theory using the logic language we defined and will use the first-order definitions from Model Theory by Marker\cite{marker2002model}.
 
@@ -162,7 +170,7 @@ The following definitions and concepts are adaptations from Dianhuan Lin's Maste
 
 \subsection{Basic concepts and notation of Logic Programming\cite{lin2009efficient}}
 
-\begin{defn}
+\begin{defn}\label{definition_term}
 A term is a constant, variable, or the application of a function symbol to the appropriate number of terms. A ground term is a term not containing variables.
 An atom is the application of a predicate symbol to the appropriate number of terms. A literal is an atom or the negation of an atom.
 \end{defn}
