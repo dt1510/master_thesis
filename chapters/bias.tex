@@ -174,7 +174,7 @@ Inoue defines a production field as another form of a language bias.
 A \emph{production field} $\mathcal{P}$ is a represented by a pair,
 $\langle Lit, Cond\rangle$, where $Lit$
 (\emph{the characteristic literals} of $\mathcal{P}$) is a subset of literals in a language $L$ and is closed under instantiation (that is, if a literal containing variables is in $Lit$, then all its instances are also in $Lit$), and $Cond$ is a certain condition to be satisfied. 
-A clause $C$ is said to belong to a production field $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
+A clause $C$ is said to \emph{belong to a production field} $\mathcal{P} = \langle Lit, Cond \rangle$ if every literal in $C$ belongs to $Lit$ and $C$ satisfies $Cond$.
 \end{defn}
 
 
@@ -186,6 +186,12 @@ An \emph{induction field} denoted $\mathcal{I}_H=\langle Lit \rangle$ is a produ
 A ground hypothesis $H_g$ \emph{belongs to} an induction field $\mathcal{I}_H=\langle Lit \rangle$ iff
 every literal in $H_g$ is included in $Lit$.
 \end{defn}
+
+\begin{exmp}
+Let a set of literals be $Lit=\{p, q, r\}$ and a condition $Cond$ on a clause $C$ be $Cond(C) \iff \#C=2$, then the production field
+$\langle Lit, Cond \rangle = \{ p \lor q, p \lor r, q \lor r\}$ and the induction field $\langle Lit \rangle = \langle Lit, true \rangle = \{\square, p, q, r, p \lor q, p \lor r, q \lor r, p \lor q \lor r\}$ where $\square$ is an empty clause.
+Then $H=p \leftObjectImplies q \equiv p \lor \neg q$ does not belong to an induction field $\langle Lit \rangle$ or a production field $\langle Lit, Cond \rangle$, but $H$ belongs to an induction field $\langle Lit \cup \{\neg q\} \rangle$ and to a production field $\langle Lit \cup \{\neg q\}, Cond \rangle$.
+\end{exmp}
 
 \subsection{Correspondence between mode declarations, determinations, meta constraints and production field}\label{bias_correspondence}
 A production field is a generalization of mode declarations, determinations and meta-constraints.
