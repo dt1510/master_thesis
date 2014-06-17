@@ -17,13 +17,13 @@ that $C \subsumes D$. We denote by the inverse relation $\subsumed$ of the (theo
 \begin{defn}
 Let $S$ be a ground clausal theory $\{C_1, C_2,... ,C_n\}$ where each clause $C_i$ $(1 \le i \le n)= l_{i,1} \lor l_{i,2} \lor... \lor l_{i,m_i}$.
 The \emph{complement} of $S$ is defined as
-\\$\bar{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
+\\$\overline{S} = \{\neg l_{1,k_1} \lor \neg l_{2,k_2} \lor... \lor \neg l_{n,k_n} |
 1 \le k_1 \le m_1 , 1 \le k_2 \le m_2,..., 1 \le k_n \le m_n\}$.
-In case that $S$ is empty, $\bar{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
+In case that $S$ is empty, $\overline{S}$ is defined as the set $\{\bot\}$ where $\bot$ is the empty clause.
 \end{defn}
 
 \begin{remark}
-$S$ is a CNF formula such that $\bar{S} \equiv \neg S$.
+$S$ is a CNF formula such that $\overline{S} \equiv \neg S$.
 \end{remark}
 
 \begin{defn}
@@ -32,14 +32,14 @@ $S$ is a CNF formula such that $\bar{S} \equiv \neg S$.
 
 \begin{defn}
 \emph{$\mu(S)$} denotes the clausal theory obtained by removing from $S$ all clauses that are properly subsumed by clauses in a logic theory $S$.
-The \emph{minimal complement} of $S$ is $M(S)=\mu(\bar{S})$.
+The \emph{minimal complement} of $S$ is $M(S)=\mu(\overline{S})$.
 \end{defn}
 
 \begin{exmp}
 Let $S=\{a \lor b, b \lor c, \neg c\}$. Then
-$\bar{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, \neg b \lor \neg c \lor c\}$.
+$\overline{S}=\{\neg a \lor \neg b \lor c, \neg a \lor \neg c \lor c, \neg b \lor c, \neg b \lor \neg c \lor c\}$.
 $M(S)=\{\neg a \lor \neg c \lor c, \neg b \lor c\}$,
-$\tau(\bar{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
+$\tau(\overline{S})=\{\neg a \lor \neg b \lor c, \neg b \lor c\}$.
 \end{exmp}
 
 The inverse subsumption with minimal complements computes a hypothesis $H$ wrt to a bridge theory $F$ and an induction field $\mathcal{I}_H$.
@@ -47,7 +47,7 @@ The inverse subsumption with minimal complements computes a hypothesis $H$ wrt t
 \begin{defn}\label{definition_bridge_theory}
 Let $B$ and $E$ be a background theory and examples, respectively.
 Let $F$ be a ground clausal theory. Then $F$ is a \emph{bridge theory} wrt $B$ and $E$ if
-$B \land \bar{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
+$B \land \overline{E} \models F$ holds. If no confusion arises, a bridge theory wrt $B$ and $E$ will simply be called a bridge theory.
 \end{defn}
 
 The author finds the notion of the maximal bridge theory useful in later chapters.
@@ -135,6 +135,8 @@ $H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arb
 $B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$. As $B \cup \{\neg e\}$ is a bridge formula, this follows from lemma \ref{yamamoto2012inverseLemma2} and proposition \ref{soundness_first_order_extension}.
 \end{proof}
 
+
+
 \subsection{Relaxation of minimal complements to a maximal bridge theory}
 We relax the procedure of the minimal complements by using a maximal bridge theory (definition \ref{maximal_bridge_theory_definition}) while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
 
@@ -152,7 +154,7 @@ By the completeness of inverse subsumption with minimal complements, for every h
 
 \begin{defn}
 A hypothesis $H$ is derived by \emph{inverse subsumption with minimal complements with a maximal bridge theory} wrt $B, E, \mathcal{I}_H$ iff
-$H \subsumes \tau(M(B \cup \bar{E} \cup Taut(\mathcal{I}_H))$.
+$H \subsumes \tau(M(B \cup \overline{E} \cup Taut(\mathcal{I}_H))$.
 \end{defn}
 
 \begin{lemma}\label{lemma_hypothesis_wrt_bridge_theory_correspondence}
