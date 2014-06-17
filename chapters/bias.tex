@@ -132,7 +132,7 @@ $\{H_1, H_2, H_3, H_4, H_5\} \cap \mathcal{H}=\{H_1, H_2, H_3\}$.
 \end{exmp}
 
 \subsection{Meta-constraints}\label{bias_meta-constraints}
-meta-constraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
+Meta-constraints specify the additional constraints on the hypothesis space $\mathcal{H}$ not definable with the mode declarations and determinations.
 An example being a meta-constraint $Cond$ specifying the maximum number of the literals allowed in a formula $H \in L$.
 
 \begin{defn}
@@ -194,7 +194,7 @@ Then $H=p \leftObjectImplies q \equiv p \lor \neg q$ does not belong to an induc
 \end{exmp}
 
 \subsection{Correspondence between mode declarations, determinations, meta constraints and production field}\label{bias_correspondence}
-A production field is a generalization of mode declarations, determinations and meta-constraints.
+We prove that a production field is a generalization of mode declarations, determinations and meta-constraints and hence establish a correspondence between our formalism of a language bias specification capturing the notions encountered in implementations of ILP systems and an implementation independent formalism of a language bias specification by Inoue.
 
 \begin{proposition}\label{md_d_pf_correspondence_proposition}
 Let $M$ be a set of mode declarations, $D$ an ordered list of determinations. Then there exist production fields
@@ -221,7 +221,7 @@ $\mathcal{P}_{M,D}=\langle Lit_{M,D}, Cond_{M,D} \rangle$
 satisfy the conditions 1, 2, 3 respectively trivially.
 \end{proof}
 
-Given production fields defining the bias of mode declarations and determinations, productions fields with additional meta-constraints can be constructed.
+Given production fields defining the bias of mode declarations and determinations, we prove that productions fields with additional meta-constraints can be constructed.
 
 \begin{proposition}\label{proposition_meta-constraints_production_field}
 Let $\mathcal{P}$ be any production field, $C$ a set of meta-constraints.
@@ -255,14 +255,16 @@ Follows from \ref{md_d_pf_correspondence_proposition} and \ref{proposition_meta-
 The converse depends on the possible meta-constraints. If one allowed a meta-constraint for every possible definable condition $Cond$, then one could express any production field $\mathcal{P}=\langle Lit, Cond \rangle$ with mode declarations, determinations and meta-constraints.
 
 \section{Classification by language bias}\label{sec:classification_language_bias}
-The objective of this subsection is to classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and meta-constraints.
+In this subsection we use our formalism of a language bias specification to 
+classify ILP systems based on their peculiarities related to the language bias: mode declarations, determinations and meta-constraints.
 
 \subsection{Mode declarations}\label{classification_mode_declarations}
-The use of the mode declarations in an ILP system and their defining role is summarised.
+We summarise the use of mode declarations in an ILP system and their defining role.
 
 We examine the compatibility of mode declarations with the mode declarations of Progol since mode declarations were first defined for Progol in seminal work by Muggleton\cite{muggleton1995inverse}.
-We say that a system of mode declarations is Progol compatible iff any hypothesis bias definable with Progol mode declarations can be defined within that system.
+We say that a system of mode declarations is \emph{Progol compatible} iff any hypothesis bias definable with Progol mode declarations can be defined within that system.
 
+\begin{center}
 \captionof{table}{Classification by mode declaration bias} \label{tab:classification_by_mode_declaration_bias} 
  \begin{tabular}{| l | l | l | l | l | l | l |}
     \hline
@@ -272,8 +274,9 @@ We say that a system of mode declarations is Progol compatible iff any hypothesi
     Recall modeh support & yes & yes & no & yes & no & no \\ \hline
     Recall lower bound support & no & no & no & yes & no & no \\ \hline
   \end{tabular}
+  \end{center}
 
-The author further supports the statements in a summary by examining a system of mode declarations for each ILP system.
+We further support the statements in a summary by examining a system of mode declarations for each ILP system.
 
 \paragraph{Progol}
 Progol supports the mode declarations as defined in \fullref{background_mode_declarations}.
@@ -365,19 +368,36 @@ modeb(2,female(+person), [name(fb)]).
 By reading the manuals of the corresponding ILP systems, one may find that
 Toplog, Xhail, Imparo, Tal do not support the determinations.
 Progol supports the use of the determinations, cf. \ref{progol_multiclausal_learning}, but it does not require it, cf. \ref{progol_specialization_in_arguments}.
-Aleph requires the determinations to be specified\fullref{subsec:aleph_determination_declaration_requirement}.
+Aleph requires the determinations to be specified as in \ref{subsec:aleph_determination_declaration_requirement}.
 
-\subsection{meta-constraints}\label{classification_meta-constraints}
-meta-constraints supplement mode declarations and determinations in specifying the language bias. Several meta-constraints are selected and their support is evaluated across the ILP systems classified:
+\subsection{Meta-constraints}\label{classification_meta-constraints}
+Meta-constraints supplement mode declarations and determinations in specifying a language bias. We select several meta-constraints and evaluate their support  across the ILP systems classified:
 
 \begin{itemize}
 \item the maximum number of literals in a clause of a hypothesis,
 \item the maximum number of clauses in a hypothesis - some incomplete ILP systems do not support multiclausal hypotheses, therefore they do not need and cannot support this meta-constraint,
-\item the maximum variable depth\ref{definition_variable_depth} of a hypothesis,
+\item the maximum variable depth (definition \ref{definition_variable_depth}) of a hypothesis,
 \item the (minimum and maximum) number of singletons in a hypothesis:
 a singleton is a variable that appears only once in a hypothesis\cite{santos2008toplogWebsite}
 \end{itemize}
 
+The support for the meta-constraints of interest is summarised first, the claims are supported afterwards.
+
+\begin{center}
+\captionof{table}{Classification by meta-constraints} \label{tab:classification_by_meta-constraints} 
+ \begin{tabular}{| l | l | l | l | l | l | l |}
+    \hline
+    meta-constraint/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
+    Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
+    Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
+    Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
+    Number of singletons in $H$ & no & no & yes & no & no & no\\ \hline
+  \end{tabular}
+  \end{center}
+  
+If one considered the chosen meta-constraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying a language bias with meta-constraints whereas Aleph and Imparo have the most powerful system.
+
+\paragraph{Variable depth}
 \begin{defn}\label{definition_variable_depth}\cite{nienhuys1997foundations}
 The \emph{variable depth of a variable} $x$ in an ordered definite program clause
 $A \leftObjectImplies  B_1, . . . , B_n$ is defined as follows. If $x$ occurs in $A$, then its variable depth is $0$. Suppose $x$ first occurs in $B_i$.
@@ -409,7 +429,9 @@ Progol manual does not provide information about its meta-level constraints. The
 ./numbers.pl::- set(nodes,100)?
 ./numbers.pl::- set(i,5), set(c,5)?
 \end{lstlisting}
-Their change did not affect the properties examined, hence the author assumes Progol does not support any of the meta-constraints.
+For examining the maximum number of literals in a clause of a hypothesis meta-constraint we gave Progol a learning program where a target hypothesis had $n$ literals. Progol learnt such a hypothesis. Then we changed the parameters in the meta-constraints listed above to multiple values ($n+1$, $n$, $n-1$, $n-2$, $1$, $-1$, $-n$ and others). Progol still learnt the target hypothesis and therefore did not reduce the hypothesis space by hypotheses specified by the number of literals in their clauses. Thefore we conclude that Progol does not support this meta-constraint assuming that there are no other meta-constraints apart from those found in provided files and that numbers in a specification of metaconstraints are humanly intuitive, e.g. that a theory with at most $3$ literals in its clauses is not represented by some meta-constraint of the form \tc{:- set(i, 78234)} where a relation between numbers $3$ and $78234$ is not intuitive.
+
+Based on the negative results of similar experiments the author assumes that Progol does not support any of the meta-constraints.
 
 \paragraph{Aleph}
 Aleph supports the first 3 chosen meta-constraints as can be consulted in the section 18 of the Aleph manual\cite{aleph2007}.
@@ -423,7 +445,7 @@ $V$ is a positive integer. Sets upper bound on the number of clauses in a theory
 \end{itemize}
 \end{quote}
 
-The manual does not provide the information on specifying the number of singletons in a clause, hence it is assumed that this feature is not supported.
+The extensive manual does not provide the information on specifying the number of singletons in a clause, hence it is assumed that this feature is not supported.
 
 \paragraph{Toplog}
 Toplog can learn only single-clausal hypotheses\cite{muggleton2012mc}, therefore it does not support a meta-constraint specifying the number of clauses in a hypothesis. It supports the specification of the maximum number $N$ of literals in a hypothesis with a meta-level statement\\
@@ -444,25 +466,10 @@ In a grammar learning file available with Imparo\cite{kimber2013imparo} one can 
 :-set_max_clauses(1).
 :-set_max_var_depth(4).
 \end{lstlisting}
-Therefore Imparo supports the specification of the clausal length, the maximum number of clauses in a hypothesis and the maximum variable depth of a clause in a hypothesis. Imparo's manual and source code do not provide any information on bounding the number of singleton variables in a clause, hence it is assumed this feature is not supported.
+Therefore Imparo supports the specification of the clausal length, the maximum number of clauses in a hypothesis and the maximum variable depth of a clause in a hypothesis (as we verified in experiments). Imparo's manual and source code do not provide any information on bounding the number of singleton variables in a clause, hence it is assumed this feature is not supported.
 
 \paragraph{Tal}
 Tal enables the specification of the clausal length by specifying the number of the literals in the body of a clause \tc{option(max\_body\_literals, N)}\cite{corapi2010inductive}. Tal specifies the number of clauses in a hypothesis with \tc{option(max\_num\_rules, N)}\cite{corapi2010inductive}, where a rule is understood as a clause. Tal's manual and source files do not mention variable depth and bounding the number of singleton variables in a clause, hence it is assumed that these features are not supported.
-
-\paragraph{Summary}
-The support for the meta-constraints of interest is summarised.
-
-\captionof{table}{Classification by meta-constraints} \label{tab:classification_by_meta-constraints} 
- \begin{tabular}{| l | l | l | l | l | l | l |}
-    \hline
-    meta-constraint/ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
-    Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
-    Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
-    Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
-    Number of singletons in $H$ & no & no & yes & no & no & no\\ \hline
-  \end{tabular}
-  
-If one considered the chosen meta-constraints as representative, then it could be deduced that Progol and Xhail have the most trivial system of specifying the language bias with meta-constraints whereas Aleph and Imparo have the most powerful system.
 
 \section{Classification by search bias}\label{classification_by_search_bias}
 Search bias\cite{nienhuys1997foundations} is defined by the properties of an algorithm that searches a hypothesis: heuristics and direction of a search. We present a hypothesis search algorithm for each ILP system and then 
