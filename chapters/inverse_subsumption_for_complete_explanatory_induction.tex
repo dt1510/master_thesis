@@ -126,17 +126,17 @@ If $\models$ is a nonmonotonic consequence opearator, there are two possible con
 \ref{first_negative_examples_constraint} constraint implies \ref{second_negative_examples_constraint} assuming that $B \cup H \not\models false$, but not vice versa. Inverse subsumption with minimal complements algorithm covers the \ref{first_negative_examples_constraint} case since $B \cup H \models E = E^+ \cup \neg E^- = E^+ \land \neg E^-$ and a bridge theory used is a bridge theory wrt $B$ and both positive and negative examples. For the \ref{second_negative_examples_constraint} case, one has to construct a bridge theory wrt $B$, $E^+$ only, then check the constraint imposed by the negative examples $E^-$ separately. However, it is possible to construct a bridge theory $F_i$ wrt $B$ and $\{e\}$ for every ground example $e \in E^-$. Then one can still use the inverse subsumption algorithm to check \ref{second_negative_examples_constraint}.
 
 \begin{proposition}\label{proposition_negative_examples_subsumption}
-Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and any bridge theory wrt $B, E+$. Then $B \cup H \not\models E^-$ iff for every literal $e$ in a disjunction $E^-. H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$.
+Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and any bridge theory wrt $B, E^+$. Then $B \cup H \not\models E^-$ iff for every literal $e$ in a disjunction $E^-. H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$.
 \end{proposition}
 \begin{proof}
 As $E^-$ is a disjunction of negative examples $e$, it is sufficient to prove
 $B \cup H \not\models e$ iff
-$H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$ which is equivalent to proving
-$B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$. But this follows from \ref{yamamoto2012inverseLemma2} and \ref{soundness_first_order_extension}.
+$H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$. Then it is equivalent to proving
+$B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$ for an arbitrary negative example $e$. As $B \cup \{\neg e\}$ is a bridge formula, this follows from lemma \ref{yamamoto2012inverseLemma2} and proposition \ref{soundness_first_order_extension}.
 \end{proof}
 
 \subsection{Relaxation of minimal complements to a maximal bridge theory}
-We relax the procedure of the minimal complements by using a maximal bridge theory\fullref{maximal_bridge_theory_definition} while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
+We relax the procedure of the minimal complements by using a maximal bridge theory (definition \ref{maximal_bridge_theory_definition}) while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
 
 \begin{defn}
 Let $B$, $E$, $\mathcal{I}_H$ be background knowledge, examples, an induction field. Then a \emph{hypothesis subsumer} wrt $B, E, \mathcal{I}_H, F$ is a theory
