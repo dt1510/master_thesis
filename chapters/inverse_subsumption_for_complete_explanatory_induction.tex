@@ -117,7 +117,7 @@ By subsumption $H \models \tau(M(F \cup Taut(\mathcal{I}_H))) \equiv \neg F$. By
 $B \cup H \models E$.
 \end{proof}
 
-\subsection{Negative examples}
+\subsection{Negative examples}\label{extension_negative_examples}
 If $\models$ is a nonmonotonic consequence operator, there are two possible constraints the negative examples may introduce on a hypothesis $H$ wrt $B, E^+$, $E^-$.
 \begin{enumerate}
 \item\label{first_negative_examples_constraint} $B \cup H \models \neg E^-$,
@@ -126,6 +126,7 @@ If $\models$ is a nonmonotonic consequence operator, there are two possible cons
 \ref{first_negative_examples_constraint} constraint implies \ref{second_negative_examples_constraint} assuming that $B \cup H \not\models false$, but not vice versa. Inverse subsumption with minimal complements algorithm covers the \ref{first_negative_examples_constraint} case since $B \cup H \models E = E^+ \cup \neg E^- = E^+ \land \neg E^-$ and a bridge theory used is a bridge theory wrt $B$ and both positive and negative examples. For the \ref{second_negative_examples_constraint} case, one has to construct a bridge theory wrt $B$, $E^+$ only, then check the constraint imposed by the negative examples $E^-$ separately. However, it is possible to construct a bridge theory $F_i$ wrt $B$ and $\{e\}$ for every ground example $e \in E^-$. Then one can still use the inverse subsumption algorithm to check \ref{second_negative_examples_constraint}.
 
 \begin{proposition}\label{proposition_negative_examples_subsumption}
+\emph{Completeness and soundness of extension to negative examples}.
 Let $H$ be a hypothesis wrt an induction field $\mathcal{I}_H$ and any bridge theory wrt $B, E^+$. Then $B \cup H \not\models E^-$ iff for every literal $e$ in a disjunction $E^-. H \not\subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathcal{I}_H)))$.
 \end{proposition}
 \begin{proof}
@@ -137,7 +138,7 @@ $B \cup H \models e$ iff $H \subsumes \tau(M(B \cup \{\neg e\} \cup Taut(\mathca
 
 Consequently, we define an algorithm for checking the consistency of a hypothesis with negative examples (with one loop induced by the universal quantifier on the literals of negative examples in the previous proposition).
 
-\begin{algorithm}
+\begin{algorithm}\label{negative_examples_antisubsumption_algorithm}
 \emph{Checking consistency of hypothesis with negative examples by inverse subsumption}
 \begin{itemize}
 \item Given $B$, $H$, $E^-$,
@@ -151,6 +152,7 @@ then return \tc{inconsistent} otherwise go to step 3.
 \end{algorithm}
 
 \subsection{Relaxation of minimal complements to a maximal bridge theory}
+\label{relaxation_minimal_complements_algorithm}
 We relax the procedure of the minimal complements by using a maximal bridge theory (definition \ref{maximal_bridge_theory_definition}) while preserving the completeness for finding correct hypotheses wrt to $B, E, \mathcal{I}_H$.
 
 \begin{defn}
@@ -215,7 +217,8 @@ If $T=\{p(X) \lor q(X), r(X)\}$, then $T\vdash_a\{p(a) \lor q(a), r(X)\}$,
 but $T\not\vdash_a\{p(a) \lor q(b), r(X)\}$.
 \end{exmp}
 
-\begin{proposition}(Completeness of dropping and anti-instantiation for anti-subsumption).
+\begin{proposition}\label{inverse_subsumption_operators_completeness}
+\emph{(Completeness of dropping and anti-instantiation for anti-subsumption)}.
 Suppose that a logic theory $S$ theory-subsumes a logic theory $T$, then $S$ is derivable by dropping and anti-instantiation from $T$:
 $S \subsumes T \implies \exists U. T \vdash_d U \vdash_a S$.
 \end{proposition}

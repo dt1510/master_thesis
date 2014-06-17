@@ -9,7 +9,7 @@ Progol, Aleph, Toplog, Xhail, Imparo and Tal respectively.
 Each ILP system uses a different syntax and writing a learning problem for each ILP system manually can be time consuming. We wrote a program \tc{generate.php} for generating input files for ILP systems Progol, Aleph, Toplog, Imparo and Tal. It is accessible with example learning files from Github at 
 \url{https://github.com/dt1510/generate_ilp_input}.
 
-\subsection{Unified definition of ILP task}
+\subsection{Unified definition of ILP task}\label{unified_definition}
 We are interested in comparing the ILP systems. Considering their specifics, each does not try to solve the same ILP task. One way to establish the possibility of the comparison of these mutually incompatible systems would be to unify the incompatibilities by generalizing and abstracting. However, this means we may lose some of the information about the specifics of each system. First we list a definition of an ILP task for each ILP system, subsequently a unifying definition is derived.
 
 Let $\mathcal{H} \subseteq \powerset{L}$ be a bias, $Cl:\powerset{L} \to \powerset{L}$ be the classical monotonic consequence operator, $\models$ a non-monotonic consequence operator.
