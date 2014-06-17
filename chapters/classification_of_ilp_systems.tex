@@ -1,5 +1,5 @@
 \chapter{Experimental classification of ILP systems}\label{chap:classification_of_ilp_systems}
-In this chapter we derive a unified definition of an ILP task for each ILP system and then experimentally classify ILP systems based on the problems they can solve amd on their robustness as programs.
+In this chapter we derive a unified definition of an ILP task for each ILP system and then experimentally classify ILP systems based on the problems they can solve and on their robustness as programs.
 
 All the results of the experimental classifications are present in the appendix and the prefixes of their references in the text denoted by letters
 \ref{appendix_progol}, \ref{appendix_aleph}, \ref{appendix_toplog}, \ref{appendix_xhail}, \ref{appendix_imparo}, \ref{appendix_tal} standing for
@@ -31,7 +31,7 @@ given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false
 
 The Progol ILP task is a generalization of the explanatory induction: given $E^{+}, E^{-}, B, \mathcal{H}, B \land E^{+} \land E^{-} \not\models false$,
 let $B_P=E^{+} \land \neg E^{-} \land B$ be the Progol background knowledge. Then Progol finds the most general $B_2 = B' \union H_P$ where $B' \subseteq B_P, H_P \in \mathcal{H}, B_2 \models B_P, B_2 \not\models false$.
-Then $(B' \union H_P) \backslash B=E'^{+} \land \neg E'^- \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of an ILP task of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the ILP task to Progol ILP task level, however, as Progol is the only system with so significantly differing ILP task, we rather proceed in the reverse direction, we specialize the Progol ILP task to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaning the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
+Then $(B' \union H_P) \backslash B=E'^{+} \land \neg E'^- \land H_P = H$ where $E'^+ \subseteq E^+, E'^- \subseteq E^-$. Then $H$ is the solution of an ILP task of the explanatory induction since $B \land H \models E^{+}, B \land H \not\models E^{-}, B \land H \not\models false$. We could generalize the ILP task to Progol ILP task level, however, as Progol is the only system with so significantly differing ILP task, we rather proceed in the reverse direction, we specialize the Progol ILP task to the level of the explanatory induction as explained above. Hence we will think of Progol as producing a hypothesis explaining the examples from the background knowledge. Some information about the true nature of the Progol will become invisible in the comparisons, on the other hand, more information about the other systems will remain available.
 
 Generalize the definition of an ILP task for Aleph, Toplog, Imparo, Tal and Xhail:
 
@@ -43,7 +43,7 @@ find $\mathcal{H}_2$ called \emph{solutions} wrt $B$, $E^+$, $E^-$, $\mathcal{H}
 3)$\mathcal{H}_2 \subseteq \mathcal{H}$.
 
 \end{defn}
-Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  epxlanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=01$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
+Call this generalization of the explanatory induction, Tal ILP task, Xhail ILP task to be multi-explanatory induction as it provides several possible  explanations $\mathcal{H}_2$ for the observations. Clearly, multi-explanatory induction encompasses the specialization of the Progol task. For systems other than Tal, $\#\mathcal{H}_2=01$. For Xhail, $Cn=Cl$, for others $Cn=\models$.
 
 We refer in the text to multi-explanatory induction simply as explanatory induction having in mind a unified definition unless a need arises to emphasise the multiplicity of possible solutions or a distinction from explanatory induction with one possible solution. Similarly, instead of discussing a set of hypotheses $\mathcal{H}_2$, we reason about its members individually referring to a hypothesis $H \in \mathcal{H}_2$.
 \section{Completeness by problem classes}\label{completeness_by_problem_classes}
@@ -197,7 +197,7 @@ Although this property does not strictly violate the specification of ILP system
     \hline
     Determinations \ref{classification_determinations} & optional & required & no & no & no & no \\ \hline
     \hline
-    \multicolumn{7}{|l|}{Metaconstraints \ref{classification_metaconstraints}} \\ \hline
+    \multicolumn{7}{|l|}{Meta-constraints \ref{classification_metaconstraints}} \\ \hline
     Max. no. of literals in a clause & no & yes & yes & no & yes & yes\\ \hline
     Max. no. of clauses in $H$ & no & yes & no & no & yes & yes\\ \hline
     Max. variable depth in $H$ & no & yes & no & no & yes & no\\ \hline
