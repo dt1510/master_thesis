@@ -28,7 +28,7 @@ Searching for all hypotheses $H$ that explain the observations $E$ from the back
 A hypothesis search concerns with designing an algorithm that can derive a hypothesis $H$ from the observations $E$ and background knowledge $B$, that is we require $B \cup H \models E$. ILP systems usually construct a theory $F$ called a \emph{bridge formula} from $B$ and $E$ for which the following holds $H \models \neg F$. This reduces the problem to finding a theory $H$ that entails $\neg F$, this process is called \emph{anti-entailment}. Anti-entailment in general is an expensive operation. But provided that $F, H$ meet certain conditions ($H$ subsumes $\neg F$, denoted $H \subsumes \neg F$), a more efficient operator of \emph{anti-subsumption} can be used to derive $H$ from $\neg F$. Therefore searching algorithms that can construct a bridge theory $F$ such that $H \subsumes \neg F$ can consequently find a hypothesis $H$ by using a more efficient operation of anti-subsumption instead of anti-entailment.
 
 \section{Motivation and Objectives}
-We explain the value of a classification of ILP systems, summarise the classification conducted in the field of ILP so far and conclude with the objectives of our classication of ILP systems.
+We explain the value of a classification of ILP systems, summarise the classification conducted in the field of ILP so far and conclude with the objectives of our classification of ILP systems.
 
 \subsection{Value of classification of ILP systems}
 The main benefits of the classification of ILP systems are:
@@ -125,7 +125,7 @@ We provide a summary of the classification in the section \ref{classification_su
 \item \subsubsection{\fullref{inverse_subsumption_for_complete_explanatory_induction}}
 We present a complete inverse subsumption with minimal complements algorithm by Yamamoto et al. \cite{yamamoto2012inverse} for finding a hypothesis with anti-subsumption. Further, we extend this algorithm to first-order theories, negative examples and relax it while preserving the completeness. We introduce two inverse subsumption operators and prove their completeness. The chapter is concluded with the proof of Imparo's completeness by inverse subsumption.
 \item \subsubsection{\fullref{chap:rationale_ilp_system}}
-We summarise our prototype ILP system implementation Rationale based on the theoretical extensions from the preceeding chapter.
+We summarise our prototype ILP system implementation Rationale based on the theoretical extensions from the preceding chapter.
 \item \subsubsection{\fullref{ch:evaluation}}
 We evaluate the achievements of the thesis and their relative contribution wrt what has been done in the field of ILP.
 \item \subsubsection{\fullref{ch:conclusions}}
