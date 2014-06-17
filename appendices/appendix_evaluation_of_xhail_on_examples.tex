@@ -75,7 +75,7 @@ where \tc{woman(susan)} is a positive example and a \tc{woman(adam)} is a negati
 \tc{woman(X1) :- female(X1), person(X1).}.
 
 \subsection{Multiple hypotheses}
-Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem.
+Like Tal, Xhail returns multiple possible hypotheses (or solutions) for a given learning problem adapted from \cite{ray2007xhail}.
 
 \begin{minipage}[t]{.50\textwidth}
 \begin{lstlisting}
@@ -263,7 +263,7 @@ An attempt to define that everybody in a domain is of type person fails. \tc{per
 Xhail does not explicitly report that the learning problem is inconsistent, it only outputs "NO SOLUTIONS" message which is also applicable for consistent problems whose model is not in the specified search space.
 
 \subsection{Redundant hypotheses}\label{xhail_redundant_hypotheses}
-Xhail returns multiple hypotheses even if they are the same.
+Xhail returns multiple hypotheses even if they are the same for a learning problem adapted from \cite{ray2007xhail}.
 
 \begin{minipage}[t]{.43\textwidth}
 \begin{lstlisting}

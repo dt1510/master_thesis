@@ -1,11 +1,12 @@
 \chapter{Experimental classification of ILP systems}\label{chap:classification_of_ilp_systems}
-In this chapter we derive a unified definition of an ILP task for each ILP system and then experimentally classify ILP systems based on the problems they can solve and on their robustness as programs.
+In this chapter we derive a unified definition of an ILP task for each ILP system and then using this definition experimentally classify ILP systems based on the problems they can solve and on their robustness as programs.
 
-All the results of the experimental classifications are present in the appendix and the prefixes of their references in the text denoted by letters
+This chapter is a summary of our comparision of
+ILP systems on about 100 new examples with annotations present in the appendix where the prefixes of their references in the text are denoted by letters
 \ref{appendix_progol}, \ref{appendix_aleph}, \ref{appendix_toplog}, \ref{appendix_xhail}, \ref{appendix_imparo}, \ref{appendix_tal} standing for
 Progol, Aleph, Toplog, Xhail, Imparo and Tal respectively.
 
-Each ILP system uses a different syntax and writing a learning problem for each ILP system manually can be time consuming. A program \tc{generate.php} was written  for generating input files for ILP systems Progol, Aleph, Toplog, Imparo and Tal and is accessible with example learning files from Github at 
+Each ILP system uses a different syntax and writing a learning problem for each ILP system manually can be time consuming. We wrote a program \tc{generate.php} for generating input files for ILP systems Progol, Aleph, Toplog, Imparo and Tal. It is accessible with example learning files from Github at 
 \url{https://github.com/dt1510/generate_ilp_input}.
 
 \subsection{Unified definition of ILP task}
@@ -97,10 +98,11 @@ We classify ILP systems based on whether they can learn explanations for the cla
     \hline
     ILP system & Progol & Aleph & Toplog & Xhail & Imparo & Tal \\ \hline
     Clausal& yes & no & no & 
-    no & no & no \\ 
-     examples & \ref{progol_clausal_examples} &\cite{aleph2007}&
-     \ref{toplog_clausal_examples}&
-     \ref{imparo_clausal_examples}&\ref{tal_clausal_examples}\\
+    no & no & no \\
+     examples & \ref{progol_clausal_examples} 
+     &\cite{aleph2007}&\ref{toplog_clausal_examples}
+     &
+     &\ref{imparo_clausal_examples}&\ref{tal_clausal_examples}\\
     \hline
 \end{tabular}
 \end{center}
